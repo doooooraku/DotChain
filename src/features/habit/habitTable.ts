@@ -33,6 +33,5 @@ export async function upsertHabit(input: Omit<HabitRow, 'id' | 'createdAt'> & { 
 
 export async function deleteHabit(id: string) {
   const db = await getDb();
-  await db.runAsync('DELETE FROM logs WHERE habitId = ?', id);
   await db.runAsync('DELETE FROM habits WHERE id = ?', id);
 }

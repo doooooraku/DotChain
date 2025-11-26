@@ -12,6 +12,7 @@ export const createTablesSQL = `
     habitId TEXT NOT NULL,
     date TEXT NOT NULL,
     timestamp TEXT NOT NULL,
-    FOREIGN KEY (habitId) REFERENCES habits(id)
+    FOREIGN KEY (habitId) REFERENCES habits(id) ON DELETE CASCADE,
+    UNIQUE (habitId, date)
   );
 `;
