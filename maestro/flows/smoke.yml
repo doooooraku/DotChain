@@ -1,0 +1,67 @@
+# maestro/flows/smoke.yml
+# App Factory 共通スモークテスト
+
+appId: "com.doooo.dotchain"     # DotChain の Application ID
+name: "DotChain Smoke"          # テスト名
+tags:
+  - smoke                    # 簡易テストであることを示すタグ
+
+steps:
+  # 1. アプリ起動
+  - launchApp:
+      clearState: true
+      label: "アプリをクリーン起動する"
+
+  # 2. ホーム画面表示確認
+  - assertVisible:
+      text: "DAYS STREAK"
+      label: "ホーム画面のストリーク表示が見える"
+
+  # 3. 主要機能を 1 回実行
+  - tapOn:
+      text: "Drink Water"
+      label: "最初のビッグボタンのラベルをタップ（フォーカスを当てるため）"
+
+  - tapOn:
+      index: 0
+      label: "1つ目の習慣ボタンをタップ"
+
+  - assertVisible:
+      text: "YOUR CHAIN"
+      label: "ヒートマップセクションが表示されている"
+
+  # 4. 課金画面（RevenueCat）を開く（ある場合だけ）
+  - tapOn:
+      systemIcon: "trophy"
+      label: "ヘッダー右上の王冠ボタン（Pro）をタップ"
+
+  - assertVisible:
+      text: "DotChain Pro"
+      label: "課金画面タイトルを確認"
+
+  # 5. 広告を開く（ある場合だけ）
+  - tapOn:
+      id: "e2e_open_ad"
+      optional: true
+      label: "広告表示のトリガー（e2e_open_ad）をタップ（存在する場合だけ実行）"
+
+  - assertVisible:
+      id: "e2e_ad_container"
+      optional: true
+      label: "広告コンテナ（e2e_ad_container）が表示されていることを確認（存在する場合だけ確認）"
+
+  # 6. 設定画面を開く
+  - tapOn:
+      systemIcon: "settings"
+      label: "ヘッダー右上の設定アイコンをタップ"
+
+  - assertVisible:
+      text: "Settings"
+      label: "設定画面タイトルを確認"
+
+  # 7. モーダルや画面を閉じて終了
+  - back:
+      label: "戻る"
+
+  - stopApp:
+      label: "アプリを終了する"
