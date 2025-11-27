@@ -15,23 +15,38 @@ export async function listHabits(): Promise<HabitRow[]> {
 }
 
 export async function upsertHabit(input: Omit<HabitRow, 'id' | 'createdAt'> & { id?: string }) {
+  const title = input.title?.trim();
+  if (!title) {
+    throw new Error('TITLE_REQUIRED');
+  }
+
   const db = await getDb();
   const id = input.id ?? randomUUID();
   const now = new Date().toISOString();
-  await db.runAsync(
-    `INSERT INTO habits (id, title, icon, color, createdAt)
-     VALUES (?, ?, ?, ?, ?)
-     ON CONFLICT(id) DO UPDATE SET title=excluded.title, icon=excluded.icon, color=excluded.color`,
-    id,
-    input.title,
-    input.icon,
-    input.color,
-    now,
-  );
-  return id;
+  try {
+    await db.runAsync(
+      `INSERT INTO habits (id, title, icon, color, createdAt)
+       VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET title=excluded.title, icon=excluded.icon, color=excluded.color`,
+      id,
+      title,
+      input.icon,
+      input.color,
+      now,
+    );
+    return id;
+  } catch (err) {
+    console.error('[upsertHabit] 保存に失敗しました', err);
+    throw err;
+  }
 }
 
 export async function deleteHabit(id: string) {
   const db = await getDb();
-  await db.runAsync('DELETE FROM habits WHERE id = ?', id);
+  try {
+    await db.runAsync('DELETE FROM habits WHERE id = ?', id);
+  } catch (err) {
+    console.error('[deleteHabit] 削除に失敗しました', err);
+    throw err;
+  }
 }

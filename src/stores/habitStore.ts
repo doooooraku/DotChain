@@ -16,6 +16,7 @@ type HabitState = {
   logs: Record<string, string[]>; // date strings
   loading: boolean;
   error?: string;
+  setError: (msg?: string) => void;
   loadAll: () => Promise<void>;
   saveHabit: (input: Omit<HabitRow, 'id' | 'createdAt'> & { id?: string }) => Promise<string>;
   removeHabit: (id: string) => Promise<void>;
@@ -31,6 +32,7 @@ export const useHabitStore = create<HabitState>()(
       today: {},
       loading: false,
       logs: {},
+      setError: (msg) => set({ error: msg }),
       loadAll: async () => {
         set({ loading: true, error: undefined });
         try {
@@ -56,33 +58,58 @@ export const useHabitStore = create<HabitState>()(
         }
       },
       saveHabit: async (input) => {
-        const id = await upsertHabit(input);
-        await get().loadAll();
-        playSuccess();
-        return id;
+        try {
+          const id = await upsertHabit(input);
+          await get().loadAll();
+          set({ error: undefined });
+          playSuccess();
+          return id;
+        } catch (err: any) {
+          const msg =
+            err instanceof Error && err.message === 'TITLE_REQUIRED'
+              ? 'タイトルは必須です'
+              : '保存に失敗しました';
+          set({ error: msg });
+          playError();
+          throw err;
+        }
       },
       removeHabit: async (id: string) => {
-        await deleteHabit(id);
-        await get().loadAll();
-        playSuccess();
+        try {
+          await deleteHabit(id);
+          await get().loadAll();
+          set({ error: undefined });
+          playSuccess();
+        } catch (_err) {
+          set({ error: '削除に失敗しました' });
+          playError();
+          throw _err;
+        }
       },
       toggleToday: async (habitId: string) => {
-        const current = get().today[habitId];
-        const nowIso = new Date().toISOString();
-        if (current) {
-          await deleteLogForDate(habitId, todayStr());
-        } else {
-          await insertLog(habitId, todayStr(), nowIso);
+        try {
+          const current = get().today[habitId];
+          const nowIso = new Date().toISOString();
+          if (current) {
+            await deleteLogForDate(habitId, todayStr());
+          } else {
+            await insertLog(habitId, todayStr(), nowIso);
+          }
+          set((state) => ({
+            today: { ...state.today, [habitId]: !current },
+            logs: {
+              ...state.logs,
+              [habitId]: !current
+                ? Array.from(new Set([...(state.logs[habitId] ?? []), todayStr()]))
+                : (state.logs[habitId] ?? []).filter((d) => d !== todayStr()),
+            },
+            error: undefined,
+          }));
+        } catch (_err) {
+          set({ error: '記録の更新に失敗しました' });
+          playError();
+          throw _err;
         }
-        set((state) => ({
-          today: { ...state.today, [habitId]: !current },
-          logs: {
-            ...state.logs,
-            [habitId]: !current
-              ? Array.from(new Set([...(state.logs[habitId] ?? []), todayStr()]))
-              : (state.logs[habitId] ?? []).filter((d) => d !== todayStr()),
-          },
-        }));
       },
     }),
     {

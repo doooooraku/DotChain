@@ -4,23 +4,24 @@ import { triggerImpact } from '@/src/core/sensory/HapticManager';
 import { playClick, playError, playSuccess } from '@/src/core/sensory/SoundManager';
 
 /**
- * ボタン押下時の共通ロジック。
- * 1) 振動（即時）
- * 2) 楽観的更新（Zustandのtodayを即反転）
- * 3) SQLiteに保存/削除
+ * 習慣ボタンタップ時の共通処理。
+ * 1) クリック音 + 振動で即フィードバック（完了を待たない）
+ * 2) toggleToday で「SQLite の logs 更新 + Zustand の today/logs 更新」
+ * 3) 成功時は成功音、失敗時はエラー音（いずれも待たない）
  */
 export function useHabitRecord() {
   const toggleToday = useHabitStore((s) => s.toggleToday);
 
   const record = useCallback(
     async (habitId: string) => {
-      await playClick();
-      await triggerImpact();
+      // フィードバック系は fire-and-forget（待たない）
+      void playClick();
+      void triggerImpact();
       try {
         await toggleToday(habitId);
-        await playSuccess();
+        void playSuccess();
       } catch (err) {
-        await playError();
+        void playError();
         throw err;
       }
     },
