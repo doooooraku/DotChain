@@ -9,6 +9,7 @@ import {
   todayDone as dbTodayDone,
 } from '@/src/features/habit/logTable';
 import { playError, playSuccess } from '@/src/core/sensory/SoundManager';
+import { getLocalDateKey } from '@/src/core/dateKey';
 
 type HabitState = {
   habits: HabitRow[];
@@ -23,7 +24,7 @@ type HabitState = {
   toggleToday: (habitId: string) => Promise<void>;
 };
 
-const todayStr = () => new Date().toISOString().slice(0, 10);
+const todayStr = () => getLocalDateKey(new Date());
 
 export const useHabitStore = create<HabitState>()(
   persist(
@@ -36,11 +37,12 @@ export const useHabitStore = create<HabitState>()(
       loadAll: async () => {
         set({ loading: true, error: undefined });
         try {
+          const todayKey = todayStr();
           const habits = await listHabits();
           const today = Object.fromEntries(
             await Promise.all(
               habits.map(async (h) => {
-                const done = await dbTodayDone(h.id, todayStr());
+                const done = await dbTodayDone(h.id, todayKey);
                 return [h.id, done] as const;
               }),
             ),
@@ -88,20 +90,21 @@ export const useHabitStore = create<HabitState>()(
       },
       toggleToday: async (habitId: string) => {
         try {
+          const todayKey = todayStr();
           const current = get().today[habitId];
           const nowIso = new Date().toISOString();
           if (current) {
-            await deleteLogForDate(habitId, todayStr());
+            await deleteLogForDate(habitId, todayKey);
           } else {
-            await insertLog(habitId, todayStr(), nowIso);
+            await insertLog(habitId, todayKey, nowIso);
           }
           set((state) => ({
             today: { ...state.today, [habitId]: !current },
             logs: {
               ...state.logs,
               [habitId]: !current
-                ? Array.from(new Set([...(state.logs[habitId] ?? []), todayStr()]))
-                : (state.logs[habitId] ?? []).filter((d) => d !== todayStr()),
+                ? Array.from(new Set([...(state.logs[habitId] ?? []), todayKey]))
+                : (state.logs[habitId] ?? []).filter((d) => d !== todayKey),
             },
             error: undefined,
           }));

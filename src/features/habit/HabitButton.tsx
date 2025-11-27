@@ -1,13 +1,15 @@
 import { Text, YStack, useTheme } from 'tamagui';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Animated, Easing } from 'react-native';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ComponentProps } from 'react';
+
+type IconName = ComponentProps<typeof Ionicons>['name'];
 
 type Props = {
   label: string;
   size: 'big' | 'medium';
   active: boolean;
-  iconName?: string;
+  iconName?: IconName;
   onPress: () => void;
   onLongPress?: () => void;
 };
@@ -21,12 +23,14 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
   const glow = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.loop(
+    const animation = Animated.loop(
       Animated.sequence([
-        Animated.timing(glow, { toValue: 1, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-        Animated.timing(glow, { toValue: 0, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+        Animated.timing(glow, { toValue: 1, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: false }),
+        Animated.timing(glow, { toValue: 0, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: false }),
       ]),
-    ).start();
+    );
+    animation.start();
+    return () => animation.stop();
   }, [glow]);
 
   const shadowOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: active ? [0.4, 0.7] : [0.1, 0.2] });
@@ -36,7 +40,12 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
       <Text color="$text" fontSize={14} fontWeight="700">
         {label}
       </Text>
-      <Pressable onPress={onPress} onLongPress={onLongPress} accessibilityLabel={label}>
+      <Pressable
+        onPress={onPress}
+        onLongPress={onLongPress}
+        accessibilityLabel={`${label}の習慣ボタン`}
+        accessibilityRole="button"
+        accessibilityState={{ checked: active }}>
         <Animated.View
           style={{
             height,
@@ -50,10 +59,11 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
             shadowOpacity: shadowOpacity as any,
             shadowRadius: 18,
             shadowOffset: { width: 0, height: 6 },
+            elevation: active ? 10 : 2,
             transform: [{ scale: 1 }],
           }}>
           <Ionicons
-            name={iconName as any}
+            name={iconName}
             size={size === 'big' ? 52 : 36}
             color={active ? '#000000' : '#EEEEEE'}
           />
