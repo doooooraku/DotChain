@@ -1,9 +1,8 @@
 import React from 'react';
-import { I18nManager } from 'react-native';
 import { Href, Link } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
 import { useSettingsStore } from '@/src/stores/settingsStore';
-import { applyRTL, t, useTranslation } from '@/src/core/i18n/i18n';
+import { t, useTranslation, type Lang } from '@/src/core/i18n/i18n';
 
 export default function SettingsScreen() {
   const sound = useSettingsStore((s) => s.sound);
@@ -12,12 +11,11 @@ export default function SettingsScreen() {
   const setHaptics = useSettingsStore((s) => s.setHaptics);
   const tapSound = useSettingsStore((s) => s.tapSound);
   const setTapSound = useSettingsStore((s) => s.setTapSound);
-  const [rtl, setRtl] = React.useState(I18nManager.isRTL);
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
 
-  const languageOptions = ['en','ja','fr','es','de','zh','ko','pt','it','ru','ar','hi','id','th','vi','ms','tr','nl','sv'];
+  const languageOptions: Lang[] = ['en','ja','fr','es','de','zh','ko','pt','it','ru','hi','id','th','vi','ms','tr','nl','sv'];
 
   return (
     <ScrollView
@@ -40,7 +38,7 @@ export default function SettingsScreen() {
               borderColor="$gray"
               borderWidth={1}
               color={lang === code ? '#000' : '$text'}
-              onPress={() => setLangStore(code as any)}>
+              onPress={() => setLangStore(code)}>
               {code.toUpperCase()}
             </Button>
           ))}
@@ -95,20 +93,6 @@ export default function SettingsScreen() {
         <Text color="$neonGreen" fontWeight="700">
           {t('licenses')}
         </Text>
-      </Section>
-
-      <Section title={t('rtl')}>
-        <Row>
-          <Text color="$text">RTL</Text>
-          <Switch
-            checked={rtl}
-            onCheckedChange={(v) => {
-              const val = Boolean(v);
-              setRtl(val);
-              applyRTL(val);
-            }}
-          />
-        </Row>
       </Section>
 
       <Text color="$muted" textAlign="center" marginVertical="$2">

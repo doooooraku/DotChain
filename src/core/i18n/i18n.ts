@@ -1,5 +1,7 @@
-import { I18nManager } from 'react-native';
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Localization from 'expo-localization';
 
 // 英語ベースのキーセット（文言の元）
 const baseEn = {
@@ -285,34 +287,6 @@ const dictionaries = {
     start: '시작하기',
     paywallNote: '결제/광고는 나중에 추가.',
   },
-  ar: {
-    ...baseEn,
-    daysStreak: 'سلسلة الأيام',
-    yourChain: 'سلسلتك',
-    settings: 'الإعدادات',
-    hapticOff: 'الاهتزاز متوقف',
-    language: 'اللغة',
-    sound: 'الصوت',
-    haptics: 'اهتزاز',
-    theme: 'السمة',
-    restore: 'استعادة المشتريات',
-    version: 'إصدار التطبيق',
-    rtl: 'اتجاه من اليمين لليسار',
-    tapSound: 'صوت اللمس',
-    click: 'نقرة',
-    pop: 'بوب',
-    freeThemeNote: 'مجاني: داكن فقط / برو يفتح النيون الوردي والأزرق السيبراني',
-    proThemeNote: 'ثيمات برو بعد حاجز الدفع.',
-    restoreDesc: 'استعادة (لاحقاً)',
-    licenses: 'تراخيص مفتوحة المصدر (لاحقاً)',
-    openPro: 'افتح DotChain Pro',
-    heroPaywall: 'ترقية لعالم النيون',
-    priceMonthly: '$2.99 / شهر',
-    onboardingTitle: 'أهلاً بك في DotChain',
-    onboardingBody: 'لمسة واحدة، اهتزاز قوي. لنصنع سلسلة اليوم.',
-    start: 'ابدأ',
-    paywallNote: 'الدفع/الإعلانات لاحقاً.',
-  },
   hi: {
     ...baseEn,
     daysStreak: 'लगातार दिन',
@@ -546,10 +520,35 @@ type I18nState = {
   setLang: (lang: Lang) => void;
 };
 
-const useI18nStore = create<I18nState>((set) => ({
-  lang: 'en',
-  setLang: (lang) => set({ lang: lang in dictionaries ? lang : 'en' }),
-}));
+const isSupportedLang = (code?: string): code is Lang => {
+  if (!code) return false;
+  return code in dictionaries;
+};
+
+const detectInitialLang = (): Lang => {
+  try {
+    const locales = Localization.getLocales();
+    const primary = locales?.[0];
+    const code = primary?.languageCode?.toLowerCase();
+    if (isSupportedLang(code)) return code;
+    return 'en';
+  } catch {
+    return 'en';
+  }
+};
+
+const useI18nStore = create<I18nState>()(
+  persist(
+    (set) => ({
+      lang: detectInitialLang(),
+      setLang: (lang) => set({ lang: isSupportedLang(lang) ? lang : 'en' }),
+    }),
+    {
+      name: 'dotchain-i18n',
+      storage: createJSONStorage(() => AsyncStorage),
+    },
+  ),
+);
 
 export function useTranslation() {
   const lang = useI18nStore((s) => s.lang);
@@ -574,9 +573,4 @@ export function tAll() {
 export function t(key: keyof typeof baseEn) {
   const lang = useI18nStore.getState().lang;
   return dictionaries[lang][key] ?? key;
-}
-
-export function applyRTL(enabled: boolean) {
-  I18nManager.allowRTL(enabled);
-  I18nManager.forceRTL(enabled);
 }
