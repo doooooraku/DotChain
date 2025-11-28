@@ -16,9 +16,9 @@ async function loadTap(variant: TapVariant) {
 }
 
 export async function playClick() {
-  const enable = useSettingsStore.getState().sound;
-  if (!enable) return;
-  const variant: TapVariant = (useSettingsStore.getState() as any).tapSound ?? 'click';
+  const { sound, tapSound } = useSettingsStore.getState();
+  if (!sound) return;
+  const variant: TapVariant = tapSound ?? 'click';
   try {
     const s = await loadTap(variant);
     await s.replayAsync();

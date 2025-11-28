@@ -123,7 +123,8 @@ export const useHabitStore = create<HabitState>()(
   ),
 );
 
-export const selectHeatmap = (habitId: string, days = 14) => (state: HabitState) => {
+export const selectHeatmap = (habitId: string) => (state: HabitState) => {
   const dates = state.logs[habitId] ?? [];
-  return new Set(dates.slice(-days));
+  // 並び順に依存せず、記録済みの全日付をセットで返す。表示側で days を決めて has() する。
+  return new Set(dates);
 };

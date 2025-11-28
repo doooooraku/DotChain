@@ -34,7 +34,7 @@ export default function HomeScreen() {
   const muted = theme.muted.val?.toString() ?? '#888888';
   const bg = theme.background.val?.toString() ?? '#000000';
 
-  const heatmapSet = useHabitStore(selectHeatmap(habits[0]?.id ?? '', 14));
+  const heatmapSet = useHabitStore(selectHeatmap(habits[0]?.id ?? ''));
 
   useEffect(() => {
     loadAll();
