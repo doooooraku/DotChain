@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter, type Href } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { TamaguiProvider, Theme } from 'tamagui';
@@ -20,7 +20,9 @@ export default function RootLayout() {
   const appState = useRef(AppState.currentState);
   const lastDate = useRef(new Date().toDateString());
   const themeName = useSettingsStore((s) => s.theme);
+  const hasSeenOnboarding = useSettingsStore((s) => s.hasSeenOnboarding ?? false);
   const { t } = useTranslation();
+  const router = useRouter();
 
   useEffect(() => {
     const sub = AppState.addEventListener('change', (state) => {
@@ -35,6 +37,12 @@ export default function RootLayout() {
     });
     return () => sub.remove();
   }, []);
+
+  useEffect(() => {
+    if (!hasSeenOnboarding) {
+      router.replace('/onboarding' as Href);
+    }
+  }, [hasSeenOnboarding, router]);
 
   useEffect(() => {
     const handler = ({ url }: { url: string }) => {

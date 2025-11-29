@@ -22,6 +22,7 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
   const bg = theme.background.val?.toString() ?? '#000';
   const border = theme.gray.val?.toString() ?? '#222';
   const glow = useRef(new Animated.Value(0)).current;
+  const pressScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     const animation = Animated.loop(
@@ -36,6 +37,32 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
 
   const shadowOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: active ? [0.4, 0.7] : [0.1, 0.2] });
 
+  const handlePressIn = () => {
+    Animated.spring(pressScale, {
+      toValue: 0.96,
+      useNativeDriver: true,
+      friction: 8,
+      tension: 150,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.sequence([
+      Animated.spring(pressScale, {
+        toValue: 1.05,
+        useNativeDriver: true,
+        friction: 6,
+        tension: 180,
+      }),
+      Animated.spring(pressScale, {
+        toValue: 1,
+        useNativeDriver: true,
+        friction: 8,
+        tension: 150,
+      }),
+    ]).start();
+  };
+
   return (
     <YStack gap="$2">
       <Text color="$text" fontSize={14} fontWeight="700">
@@ -44,6 +71,8 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
       <Pressable
         onPress={onPress}
         onLongPress={onLongPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
         accessibilityLabel={`${label}${t('habitButtonSuffix')}`}
         accessibilityRole="button"
         accessibilityState={{ checked: active }}>
@@ -61,7 +90,7 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
             shadowRadius: 18,
             shadowOffset: { width: 0, height: 6 },
             elevation: active ? 10 : 2,
-            transform: [{ scale: 1 }],
+            transform: [{ scale: pressScale }],
           }}>
           <Ionicons
             name={iconName}

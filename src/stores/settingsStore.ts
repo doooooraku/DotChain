@@ -7,10 +7,12 @@ type SettingsState = {
   haptics: boolean;
   theme: 'dark' | 'neonPink' | 'cyberBlue';
   tapSound: 'click' | 'pop';
+  hasSeenOnboarding: boolean;
   setSound: (v: boolean) => void;
   setHaptics: (v: boolean) => void;
   setTheme: (v: SettingsState['theme']) => void;
   setTapSound: (v: SettingsState['tapSound']) => void;
+  setHasSeenOnboarding: (v: boolean) => void;
 };
 
 export const useSettingsStore = create<SettingsState>()(
@@ -20,10 +22,12 @@ export const useSettingsStore = create<SettingsState>()(
       haptics: true,
       theme: 'dark',
       tapSound: 'click',
+      hasSeenOnboarding: false,
       setSound: (v) => set({ sound: v }),
       setHaptics: (v) => set({ haptics: v }),
       setTheme: (v) => set({ theme: v }),
       setTapSound: (v) => set({ tapSound: v }),
+      setHasSeenOnboarding: (v) => set({ hasSeenOnboarding: v }),
     }),
     {
       name: 'dotchain-settings',

@@ -5,18 +5,27 @@ import { getLocalDateKey } from '@/src/core/dateKey';
 
 type Props = {
   days: number;
-  activeDates: Set<string>;
+  intensityByDate: Record<string, number>; // 日付→達成数
+  maxLevel: number; // 濃さの最大値（習慣数）
   colorActive: string;
   colorBg: string;
   colorBorder: string;
 };
 
 /**
- * N日分のヒートマップ。activeDates に含まれる日付(YYYY-MM-DD)を点灯させる。
- * 日付キーは端末ローカル時間の YYYY-MM-DD で揃える（UTCずれ対策）。
+ * Neon Pulse Grid ヒートマップ。
+ * - intensityByDate: 日付ごとの達成数で濃さを変える
+ * - 連続達成日はセル間のラインを光らせる
+ * - 呼吸するネオン演出を共有アニメで実現
  */
-export const HeatmapChain = memo(function HeatmapChain({ days, activeDates, colorActive, colorBg, colorBorder }: Props) {
-  // 1つのアニメーション値を全セルで共有（メモリ・CPU節約）
+export const HeatmapChain = memo(function HeatmapChain({
+  days,
+  intensityByDate,
+  maxLevel,
+  colorActive,
+  colorBg,
+  colorBorder,
+}: Props) {
   const pulse = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -36,43 +45,64 @@ export const HeatmapChain = memo(function HeatmapChain({ days, activeDates, colo
         }),
       ]),
     );
-
     animation.start();
-    return () => {
-      animation.stop();
-    };
+    return () => animation.stop();
   }, [pulse]);
 
   const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] });
   const shadow = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.1, 0.35] });
 
   const cells = Array.from({ length: days }).map((_, idx) => {
-    // 今日を右端にする: days=14なら idx=13 が今日
     const date = new Date();
     date.setDate(date.getDate() - (days - 1 - idx));
     const key = getLocalDateKey(date);
-    const active = activeDates.has(key);
+
+    const level = intensityByDate[key] ?? 0;
+    const active = level > 0;
+    const ratio = maxLevel > 0 ? level / maxLevel : 0;
+    const baseOpacity = active ? 0.3 + 0.7 * ratio : 0.15;
+
+    const nextDate = new Date(date);
+    nextDate.setDate(date.getDate() + 1);
+    const nextKey = getLocalDateKey(nextDate);
+    const nextLevel = intensityByDate[nextKey] ?? 0;
+    const linkActive = active && nextLevel > 0;
 
     return (
-      <Animated.View
-        key={key}
-        style={{
-          width: 18,
-          height: 18,
-          borderRadius: 8,
-          borderWidth: 1,
-          borderColor: colorBorder,
-          backgroundColor: active ? colorActive : colorBg,
-          transform: [{ scale: active ? scale : 1 }],
-          // iOS向けの光/影
-          shadowColor: colorActive,
-          shadowOpacity: active ? shadow : 0,
-          shadowRadius: 10,
-          shadowOffset: { width: 0, height: 4 },
-          // Android向けの影
-          elevation: active ? 4 : 0,
-        }}
-      />
+      <XStack key={key} alignItems="center" gap="$1">
+        <Animated.View
+          style={{
+            width: 18,
+            height: 18,
+            borderRadius: 8,
+            borderWidth: active ? 0 : 1,
+            borderColor: colorBorder,
+            backgroundColor: active ? colorActive : colorBg,
+            opacity: baseOpacity,
+            transform: [{ scale: active ? scale : 1 }],
+            shadowColor: colorActive,
+            shadowOpacity: active ? shadow : 0,
+            shadowRadius: 10,
+            shadowOffset: { width: 0, height: 4 },
+            elevation: active ? 4 : 0,
+          }}
+        />
+        {linkActive && (
+          <Animated.View
+            style={{
+              width: 12,
+              height: 2,
+              borderRadius: 1,
+              backgroundColor: colorActive,
+              opacity: shadow,
+              shadowColor: colorActive,
+              shadowOpacity: shadow,
+              shadowRadius: 6,
+              shadowOffset: { width: 0, height: 0 },
+            }}
+          />
+        )}
+      </XStack>
     );
   });
 

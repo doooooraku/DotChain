@@ -124,8 +124,14 @@ export const useHabitStore = create<HabitState>()(
   ),
 );
 
-export const selectHeatmap = (habitId: string) => (state: HabitState) => {
-  const dates = state.logs[habitId] ?? [];
-  // 並び順に依存せず、記録済みの全日付をセットで返す。表示側で days を決めて has() する。
-  return new Set(dates);
+// 日付ごとの達成数と最大レベル（＝習慣数）を返す
+export const selectHeatmapIntensity = (state: HabitState) => {
+  const counts: Record<string, number> = {};
+  Object.values(state.logs).forEach((dates) => {
+    dates.forEach((date) => {
+      counts[date] = (counts[date] ?? 0) + 1;
+    });
+  });
+  const maxLevel = state.habits.length || 1;
+  return { counts, maxLevel };
 };

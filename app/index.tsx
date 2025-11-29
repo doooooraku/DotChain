@@ -6,7 +6,7 @@ import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } fr
 import { HabitButton } from '@/src/features/habit/HabitButton';
 import { HeatmapChain } from '@/src/features/habit/HeatmapChain';
 import { useHabitRecord } from '@/src/features/habit/useHabitRecord';
-import { selectHeatmap, useHabitStore } from '@/src/stores/habitStore';
+import { selectHeatmapIntensity, useHabitStore } from '@/src/stores/habitStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 
@@ -17,32 +17,18 @@ export default function HomeScreen() {
   const habits = useHabitStore((s) => s.habits);
   const today = useHabitStore((s) => s.today);
   const loadAll = useHabitStore((s) => s.loadAll);
-  const saveHabit = useHabitStore((s) => s.saveHabit);
   const loading = useHabitStore((s) => s.loading);
   const error = useHabitStore((s) => s.error);
   const hapticsOn = useSettingsStore((s) => s.haptics);
+  const { counts: heatmapCounts, maxLevel } = useHabitStore(selectHeatmapIntensity);
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
   const muted = theme.muted.val?.toString() ?? '#888888';
   const bg = theme.background.val?.toString() ?? '#000000';
 
-  const heatmapSet = useHabitStore(selectHeatmap(habits[0]?.id ?? ''));
-
   useEffect(() => {
     loadAll();
   }, [loadAll]);
-
-  useEffect(() => {
-    // 初期データがない場合にサンプルを1度だけ投入
-    if (habits.length === 0) {
-      const seedHabits = [
-        { title: t('homeSeedDrinkWater'), icon: 'water', color: 'neonGreen' },
-        { title: t('homeSeedReadBook'), icon: 'book', color: 'neonGreen' },
-        { title: t('homeSeedWalk'), icon: 'walk', color: 'neonGreen' },
-      ];
-      seedHabits.forEach((h) => saveHabit(h));
-    }
-  }, [habits.length, saveHabit, t]);
 
   const streak = useMemo(() => Object.values(today).filter(Boolean).length + 11, [today]);
 
@@ -99,7 +85,14 @@ export default function HomeScreen() {
           <Text color={muted} letterSpacing={1}>
             {t('yourChain')}
           </Text>
-        <HeatmapChain days={14} activeDates={heatmapSet} colorActive={neon} colorBg={bg} colorBorder={theme.gray.val?.toString() ?? '#222'} />
+        <HeatmapChain
+          days={14}
+          intensityByDate={heatmapCounts}
+          maxLevel={maxLevel}
+          colorActive={neon}
+          colorBg={bg}
+          colorBorder={theme.gray.val?.toString() ?? '#222'}
+        />
       </YStack>
 
       {/* 習慣ボタン */}
