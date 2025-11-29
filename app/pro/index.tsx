@@ -18,7 +18,7 @@ export default function PaywallScreen() {
         end={{ x: 1, y: 1 }}
         style={{ borderRadius: 20, padding: 20, borderWidth: 1, borderColor: pink }}>
         <Text color="$text" fontSize={24} fontWeight="800">
-          DotChain Pro
+          {t('proTitle')}
         </Text>
         <Text color="$muted" marginTop="$2">
           {t('heroPaywall')}
@@ -32,10 +32,10 @@ export default function PaywallScreen() {
         borderColor="$gray"
         padding="$4"
         gap="$3">
-        <Feature icon="infinite" title="習慣数 無制限" />
-        <Feature icon="color-palette" title="全テーマ解放 (Neon Pink / Cyber Blue など)" />
-        <Feature icon="apps" title="アプリアイコン変更" />
-        <Feature icon="notifications" title="広告非表示" />
+        <Feature icon="infinite" title={t('proFeatureUnlimited')} />
+        <Feature icon="color-palette" title={t('proFeatureThemes')} />
+        <Feature icon="apps" title={t('proFeatureIcons')} />
+        <Feature icon="notifications" title={t('proFeatureAds')} />
       </YStack>
 
       <YStack alignItems="center" gap="$2">

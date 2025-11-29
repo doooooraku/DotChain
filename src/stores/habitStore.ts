@@ -9,6 +9,7 @@ import {
   todayDone as dbTodayDone,
 } from '@/src/features/habit/logTable';
 import { playError, playSuccess } from '@/src/core/sensory/SoundManager';
+import { t } from '@/src/core/i18n/i18n';
 import { getLocalDateKey } from '@/src/core/dateKey';
 
 type HabitState = {
@@ -54,9 +55,9 @@ export const useHabitStore = create<HabitState>()(
             }),
           );
           set({ habits, today, logs: Object.fromEntries(logsEntries), loading: false, error: undefined });
-        } catch (e: any) {
+        } catch {
           playError();
-          set({ loading: false, error: e?.message ?? 'Failed to load data' });
+          set({ loading: false, error: t('errorLoadFailed') });
         }
       },
       saveHabit: async (input) => {
@@ -69,8 +70,8 @@ export const useHabitStore = create<HabitState>()(
         } catch (err: any) {
           const msg =
             err instanceof Error && err.message === 'TITLE_REQUIRED'
-              ? 'タイトルは必須です'
-              : '保存に失敗しました';
+              ? t('errorTitleRequired')
+              : t('errorSaveFailed');
           set({ error: msg });
           playError();
           throw err;
@@ -83,7 +84,7 @@ export const useHabitStore = create<HabitState>()(
           set({ error: undefined });
           playSuccess();
         } catch (_err) {
-          set({ error: '削除に失敗しました' });
+          set({ error: t('errorDeleteFailed') });
           playError();
           throw _err;
         }
@@ -109,7 +110,7 @@ export const useHabitStore = create<HabitState>()(
             error: undefined,
           }));
         } catch (_err) {
-          set({ error: '記録の更新に失敗しました' });
+          set({ error: t('errorToggleFailed') });
           playError();
           throw _err;
         }

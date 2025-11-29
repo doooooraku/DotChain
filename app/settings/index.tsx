@@ -15,7 +15,7 @@ export default function SettingsScreen() {
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
 
-  const languageOptions: Lang[] = ['en','ja','fr','es','de','zh','ko','pt','it','ru','hi','id','th','vi','ms','tr','nl','sv'];
+  const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
 
   return (
     <ScrollView
@@ -65,7 +65,7 @@ export default function SettingsScreen() {
       <Section title={t('haptics')}>
         <Row>
           <Text color="$text" fontSize={15}>
-            Haptic feedback
+            {t('hapticsDescription')}
           </Text>
           <Switch checked={haptics} onCheckedChange={(v) => setHaptics(Boolean(v))} />
         </Row>

@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import { I18nManager } from 'react-native';
 import { Href, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } from 'tamagui';
@@ -11,12 +10,6 @@ import { selectHeatmap, useHabitStore } from '@/src/stores/habitStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 
-const seedHabits = [
-  { title: 'Drink Water', icon: 'water', color: 'neonGreen' },
-  { title: 'Read Book', icon: 'book', color: 'neonGreen' },
-  { title: 'Walk', icon: 'walk', color: 'neonGreen' },
-];
-
 export default function HomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
@@ -27,7 +20,6 @@ export default function HomeScreen() {
   const saveHabit = useHabitStore((s) => s.saveHabit);
   const loading = useHabitStore((s) => s.loading);
   const error = useHabitStore((s) => s.error);
-  const isRTL = I18nManager.isRTL;
   const hapticsOn = useSettingsStore((s) => s.haptics);
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
@@ -43,9 +35,14 @@ export default function HomeScreen() {
   useEffect(() => {
     // 初期データがない場合にサンプルを1度だけ投入
     if (habits.length === 0) {
+      const seedHabits = [
+        { title: t('homeSeedDrinkWater'), icon: 'water', color: 'neonGreen' },
+        { title: t('homeSeedReadBook'), icon: 'book', color: 'neonGreen' },
+        { title: t('homeSeedWalk'), icon: 'walk', color: 'neonGreen' },
+      ];
       seedHabits.forEach((h) => saveHabit(h));
     }
-  }, [habits.length, saveHabit]);
+  }, [habits.length, saveHabit, t]);
 
   const streak = useMemo(() => Object.values(today).filter(Boolean).length + 11, [today]);
 
@@ -59,7 +56,7 @@ export default function HomeScreen() {
         justifyContent="space-between"
         alignItems="center"
         marginTop="$3"
-        flexDirection={isRTL ? 'row-reverse' : 'row'}>
+        flexDirection="row">
         <Button
           size="$4"
           circular
@@ -110,7 +107,7 @@ export default function HomeScreen() {
         {loading && (
           <XStack gap="$2" alignItems="center">
             <Spinner color="$neonGreen" />
-            <Text color="$muted">読み込み中...</Text>
+            <Text color="$muted">{t('homeLoading')}</Text>
           </XStack>
         )}
         {error && (
@@ -140,8 +137,8 @@ export default function HomeScreen() {
       <Stack
         position="absolute"
         bottom={32}
-        right={isRTL ? undefined : 24}
-        left={isRTL ? 24 : undefined}
+        right={24}
+        left={undefined}
         width={64}
         height={64}
         borderRadius={32}
@@ -155,7 +152,7 @@ export default function HomeScreen() {
         onPress={() => router.push('/habit/edit' as Href)}
         asChild>
         <Button
-          accessibilityLabel="Add habit"
+          accessibilityLabel={t('homeAddHabitLabel')}
           backgroundColor="transparent"
           width="100%"
           height="100%"

@@ -2,6 +2,7 @@ import { Text, YStack, useTheme } from 'tamagui';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Animated, Easing } from 'react-native';
 import { useEffect, useRef, type ComponentProps } from 'react';
+import { t } from '@/src/core/i18n/i18n';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
@@ -43,7 +44,7 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
       <Pressable
         onPress={onPress}
         onLongPress={onLongPress}
-        accessibilityLabel={`${label}の習慣ボタン`}
+        accessibilityLabel={`${label}${t('habitButtonSuffix')}`}
         accessibilityRole="button"
         accessibilityState={{ checked: active }}>
         <Animated.View

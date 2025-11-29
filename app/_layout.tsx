@@ -9,6 +9,7 @@ import { AppState, Linking } from 'react-native';
 import { useHabitStore } from '@/src/stores/habitStore';
 import { triggerImpact } from '@/src/core/sensory/HapticManager';
 import { useSettingsStore } from '@/src/stores/settingsStore';
+import { useTranslation } from '@/src/core/i18n/i18n';
 
 /**
  * ルートレイアウト
@@ -19,6 +20,7 @@ export default function RootLayout() {
   const appState = useRef(AppState.currentState);
   const lastDate = useRef(new Date().toDateString());
   const themeName = useSettingsStore((s) => s.theme);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const sub = AppState.addEventListener('change', (state) => {
@@ -59,15 +61,15 @@ export default function RootLayout() {
           <Stack.Screen name="index" />
           <Stack.Screen
             name="settings/index"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: 'Settings' }}
+            options={{ presentation: 'modal', headerShown: true, headerTitle: t('settings') }}
           />
           <Stack.Screen
             name="habit/edit"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: 'Edit Habit' }}
+            options={{ presentation: 'modal', headerShown: true, headerTitle: t('editEditHabit') }}
           />
           <Stack.Screen
             name="pro/index"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: 'DotChain Pro' }}
+            options={{ presentation: 'modal', headerShown: true, headerTitle: t('proHeaderTitle') }}
           />
           <Stack.Screen
             name="onboarding"
