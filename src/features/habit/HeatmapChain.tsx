@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, type ReactNode } from 'react';
 import { XStack } from 'tamagui';
 import { Animated, Easing } from 'react-native';
 import { getLocalDateKey } from '@/src/core/dateKey';
@@ -10,6 +10,7 @@ type Props = {
   colorActive: string;
   colorBg: string;
   colorBorder: string;
+  flowEnabled?: boolean;
 };
 
 /**
@@ -25,8 +26,10 @@ export const HeatmapChain = memo(function HeatmapChain({
   colorActive,
   colorBg,
   colorBorder,
+  flowEnabled = true,
 }: Props) {
   const pulse = useRef(new Animated.Value(0)).current;
+  const current = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const animation = Animated.loop(
@@ -49,6 +52,27 @@ export const HeatmapChain = memo(function HeatmapChain({
     return () => animation.stop();
   }, [pulse]);
 
+  useEffect(() => {
+    if (!flowEnabled) {
+      current.stopAnimation();
+      current.setValue(0);
+      return;
+    }
+    const animation = Animated.loop(
+      Animated.timing(current, {
+        toValue: 1,
+        duration: 2400,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    animation.start();
+    return () => {
+      animation.stop();
+      current.setValue(0);
+    };
+  }, [current, flowEnabled]);
+
   const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] });
   const shadow = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.1, 0.35] });
 
@@ -67,6 +91,50 @@ export const HeatmapChain = memo(function HeatmapChain({
     const nextKey = getLocalDateKey(nextDate);
     const nextLevel = intensityByDate[nextKey] ?? 0;
     const linkActive = active && nextLevel > 0;
+
+    const phaseBase = days > 1 ? idx / (days - 1) : 0;
+    const phase = Animated.modulo(Animated.add(current, 1 - phaseBase), 1);
+    const linkGlow = phase.interpolate({
+      inputRange: [0, 0.25, 1],
+      outputRange: [1, 0, 0],
+    });
+
+    let linkNode: ReactNode = null;
+    if (linkActive) {
+      if (flowEnabled) {
+        linkNode = (
+          <Animated.View
+            style={{
+              width: 12,
+              height: 2,
+              borderRadius: 1,
+              backgroundColor: colorActive,
+              opacity: Animated.multiply(shadow, linkGlow),
+              shadowColor: colorActive,
+              shadowOpacity: Animated.multiply(shadow, linkGlow),
+              shadowRadius: 6,
+              shadowOffset: { width: 0, height: 0 },
+            }}
+          />
+        );
+      } else {
+        linkNode = (
+          <Animated.View
+            style={{
+              width: 12,
+              height: 2,
+              borderRadius: 1,
+              backgroundColor: colorActive,
+              opacity: shadow,
+              shadowColor: colorActive,
+              shadowOpacity: shadow,
+              shadowRadius: 4,
+              shadowOffset: { width: 0, height: 0 },
+            }}
+          />
+        );
+      }
+    }
 
     return (
       <XStack key={key} alignItems="center" gap="$1">
@@ -87,21 +155,7 @@ export const HeatmapChain = memo(function HeatmapChain({
             elevation: active ? 4 : 0,
           }}
         />
-        {linkActive && (
-          <Animated.View
-            style={{
-              width: 12,
-              height: 2,
-              borderRadius: 1,
-              backgroundColor: colorActive,
-              opacity: shadow,
-              shadowColor: colorActive,
-              shadowOpacity: shadow,
-              shadowRadius: 6,
-              shadowOffset: { width: 0, height: 0 },
-            }}
-          />
-        )}
+        {linkNode}
       </XStack>
     );
   });

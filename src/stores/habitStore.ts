@@ -136,22 +136,57 @@ export const selectHeatmapIntensity = (state: HabitState) => {
   return { counts, maxLevel };
 };
 
-// 全習慣達成の日数が何日連続しているか（最大365日遡る）
+// 「1日に1つでも習慣を達成した日」の連続日数（最大365日遡る）
 export const selectStreak = (state: HabitState) => {
   const { habits, logs } = state;
   if (habits.length === 0) return 0;
 
-  let streak = 0;
+  const hasAnyDoneOn = (dateKey: string) => habits.some((h) => logs[h.id]?.includes(dateKey));
+
   const today = new Date();
+  let streak = 0;
 
   for (let offset = 0; offset < 365; offset++) {
     const d = new Date(today);
     d.setDate(today.getDate() - offset);
     const key = getLocalDateKey(d);
-    const doneAll = habits.every((h) => logs[h.id]?.includes(key));
-    if (!doneAll) break;
+
+    if (!hasAnyDoneOn(key)) break;
     streak += 1;
   }
 
   return streak;
+};
+
+// 「その日に存在していた習慣をすべて達成できた日」が何日あるか（通算）
+export const selectAllDoneDays = (state: HabitState) => {
+  const { habits, logs } = state;
+  if (habits.length === 0) return 0;
+
+  const createdKeyByHabit: Record<string, string> = {};
+  for (const h of habits) {
+    createdKeyByHabit[h.id] = getLocalDateKey(new Date(h.createdAt));
+  }
+
+  const allDatesSet = new Set<string>();
+  Object.values(logs).forEach((dates) => {
+    dates.forEach((d) => allDatesSet.add(d));
+  });
+  if (allDatesSet.size === 0) return 0;
+
+  const allDates = Array.from(allDatesSet).sort(); // YYYY-MM-DD の文字列ソートでOK
+  let allDoneDays = 0;
+
+  for (const dateKey of allDates) {
+    const activeHabitIds = habits
+      .filter((h) => createdKeyByHabit[h.id] <= dateKey)
+      .map((h) => h.id);
+
+    if (activeHabitIds.length === 0) continue;
+
+    const allDone = activeHabitIds.every((habitId) => logs[habitId]?.includes(dateKey));
+    if (allDone) allDoneDays += 1;
+  }
+
+  return allDoneDays;
 };

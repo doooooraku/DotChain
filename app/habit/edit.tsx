@@ -5,10 +5,11 @@ import { Button, Input, ScrollView, Text } from 'tamagui';
 import { useHabitStore } from '@/src/stores/habitStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { IconPicker } from '@/src/features/habit/IconPicker';
+import { TutorialOverlay } from '@/src/features/tutorial/TutorialOverlay';
 
 export default function EditScreen() {
   const router = useRouter();
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id, tutorial } = useLocalSearchParams<{ id?: string; tutorial?: string }>();
   const { t } = useTranslation();
   const habits = useHabitStore((s) => s.habits);
   const saveHabit = useHabitStore((s) => s.saveHabit);
@@ -16,13 +17,23 @@ export default function EditScreen() {
 
   const target = habits.find((h) => h.id === id);
   const [name, setName] = useState(target?.title ?? '');
-  const [selectedIcon, setSelectedIcon] = useState(target?.icon ?? 'flame');
+  const [selectedIcon, setSelectedIcon] = useState(target?.icon ?? 'walk');
   const isEdit = Boolean(id);
+  const isTutorial = tutorial === '1' && !isEdit;
+
+  type EditTutorialStep = 'none' | 'icon' | 'name' | 'submit';
+  const [editStep, setEditStep] = useState<EditTutorialStep>('none');
 
   useEffect(() => {
     setName(target?.title ?? '');
-    setSelectedIcon(target?.icon ?? 'flame');
+    setSelectedIcon(target?.icon ?? 'walk');
   }, [target?.title, target?.icon]);
+
+  useEffect(() => {
+    if (isTutorial) {
+      setEditStep('icon');
+    }
+  }, [isTutorial]);
 
   const handleSave = async () => {
     await saveHabit({
@@ -31,7 +42,12 @@ export default function EditScreen() {
       icon: selectedIcon,
       color: 'neonGreen',
     });
-    router.back();
+
+    if (isTutorial) {
+      router.replace('/?fromTutorial=1');
+    } else {
+      router.back();
+    }
   };
 
   const handleDelete = async () => {
@@ -76,6 +92,31 @@ export default function EditScreen() {
         <Button backgroundColor="$background" color="$neonPink" onPress={handleDelete}>
           {t('editDeleteHabit')}
         </Button>
+      )}
+
+      {/* チュートリアル Overlay */}
+      {isTutorial && editStep === 'icon' && (
+        <TutorialOverlay
+          message={t('tutorialEditIconBody')}
+          buttonLabel={t('tutorialNext')}
+          onNext={() => setEditStep('name')}
+        />
+      )}
+
+      {isTutorial && editStep === 'name' && (
+        <TutorialOverlay
+          message={t('tutorialEditNameBody')}
+          buttonLabel={t('tutorialNext')}
+          onNext={() => setEditStep('submit')}
+        />
+      )}
+
+      {isTutorial && editStep === 'submit' && (
+        <TutorialOverlay
+          message={t('tutorialEditSubmitBody')}
+          buttonLabel={t('tutorialGotIt')}
+          onNext={() => setEditStep('none')}
+        />
       )}
     </ScrollView>
   );

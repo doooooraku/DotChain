@@ -1,7 +1,7 @@
 import React from 'react';
 import { Href, Link } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
-import { useSettingsStore } from '@/src/stores/settingsStore';
+import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
 import { t, useTranslation, type Lang } from '@/src/core/i18n/i18n';
 
 export default function SettingsScreen() {
@@ -11,9 +11,15 @@ export default function SettingsScreen() {
   const setHaptics = useSettingsStore((s) => s.setHaptics);
   const tapSound = useSettingsStore((s) => s.tapSound);
   const setTapSound = useSettingsStore((s) => s.setTapSound);
+  const electricFlow = useSettingsStore((s) => s.electricFlow);
+  const setElectricFlow = useSettingsStore((s) => s.setElectricFlow);
+  const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 60);
+  const setHeatmapDays = useSettingsStore((s) => s.setHeatmapDays);
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+
+  const heatmapOptions: HeatmapDaysOption[] = [30, 60, 180, 365];
 
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
 
@@ -80,6 +86,53 @@ export default function SettingsScreen() {
         </XStack>
         <Text color="$muted" fontSize={12}>
           {t('proThemeNote')}
+        </Text>
+      </Section>
+
+      {/* ヒートマップ表示期間 */}
+      <Section title={t('heatmapRangeTitle')}>
+        <Text color="$muted" fontSize={13} marginBottom="$2">
+          {t('heatmapRangeHelp')}
+        </Text>
+        <XStack flexWrap="wrap" gap="$2" marginTop="$1">
+          {heatmapOptions.map((days) => {
+            const active = heatmapDays === days;
+            const labelKey =
+              days === 30
+                ? 'heatmapRange30'
+                : days === 60
+                ? 'heatmapRange60'
+                : days === 180
+                ? 'heatmapRange180'
+                : 'heatmapRange365';
+
+            return (
+              <Button
+                key={days}
+                size="$3"
+                borderRadius="$6"
+                backgroundColor={active ? '$neonGreen' : '$surface'}
+                color={active ? '$background' : '$text'}
+                borderWidth={1}
+                borderColor={active ? '$neonGreen' : '$gray'}
+                onPress={() => setHeatmapDays(days)}>
+                {t(labelKey as any)}
+              </Button>
+            );
+          })}
+        </XStack>
+      </Section>
+
+      {/* 電流アニメーションのON/OFF */}
+      <Section title={t('flowEffectTitle')}>
+        <Row>
+          <Text color="$text" fontSize={15}>
+            {t('flowEffectTitle')}
+          </Text>
+          <Switch checked={electricFlow} onCheckedChange={(v) => setElectricFlow(Boolean(v))} />
+        </Row>
+        <Text color="$muted" fontSize={13} lineHeight={18}>
+          {t('flowEffectHelp')}
         </Text>
       </Section>
 
