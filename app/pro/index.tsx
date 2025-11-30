@@ -157,7 +157,6 @@ export default function PaywallScreen() {
 
           <CompareRow featureKey="proFeatureHabits" freeKey="proFeatureHabitsFree" proKey="proFeatureHabitsPro" />
           <CompareRow featureKey="proFeatureThemes" freeKey="proFeatureThemesFree" proKey="proFeatureThemesPro" />
-          <CompareRow featureKey="proFeatureIcons" freeKey="proFeatureIconsFree" proKey="proFeatureIconsPro" />
           <CompareRow featureKey="proFeatureAds" freeKey="proFeatureAdsFree" proKey="proFeatureAdsPro" />
         </YStack>
 
