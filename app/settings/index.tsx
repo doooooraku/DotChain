@@ -1,5 +1,6 @@
 import React from 'react';
-import { Href, Link } from 'expo-router';
+import { Alert } from 'react-native';
+import { Href, useRouter } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
 import { t, useTranslation, type Lang } from '@/src/core/i18n/i18n';
@@ -15,6 +16,8 @@ export default function SettingsScreen() {
   const setElectricFlow = useSettingsStore((s) => s.setElectricFlow);
   const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 60);
   const setHeatmapDays = useSettingsStore((s) => s.setHeatmapDays);
+  const themeName = useSettingsStore((s) => s.theme);
+  const setTheme = useSettingsStore((s) => s.setTheme);
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
@@ -22,6 +25,7 @@ export default function SettingsScreen() {
   const heatmapOptions: HeatmapDaysOption[] = [30, 60, 180, 365];
 
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
+  const router = useRouter();
 
   return (
     <ScrollView
@@ -78,13 +82,33 @@ export default function SettingsScreen() {
       </Section>
 
       <Section title={t('theme')}>
-        <Text color="$muted">{t('freeThemeNote')}</Text>
-        <XStack gap="$3">
-          <ThemeDot color="$background" />
-          <ThemeDot color="$neonPink" />
-          <ThemeDot color="#00C8FF" />
+        <Text color="$muted" fontSize={13} marginBottom="$2">
+          {t('themeDesc')}
+        </Text>
+        <XStack gap="$3" marginTop="$1">
+          <ThemeDot
+            label={t('themeDarkLabel')}
+            color={theme.background.val?.toString() ?? '#04060A'}
+            active={themeName === 'dark'}
+            onPress={() => setTheme('dark')}
+          />
+          <ThemeDot
+            label={t('themeNeonPinkLabel')}
+            color="#FF65D8"
+            active={themeName === 'neonPink'}
+            onPress={() => setTheme('neonPink')}
+          />
+          <ThemeDot
+            label={t('themeCyberBlueLabel')}
+            color="#00C8FF"
+            active={themeName === 'cyberBlue'}
+            onPress={() => setTheme('cyberBlue')}
+          />
         </XStack>
-        <Text color="$muted" fontSize={12}>
+        <Text color="$muted" fontSize={12} marginTop="$2">
+          {t('freeThemeNote')}
+        </Text>
+        <Text color="$muted" fontSize={11} marginTop="$1">
           {t('proThemeNote')}
         </Text>
       </Section>
@@ -137,14 +161,30 @@ export default function SettingsScreen() {
       </Section>
 
       <Section title={t('restore')}>
-        <Text color="$neonGreen" fontWeight="700">
+        <Text color="$muted" fontSize={13} marginBottom="$2">
           {t('restoreDesc')}
         </Text>
-        <Link href={'/pro' as Href} style={{ color: '#39FF14', fontWeight: '700' }}>
-          {t('openPro')}
-        </Link>
-        <Text color="$neonGreen" fontWeight="700">
-          {t('licenses')}
+        <XStack gap="$3">
+          <Button
+            size="$3"
+            backgroundColor="$neonGreen"
+            color="#000"
+            borderRadius={999}
+            onPress={() => router.push('/pro' as Href)}>
+            {t('openPro')}
+          </Button>
+          <Button
+            size="$3"
+            backgroundColor="$surface"
+            borderWidth={1}
+            borderColor="$gray"
+            borderRadius={999}
+            onPress={() => Alert.alert(t('restore'), t('restoreSoon'))}>
+            {t('restore')}
+          </Button>
+        </XStack>
+        <Text color="$muted" fontSize={12} marginTop="$2">
+          {t('paywallNote')}
         </Text>
       </Section>
 
@@ -180,15 +220,30 @@ function Row({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ThemeDot({ color }: { color: string }) {
+type ThemeDotProps = {
+  label: string;
+  color: string;
+  active?: boolean;
+  onPress?: () => void;
+};
+
+function ThemeDot({ label, color, active, onPress }: ThemeDotProps) {
   return (
-    <Stack
-      width={32}
-      height={32}
-      borderRadius={16}
-      borderWidth={2}
-      borderColor="$neonGreen"
-      backgroundColor={color}
-    />
+    <YStack alignItems="center" gap="$2">
+      <Stack
+        width={40}
+        height={40}
+        borderRadius={20}
+        backgroundColor={color}
+        borderWidth={2}
+        borderColor={active ? '$neonGreen' : '$gray'}
+        opacity={onPress ? 1 : 0.5}
+        pressStyle={{ scale: 0.96 }}
+        onPress={onPress}
+      />
+      <Text color="$muted" fontSize={11}>
+        {label}
+      </Text>
+    </YStack>
   );
 }
