@@ -1,7 +1,8 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { Href, useRouter } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
 import { t, useTranslation, type Lang } from '@/src/core/i18n/i18n';
 
@@ -18,6 +19,10 @@ export default function SettingsScreen() {
   const setHeatmapDays = useSettingsStore((s) => s.setHeatmapDays);
   const themeName = useSettingsStore((s) => s.theme);
   const setTheme = useSettingsStore((s) => s.setTheme);
+  const reminderEnabled = useSettingsStore((s) => s.reminderEnabled);
+  const reminderTime = useSettingsStore((s) => s.reminderTime);
+  const setReminderEnabled = useSettingsStore((s) => s.setReminderEnabled);
+  const setReminderTime = useSettingsStore((s) => s.setReminderTime);
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
@@ -26,6 +31,29 @@ export default function SettingsScreen() {
 
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
   const router = useRouter();
+  const [showTimePicker, setShowTimePicker] = React.useState(false);
+
+  const timeStringToDate = (timeStr: string) => {
+    const [hStr = '8', mStr = '0'] = timeStr.split(':');
+    let hour = Number(hStr);
+    let minute = Number(mStr);
+    if (!Number.isFinite(hour) || hour < 0 || hour > 23) hour = 8;
+    if (!Number.isFinite(minute) || minute < 0 || minute > 59) minute = 0;
+    const d = new Date();
+    d.setHours(hour, minute, 0, 0);
+    return d;
+  };
+
+  const handleTimeChange = (_event: any, selected?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowTimePicker(false);
+    }
+    if (selected) {
+      const h = selected.getHours().toString().padStart(2, '0');
+      const m = selected.getMinutes().toString().padStart(2, '0');
+      void setReminderTime(`${h}:${m}`);
+    }
+  };
 
   return (
     <ScrollView
@@ -111,6 +139,52 @@ export default function SettingsScreen() {
         <Text color="$muted" fontSize={11} marginTop="$1">
           {t('proThemeNote')}
         </Text>
+      </Section>
+
+      {/* リマインダー通知 */}
+      <Section title={t('reminderSectionTitle')}>
+        <Row>
+          <Text color="$text" fontSize={15}>
+            {t('reminderToggleLabel')}
+          </Text>
+          <Switch checked={reminderEnabled} onCheckedChange={(v) => setReminderEnabled(Boolean(v))} />
+        </Row>
+
+        {reminderEnabled && (
+          <>
+            <Row>
+              <Text color="$text" fontSize={15}>
+                {t('reminderTimeLabel')}
+              </Text>
+              {Platform.OS === 'ios' ? (
+                <DateTimePicker
+                  value={timeStringToDate(reminderTime)}
+                  mode="time"
+                  display="spinner"
+                  onChange={handleTimeChange}
+                />
+              ) : (
+                <Button
+                  size="$3"
+                  borderRadius="$4"
+                  borderWidth={1}
+                  borderColor="$gray"
+                  backgroundColor="$surface"
+                  onPress={() => setShowTimePicker(true)}>
+                  {reminderTime}
+                </Button>
+              )}
+            </Row>
+            {Platform.OS === 'android' && showTimePicker && (
+              <DateTimePicker
+                value={timeStringToDate(reminderTime)}
+                mode="time"
+                display="default"
+                onChange={handleTimeChange}
+              />
+            )}
+          </>
+        )}
       </Section>
 
       {/* ヒートマップ表示期間 */}
