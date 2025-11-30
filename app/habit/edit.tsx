@@ -1,12 +1,10 @@
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { Button, Input, ScrollView, Stack, Text, XStack } from 'tamagui';
+import { Button, Input, ScrollView, Text } from 'tamagui';
 
 import { useHabitStore } from '@/src/stores/habitStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
-
-const ICONS = ['flame', 'water', 'book', 'walk', 'moon', 'fitness', 'sparkles', 'brush', 'tv'];
+import { IconPicker } from '@/src/features/habit/IconPicker';
 
 export default function EditScreen() {
   const router = useRouter();
@@ -52,36 +50,10 @@ export default function EditScreen() {
         {isEdit ? t('editEditHabit') : t('editNewHabit')}
       </Text>
 
-      <Text color="$text" fontWeight="700">
+      <Text color="$text" fontWeight="700" marginBottom="$2">
         {t('editIconLabel')}
       </Text>
-      <XStack flexWrap="wrap" gap="$3" flexDirection="row">
-        {ICONS.map((icon) => {
-          const active = selectedIcon === icon;
-          return (
-            <Stack
-              key={icon}
-              width={56}
-              height={56}
-              borderRadius={16}
-              borderWidth={2}
-              borderColor={active ? '$neonGreen' : '$gray'}
-              alignItems="center"
-              justifyContent="center"
-              backgroundColor={active ? '$neonGreen' : '$surface'}
-              onPress={() => setSelectedIcon(icon)}
-              asChild>
-              <Button
-                accessibilityLabel={icon}
-                backgroundColor="transparent"
-                width="100%"
-                height="100%"
-                icon={<Ionicons name={icon as any} size={24} color={active ? '#000' : '#EEE'} />}
-              />
-            </Stack>
-          );
-        })}
-      </XStack>
+      <IconPicker value={selectedIcon} onChange={setSelectedIcon} />
 
       <Text color="$text" fontWeight="700">
         {t('editNameLabel')}

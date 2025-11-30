@@ -27,6 +27,7 @@ const baseEn = {
   priceMonthly: '$2.99 / month',
   onboardingTitle: 'Welcome to DotChain',
   onboardingBody: 'One tap, heavy haptics. Let’s build today’s chain.',
+  onboardingPunch: 'This is DotChain.',
   start: 'Get started',
   paywallNote: 'Billing/Ads will be added later.',
   // --- Home ---
@@ -87,6 +88,7 @@ const dictionaries = {
     priceMonthly: '$2.99 / 月',
     onboardingTitle: 'ようこそ DotChain へ',
     onboardingBody: '1タップでドンッと振動。今日のチェーンをつなげよう。',
+    onboardingPunch: 'これが、DotChainです。',
     start: 'はじめる',
     paywallNote: '課金と広告は後から追加されます。',
     homeLoading: '読み込み中...',

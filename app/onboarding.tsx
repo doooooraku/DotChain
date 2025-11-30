@@ -46,6 +46,9 @@ export default function OnboardingScreen() {
         <Text color="$muted" fontSize={14} lineHeight={22} textAlign="center">
           {t('onboardingBody')}
         </Text>
+        <Text color={neon} fontSize={16} fontWeight="800" textAlign="center">
+          {t('onboardingPunch')}
+        </Text>
 
         <Button
           borderRadius={999}
@@ -79,7 +82,7 @@ export default function OnboardingScreen() {
             padding: 24,
           }}>
           <Text color="#000" fontSize={20} fontWeight="700" textAlign="center">
-            {t('onboardingTitle')}
+            {t('onboardingPunch')}
           </Text>
         </LinearGradient>
       </Animated.View>

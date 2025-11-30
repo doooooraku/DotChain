@@ -135,3 +135,23 @@ export const selectHeatmapIntensity = (state: HabitState) => {
   const maxLevel = state.habits.length || 1;
   return { counts, maxLevel };
 };
+
+// 全習慣達成の日数が何日連続しているか（最大365日遡る）
+export const selectStreak = (state: HabitState) => {
+  const { habits, logs } = state;
+  if (habits.length === 0) return 0;
+
+  let streak = 0;
+  const today = new Date();
+
+  for (let offset = 0; offset < 365; offset++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - offset);
+    const key = getLocalDateKey(d);
+    const doneAll = habits.every((h) => logs[h.id]?.includes(key));
+    if (!doneAll) break;
+    streak += 1;
+  }
+
+  return streak;
+};
