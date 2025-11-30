@@ -1,5 +1,10 @@
+import { Alert } from 'react-native';
 import { useCallback } from 'react';
-import { useHabitStore } from '@/src/stores/habitStore';
+import * as StoreReview from 'expo-store-review';
+
+import { selectStreak, useHabitStore } from '@/src/stores/habitStore';
+import { useSettingsStore } from '@/src/stores/settingsStore';
+import { t } from '@/src/core/i18n/i18n';
 import { triggerImpact } from '@/src/core/sensory/HapticManager';
 import { playClick, playError, playSuccess } from '@/src/core/sensory/SoundManager';
 
@@ -11,6 +16,9 @@ import { playClick, playError, playSuccess } from '@/src/core/sensory/SoundManag
  */
 export function useHabitRecord() {
   const toggleToday = useHabitStore((s) => s.toggleToday);
+  const getHabitState = useHabitStore.getState;
+  const hasRequestedReview = useSettingsStore((s) => s.hasRequestedReview);
+  const setHasRequestedReview = useSettingsStore((s) => s.setHasRequestedReview);
 
   const record = useCallback(
     async (habitId: string) => {
@@ -20,12 +28,45 @@ export function useHabitRecord() {
       try {
         await toggleToday(habitId);
         void playSuccess();
+
+         // 7日連続達成祝い＆レビュー依頼（端末1回のみ）
+         const state = getHabitState();
+         const isDone = state.today[habitId] === true;
+         if (isDone && !hasRequestedReview) {
+           const streak = selectStreak(state);
+           if (streak === 7) {
+             setTimeout(async () => {
+               Alert.alert(
+                 t('streak7Title'),
+                 t('streak7Message'),
+                 [
+                   {
+                     text: t('ok'),
+                     onPress: async () => {
+                       try {
+                         const canAsk = await StoreReview.hasAction();
+                         if (canAsk) {
+                           await StoreReview.requestReview();
+                         }
+                       } catch {
+                         // 失敗してもユーザーには見せない
+                       } finally {
+                         setHasRequestedReview(true);
+                       }
+                     },
+                   },
+                 ],
+                 { cancelable: true },
+               );
+             }, 800);
+           }
+         }
       } catch (err) {
         void playError();
         throw err;
       }
     },
-    [toggleToday],
+    [toggleToday, getHabitState, hasRequestedReview, setHasRequestedReview],
   );
 
   return { record };

@@ -106,6 +106,13 @@ const baseEn = {
   editSaveChanges: 'Save Changes',
   editCreateHabit: 'Create Habit',
   editDeleteHabit: 'Delete Habit',
+  deleteConfirmBody: 'Are you sure? This action cannot be undone.',
+  cancel: 'Cancel',
+  delete: 'Delete',
+  // Icon categories
+  iconCatBasic: 'Basic',
+  iconCatHealth: 'Health',
+  iconCatLearning: 'Learning & Work',
   // --- Pro ---
   proTitle: 'Unlock your chain.',
   proHeaderTitle: 'DotChain Pro',
@@ -122,6 +129,10 @@ const baseEn = {
   errorToggleFailed: 'Failed to update record.',
   // --- Settings description ---
   hapticsDescription: 'Haptic feedback',
+  // --- Review (7-day streak) ---
+  streak7Title: '7-day streak!',
+  streak7Message: 'You have kept your chain for a full week. Great job!',
+  ok: 'OK',
 };
 
 // 正式訳（19言語）
@@ -231,6 +242,12 @@ const dictionaries = {
     editSaveChanges: '変更を保存',
     editCreateHabit: '習慣を作成',
     editDeleteHabit: '習慣を削除',
+    deleteConfirmBody: '本当に削除しますか？この操作は取り消せません。',
+    cancel: 'キャンセル',
+    delete: '削除する',
+    iconCatBasic: '基本',
+    iconCatHealth: '健康',
+    iconCatLearning: '学習・仕事',
     habitButtonSuffix: 'の習慣ボタン',
     errorLoadFailed: 'データの読み込みに失敗しました。',
     errorTitleRequired: 'タイトルは必須です。',
@@ -238,6 +255,9 @@ const dictionaries = {
     errorDeleteFailed: '削除に失敗しました。',
     errorToggleFailed: '記録の更新に失敗しました。',
     hapticsDescription: 'ハプティクス（振動）',
+    streak7Title: '7日連続達成！',
+    streak7Message: '1週間チェーンが続きました。この調子で続けていきましょう。',
+    ok: 'OK',
   },
   fr: {
     ...baseEn,

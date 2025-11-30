@@ -12,6 +12,7 @@ type SettingsState = {
   hasSeenOnboarding: boolean;
   heatmapDays: HeatmapDaysOption;
   electricFlow: boolean;
+  hasRequestedReview: boolean;
   setSound: (v: boolean) => void;
   setHaptics: (v: boolean) => void;
   setTheme: (v: SettingsState['theme']) => void;
@@ -19,6 +20,7 @@ type SettingsState = {
   setHasSeenOnboarding: (v: boolean) => void;
   setHeatmapDays: (days: HeatmapDaysOption) => void;
   setElectricFlow: (v: boolean) => void;
+  setHasRequestedReview: (v: boolean) => void;
 };
 
 export const useSettingsStore = create<SettingsState>()(
@@ -31,6 +33,7 @@ export const useSettingsStore = create<SettingsState>()(
       hasSeenOnboarding: false,
       heatmapDays: 60,
       electricFlow: true,
+      hasRequestedReview: false,
       setSound: (v) => set({ sound: v }),
       setHaptics: (v) => set({ haptics: v }),
       setTheme: (v) => set({ theme: v }),
@@ -42,6 +45,7 @@ export const useSettingsStore = create<SettingsState>()(
         set({ heatmapDays: safe });
       },
       setElectricFlow: (v) => set({ electricFlow: Boolean(v) }),
+      setHasRequestedReview: (v) => set({ hasRequestedReview: Boolean(v) }),
     }),
     {
       name: 'dotchain-settings',

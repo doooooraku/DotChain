@@ -1,4 +1,5 @@
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Button, Input, ScrollView, Text } from 'tamagui';
 
@@ -50,11 +51,28 @@ export default function EditScreen() {
     }
   };
 
-  const handleDelete = async () => {
-    if (target?.id) {
-      await removeHabit(target.id);
-    }
-    router.back();
+  const handleDelete = () => {
+    if (!target?.id) return;
+
+    Alert.alert(
+      t('editDeleteHabit'),
+      t('deleteConfirmBody'),
+      [
+        {
+          text: t('cancel'),
+          style: 'cancel',
+        },
+        {
+          text: t('delete'),
+          style: 'destructive',
+          onPress: async () => {
+            await removeHabit(target.id!);
+            router.back();
+          },
+        },
+      ],
+      { cancelable: true },
+    );
   };
 
   return (
