@@ -81,7 +81,7 @@ export default function EditScreen() {
       flex={1}
       contentContainerStyle={{ padding: 16, gap: 16 }}>
       <Text color="$text" fontSize={22} fontWeight="700">
-        {isEdit ? t('editEditHabit') : t('editNewHabit')}
+        {isEdit ? t('editHabitTitle') : t('editNewHabit')}
       </Text>
 
       <Text color="$text" fontWeight="700" marginBottom="$2">

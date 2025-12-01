@@ -5,11 +5,11 @@ import { TamaguiProvider, Theme } from 'tamagui';
 import config from '../tamagui.config';
 import { ToastHost } from './ToastHost';
 import { useEffect, useRef } from 'react';
-import { AppState, Linking } from 'react-native';
+import { AppState } from 'react-native';
 import { useHabitStore } from '@/src/stores/habitStore';
-import { triggerImpact } from '@/src/core/sensory/HapticManager';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
+import { getLocalDateKey } from '@/src/core/dateKey';
 
 /**
  * ルートレイアウト
@@ -18,14 +18,14 @@ import { useTranslation } from '@/src/core/i18n/i18n';
  */
 export default function RootLayout() {
   const appState = useRef(AppState.currentState);
-  const lastDate = useRef(new Date().toDateString());
+  const lastDate = useRef(getLocalDateKey());
   const themeName = useSettingsStore((s) => s.theme);
   const { t } = useTranslation();
 
   useEffect(() => {
     const sub = AppState.addEventListener('change', (state) => {
       if (appState.current.match(/inactive|background/) && state === 'active') {
-        const today = new Date().toDateString();
+        const today = getLocalDateKey();
         if (today !== lastDate.current) {
           useHabitStore.getState().loadAll();
           lastDate.current = today;
@@ -36,27 +36,13 @@ export default function RootLayout() {
     return () => sub.remove();
   }, []);
 
-  useEffect(() => {
-    const handler = ({ url }: { url: string }) => {
-      const match = url.match(/record\/(.+)$/);
-      if (match?.[1]) {
-        const habitId = match[1];
-        triggerImpact();
-        useHabitStore.getState().toggleToday(habitId);
-      }
-    };
-    const sub = Linking.addEventListener('url', handler);
-    Linking.getInitialURL().then((url) => url && handler({ url }));
-    return () => sub.remove();
-  }, []);
-
   return (
     <TamaguiProvider config={config}>
       <Theme name={themeName}>
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: '#000000' },
+            contentStyle: { backgroundColor: config.tokens.color.background.val },
           }}>
           <Stack.Screen name="index" />
           <Stack.Screen
@@ -65,7 +51,7 @@ export default function RootLayout() {
           />
           <Stack.Screen
             name="habit/edit"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: t('editEditHabit') }}
+            options={{ presentation: 'modal', headerShown: true, headerTitle: t('editHabitTitle') }}
           />
           <Stack.Screen
             name="pro/index"
