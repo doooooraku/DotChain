@@ -9,12 +9,21 @@ export type HabitRow = {
   createdAt: string;
 };
 
+export type UpsertHabitInput = {
+  id?: string;
+  title: string;
+  icon: string;
+  color?: string;
+};
+
+const DEFAULT_HABIT_COLOR = 'accent';
+
 export async function listHabits(): Promise<HabitRow[]> {
   const db = await getDb();
   return db.getAllAsync<HabitRow>('SELECT * FROM habits ORDER BY createdAt ASC');
 }
 
-export async function upsertHabit(input: Omit<HabitRow, 'id' | 'createdAt'> & { id?: string }) {
+export async function upsertHabit(input: UpsertHabitInput) {
   const title = input.title?.trim();
   if (!title) {
     throw new Error('TITLE_REQUIRED');
@@ -23,6 +32,7 @@ export async function upsertHabit(input: Omit<HabitRow, 'id' | 'createdAt'> & { 
   const db = await getDb();
   const id = input.id ?? randomUUID();
   const now = new Date().toISOString();
+  const color = input.color ?? DEFAULT_HABIT_COLOR;
   try {
     await db.runAsync(
       `INSERT INTO habits (id, title, icon, color, createdAt)
@@ -31,7 +41,7 @@ export async function upsertHabit(input: Omit<HabitRow, 'id' | 'createdAt'> & { 
       id,
       title,
       input.icon,
-      input.color,
+      color,
       now,
     );
     return id;

@@ -1,4 +1,4 @@
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useRouter, useLocalSearchParams, type Href } from 'expo-router';
 import { Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Button, Input, ScrollView, Text } from 'tamagui';
@@ -7,6 +7,9 @@ import { useHabitStore } from '@/src/stores/habitStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { IconPicker } from '@/src/features/habit/IconPicker';
 import { TutorialOverlay } from '@/src/features/tutorial/TutorialOverlay';
+
+const HABIT_TITLE_MAX_LENGTH = 20;
+const MAX_FREE_HABITS = 3;
 
 export default function EditScreen() {
   const router = useRouter();
@@ -36,12 +39,44 @@ export default function EditScreen() {
     }
   }, [isTutorial]);
 
+  const titleLength = name.length;
+  const isTitleTooLong = titleLength > HABIT_TITLE_MAX_LENGTH;
+
+  useEffect(() => {
+    if (titleLength === HABIT_TITLE_MAX_LENGTH + 1) {
+      Alert.alert(t('errorTitleTooLong'));
+    }
+  }, [titleLength, t]);
+
   const handleSave = async () => {
+    const trimmed = name.trim();
+
+    if (!trimmed) {
+      Alert.alert(t('errorTitleRequired'));
+      return;
+    }
+
+    if (trimmed.length > HABIT_TITLE_MAX_LENGTH) {
+      Alert.alert(t('errorTitleTooLong'));
+      return;
+    }
+
+    const isNewHabit = !isEdit;
+    if (isNewHabit && habits.length >= MAX_FREE_HABITS) {
+      Alert.alert(t('habitLimitTitle'), t('habitLimitBody'), [
+        { text: t('cancel'), style: 'cancel' },
+        {
+          text: t('openPro'),
+          onPress: () => router.push('/pro' as Href),
+        },
+      ]);
+      return;
+    }
+
     await saveHabit({
       id: target?.id,
-      title: name || t('editNewHabit'),
+      title: trimmed,
       icon: selectedIcon,
-      color: 'neonGreen',
     });
 
     if (isTutorial) {
@@ -94,13 +129,20 @@ export default function EditScreen() {
       </Text>
       <Input
         value={name}
-        onChangeText={(v) => setName(v.slice(0, 20))}
+        onChangeText={(v) => setName(v)}
         placeholder={t('editNamePlaceholder')}
         placeholderTextColor="#888888"
         backgroundColor="$surface"
         borderColor="$gray"
         color="$text"
       />
+      <Text
+        color={isTitleTooLong ? '$neonPink' : '$muted'}
+        fontSize={12}
+        marginTop={4}
+      >
+        {titleLength} / {HABIT_TITLE_MAX_LENGTH}
+      </Text>
 
       <Button backgroundColor="$neonGreen" color="#000" borderRadius="$4" onPress={handleSave}>
         {isEdit ? t('editSaveChanges') : t('editCreateHabit')}

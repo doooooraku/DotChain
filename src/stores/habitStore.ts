@@ -1,7 +1,13 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { HabitRow, deleteHabit, listHabits, upsertHabit } from '@/src/features/habit/habitTable';
+import {
+  HabitRow,
+  UpsertHabitInput,
+  deleteHabit,
+  listHabits,
+  upsertHabit,
+} from '@/src/features/habit/habitTable';
 import {
   deleteLogForDate,
   insertLog,
@@ -20,7 +26,7 @@ type HabitState = {
   error?: string;
   setError: (msg?: string) => void;
   loadAll: () => Promise<void>;
-  saveHabit: (input: Omit<HabitRow, 'id' | 'createdAt'> & { id?: string }) => Promise<string>;
+  saveHabit: (input: UpsertHabitInput) => Promise<string>;
   removeHabit: (id: string) => Promise<void>;
   toggleToday: (habitId: string) => Promise<void>;
 };
