@@ -14,6 +14,7 @@ type SettingsState = {
   heatmapDays: HeatmapDaysOption;
   electricFlow: boolean;
   hasRequestedReview: boolean;
+  isPro: boolean;
   reminderEnabled: boolean;
   reminderTime: string; // "HH:MM"
   setSound: (v: boolean) => void;
@@ -24,6 +25,7 @@ type SettingsState = {
   setHeatmapDays: (days: HeatmapDaysOption) => void;
   setElectricFlow: (v: boolean) => void;
   setHasRequestedReview: (v: boolean) => void;
+  setIsPro: (v: boolean) => void;
   setReminderEnabled: (v: boolean) => Promise<void>;
   setReminderTime: (time: string) => Promise<void>;
 };
@@ -39,6 +41,7 @@ export const useSettingsStore = create<SettingsState>()(
       heatmapDays: 60,
       electricFlow: true,
       hasRequestedReview: false,
+      isPro: false,
       reminderEnabled: false,
       reminderTime: '08:00',
       setSound: (v) => set({ sound: v }),
@@ -53,6 +56,7 @@ export const useSettingsStore = create<SettingsState>()(
       },
       setElectricFlow: (v) => set({ electricFlow: Boolean(v) }),
       setHasRequestedReview: (v) => set({ hasRequestedReview: Boolean(v) }),
+      setIsPro: (v) => set({ isPro: Boolean(v) }),
       setReminderEnabled: async (v) => {
         set({ reminderEnabled: Boolean(v) });
         if (v) {

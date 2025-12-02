@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } from 'tamagui';
@@ -17,6 +17,7 @@ import { useTranslation } from '@/src/core/i18n/i18n';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 
 type TutorialStep = 'none' | 'welcome' | 'pressFab' | 'pressHabit' | 'explainChain';
+type IconName = ComponentProps<typeof Ionicons>['name'];
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function HomeScreen() {
   const hapticsOn = useSettingsStore((s) => s.haptics);
   const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 60);
   const electricFlow = useSettingsStore((s) => s.electricFlow);
+  const isPro = useSettingsStore((s) => s.isPro ?? false);
   const { counts: heatmapCounts, maxLevel } = useHabitStore(selectHeatmapIntensity);
   const streak = useHabitStore(selectStreak);
   const allDoneDays = useHabitStore(selectAllDoneDays);
@@ -40,6 +42,9 @@ export default function HomeScreen() {
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
   const muted = theme.muted.val?.toString() ?? '#888888';
   const bg = theme.background.val?.toString() ?? '#000000';
+  const adHeight = 64;
+  const fabBottom = isPro ? 32 : 32 + adHeight;
+  const listPaddingBottom = isPro ? 140 : 140 + adHeight;
 
   const hasSeenOnboarding = useSettingsStore((s) => s.hasSeenOnboarding);
   const setHasSeenOnboarding = useSettingsStore((s) => s.setHasSeenOnboarding);
@@ -88,7 +93,7 @@ export default function HomeScreen() {
           label={habit.title}
           size={idx === 0 ? 'big' : 'medium'}
           active={Boolean(today[habit.id])}
-          iconName={habit.icon as any}
+          iconName={habit.icon as IconName}
           onPress={handlePressHabit}
           onLongPress={() => router.push(`/habit/edit?id=${habit.id}` as Href)}
         />
@@ -98,11 +103,8 @@ export default function HomeScreen() {
   return (
     <Stack flex={1} backgroundColor="$background">
       <YStack padding={16} paddingBottom={0}>
-        {/* ヘッダー */}
-        <XStack justifyContent="space-between" alignItems="center">
-          <Text color={muted} fontSize={12}>
-            11:00
-          </Text>
+        {/* ヘッダー（右側に Pro / Settings ボタンのみ） */}
+        <XStack justifyContent="flex-end" alignItems="center">
           <XStack gap="$3">
             <Button
               size="$4"
@@ -148,8 +150,8 @@ export default function HomeScreen() {
             <Text color={muted} letterSpacing={1}>
               {t('allDoneDays')}
             </Text>
-            <Text color={neon} fontSize={20} fontWeight="700">
-              🌕 {allDoneDays}
+            <Text color={neon} fontSize={28} fontWeight="800">
+              ✅ {allDoneDays}
             </Text>
           </YStack>
         </XStack>
@@ -181,11 +183,11 @@ export default function HomeScreen() {
       <ScrollView
         flex={1}
         backgroundColor="$background"
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: 140 }}>
+        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: listPaddingBottom }}>
         <YStack gap="$4">
           {loading && (
             <XStack gap="$2" alignItems="center">
-              <Spinner color="$neonGreen" />
+            <Spinner color="$neonGreen" />
               <Text color="$muted">{t('homeLoading')}</Text>
             </XStack>
           )}
@@ -207,7 +209,7 @@ export default function HomeScreen() {
       {/* FAB */}
       <Stack
         position="absolute"
-        bottom={32}
+        bottom={fabBottom}
         right={24}
         width={64}
         height={64}
@@ -256,6 +258,21 @@ export default function HomeScreen() {
             setTutorialStep('none');
           }}
         />
+      )}
+
+      {/* 広告エリア（Freeユーザーのみ表示） */}
+      {!isPro && (
+        <Stack
+          height={adHeight}
+          backgroundColor="$background"
+          alignItems="center"
+          justifyContent="center"
+          borderTopWidth={1}
+          borderColor="$gray">
+          <Text color="$muted" fontSize={12}>
+            Ad space
+          </Text>
+        </Stack>
       )}
     </Stack>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform } from 'react-native';
+import { Alert, Modal, Platform } from 'react-native';
 import { Href, useRouter } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -26,12 +26,40 @@ export default function SettingsScreen() {
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+  const isPro = useSettingsStore((s) => s.isPro ?? false);
 
   const heatmapOptions: HeatmapDaysOption[] = [30, 60, 180, 365];
-
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
+  const LANGUAGE_META: Record<Lang, { flag: string; labelKey: Parameters<typeof t>[0] }> = {
+    en: { flag: '🇺🇸', labelKey: 'languageNameEn' },
+    ja: { flag: '🇯🇵', labelKey: 'languageNameJa' },
+    fr: { flag: '🇫🇷', labelKey: 'languageNameFr' },
+    es: { flag: '🇪🇸', labelKey: 'languageNameEs' },
+    de: { flag: '🇩🇪', labelKey: 'languageNameDe' },
+    it: { flag: '🇮🇹', labelKey: 'languageNameIt' },
+    pt: { flag: '🇵🇹', labelKey: 'languageNamePt' },
+    ru: { flag: '🇷🇺', labelKey: 'languageNameRu' },
+    zh: { flag: '🇨🇳', labelKey: 'languageNameZh' },
+    ko: { flag: '🇰🇷', labelKey: 'languageNameKo' },
+    hi: { flag: '🇮🇳', labelKey: 'languageNameHi' },
+    id: { flag: '🇮🇩', labelKey: 'languageNameId' },
+    th: { flag: '🇹🇭', labelKey: 'languageNameTh' },
+    vi: { flag: '🇻🇳', labelKey: 'languageNameVi' },
+    ms: { flag: '🇲🇾', labelKey: 'languageNameMs' },
+    tr: { flag: '🇹🇷', labelKey: 'languageNameTr' },
+    nl: { flag: '🇳🇱', labelKey: 'languageNameNl' },
+    sv: { flag: '🇸🇪', labelKey: 'languageNameSv' },
+  };
   const router = useRouter();
   const [showTimePicker, setShowTimePicker] = React.useState(false);
+  const [languageSheetVisible, setLanguageSheetVisible] = React.useState(false);
+
+  const HEATMAP_LABEL_KEY: Record<HeatmapDaysOption, Parameters<typeof t>[0]> = {
+    30: 'heatmapRange30',
+    60: 'heatmapRange60',
+    180: 'heatmapRange180',
+    365: 'heatmapRange365',
+  };
 
   const timeStringToDate = (timeStr: string) => {
     const [hStr = '8', mStr = '0'] = timeStr.split(':');
@@ -65,31 +93,79 @@ export default function SettingsScreen() {
       </Text>
 
       <Section title={t('language')}>
-        <Text color="$muted">{t('language')} : {lang.toUpperCase()}</Text>
-        <XStack flexWrap="wrap" gap="$2" marginTop="$2">
-          {languageOptions.map((code) => (
-            <Button
-              key={code}
-              size="$2"
-              paddingHorizontal="$3"
-              backgroundColor={lang === code ? neon : '$surface'}
-              borderColor="$gray"
-              borderWidth={1}
-              color={lang === code ? '#000' : '$text'}
-              onPress={() => setLangStore(code)}>
-              {code.toUpperCase()}
-            </Button>
-          ))}
-        </XStack>
+        <Row>
+          <Text color="$text" fontSize={15}>
+            {LANGUAGE_META[lang].flag} {t(LANGUAGE_META[lang].labelKey)} ({lang.toUpperCase()})
+          </Text>
+          <Button
+            size="$3"
+            borderRadius={999}
+            backgroundColor="$surface"
+            borderWidth={1}
+            borderColor="$gray"
+            onPress={() => setLanguageSheetVisible(true)}>
+            <Text color="$text">{t('languageChange')}</Text>
+          </Button>
+        </Row>
+
+        <Modal
+          visible={languageSheetVisible}
+          animationType="slide"
+          transparent
+          onRequestClose={() => setLanguageSheetVisible(false)}>
+          <YStack flex={1} justifyContent="flex-end" backgroundColor="rgba(0,0,0,0.5)">
+            <YStack
+              backgroundColor="$background"
+              padding="$4"
+              borderTopLeftRadius="$6"
+              borderTopRightRadius="$6"
+              gap="$2">
+              {languageOptions.map((code) => {
+                const meta = LANGUAGE_META[code];
+                const isActive = lang === code;
+                return (
+                  <Button
+                    key={code}
+                    justifyContent="space-between"
+                    backgroundColor={isActive ? '$surface' : '$background'}
+                    borderColor={isActive ? '$neonGreen' : '$gray'}
+                    borderWidth={1}
+                    onPress={() => {
+                      setLangStore(code);
+                      setLanguageSheetVisible(false);
+                    }}>
+                    <XStack alignItems="center" justifyContent="space-between" flex={1} gap="$2">
+                      <Text color="$text">
+                        {meta.flag} {t(meta.labelKey)} ({code.toUpperCase()})
+                      </Text>
+                      {isActive && (
+                        <Text color="$neonGreen" fontSize={12}>
+                          {t('currentLanguage')}
+                        </Text>
+                      )}
+                    </XStack>
+                  </Button>
+                );
+              })}
+
+              <Button onPress={() => setLanguageSheetVisible(false)}>
+                <Text color="$text">{t('cancel')}</Text>
+              </Button>
+            </YStack>
+          </YStack>
+        </Modal>
       </Section>
 
       <Section title={t('sound')}>
         <Row>
           <Text color="$text" fontSize={15}>
-            {t('tapSound')}
+            {t('soundSwitchLabel')}
           </Text>
           <Switch checked={sound} onCheckedChange={(v) => setSound(Boolean(v))} />
         </Row>
+        <XStack gap="$3" alignItems="center">
+          <Text color="$text">{t('tapSoundLabel')}</Text>
+        </XStack>
         <XStack gap="$3" alignItems="center">
           <Text color="$text">{t('click')}</Text>
           <Switch
@@ -124,13 +200,31 @@ export default function SettingsScreen() {
             label={t('themeNeonPinkLabel')}
             color="#FF65D8"
             active={themeName === 'neonPink'}
-            onPress={() => setTheme('neonPink')}
+            onPress={() => {
+              if (!isPro) {
+                Alert.alert(t('proOnlyTitle'), t('proOnlyTheme'), [
+                  { text: t('cancel'), style: 'cancel' },
+                  { text: t('openPro'), onPress: () => router.push('/pro' as Href) },
+                ]);
+                return;
+              }
+              setTheme('neonPink');
+            }}
           />
           <ThemeDot
             label={t('themeCyberBlueLabel')}
             color="#00C8FF"
             active={themeName === 'cyberBlue'}
-            onPress={() => setTheme('cyberBlue')}
+            onPress={() => {
+              if (!isPro) {
+                Alert.alert(t('proOnlyTitle'), t('proOnlyTheme'), [
+                  { text: t('cancel'), style: 'cancel' },
+                  { text: t('openPro'), onPress: () => router.push('/pro' as Href) },
+                ]);
+                return;
+              }
+              setTheme('cyberBlue');
+            }}
           />
         </XStack>
         <Text color="$muted" fontSize={12} marginTop="$2">
@@ -195,14 +289,7 @@ export default function SettingsScreen() {
         <XStack flexWrap="wrap" gap="$2" marginTop="$1">
           {heatmapOptions.map((days) => {
             const active = heatmapDays === days;
-            const labelKey =
-              days === 30
-                ? 'heatmapRange30'
-                : days === 60
-                ? 'heatmapRange60'
-                : days === 180
-                ? 'heatmapRange180'
-                : 'heatmapRange365';
+            const labelKey = HEATMAP_LABEL_KEY[days];
 
             return (
               <Button
@@ -261,10 +348,6 @@ export default function SettingsScreen() {
           {t('paywallNote')}
         </Text>
       </Section>
-
-      <Text color="$muted" textAlign="center" marginVertical="$2">
-        {t('version')} v1.0.0
-      </Text>
     </ScrollView>
   );
 }
