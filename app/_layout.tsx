@@ -13,7 +13,8 @@ import { getLocalDateKey } from '@/src/core/dateKey';
 
 /**
  * ルートレイアウト
- * - 画面一覧: Home(index) / settings/index / habit/edit / pro/index / onboarding
+ * - 画面一覧: Home(index) / settings/index / habit/edit / pro/index
+ *   ※ v1.0 の初回体験は Home + TutorialOverlay で提供し、専用 Onboarding 画面は使用しない
  * - Settings, Edit, Pro はモーダル表示
  */
 export default function RootLayout() {
@@ -56,10 +57,6 @@ export default function RootLayout() {
           <Stack.Screen
             name="pro/index"
             options={{ presentation: 'modal', headerShown: true, headerTitle: t('proHeaderTitle') }}
-          />
-          <Stack.Screen
-            name="onboarding"
-            options={{ presentation: 'transparentModal', headerShown: false }}
           />
         </Stack>
         <StatusBar style="light" />

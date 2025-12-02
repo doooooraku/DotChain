@@ -169,6 +169,8 @@ const baseEn = {
   tapSoundLabel: 'Tap sound style',
 };
 
+export type TranslationKey = keyof typeof baseEn;
+
 // 正式訳（19言語）
 const dictionaries = {
   en: baseEn,

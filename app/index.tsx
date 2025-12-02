@@ -238,15 +238,17 @@ export default function HomeScreen() {
           message={t('tutorialWelcomeBody')}
           buttonLabel={t('tutorialNext')}
           onNext={() => setTutorialStep('pressFab')}
+          backgroundTapEnabled
+          verticalAlign="center"
         />
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressFab' && (
-        <TutorialOverlay message={t('tutorialPressFabBody')} />
+        <TutorialOverlay message={t('tutorialPressFabBody')} verticalAlign="top" />
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressHabit' && habits.length > 0 && (
-        <TutorialOverlay message={t('tutorialPressHabitBody')} />
+        <TutorialOverlay message={t('tutorialPressHabitBody')} verticalAlign="top" />
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'explainChain' && (
@@ -257,6 +259,8 @@ export default function HomeScreen() {
             setHasSeenOnboarding(true);
             setTutorialStep('none');
           }}
+          backgroundTapEnabled
+          verticalAlign="bottom"
         />
       )}
 

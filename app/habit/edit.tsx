@@ -160,6 +160,8 @@ export default function EditScreen() {
           message={t('tutorialEditIconBody')}
           buttonLabel={t('tutorialNext')}
           onNext={() => setEditStep('name')}
+          backgroundTapEnabled
+          verticalAlign="bottom"
         />
       )}
 
@@ -168,6 +170,8 @@ export default function EditScreen() {
           message={t('tutorialEditNameBody')}
           buttonLabel={t('tutorialNext')}
           onNext={() => setEditStep('submit')}
+          backgroundTapEnabled
+          verticalAlign="center"
         />
       )}
 
@@ -176,6 +180,8 @@ export default function EditScreen() {
           message={t('tutorialEditSubmitBody')}
           buttonLabel={t('tutorialGotIt')}
           onNext={() => setEditStep('none')}
+          backgroundTapEnabled
+          verticalAlign="top"
         />
       )}
     </ScrollView>

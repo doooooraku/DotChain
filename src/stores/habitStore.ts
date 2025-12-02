@@ -142,22 +142,39 @@ export const selectHeatmapIntensity = (state: HabitState) => {
   return { counts, maxLevel };
 };
 
-// 「1日に1つでも習慣を達成した日」の連続日数（最大365日遡る）
+// 「1日に1つでも習慣を達成した日」の“現在の連続日数”
+// - 今日から過去に向かって1日ずつさかのぼり、どこかで達成ゼロの日が出た時点で終了
+// - ログに現れる最も古い日付より前にはさかのぼらない（= アプリ利用開始以降をカバー）
 export const selectStreak = (state: HabitState) => {
   const { habits, logs } = state;
   if (habits.length === 0) return 0;
 
   const hasAnyDoneOn = (dateKey: string) => habits.some((h) => logs[h.id]?.includes(dateKey));
 
+  // ログに出現する全ての日付から、最も古い日付キーを求める
+  const allDatesSet = new Set<string>();
+  Object.values(logs).forEach((dates) => {
+    dates.forEach((d) => allDatesSet.add(d));
+  });
+  if (allDatesSet.size === 0) return 0;
+
+  const allDates = Array.from(allDatesSet).sort(); // YYYY-MM-DD なので文字列ソートで昇順になる
+  const earliestDateKey = allDates[0];
+
   const today = new Date();
   let streak = 0;
 
-  for (let offset = 0; offset < 365; offset++) {
+  for (let offset = 0; ; offset++) {
     const d = new Date(today);
     d.setDate(today.getDate() - offset);
     const key = getLocalDateKey(d);
 
+    // これ以上さかのぼってもログが存在しないので終了
+    if (key < earliestDateKey) break;
+
+    // 1日でも達成ゼロの日が出たら連続終了
     if (!hasAnyDoneOn(key)) break;
+
     streak += 1;
   }
 

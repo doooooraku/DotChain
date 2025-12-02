@@ -4,7 +4,7 @@ import { Href, useRouter } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
-import { t, useTranslation, type Lang } from '@/src/core/i18n/i18n';
+import { t, useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
 
 export default function SettingsScreen() {
   const sound = useSettingsStore((s) => s.sound);
@@ -30,7 +30,7 @@ export default function SettingsScreen() {
 
   const heatmapOptions: HeatmapDaysOption[] = [30, 60, 180, 365];
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
-  const LANGUAGE_META: Record<Lang, { flag: string; labelKey: Parameters<typeof t>[0] }> = {
+  const LANGUAGE_META: Record<Lang, { flag: string; labelKey: TranslationKey }> = {
     en: { flag: '🇺🇸', labelKey: 'languageNameEn' },
     ja: { flag: '🇯🇵', labelKey: 'languageNameJa' },
     fr: { flag: '🇫🇷', labelKey: 'languageNameFr' },
@@ -54,7 +54,7 @@ export default function SettingsScreen() {
   const [showTimePicker, setShowTimePicker] = React.useState(false);
   const [languageSheetVisible, setLanguageSheetVisible] = React.useState(false);
 
-  const HEATMAP_LABEL_KEY: Record<HeatmapDaysOption, Parameters<typeof t>[0]> = {
+  const HEATMAP_LABEL_KEY: Record<HeatmapDaysOption, TranslationKey> = {
     30: 'heatmapRange30',
     60: 'heatmapRange60',
     180: 'heatmapRange180',
