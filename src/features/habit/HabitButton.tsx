@@ -7,6 +7,11 @@ import { t } from '@/src/core/i18n/i18n';
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
 type Props = {
+  /**
+   * 表示用の習慣名。
+   * - 画面側で i18n 済みのラベル、またはユーザー入力の文字列を渡す。
+   * - 本コンポーネント内では固定文言のみ i18n 管理し、label は翻訳しない。
+   */
   label: string;
   size: 'big' | 'medium';
   active: boolean;
@@ -25,17 +30,39 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
   const pressScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
+    // active のときだけグローアニメーションを回す。未達成なら停止して最小値に固定。
+    if (!active) {
+      glow.stopAnimation();
+      glow.setValue(0);
+      return;
+    }
+
     const animation = Animated.loop(
       Animated.sequence([
-        Animated.timing(glow, { toValue: 1, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: false }),
-        Animated.timing(glow, { toValue: 0, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: false }),
+        Animated.timing(glow, {
+          toValue: 1,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: false, // shadowOpacity を動かすため
+        }),
+        Animated.timing(glow, {
+          toValue: 0,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: false,
+        }),
       ]),
     );
+
     animation.start();
-    return () => animation.stop();
-  }, [glow]);
+    return () => {
+      animation.stop();
+    };
+  }, [glow, active]);
 
   const shadowOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: active ? [0.4, 0.7] : [0.1, 0.2] });
+  // NOTE: interpolate は 0〜1 の数値を返す想定。型上はアニメーション値なので unknown 経由で number として扱う。
+  const shadowOpacityValue = shadowOpacity as unknown as number;
 
   const handlePressIn = () => {
     Animated.spring(pressScale, {
@@ -86,7 +113,7 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
             alignItems: 'center',
             justifyContent: 'center',
             shadowColor: neon,
-            shadowOpacity: shadowOpacity as any,
+            shadowOpacity: shadowOpacityValue,
             shadowRadius: 18,
             shadowOffset: { width: 0, height: 6 },
             elevation: active ? 10 : 2,
