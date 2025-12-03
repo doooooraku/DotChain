@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { Button, Stack, Text, XStack, YStack, useTheme } from 'tamagui';
 
 import { t } from '@/src/core/i18n/i18n';
@@ -8,15 +8,37 @@ export type IconPickerProps = {
   onChange: (value: string) => void;
 };
 
+// 使ってよいアイコンIDの一覧（既存IDは変更しない）
+type IconId =
+  | 'flame'
+  | 'checkbox'
+  | 'sparkles'
+  | 'water'
+  | 'walk'
+  | 'moon'
+  | 'fitness'
+  | 'book'
+  | 'brush'
+  | 'tv'
+  | 'clean'
+  | 'laundry'
+  | 'pc'
+  | 'study'
+  | 'language';
+
+// カテゴリIDとタイトルキーを型で縛る
+type IconCategoryId = 'basic' | 'health' | 'learning';
+type IconCategoryTitleKey = 'iconCatBasic' | 'iconCatHealth' | 'iconCatLearning';
+
 type IconOption = {
-  id: string; // DB に保存する値（既存の Ionicons 名を流用）
+  id: IconId; // DB に保存する値（習慣.icon）
   emoji: string;
-  label: string;
+  label: string; // アクセシビリティ用（英語固定）
 };
 
 type IconCategory = {
-  id: string;
-  titleKey: string; // i18n キー
+  id: IconCategoryId;
+  titleKey: IconCategoryTitleKey; // i18n キー
   icons: IconOption[];
 };
 
@@ -29,6 +51,8 @@ const ICON_CATEGORIES: IconCategory[] = [
       { id: 'flame', emoji: '🔥', label: 'Streak' },
       { id: 'checkbox', emoji: '☑️', label: 'Task' },
       { id: 'sparkles', emoji: '✨', label: 'Shine' },
+      { id: 'clean', emoji: '🧹', label: 'Cleaning' },
+      { id: 'laundry', emoji: '🧺', label: 'Laundry' },
     ],
   },
   {
@@ -48,17 +72,37 @@ const ICON_CATEGORIES: IconCategory[] = [
       { id: 'book', emoji: '📚', label: 'Read' },
       { id: 'brush', emoji: '🖌️', label: 'Art' },
       { id: 'tv', emoji: '📺', label: 'Media' },
+      { id: 'pc', emoji: '💻', label: 'PC work' },
+      { id: 'study', emoji: '✏️', label: 'Study' },
+      { id: 'language', emoji: '🌐', label: 'Language' },
     ],
   },
 ];
+
+// iconId から所属カテゴリを検索
+function findCategoryIdByIconId(iconId: string | null | undefined): IconCategoryId | null {
+  if (!iconId) return null;
+  const category = ICON_CATEGORIES.find((cat) => cat.icons.some((opt) => opt.id === iconId));
+  return category?.id ?? null;
+}
 
 export const IconPicker = memo(function IconPicker({ value, onChange }: IconPickerProps) {
   const theme = useTheme();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
 
-  const [activeCategoryId, setActiveCategoryId] = useState<string>(
-    ICON_CATEGORIES[0]?.id ?? 'basic',
-  );
+  // 初期カテゴリは現在の value に合わせる（なければ basic）
+  const [activeCategoryId, setActiveCategoryId] = useState<IconCategoryId>(() => {
+    const fromValue = findCategoryIdByIconId(value);
+    return fromValue ?? (ICON_CATEGORIES[0]?.id ?? 'basic');
+  });
+
+  // value が変わったらカテゴリも追従
+  useEffect(() => {
+    const catId = findCategoryIdByIconId(value);
+    if (catId && catId !== activeCategoryId) {
+      setActiveCategoryId(catId);
+    }
+  }, [value, activeCategoryId]);
 
   const activeCategory = useMemo(
     () => ICON_CATEGORIES.find((cat) => cat.id === activeCategoryId) ?? ICON_CATEGORIES[0],
@@ -95,7 +139,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
 
         <XStack flexWrap="wrap" gap="$3">
           {activeCategory.icons.map((opt) => {
-            const active = value ? value === opt.id : opt.id === 'checkbox';
+            const active = value === opt.id;
             return (
               <Stack
                 key={opt.id}

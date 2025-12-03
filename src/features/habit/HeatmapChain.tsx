@@ -63,7 +63,7 @@ export const HeatmapChain = memo(function HeatmapChain({
         toValue: 1,
         duration: 2400,
         easing: Easing.linear,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
     );
     animation.start();

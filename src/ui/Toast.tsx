@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ToastAndroid, Platform } from 'react-native';
 import { AnimatePresence, Stack, Text, YStack } from 'tamagui';
 import { playError, playSuccess } from '@/src/core/sensory/SoundManager';
@@ -10,14 +10,24 @@ type ToastState = {
 };
 
 export function Toast({ visible, message, kind }: ToastState) {
+  const prevVisible = useRef(false);
+
   useEffect(() => {
-    if (visible && Platform.OS === 'android') {
-      ToastAndroid.show(message, ToastAndroid.SHORT);
+    const justBecameVisible = !prevVisible.current && visible;
+
+    if (justBecameVisible) {
+      if (Platform.OS === 'android') {
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+      }
+
+      if (kind === 'error') {
+        void playError();
+      } else {
+        void playSuccess();
+      }
     }
-    if (visible) {
-      if (kind === 'error') playError();
-      else playSuccess();
-    }
+
+    prevVisible.current = visible;
   }, [visible, message, kind]);
 
   if (!visible || Platform.OS === 'android') return null;

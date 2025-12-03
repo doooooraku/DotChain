@@ -162,6 +162,11 @@ export default function HomeScreen() {
           <Text color={muted} letterSpacing={1}>
             {t('yourChain')}
           </Text>
+          <Text color={muted} fontSize={12}>
+            {t('heatmapSummaryPrefix')}
+            {heatmapDays}
+            {t('heatmapSummarySuffix')}
+          </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -176,6 +181,17 @@ export default function HomeScreen() {
               flowEnabled={electricFlow}
             />
          </ScrollView>
+          <XStack justifyContent="space-between">
+            <Text color={muted} fontSize={10}>
+              {'◀ '}
+              {heatmapDays}
+              {t('heatmapAgoSuffix')}
+            </Text>
+            <Text color={muted} fontSize={10}>
+              {t('heatmapToday')}
+              {' ▶'}
+            </Text>
+          </XStack>
         </YStack>
       </YStack>
 

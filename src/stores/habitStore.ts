@@ -14,7 +14,7 @@ import {
   listLogsByHabit,
   todayDone as dbTodayDone,
 } from '@/src/features/habit/logTable';
-import { playError, playSuccess } from '@/src/core/sensory/SoundManager';
+import { playSuccess } from '@/src/core/sensory/SoundManager';
 import { t } from '@/src/core/i18n/i18n';
 import { getLocalDateKey } from '@/src/core/dateKey';
 
@@ -91,7 +91,6 @@ export const useHabitStore = create<HabitState>()(
           playSuccess();
         } catch (_err) {
           set({ error: t('errorDeleteFailed') });
-          playError();
           throw _err;
         }
       },
@@ -117,7 +116,6 @@ export const useHabitStore = create<HabitState>()(
           }));
         } catch (_err) {
           set({ error: t('errorToggleFailed') });
-          playError();
           throw _err;
         }
       },

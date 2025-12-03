@@ -6,7 +6,7 @@ import { selectStreak, useHabitStore } from '@/src/stores/habitStore';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 import { t } from '@/src/core/i18n/i18n';
 import { triggerImpact } from '@/src/core/sensory/HapticManager';
-import { playClick, playError, playSuccess } from '@/src/core/sensory/SoundManager';
+import { playClick, playSuccess } from '@/src/core/sensory/SoundManager';
 
 /**
  * レビュー依頼判定用コンテキスト
@@ -97,7 +97,6 @@ export function useHabitRecord() {
           }
         }
       } catch (err) {
-        void playError();
         throw err;
       }
     },
