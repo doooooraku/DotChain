@@ -25,7 +25,6 @@ export default function SettingsScreen() {
   const setReminderTime = useSettingsStore((s) => s.setReminderTime);
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
   const isPro = useSettingsStore((s) => s.isPro ?? false);
 
   const heatmapOptions: HeatmapDaysOption[] = [30, 60, 180, 365];

@@ -62,7 +62,6 @@ export const useHabitStore = create<HabitState>()(
           );
           set({ habits, today, logs: Object.fromEntries(logsEntries), loading: false, error: undefined });
         } catch {
-          playError();
           set({ loading: false, error: t('errorLoadFailed') });
         }
       },
@@ -79,7 +78,6 @@ export const useHabitStore = create<HabitState>()(
               ? t('errorTitleRequired')
               : t('errorSaveFailed');
           set({ error: msg });
-          playError();
           throw err;
         }
       },
