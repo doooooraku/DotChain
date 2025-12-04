@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { AppState } from 'react-native';
+import { AppState, View } from 'react-native';
 import config from '../tamagui.config';
 import RootLayout from '../app/_layout';
 
@@ -47,8 +47,6 @@ jest.mock('@/src/core/dateKey', () => ({
 
 // TamaguiProvider / Theme のモック
 jest.mock('tamagui', () => {
-  const React = require('react');
-  const { View } = require('react-native');
   return {
     TamaguiProvider: ({ children, ...props }: any) => (
       <View testID="tamagui-provider-mock" {...props}>
@@ -65,9 +63,6 @@ jest.mock('tamagui', () => {
 
 // expo-router の Stack のモック
 jest.mock('expo-router', () => {
-  const React = require('react');
-  const { View } = require('react-native');
-
   const StackComponent = ({ children, screenOptions, ...rest }: any) => (
     <View testID="stack-mock" screenOptions={screenOptions} {...rest}>
       {children}
@@ -87,8 +82,6 @@ jest.mock('expo-router', () => {
 
 // expo-status-bar のモック
 jest.mock('expo-status-bar', () => {
-  const React = require('react');
-  const { View } = require('react-native');
   return {
     StatusBar: (props: any) => <View testID="status-bar-mock" {...props} />,
   };
@@ -96,8 +89,6 @@ jest.mock('expo-status-bar', () => {
 
 // ToastHost のモック
 jest.mock('../app/ToastHost', () => {
-  const React = require('react');
-  const { View } = require('react-native');
   return {
     ToastHost: () => <View testID="toast-host-mock" />,
   };

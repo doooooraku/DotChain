@@ -1,0 +1,184 @@
+import baseEn from './en';
+
+const dict = {
+    ...baseEn,
+    daysStreak: 'จำนวนวันต่อเนื่อง',
+    yourChain: 'เชนของคุณ',
+    allDoneDays: 'จำนวนวันที่ทำครบทั้งหมด',
+    settings: 'การตั้งค่า',
+    hapticOff: 'ปิดการสั่น',
+    language: 'ภาษา',
+    sound: 'เสียง',
+    haptics: 'การสั่น',
+    theme: 'ธีม',
+    restore: 'กู้คืนการซื้อ',
+    version: 'เวอร์ชันแอป',
+    tapSound: 'เสียงแตะ',
+    click: 'คลิก',
+    pop: 'ป็อป',
+    flowEffectTitle: 'แอนิเมชันกระแสไฟ',
+    flowEffectHelp:
+      'ให้กระแสไฟนีออนไหลไปตามเชนของคุณ หากต้องการหน้าจอที่นิ่งกว่านี้ให้ปิดฟีเจอร์นี้ได้',
+    heatmapRangeTitle: 'ช่วงวันที่แสดงเชน',
+    heatmapRangeHelp: 'เลือกจำนวนวันที่จะแสดงเชนในฮีตแมปหน้าหลัก',
+    heatmapRange30: '1 เดือน',
+    heatmapRange60: '2 เดือน',
+    heatmapRange180: '6 เดือน',
+    heatmapRange365: '1 ปี',
+    heatmapSummaryPrefix: 'ย้อนหลัง ',
+    heatmapSummarySuffix: ' วัน',
+    heatmapAgoSuffix: ' วันที่แล้ว',
+    heatmapToday: 'วันนี้',
+    freeThemeNote: 'ฟรี: ธีมมืดเท่านั้น / Pro ปลดล็อก Neon Pink และ Cyber Blue',
+    proThemeNote: 'ธีม Pro จะใช้ได้หลังจากเปิดระบบ Pro แล้ว',
+    restoreDesc: 'กู้คืน (เร็ว ๆ นี้)',
+    licenses: 'สัญญาอนุญาต OSS (เร็ว ๆ นี้)',
+    openPro: 'เปิด DotChain Pro',
+    heroPaywall: 'อัปเกรดสู่โลกนีออน',
+    priceMonthly: '$1.99 / เดือน',
+    onboardingTitle: 'ยินดีต้อนรับสู่ DotChain',
+    onboardingBody: 'แตะครั้งเดียว สั่นแรง มาสร้างเชนของวันนี้กัน',
+    start: 'เริ่ม',
+    paywallNote: 'การชำระเงินและโฆษณาจะถูกเพิ่มภายหลัง',
+    homeLoading: 'กำลังโหลด...',
+    homeAddHabitLabel: 'เพิ่มนิสัย',
+    editNewHabit: 'นิสัยใหม่',
+    editHabitTitle: 'แก้ไขนิสัย',
+    editIconLabel: 'ไอคอน',
+    editNameLabel: 'ชื่อ (สูงสุด 20 ตัวอักษร)',
+    editNamePlaceholder: 'ตั้งชื่อนิสัยของคุณ...',
+    editSaveChanges: 'บันทึกการเปลี่ยนแปลง',
+    editCreateHabit: 'สร้างนิสัย',
+    editDeleteHabit: 'ลบนิสัย',
+    proTitle: 'ปลดล็อกเชนของคุณ',
+    proHeaderTitle: 'DotChain Pro',
+    proFeatureUnlimited: 'นิสัยไม่จำกัด',
+    proFeatureThemes: 'ปลดล็อกทุกธีม (Neon Pink / Cyber Blue)',
+    proFeatureAds: 'ไม่มีโฆษณา',
+    habitButtonSuffix: ' ปุ่มนิสัย',
+    iconCatBasic: 'พื้นฐาน',
+    iconCatHealth: 'สุขภาพ',
+    iconCatLearning: 'การเรียนรู้และงาน',
+    errorLoadFailed: 'โหลดข้อมูลล้มเหลว',
+    errorTitleRequired: 'ต้องใส่ชื่อเรื่อง',
+    errorTitleTooLong: 'ชื่อเรื่องต้องไม่เกิน 20 อักขระ',
+    errorSaveFailed: 'บันทึกล้มเหลว',
+    errorDeleteFailed: 'ลบล้มเหลว',
+    errorToggleFailed: 'อัปเดตไม่สำเร็จ',
+    habitLimitTitle: 'ขีดจำกัดแพ็กเกจฟรี',
+    habitLimitBody: 'แพ็กเกจฟรีสร้างนิสัยได้สูงสุด 3 รายการ',
+    hapticsDescription: 'การตอบสนองแบบสั่น',
+    reminderSectionTitle: 'การแจ้งเตือนนิสัย',
+    reminderToggleLabel: 'ใช้การเตือนความจำ',
+    reminderTimeLabel: 'เวลาการแจ้งเตือน',
+    reminderNotificationBody: 'ถึงเวลาสร้างเชนของคุณแล้ว',
+    streak7Title: 'ต่อเนื่อง 7 วัน!',
+    streak7Message: 'คุณรักษาเชนต่อเนื่องได้ครบหนึ่งสัปดาห์ เยี่ยมมาก!',
+    ok: 'ตกลง',
+    languageChange: 'เปลี่ยนภาษา',
+    currentLanguage: 'ปัจจุบัน',
+    languageNameEn: 'อังกฤษ',
+    languageNameJa: 'ญี่ปุ่น',
+    languageNameFr: 'ฝรั่งเศส',
+    languageNameEs: 'สเปน',
+    languageNameDe: 'เยอรมัน',
+    languageNameIt: 'อิตาลี',
+    languageNamePt: 'โปรตุเกส',
+    languageNameRu: 'รัสเซีย',
+    languageNameZh: 'จีน',
+    languageNameKo: 'เกาหลี',
+    languageNameHi: 'ฮินดี',
+    languageNameId: 'อินโดนีเซีย',
+    languageNameTh: 'ไทย',
+    languageNameVi: 'เวียดนาม',
+    languageNameMs: 'มาเลย์',
+    languageNameTr: 'ตุรกี',
+    languageNameNl: 'ดัตช์',
+    languageNameSv: 'สวีเดน',
+    soundSwitchLabel: 'เปิดเสียง',
+    tapSoundLabel: 'สไตล์เสียงแตะ',
+    proOnlyTitle: 'สำหรับ Pro เท่านั้น',
+    proOnlyTheme: 'ธีมนี้ใช้ได้เฉพาะใน Pro',
+
+    cancel: 'ยกเลิก',
+    delete: 'ลบ',
+    deleteConfirmBody: 'แน่ใจหรือไม่ว่าต้องการลบ? การกระทำนี้ไม่สามารถย้อนกลับได้.',
+    comingSoonTitle: 'เร็ว ๆ นี้',
+    onboardingPunch: 'นี่คือ DotChain.',
+
+    paywallBestValueBadge: 'คุ้มที่สุด',
+    paywallMonthlyLabel: 'แพ็กเกจรายเดือน',
+    paywallMonthlySub: 'ตัดบิลทุกเดือน ยกเลิกได้ทุกเมื่อ.',
+    paywallYearlyLabel: 'แพ็กเกจรายปี',
+    paywallYearlySub: 'ตัดบิลปีละครั้ง ยกเลิกได้ทุกเมื่อ.',
+
+    priceFree: '$0 / ตลอดไป',
+    priceYearly: '$14.99 / ปี',
+
+    proCompareHeaderFeature: 'ฟีเจอร์',
+    proCompareHeaderFree: 'ฟรี',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'คุณสามารถใช้แบบฟรีต่อไปได้เสมอ Pro แค่เอาข้อจำกัดออก.',
+    proCompareTitle: 'คุณจะได้อะไรจาก Pro',
+
+    proCtaMonthly: 'สมัคร Pro รายเดือน',
+    proCtaStayFree: 'ใช้แบบฟรีต่อไป',
+    proCtaYearly: 'สมัคร Pro รายปี',
+
+    proFeatureAdsFree: 'แบนเนอร์โฆษณาด้านล่าง',
+    proFeatureAdsPro: 'ไม่มีโฆษณา โฟกัสได้เต็มที่',
+    proFeatureHabits: 'จำนวนพฤติกรรมที่ติดตามได้',
+    proFeatureHabitsFree: 'นิสัยได้สูงสุด 3 รายการ',
+    proFeatureHabitsPro: 'นิสัยไม่จำกัด',
+    proFeatureThemesFree: '1 ธีม (ธีมมืด)',
+    proFeatureThemesPro: 'ปลดล็อกทุกธีม',
+
+    proFinePrint:
+      'การสมัครจะต่ออายุอัตโนมัติ คุณสามารถยกเลิกได้ตลอดเวลาในการตั้งค่าบัญชี App Store หรือ Google Play ของคุณ.',
+    proMonthlyTagline: 'เริ่มแบบเล็ก ๆ ยกเลิกเมื่อไหร่ก็ได้.',
+    proPlanFreeTitle: 'ฟรี',
+    proPlanMonthlyTitle: 'รายเดือน',
+    proPlanYearlyBadge: 'คุ้มที่สุด',
+    proPlanYearlyTitle: 'รายปี',
+    proSubtitle:
+      'ไปให้ไกลกว่า 3 นิสัย แล้วทำให้เชนของคุณหยุดไม่อยู่.',
+    proYearlySavingShort:
+      'ประหยัดประมาณ 37% (เหมือนได้ใช้ฟรี 8 เดือน).',
+    proYearlyTagline: 'สำหรับคนสร้างเชนตัวจริง.',
+
+    restoreSoon:
+      'ฟังก์ชันกู้คืนการซื้อจะถูกเพิ่มในอัปเดตถัดไป.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'ธีมมืด',
+    themeDesc:
+      'เลือกบรรยากาศที่คุณชอบ (ธีม Pro จะถูกเพิ่มในภายหลัง).',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody:
+      'ก่อนอื่น เลือกไอคอนที่เข้ากับนิสัยของคุณ.',
+    tutorialEditNameBody:
+      `ถัดไป ตั้งชื่อนิสัยของคุณ
+ตัวอย่างเช่น "ดื่มน้ำ", "อ่านหนังสือ".`,
+    tutorialEditSubmitBody:
+      `พร้อมแล้ว!
+แตะปุ่มสร้างด้านล่างเพื่อเพิ่มนิสัยนี้ไปยังหน้าหลักของคุณ.`,
+    tutorialExplainChainBody:
+      `เมื่อแตะแล้ว จำนวนวันต่อเนื่องของคุณจะเพิ่มขึ้น และวันนี้จะติดสว่างบนเชนของคุณ
+ทำต่อไปเพื่อยืดเชนให้ยาวขึ้น.`,
+    tutorialGotIt: 'เข้าใจแล้ว',
+    tutorialNext: 'ถัดไป',
+    tutorialPressFabBody:
+      'แตะปุ่ม + ด้านล่างขวาเพื่อสร้างนิสัยแรกของคุณ.',
+    tutorialPressHabitBody:
+      `ตอนนี้ให้แตะนิสัยที่คุณเพิ่งสร้าง
+การแตะจะนับว่าวันนี้ "ทำแล้ว".`,
+    tutorialStart: 'เริ่มเลย',
+    tutorialWelcomeBody:
+      `ยินดีต้อนรับ!
+DotChain ช่วยให้คุณสร้างเชนนิสัยของตัวเองได้
+เริ่มจากการสร้างนิสัยแรกของคุณด้วยปุ่ม +.`,
+};
+
+export default dict;
