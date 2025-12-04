@@ -2951,9 +2951,9 @@ Mula dengan mencipta tabiat pertama anda melalui butang +.',
   },
   sv: {
     ...baseEn,
-    daysStreak: 'DAGAR I RAD',
-    yourChain: 'DIN KEDJA',
-    allDoneDays: 'FULLT KLARA DAGAR',
+    daysStreak: 'Dagar i rad',
+    yourChain: 'Din kedja',
+    allDoneDays: 'Dagar då alla vanor är klara',
     settings: 'Inställningar',
     hapticOff: 'Vibration av',
     language: 'Språk',
@@ -2967,7 +2967,7 @@ Mula dengan mencipta tabiat pertama anda melalui butang +.',
     pop: 'Pop',
     flowEffectTitle: 'Elflödesanimation',
     flowEffectHelp:
-      'Låt ett neonströmflöde löpa längs kedjelinjen. Stäng av om du vill ha ett lugnare intryck.',
+      'Låt ett neonströmflöde löpa längs kedjan. Stäng av om du vill ha ett lugnare intryck.',
     heatmapRangeTitle: 'Visningsperiod för kedjan',
     heatmapRangeHelp:
       'Välj hur många dagar av kedjan som ska visas i heatmapen på startsidan.',
@@ -2980,16 +2980,16 @@ Mula dengan mencipta tabiat pertama anda melalui butang +.',
     heatmapAgoSuffix: ' dagar sedan',
     heatmapToday: 'Idag',
     freeThemeNote: 'Gratis: bara Dark / Pro låser upp Neon Pink & Cyber Blue',
-    proThemeNote: 'Pro-teman efter paywall.',
+    proThemeNote: 'Pro-teman låses upp senare.',
     restoreDesc: 'Återställ (snart)',
-    licenses: 'OSS-licenser (snart)',
+    licenses: 'Open-source-licenser (snart)',
     openPro: 'Öppna DotChain Pro',
     heroPaywall: 'Uppgradera till neonvärlden',
-    priceMonthly: '$2.99 / månad',
+    priceMonthly: '$1.99 / månad',
     onboardingTitle: 'Välkommen till DotChain',
     onboardingBody: 'Ett tryck, stark vibration. Bygg dagens kedja.',
     start: 'Starta',
-    paywallNote: 'Fakturering/annonser senare.',
+    paywallNote: 'Fakturering och annonser läggs till senare.',
     homeLoading: 'Laddar...',
     homeAddHabitLabel: 'Lägg till vana',
     editNewHabit: 'Ny vana',
@@ -3000,12 +3000,15 @@ Mula dengan mencipta tabiat pertama anda melalui butang +.',
     editSaveChanges: 'Spara ändringar',
     editCreateHabit: 'Skapa vana',
     editDeleteHabit: 'Ta bort vana',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Lås upp din kedja.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Obegränsade vanor',
     proFeatureThemes: 'Alla teman upplåsta (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Inga annonser',
+    proFeatureAds: 'Inga annonser',
     habitButtonSuffix: ' vaneknapp',
+    iconCatBasic: 'Bas',
+    iconCatHealth: 'Hälsa',
+    iconCatLearning: 'Lärande & Arbete',
     errorLoadFailed: 'Misslyckades att läsa in data',
     errorTitleRequired: 'Titel krävs.',
     errorTitleTooLong: 'Titeln får vara högst 20 tecken.',
@@ -3022,9 +3025,6 @@ Mula dengan mencipta tabiat pertama anda melalui butang +.',
     streak7Title: '7 dagars svit!',
     streak7Message: 'Du höll din kedja i en hel vecka. Grymt jobbat!',
     ok: 'OK',
-    iconCatBasic: 'Bas',
-    iconCatHealth: 'Hälsa',
-    iconCatLearning: 'Lärande & Arbete',
     languageChange: 'Ändra språk',
     currentLanguage: 'Aktuell',
     languageNameEn: 'Engelska',
@@ -3049,7 +3049,84 @@ Mula dengan mencipta tabiat pertama anda melalui butang +.',
     tapSoundLabel: 'Tryckljudsstil',
     proOnlyTitle: 'Endast för Pro',
     proOnlyTheme: 'Det här temat finns med Pro.',
+
+    cancel: 'Avbryt',
+    delete: 'Ta bort',
+    deleteConfirmBody: 'Är du säker? Det här går inte att ångra.',
+    comingSoonTitle: 'Kommer snart',
+    onboardingPunch: 'Det här är DotChain.',
+
+    paywallBestValueBadge: 'Bästa värdet',
+    paywallMonthlyLabel: 'Månadsabonnemang',
+    paywallMonthlySub: 'Faktureras varje månad. Kan sägas upp när som helst.',
+    paywallYearlyLabel: 'Årsabonnemang',
+    paywallYearlySub: 'Faktureras en gång per år. Kan sägas upp när som helst.',
+
+    priceFree: '$0 / för alltid',
+    priceYearly: '$14.99 / år',
+
+    proCompareHeaderFeature: 'Funktion',
+    proCompareHeaderFree: 'Gratis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Du kan alltid stanna på Gratis. Pro tar bara bort begränsningarna.',
+    proCompareTitle: 'Det här får du med Pro',
+
+    proCtaMonthly: 'Välj Pro månadsvis',
+    proCtaStayFree: 'Fortsätt med gratis',
+    proCtaYearly: 'Välj Pro årsvis',
+
+    proFeatureAdsFree: 'Annonsbanner längst ned',
+    proFeatureAdsPro: 'Inga annonser, full fokus',
+    proFeatureHabits: 'Vanor du kan följa upp',
+    proFeatureHabitsFree: 'Upp till 3 vanor',
+    proFeatureHabitsPro: 'Obegränsat antal vanor',
+    proFeatureThemesFree: '1 tema (Mörk)',
+    proFeatureThemesPro: 'Alla teman upplåsta',
+
+    proFinePrint:
+      'Abonnemanget förnyas automatiskt. Du kan säga upp när som helst via inställningarna för ditt App Store- eller Google Play-konto.',
+    proMonthlyTagline: 'Börja smått, avsluta när du vill.',
+    proPlanFreeTitle: 'Gratis',
+    proPlanMonthlyTitle: 'Månadsvis',
+    proPlanYearlyBadge: 'Bästa värdet',
+    proPlanYearlyTitle: 'Årsvis',
+    proSubtitle:
+      'Gå bortom 3 vanor och gör din kedja ostoppbar.',
+    proYearlySavingShort: 'Spara cirka 37 % (som 8 månader gratis).',
+    proYearlyTagline: 'För seriösa kedjebyggare.',
+
+    restoreSoon: 'Återställning av köp läggs till i en kommande uppdatering.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'Mörk',
+    themeDesc: 'Välj den känsla som passar dig. (Pro-teman läggs till senare.)',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody: 'Välj först en ikon som passar din vana.',
+    tutorialEditNameBody:
+      'Ge sedan din vana ett namn.
+Till exempel: "Dricka vatten", "Läsa en bok".',
+    tutorialEditSubmitBody:
+      'Klart!
+Tryck på skapa-knappen nedan för att lägga till den här vanan på startsidan.',
+    tutorialExplainChainBody:
+      'När du trycker ökar dina DAGAR I RAD och idag lyser upp i DIN KEDJA.
+Fortsätt för att förlänga kedjan.',
+    tutorialGotIt: 'Förstått',
+    tutorialNext: 'Nästa',
+    tutorialPressFabBody:
+      'Tryck på +-knappen nere till höger för att skapa din första vana.',
+    tutorialPressHabitBody:
+      'Tryck nu på vanan du just skapade.
+När du trycker räknas idag som "klar".',
+    tutorialStart: 'Starta',
+    tutorialWelcomeBody:
+      'Välkommen!
+Med DotChain bygger du din egen vanekedja.
+Börja med att skapa din första vana via +-knappen.',
   },
+,
 };
 
 export type Lang = keyof typeof dictionaries;
