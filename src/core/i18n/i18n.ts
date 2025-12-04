@@ -233,6 +233,8 @@ const dictionaries = {
     proFeatureThemesPro: 'ネオンなど全テーマ解放',
             proFeatureAdsFree: '画面下にバナー広告あり',
     proFeatureAdsPro: '広告なしで集中できる',
+    proHeaderTitle: 'DotChain Pro',
+    proFeatureUnlimited: '習慣数が無制限',
     proCtaYearly: '年額プランで Pro をはじめる',
     proCtaMonthly: '月額プランで Pro をためす',
     proCtaStayFree: '今は無料のまま使う',
@@ -364,16 +366,95 @@ const dictionaries = {
     heatmapAgoSuffix: ' jours auparavant',
     heatmapToday: "Aujourd'hui",
     freeThemeNote: 'Gratuit : Dark uniquement / Pro déverrouille Neon Pink et Cyber Blue',
-    proThemeNote: 'Les thèmes Pro seront activés après le paywall.',
+    proThemeNote: 'Les thèmes Pro seront déverrouillés plus tard.',
     restoreDesc: 'Restaurer les achats (plus tard)',
     licenses: 'Licences open source (plus tard)',
     openPro: 'Ouvrir DotChain Pro',
     heroPaywall: 'Passe en mode néon',
-    priceMonthly: '2,99 $ / mois',
+    priceMonthly: '$1.99 / mois',
+    priceFree: '$0 / pour toujours',
+    priceYearly: '$14.99 / an',
+
     onboardingTitle: 'Bienvenue sur DotChain',
     onboardingBody: 'Un tap, grosse vibration. Construisons la chaîne du jour.',
+    onboardingPunch: 'Ceci est DotChain.',
     start: 'Commencer',
-    paywallNote: 'Facturation/annonces ajoutées plus tard.',
+    paywallNote: 'La facturation et les annonces seront ajoutées plus tard.',
+
+    // Paywall / Pro
+    paywallMonthlyLabel: 'Abonnement mensuel',
+    paywallMonthlySub: 'Facturé chaque mois. Résiliable à tout moment.',
+    paywallYearlyLabel: 'Abonnement annuel',
+    paywallYearlySub: 'Facturé une fois par an. Résiliable à tout moment.',
+    paywallBestValueBadge: 'Meilleur rapport qualité-prix',
+    comingSoonTitle: 'Bientôt disponible',
+
+    proSubtitle: 'Dépasse 3 habitudes et rends ta chaîne inarrêtable.',
+    proPlanFreeTitle: 'Gratuit',
+    proPlanMonthlyTitle: 'Mensuel',
+    proPlanYearlyTitle: 'Annuel',
+    proPlanYearlyBadge: 'Meilleur choix',
+    proMonthlyTagline: 'Commence petit, résilie quand tu veux.',
+    proYearlyTagline: 'Pour les bâtisseurs de chaîne déterminés.',
+    proYearlySavingShort: 'Économise environ 37 % (comme 8 mois offerts).',
+
+    proCompareTitle: 'Ce que tu obtiens avec Pro',
+    proCompareSubtitle:
+      'Tu peux rester sur Gratuit. Pro enlève simplement les limites.',
+    proCompareHeaderFeature: 'Fonction',
+    proCompareHeaderFree: 'Gratuit',
+    proCompareHeaderPro: 'Pro',
+    proFeatureHabits: 'Habitudes que tu peux suivre',
+    proFeatureHabitsFree: 'Jusqu’à 3 habitudes',
+    proFeatureHabitsPro: 'Habitudes illimitées',
+    proFeatureThemesFree: '1 thème (Dark)',
+    proFeatureThemesPro: 'Tous les thèmes débloqués',
+    proFeatureAdsFree: 'Bannière pub en bas',
+    proFeatureAdsPro: 'Pas de pub, concentration totale',
+
+    proTitle: 'Déverrouille ta chaîne.',
+    proHeaderTitle: 'DotChain Pro',
+    proFeatureUnlimited: 'Habitudes illimitées',
+    proFeatureThemes: 'Tous les thèmes débloqués (Neon Pink / Cyber Blue)',
+    proFeatureAds: 'Sans publicité',
+    proCtaYearly: 'Choisir Pro annuel',
+    proCtaMonthly: 'Choisir Pro mensuel',
+    proCtaStayFree: 'Continuer en gratuit',
+    proFinePrint:
+      'L’abonnement se renouvelle automatiquement. Tu peux le résilier à tout moment dans les réglages de ton compte App Store ou Google Play.',
+
+    paywallMonthlySub: 'Facturé chaque mois. Résiliable à tout moment.',
+
+    // Thèmes
+    themeDarkLabel: 'Sombre',
+    themeNeonPinkLabel: 'Neon Pink',
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDesc: 'Choisis l’ambiance qui te plaît. (Les thèmes Pro arrivent plus tard.)',
+    restoreSoon: 'La restauration des achats sera ajoutée dans une prochaine mise à jour.',
+
+    // Onboarding / Tutoriel
+    tutorialWelcomeBody:
+      'Bienvenue !\\nDotChain t’aide à construire ta chaîne d’habitudes.\\nCommence en créant ta première habitude avec le bouton +.',
+    tutorialPressFabBody:
+      'Appuie sur le bouton + en bas à droite pour créer ta première habitude.',
+    tutorialPressHabitBody:
+      'Appuie maintenant sur l’habitude que tu viens de créer.\\nChaque appui marque le jour comme « fait ».',
+    tutorialExplainChainBody:
+      'En appuyant, tes JOURS DE SUITE augmentent et aujourd’hui s’allume sur TA CHAÎNE.\\nContinue pour allonger ta chaîne.',
+    tutorialEditIconBody:
+      'Choisis d’abord une icône qui correspond à ton habitude.',
+    tutorialEditNameBody:
+      'Ensuite, donne un nom à ton habitude.\\nPar exemple : « Boire de l’eau », « Lire un livre ».',
+    tutorialEditSubmitBody:
+      'C’est prêt !\\nAppuie sur le bouton de création ci-dessous pour ajouter cette habitude à ton écran d’accueil.',
+    tutorialNext: 'Suivant',
+    tutorialStart: 'Commencer',
+    tutorialGotIt: 'Compris',
+
+    // Suppression
+    deleteConfirmBody: 'Voulez-vous vraiment supprimer ? Cette action est irréversible.',
+    cancel: 'Annuler',
+    delete: 'Supprimer',
     homeLoading: 'Chargement...',
     homeAddHabitLabel: 'Ajouter une habitude',
     editNewHabit: 'Nouvelle habitude',
@@ -384,11 +465,6 @@ const dictionaries = {
     editSaveChanges: 'Enregistrer',
     editCreateHabit: "Créer l'habitude",
     editDeleteHabit: "Supprimer l'habitude",
-    proTitle: 'DotChain Pro',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'Habitudes illimitées',
-    proFeatureThemes: 'Tous les thèmes débloqués (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Sans publicité',
     habitButtonSuffix: " bouton d’habitude",
     iconCatBasic: 'Basique',
     iconCatHealth: 'Santé',
@@ -438,7 +514,7 @@ const dictionaries = {
     ...baseEn,
     daysStreak: 'DÍAS SEGUIDOS',
     yourChain: 'TU CADENA',
-    allDoneDays: 'DÍAS COMPLETOS',
+    allDoneDays: 'DÍAS COMPLETADOS',
     settings: 'Ajustes',
     hapticOff: 'Vibración desactivada',
     language: 'Idioma',
@@ -461,22 +537,22 @@ const dictionaries = {
     heatmapRange365: '1 año',
     heatmapSummaryPrefix: 'Últimos ',
     heatmapSummarySuffix: ' días',
-    heatmapAgoSuffix: ' días antes',
+    heatmapAgoSuffix: ' días atrás',
     heatmapToday: 'Hoy',
     freeThemeNote: 'Gratis: solo Dark / Pro desbloquea Neon Pink y Cyber Blue',
-    proThemeNote: 'Los temas Pro se activarán tras el paywall.',
+    proThemeNote: 'Los temas Pro se activarán después del pago.',
     restoreDesc: 'Restaurar compras (más adelante)',
-    licenses: 'Licencias OSS (más adelante)',
+    licenses: 'Licencias de código abierto (más adelante)',
     openPro: 'Abrir DotChain Pro',
     heroPaywall: 'Actualiza al mundo neón',
-    priceMonthly: '$2.99 / mes',
+    priceMonthly: '$1.99 / mes',
     onboardingTitle: 'Bienvenido a DotChain',
     onboardingBody: 'Un toque, vibración fuerte. Construyamos la cadena de hoy.',
     start: 'Empezar',
-    paywallNote: 'Facturación/Anuncios se añadirán después.',
+    paywallNote: 'La facturación y los anuncios se añadirán más adelante.',
     homeLoading: 'Cargando...',
     homeAddHabitLabel: 'Añadir hábito',
-    editNewHabit: 'Nueva hábito',
+    editNewHabit: 'Nuevo hábito',
     editHabitTitle: 'Editar hábito',
     editIconLabel: 'Ícono',
     editNameLabel: 'Nombre (máx 20 caracteres)',
@@ -484,11 +560,11 @@ const dictionaries = {
     editSaveChanges: 'Guardar cambios',
     editCreateHabit: 'Crear hábito',
     editDeleteHabit: 'Eliminar hábito',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Desbloquea tu cadena.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Hábitos ilimitados',
     proFeatureThemes: 'Todos los temas desbloqueados (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Sin anuncios',
+    proFeatureAds: 'Sin anuncios',
     habitButtonSuffix: ' botón de hábito',
     iconCatBasic: 'Básico',
     iconCatHealth: 'Salud',
@@ -533,12 +609,82 @@ const dictionaries = {
     tapSoundLabel: 'Estilo del sonido de toque',
     proOnlyTitle: 'Función solo Pro',
     proOnlyTheme: 'Este tema está disponible con Pro.',
+
+    // --- Nuevos keys para cobertura completa ---
+    cancel: 'Cancelar',
+    delete: 'Eliminar',
+    deleteConfirmBody: '¿Seguro que quieres eliminarlo? Esta acción no se puede deshacer.',
+    comingSoonTitle: 'Próximamente',
+    onboardingPunch: 'Esto es DotChain.',
+
+    paywallBestValueBadge: 'Mejor oferta',
+    paywallMonthlyLabel: 'Plan mensual',
+    paywallMonthlySub: 'Se factura cada mes. Puedes cancelar en cualquier momento.',
+    paywallYearlyLabel: 'Plan anual',
+    paywallYearlySub: 'Se factura una vez al año. Puedes cancelar en cualquier momento.',
+
+    priceFree: '$0 / para siempre',
+    priceYearly: '$14.99 / año',
+
+    proCompareHeaderFeature: 'Función',
+    proCompareHeaderFree: 'Gratis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Siempre puedes quedarte en el plan Gratis. Pro solo quita los límites.',
+    proCompareTitle: 'Lo que obtienes con Pro',
+
+    proCtaMonthly: 'Obtener Pro mensual',
+    proCtaStayFree: 'Seguir con la versión gratuita',
+    proCtaYearly: 'Obtener Pro anual',
+
+    proFeatureAdsFree: 'Banners de anuncios en la parte inferior',
+    proFeatureAdsPro: 'Sin anuncios, máxima concentración',
+    proFeatureHabits: 'Hábitos que puedes seguir',
+    proFeatureHabitsFree: 'Hasta 3 hábitos',
+    proFeatureHabitsPro: 'Hábitos ilimitados',
+    proFeatureThemesFree: '1 tema (Dark)',
+    proFeatureThemesPro: 'Todos los temas desbloqueados',
+
+    proFinePrint:
+      'La suscripción se renueva automáticamente. Puedes cancelarla en cualquier momento desde los ajustes de tu cuenta de App Store o Google Play.',
+    proMonthlyTagline: 'Empieza poco a poco, cancela cuando quieras.',
+    proPlanFreeTitle: 'Gratis',
+    proPlanMonthlyTitle: 'Mensual',
+    proPlanYearlyBadge: 'Mejor oferta',
+    proPlanYearlyTitle: 'Anual',
+    proSubtitle: 'Ve más allá de 3 hábitos y haz que tus puntos sean imparables.',
+    proYearlySavingShort: 'Ahorra alrededor de un 37% (como 8 meses gratis).',
+    proYearlyTagline: 'Para quienes se toman en serio su cadena.',
+
+    restoreSoon: 'La opción de restaurar compras se añadirá en una próxima actualización.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'Oscuro',
+    themeDesc: 'Elige el estilo de la app. (Los temas Pro llegarán más adelante.)',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody: 'Primero, elige un ícono que coincida con tu hábito.',
+    tutorialEditNameBody:
+      'Después, escribe un nombre para tu hábito.\nPor ejemplo: "Beber agua", "Leer un libro".',
+    tutorialEditSubmitBody:
+      '¡Listo!\nPulsa el botón de crear de abajo para añadir este hábito a tu pantalla de inicio.',
+    tutorialExplainChainBody:
+      'Al tocar, tu contador de DÍAS SEGUIDOS aumenta y hoy se ilumina en TU CADENA.\nSigue para extender tu cadena.',
+    tutorialGotIt: 'Entendido',
+    tutorialNext: 'Siguiente',
+    tutorialPressFabBody:
+      'Toca el botón + en la esquina inferior derecha para crear tu primer hábito.',
+    tutorialPressHabitBody:
+      'Ahora toca el hábito que acabas de crear.\nAl tocarlo, marcas hoy como "hecho".',
+    tutorialStart: 'Empezar',
+    tutorialWelcomeBody:
+      '¡Bienvenido!\nDotChain te permite construir tu cadena de hábitos.\nEmpieza creando tu primer hábito con el botón +.',
   },
   de: {
     ...baseEn,
-    daysStreak: 'TAGE IN FOLGE',
-    yourChain: 'DEINE KETTE',
-    allDoneDays: 'VOLL ERLEDIGTE TAGE',
+    daysStreak: 'Tage in Folge',
+    yourChain: 'Deine Kette',
+    allDoneDays: 'Tage mit allen erledigten Gewohnheiten',
     settings: 'Einstellungen',
     hapticOff: 'Vibration aus',
     language: 'Sprache',
@@ -554,7 +700,7 @@ const dictionaries = {
     flowEffectHelp:
       'Lässt einen neonfarbenen Strom über deine Kettenlinie laufen. Ausschalten, wenn du es ruhiger magst.',
     heatmapRangeTitle: 'Zeitraum der Kettenanzeige',
-    heatmapRangeHelp: 'Wähle, wie viele Tage deiner Kette in der Heatmap angezeigt werden.',
+    heatmapRangeHelp: 'Wähle, wie viele Tage deiner Kette auf der Heatmap angezeigt werden.',
     heatmapRange30: '1 Monat',
     heatmapRange60: '2 Monate',
     heatmapRange180: '6 Monate',
@@ -564,16 +710,16 @@ const dictionaries = {
     heatmapAgoSuffix: ' Tage zuvor',
     heatmapToday: 'Heute',
     freeThemeNote: 'Gratis: nur Dark / Pro schaltet Neon Pink & Cyber Blue frei',
-    proThemeNote: 'Pro-Themes nach Paywall verfügbar.',
+    proThemeNote: 'Pro-Themes werden nach dem Kauf freigeschaltet.',
     restoreDesc: 'Wiederherstellen (später)',
-    licenses: 'OSS-Lizenzen (später)',
+    licenses: 'Open-Source-Lizenzen (später)',
     openPro: 'DotChain Pro öffnen',
     heroPaywall: 'Upgrade in die Neon-Welt',
-    priceMonthly: '2,99 $ / Monat',
+    priceMonthly: '$1.99 / Monat',
     onboardingTitle: 'Willkommen bei DotChain',
     onboardingBody: 'Ein Tap, starke Vibration. Lass uns die heutige Kette bauen.',
     start: 'Loslegen',
-    paywallNote: 'Abrechnung/Ads kommen später.',
+    paywallNote: 'Abrechnung und Werbung werden später hinzugefügt.',
     homeLoading: 'Laden...',
     homeAddHabitLabel: 'Gewohnheit hinzufügen',
     editNewHabit: 'Neue Gewohnheit',
@@ -584,11 +730,11 @@ const dictionaries = {
     editSaveChanges: 'Änderungen speichern',
     editCreateHabit: 'Gewohnheit anlegen',
     editDeleteHabit: 'Gewohnheit löschen',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Entfessle deine Kette.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Unbegrenzte Gewohnheiten',
     proFeatureThemes: 'Alle Themes freigeschaltet (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Keine Werbung',
+    proFeatureAds: 'Keine Werbung',
     habitButtonSuffix: ' Gewohnheitsbutton',
     iconCatBasic: 'Basis',
     iconCatHealth: 'Gesundheit',
@@ -633,6 +779,77 @@ const dictionaries = {
     tapSoundLabel: 'Tippgeräusch-Stil',
     proOnlyTitle: 'Nur für Pro',
     proOnlyTheme: 'Dieses Theme ist nur mit Pro verfügbar.',
+
+    // Fehlende Keys ergänzt für vollständige de-Lokalisierung
+    cancel: 'Abbrechen',
+    delete: 'Löschen',
+    deleteConfirmBody: 'Möchtest du wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.',
+    comingSoonTitle: 'Bald verfügbar',
+    onboardingPunch: 'Das ist DotChain.',
+
+    paywallBestValueBadge: 'Bestes Preis-Leistungs-Verhältnis',
+    paywallMonthlyLabel: 'Monatsplan',
+    paywallMonthlySub: 'Monatliche Abrechnung. Jederzeit kündbar.',
+    paywallYearlyLabel: 'Jahresplan',
+    paywallYearlySub: 'Jährliche Abrechnung. Jederzeit kündbar.',
+
+    priceFree: '$0 / für immer',
+    priceYearly: '$14.99 / Jahr',
+
+    proCompareHeaderFeature: 'Funktion',
+    proCompareHeaderFree: 'Gratis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Du kannst immer im Gratis-Plan bleiben. Pro entfernt nur die Grenzen.',
+    proCompareTitle: 'Das bekommst du mit Pro',
+
+    proCtaMonthly: 'Pro monatlich holen',
+    proCtaStayFree: 'Beim Gratis-Plan bleiben',
+    proCtaYearly: 'Pro jährlich holen',
+
+    proFeatureAdsFree: 'Bannerwerbung unten',
+    proFeatureAdsPro: 'Keine Werbung, voller Fokus',
+    proFeatureHabits: 'Gewohnheiten, die du verfolgen kannst',
+    proFeatureHabitsFree: 'Bis zu 3 Gewohnheiten',
+    proFeatureHabitsPro: 'Unbegrenzte Gewohnheiten',
+    proFeatureThemesFree: '1 Theme (Dark)',
+    proFeatureThemesPro: 'Alle Themes freigeschaltet',
+
+    proFinePrint:
+      'Das Abo verlängert sich automatisch. Du kannst es jederzeit in den Kontoeinstellungen von App Store oder Google Play kündigen.',
+    proMonthlyTagline: 'Starte klein, kündige jederzeit.',
+    proPlanFreeTitle: 'Gratis',
+    proPlanMonthlyTitle: 'Monatlich',
+    proPlanYearlyBadge: 'Bestes Preis-Leistungs-Verhältnis',
+    proPlanYearlyTitle: 'Jährlich',
+    proSubtitle: 'Gehe über 3 Gewohnheiten hinaus und mache deine Punkte unaufhaltsam.',
+    proYearlySavingShort: 'Spare etwa 37 % (wie 8 Monate gratis).',
+    proYearlyTagline: 'Für alle, die ihre Kette ernst nehmen.',
+
+    restoreSoon: 'Die Wiederherstellung von Käufen wird in einem kommenden Update hinzugefügt.',
+
+    themeCyberBlueLabel: 'Cyber-Blau',
+    themeDarkLabel: 'Dunkel',
+    themeDesc: 'Wähle die Stimmung der App. (Pro-Themes kommen später.)',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody:
+      'Wähle zuerst ein Icon, das zu deiner Gewohnheit passt.',
+    tutorialEditNameBody:
+      'Gib als Nächstes einen Namen für deine Gewohnheit ein.\nZum Beispiel: „Wasser trinken“, „Buch lesen“.',
+    tutorialEditSubmitBody:
+      'Fertig!\nTippe unten auf den Erstellen-Button, um diese Gewohnheit zum Startbildschirm hinzuzufügen.',
+    tutorialExplainChainBody:
+      'Durch das Tippen steigt deine TAGE-IN-FOLGE-Anzahl und heute wird in DEINER KETTE hervorgehoben.\nMach weiter, um deine Kette zu verlängern.',
+    tutorialGotIt: 'Verstanden',
+    tutorialNext: 'Weiter',
+    tutorialPressFabBody:
+      'Tippe unten rechts auf den +-Button, um deine erste Gewohnheit zu erstellen.',
+    tutorialPressHabitBody:
+      'Tippe jetzt auf die Gewohnheit, die du gerade erstellt hast.\nDurch Tippen markierst du heute als „erledigt“.',
+    tutorialStart: 'Starten',
+    tutorialWelcomeBody:
+      'Willkommen!\nMit DotChain baust du deine Gewohnheitskette.\nBeginne, indem du deine erste Gewohnheit mit dem +-Button erstellst.',
   },
   it: {
     ...baseEn,
@@ -654,7 +871,8 @@ const dictionaries = {
     flowEffectHelp:
       'Fa scorrere un flusso neon lungo la linea della catena. Disattiva se preferisci un aspetto più calmo.',
     heatmapRangeTitle: 'Intervallo di visualizzazione della catena',
-    heatmapRangeHelp: 'Scegli quanti giorni della catena mostrare nella heatmap della home.',
+    heatmapRangeHelp:
+      'Scegli quanti giorni della catena mostrare nella mappa di calore della schermata iniziale.',
     heatmapRange30: '1 mese',
     heatmapRange60: '2 mesi',
     heatmapRange180: '6 mesi',
@@ -663,17 +881,17 @@ const dictionaries = {
     heatmapSummarySuffix: ' giorni',
     heatmapAgoSuffix: ' giorni fa',
     heatmapToday: 'Oggi',
-    freeThemeNote: 'Gratis: solo Dark / Pro sblocca Neon Pink, Cyber Blue',
-    proThemeNote: 'Temi Pro attivi dopo il paywall.',
-    restoreDesc: 'Ripristino (a breve)',
-    licenses: 'Licenze OSS (a breve)',
+    freeThemeNote: 'Gratis: solo Dark / Pro sblocca Neon Pink & Cyber Blue',
+    proThemeNote: 'I temi Pro si attivano dopo il pagamento.',
+    restoreDesc: 'Ripristina acquisti (a breve)',
+    licenses: 'Licenze open source (a breve)',
     openPro: 'Apri DotChain Pro',
     heroPaywall: 'Passa al mondo neon',
-    priceMonthly: '$2.99 / mese',
+    priceMonthly: '$1.99 / mese',
     onboardingTitle: 'Benvenuto su DotChain',
     onboardingBody: 'Un tap, vibrazione forte. Costruiamo la catena di oggi.',
     start: 'Inizia',
-    paywallNote: 'Fatturazione/Ads più tardi.',
+    paywallNote: 'Fatturazione e annunci saranno aggiunti più avanti.',
     homeLoading: 'Caricamento...',
     homeAddHabitLabel: 'Aggiungi abitudine',
     editNewHabit: 'Nuova abitudine',
@@ -684,11 +902,11 @@ const dictionaries = {
     editSaveChanges: 'Salva modifiche',
     editCreateHabit: 'Crea abitudine',
     editDeleteHabit: 'Elimina abitudine',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Sblocca la tua catena.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Abitudini illimitate',
     proFeatureThemes: 'Tutti i temi sbloccati (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Nessuna pubblicità',
+    proFeatureAds: 'Nessuna pubblicità',
     habitButtonSuffix: ' pulsante abitudine',
     iconCatBasic: 'Base',
     iconCatHealth: 'Salute',
@@ -733,6 +951,78 @@ const dictionaries = {
     tapSoundLabel: 'Stile suono tocco',
     proOnlyTitle: 'Solo per Pro',
     proOnlyTheme: 'Questo tema è disponibile con Pro.',
+
+    // Completamento delle chiavi mancanti
+    cancel: 'Annulla',
+    delete: 'Elimina',
+    deleteConfirmBody: 'Sei sicuro? Questa azione non può essere annullata.',
+    comingSoonTitle: 'In arrivo',
+    onboardingPunch: 'Questo è DotChain.',
+
+    paywallBestValueBadge: 'Più conveniente',
+    paywallMonthlyLabel: 'Piano mensile',
+    paywallMonthlySub: 'Fatturato ogni mese. Puoi annullare quando vuoi.',
+    paywallYearlyLabel: 'Piano annuale',
+    paywallYearlySub: 'Fatturato una volta l’anno. Puoi annullare quando vuoi.',
+
+    priceFree: '$0 / per sempre',
+    priceYearly: '$14.99 / anno',
+
+    proCompareHeaderFeature: 'Funzione',
+    proCompareHeaderFree: 'Gratis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Puoi sempre restare nel piano Gratis. Pro serve solo a togliere i limiti.',
+    proCompareTitle: 'Cosa ottieni con Pro',
+
+    proCtaMonthly: 'Ottieni Pro mensile',
+    proCtaStayFree: 'Continua con il piano Gratis',
+    proCtaYearly: 'Ottieni Pro annuale',
+
+    proFeatureAdsFree: 'Banner pubblicitari in basso',
+    proFeatureAdsPro: 'Nessuna pubblicità, massima concentrazione',
+    proFeatureHabits: 'Abitudini che puoi tracciare',
+    proFeatureHabitsFree: 'Fino a 3 abitudini',
+    proFeatureHabitsPro: 'Abitudini illimitate',
+    proFeatureThemesFree: '1 tema (Dark)',
+    proFeatureThemesPro: 'Tutti i temi sbloccati',
+
+    proFinePrint:
+      'L’abbonamento si rinnova automaticamente. Puoi annullare in qualsiasi momento dalle impostazioni del tuo account App Store o Google Play.',
+    proMonthlyTagline: 'Inizia in piccolo, annulla quando vuoi.',
+    proPlanFreeTitle: 'Gratis',
+    proPlanMonthlyTitle: 'Mensile',
+    proPlanYearlyBadge: 'Più conveniente',
+    proPlanYearlyTitle: 'Annuale',
+    proSubtitle:
+      'Supera il limite di 3 abitudini e rendi inarrestabile la tua catena di punti.',
+    proYearlySavingShort: 'Risparmi circa il 37% (come 8 mesi gratis).',
+    proYearlyTagline: 'Per chi vuole costruire la catena sul serio.',
+
+    restoreSoon: 'La funzione di ripristino degli acquisti sarà aggiunta in un aggiornamento futuro.',
+
+    themeCyberBlueLabel: 'Blu cyber',
+    themeDarkLabel: 'Scuro',
+    themeDesc: 'Scegli lo stile che preferisci. (I temi Pro arriveranno più avanti.)',
+    themeNeonPinkLabel: 'Neon rosa',
+
+    tutorialEditIconBody:
+      'Per prima cosa, scegli un’icona che rappresenti la tua abitudine.',
+    tutorialEditNameBody:
+      'Poi inserisci un nome per la tua abitudine.\nPer esempio: "Bere acqua", "Leggere un libro".',
+    tutorialEditSubmitBody:
+      'Ci sei!\nTocca il pulsante di creazione qui sotto per aggiungere questa abitudine alla schermata iniziale.',
+    tutorialExplainChainBody:
+      'Ogni volta che tocchi, i tuoi GIORNI DI FILA aumentano e oggi si accende nella TUA CATENA.\nContinua per allungare sempre di più la catena.',
+    tutorialGotIt: 'Capito!',
+    tutorialNext: 'Avanti',
+    tutorialPressFabBody:
+      'Tocca il pulsante + in basso a destra per creare la tua prima abitudine.',
+    tutorialPressHabitBody:
+      'Ora tocca l’abitudine che hai appena creato.\nOgni tocco segna oggi come "completato".',
+    tutorialStart: 'Inizia',
+    tutorialWelcomeBody:
+      'Benvenuto!\nDotChain ti aiuta a costruire la tua catena di abitudini.\nInizia creando la tua prima abitudine dal pulsante +.',
   },
   pt: {
     ...baseEn,
@@ -764,16 +1054,16 @@ const dictionaries = {
     heatmapAgoSuffix: ' dias atrás',
     heatmapToday: 'Hoje',
     freeThemeNote: 'Grátis: só Dark / Pro libera Neon Pink e Cyber Blue',
-    proThemeNote: 'Temas Pro após o paywall.',
-    restoreDesc: 'Restaurar (em breve)',
-    licenses: 'Licenças OSS (em breve)',
+    proThemeNote: 'Temas Pro serão desbloqueados depois do pagamento.',
+    restoreDesc: 'Restaurar compras (em breve)',
+    licenses: 'Licenças de código aberto (em breve)',
     openPro: 'Abrir DotChain Pro',
     heroPaywall: 'Atualize para o mundo neon',
-    priceMonthly: 'US$2.99 / mês',
+    priceMonthly: 'US$1.99 / mês',
     onboardingTitle: 'Bem-vindo ao DotChain',
     onboardingBody: 'Um toque, vibração forte. Vamos construir a cadeia de hoje.',
     start: 'Começar',
-    paywallNote: 'Cobrança/Ads serão adicionadas depois.',
+    paywallNote: 'Cobrança e anúncios serão adicionados depois.',
     homeLoading: 'Carregando...',
     homeAddHabitLabel: 'Adicionar hábito',
     editNewHabit: 'Novo hábito',
@@ -784,11 +1074,11 @@ const dictionaries = {
     editSaveChanges: 'Salvar alterações',
     editCreateHabit: 'Criar hábito',
     editDeleteHabit: 'Excluir hábito',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Desbloqueie sua corrente.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Hábitos ilimitados',
     proFeatureThemes: 'Todos os temas liberados (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Sem anúncios',
+    proFeatureAds: 'Sem anúncios',
     habitButtonSuffix: ' botão de hábito',
     iconCatBasic: 'Básico',
     iconCatHealth: 'Saúde',
@@ -833,12 +1123,83 @@ const dictionaries = {
     tapSoundLabel: 'Estilo do som de toque',
     proOnlyTitle: 'Recurso exclusivo do Pro',
     proOnlyTheme: 'Este tema está disponível no Pro.',
+
+    // Chaves faltantes para pt
+    cancel: 'Cancelar',
+    delete: 'Excluir',
+    deleteConfirmBody: 'Tem certeza? Esta ação não pode ser desfeita.',
+    comingSoonTitle: 'Em breve',
+    onboardingPunch: 'Este é o DotChain.',
+
+    paywallBestValueBadge: 'Melhor custo-benefício',
+    paywallMonthlyLabel: 'Plano mensal',
+    paywallMonthlySub: 'Cobrado todo mês. Pode cancelar quando quiser.',
+    paywallYearlyLabel: 'Plano anual',
+    paywallYearlySub: 'Cobrança uma vez ao ano. Pode cancelar quando quiser.',
+
+    priceFree: 'US$0 / para sempre',
+    priceYearly: 'US$14.99 / ano',
+
+    proCompareHeaderFeature: 'Recurso',
+    proCompareHeaderFree: 'Grátis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Você sempre pode continuar no plano Gratuito. Pro só remove os limites.',
+    proCompareTitle: 'O que você ganha com Pro',
+
+    proCtaMonthly: 'Assinar Pro mensal',
+    proCtaStayFree: 'Continuar no gratuito',
+    proCtaYearly: 'Assinar Pro anual',
+
+    proFeatureAdsFree: 'Banner de anúncios na parte inferior',
+    proFeatureAdsPro: 'Sem anúncios, foco total',
+    proFeatureHabits: 'Hábitos que você pode acompanhar',
+    proFeatureHabitsFree: 'Até 3 hábitos',
+    proFeatureHabitsPro: 'Hábitos ilimitados',
+    proFeatureThemesFree: '1 tema (Dark)',
+    proFeatureThemesPro: 'Todos os temas liberados',
+
+    proFinePrint:
+      'A assinatura renova automaticamente. Você pode cancelar a qualquer momento nas configurações da sua conta App Store ou Google Play.',
+    proMonthlyTagline: 'Comece pequeno, cancele quando quiser.',
+    proPlanFreeTitle: 'Gratuito',
+    proPlanMonthlyTitle: 'Mensal',
+    proPlanYearlyBadge: 'Melhor opção',
+    proPlanYearlyTitle: 'Anual',
+    proSubtitle: 'Vá além de 3 hábitos e torne sua corrente imparável.',
+    proYearlySavingShort: 'Economize cerca de 37% (como 8 meses grátis).',
+    proYearlyTagline: 'Para quem leva a corrente a sério.',
+
+    restoreSoon: 'A opção de restaurar compras será adicionada em uma próxima atualização.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'Dark',
+    themeDesc: 'Escolha o clima que preferir. (Temas Pro serão adicionados depois.)',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody:
+      'Primeiro, escolha um ícone que combine com seu hábito.',
+    tutorialEditNameBody:
+      'Depois, dê um nome ao seu hábito.\nExemplo: "Beber água", "Ler um livro".',
+    tutorialEditSubmitBody:
+      'Pronto!\nToque no botão de criar abaixo para adicionar este hábito à tela inicial.',
+    tutorialExplainChainBody:
+      'Ao tocar, seu contador de DIAS SEGUIDOS aumenta e hoje acende na SUA CORRENTE.\nContinue para alongar ainda mais a corrente.',
+    tutorialGotIt: 'Entendi',
+    tutorialNext: 'Avançar',
+    tutorialPressFabBody:
+      'Toque no botão + no canto inferior direito para criar seu primeiro hábito.',
+    tutorialPressHabitBody:
+      'Agora toque no hábito que você acabou de criar.\nAo tocar, hoje fica marcado como "concluído".',
+    tutorialStart: 'Começar',
+    tutorialWelcomeBody:
+      'Bem-vindo!\nO DotChain ajuda você a construir sua corrente de hábitos.\nComece criando seu primeiro hábito pelo botão +.',
   },
   ru: {
     ...baseEn,
-    daysStreak: 'СЕРИЯ ДНЕЙ',
-    yourChain: 'ТВОЯ ЦЕПЬ',
-    allDoneDays: 'ДНЕЙ ПОЛНОГО ВЫПОЛНЕНИЯ',
+    daysStreak: 'Серия дней',
+    yourChain: 'Твоя цепочка',
+    allDoneDays: 'Дни, когда все привычки выполнены',
     settings: 'Настройки',
     hapticOff: 'Вибрация выключена',
     language: 'Язык',
@@ -863,17 +1224,17 @@ const dictionaries = {
     heatmapSummarySuffix: ' дней',
     heatmapAgoSuffix: ' дней назад',
     heatmapToday: 'Сегодня',
-    freeThemeNote: 'Бесплатно: только Dark / Pro открывает Neon Pink, Cyber Blue',
-    proThemeNote: 'Темы Pro будут доступны после paywall.',
-    restoreDesc: 'Восстановление (скоро)',
-    licenses: 'Лицензии OSS (скоро)',
+    freeThemeNote: 'Бесплатно: доступна только тема Dark. В Pro открываются Neon Pink и Cyber Blue.',
+    proThemeNote: 'Темы Pro станут доступны после оплаты.',
+    restoreDesc: 'Восстановление покупок (скоро)',
+    licenses: 'Лицензии открытого ПО (скоро)',
     openPro: 'Открыть DotChain Pro',
     heroPaywall: 'В неоновый мир',
-    priceMonthly: '$2.99 / месяц',
+    priceMonthly: '$1.99 / месяц',
     onboardingTitle: 'Добро пожаловать в DotChain',
     onboardingBody: 'Одно нажатие — мощная вибрация. Соберём цепочку сегодня.',
     start: 'Начать',
-    paywallNote: 'Биллинг/реклама позже.',
+    paywallNote: 'Оплата и реклама будут добавлены позже.',
     homeLoading: 'Загрузка...',
     homeAddHabitLabel: 'Добавить привычку',
     editNewHabit: 'Новая привычка',
@@ -884,11 +1245,11 @@ const dictionaries = {
     editSaveChanges: 'Сохранить изменения',
     editCreateHabit: 'Создать привычку',
     editDeleteHabit: 'Удалить привычку',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Разблокируй свою цепочку.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Безлимитные привычки',
     proFeatureThemes: 'Все темы разблокированы (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Без рекламы',
+    proFeatureAds: 'Без рекламы',
     habitButtonSuffix: ' кнопка привычки',
     iconCatBasic: 'Базовые',
     iconCatHealth: 'Здоровье',
@@ -933,12 +1294,84 @@ const dictionaries = {
     tapSoundLabel: 'Стиль звука нажатия',
     proOnlyTitle: 'Только для Pro',
     proOnlyTheme: 'Эта тема доступна в Pro.',
+
+    // Полное заполнение ru-локали (новые ключи)
+    cancel: 'Отмена',
+    delete: 'Удалить',
+    deleteConfirmBody: 'Действительно удалить? Это действие нельзя отменить.',
+    comingSoonTitle: 'Скоро',
+    onboardingPunch: 'Это DotChain.',
+
+    paywallBestValueBadge: 'Самое выгодное',
+    paywallMonthlyLabel: 'Месячный план',
+    paywallMonthlySub: 'Списывается каждый месяц. Можно отменить в любое время.',
+    paywallYearlyLabel: 'Годовой план',
+    paywallYearlySub: 'Списывается раз в год. Можно отменить в любое время.',
+
+    priceFree: '$0 / всегда бесплатно',
+    priceYearly: '$14.99 / год',
+
+    proCompareHeaderFeature: 'Функция',
+    proCompareHeaderFree: 'Бесплатно',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Ты всегда можешь остаться на бесплатном плане. Pro просто убирает ограничения.',
+    proCompareTitle: 'Что дает Pro',
+
+    proCtaMonthly: 'Оформить Pro на месяц',
+    proCtaStayFree: 'Остаться на бесплатном',
+    proCtaYearly: 'Оформить Pro на год',
+
+    proFeatureAdsFree: 'Баннерная реклама внизу',
+    proFeatureAdsPro: 'Без рекламы, максимум фокуса',
+    proFeatureHabits: 'Сколько привычек можно отслеживать',
+    proFeatureHabitsFree: 'До 3 привычек',
+    proFeatureHabitsPro: 'Неограниченное количество привычек',
+    proFeatureThemesFree: '1 тема (темная)',
+    proFeatureThemesPro: 'Все темы разблокированы',
+
+    proFinePrint:
+      'Подписка продлевается автоматически. Отменить можно в любое время в настройках аккаунта App Store или Google Play.',
+    proMonthlyTagline: 'Начни с малого, отменить можно в любое время.',
+    proPlanFreeTitle: 'Бесплатно',
+    proPlanMonthlyTitle: 'Месячный',
+    proPlanYearlyBadge: 'Самое выгодное',
+    proPlanYearlyTitle: 'Годовой',
+    proSubtitle:
+      'Отслеживай более 3 привычек — и твои точки будут неостановимы.',
+    proYearlySavingShort: 'Экономия около 37% (примерно как 8 бесплатных месяцев).',
+    proYearlyTagline: 'Для тех, кто настроен серьёзно.',
+
+    restoreSoon: 'Функция восстановления покупок появится в одном из следующих обновлений.',
+
+    themeCyberBlueLabel: 'Кибер-синий',
+    themeDarkLabel: 'Темная',
+    themeDesc: 'Выберите настроение приложения. (Темы Pro появятся позже.)',
+    themeNeonPinkLabel: 'Неоново-розовый',
+
+    tutorialEditIconBody:
+      'Сначала выбери иконку, которая подходит твоей привычке.',
+    tutorialEditNameBody:
+      'Теперь введи название привычки.\nНапример: «Пей воду», «Читай книгу».',
+    tutorialEditSubmitBody:
+      'Готово!\nНажми кнопку создания ниже, чтобы добавить привычку на главный экран.',
+    tutorialExplainChainBody:
+      'Когда отмечаешь привычку, серия дней растёт, а на цепочке загорается сегодняшняя точка.\nПродолжай, чтобы удлинять цепочку.',
+    tutorialGotIt: 'Понятно',
+    tutorialNext: 'Далее',
+    tutorialPressFabBody:
+      'Нажми кнопку + в правом нижнем углу, чтобы создать первую привычку.',
+    tutorialPressHabitBody:
+      'Теперь нажми на только что созданную привычку.\nНажатие отмечает сегодняшний день как «выполнено».',
+    tutorialStart: 'Начать',
+    tutorialWelcomeBody:
+      'Добро пожаловать!\nDotChain помогает строить цепочки привычек.\nСначала создай свою первую привычку с помощью кнопки +.',
   },
   zh: {
     ...baseEn,
     daysStreak: '连续天数',
     yourChain: '你的链条',
-    allDoneDays: '全完成天数',
+    allDoneDays: '全部完成的天数',
     settings: '设置',
     hapticOff: '振动已关',
     language: '语言',
@@ -962,17 +1395,17 @@ const dictionaries = {
     heatmapSummarySuffix: ' 天',
     heatmapAgoSuffix: ' 天前',
     heatmapToday: '今天',
-    freeThemeNote: '免费：仅暗色 / 专业版解锁霓虹粉和赛博蓝',
-    proThemeNote: '专业主题将在付费后解锁。',
+    freeThemeNote: '免费：仅 Dark / Pro 解锁霓虹粉和赛博蓝',
+    proThemeNote: '专业版付费后可使用 Pro 主题。',
     restoreDesc: '恢复购买（稍后）',
-    licenses: '开源许可（稍后）',
+    licenses: '开源许可证（稍后）',
     openPro: '打开 DotChain Pro',
     heroPaywall: '升级到霓虹世界',
-    priceMonthly: '$2.99 / 月',
+    priceMonthly: '$1.99 / 月',
     onboardingTitle: '欢迎使用 DotChain',
     onboardingBody: '一触即振，构建今天的链条。',
     start: '开始',
-    paywallNote: '计费/广告稍后添加。',
+    paywallNote: '计费和广告将稍后添加。',
     homeLoading: '加载中...',
     homeAddHabitLabel: '添加习惯',
     editNewHabit: '新增习惯',
@@ -983,11 +1416,11 @@ const dictionaries = {
     editSaveChanges: '保存更改',
     editCreateHabit: '创建习惯',
     editDeleteHabit: '删除习惯',
-    proTitle: 'DotChain Pro',
+    proTitle: '解锁你的链条。',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: '无限习惯',
     proFeatureThemes: '解锁所有主题（Neon Pink / Cyber Blue）',
-        proFeatureAds: '无广告',
+    proFeatureAds: '无广告',
     habitButtonSuffix: ' 习惯按钮',
     iconCatBasic: '基础',
     iconCatHealth: '健康',
@@ -1032,12 +1465,82 @@ const dictionaries = {
     tapSoundLabel: '点击音样式',
     proOnlyTitle: '仅限 Pro 功能',
     proOnlyTheme: '此主题仅在 Pro 中可用。',
+
+    // 填充缺失键，完成 zh 本地化
+    cancel: '取消',
+    delete: '删除',
+    deleteConfirmBody: '确定要删除吗？此操作无法撤销。',
+    comingSoonTitle: '即将上线',
+    onboardingPunch: '这就是 DotChain。',
+
+    paywallBestValueBadge: '最优惠',
+    paywallMonthlyLabel: '月度计划',
+    paywallMonthlySub: '每月扣费，可随时取消。',
+    paywallYearlyLabel: '年度计划',
+    paywallYearlySub: '每年扣费一次，可随时取消。',
+
+    priceFree: '$0 / 永久',
+    priceYearly: '$14.99 / 年',
+
+    proCompareHeaderFeature: '功能',
+    proCompareHeaderFree: '免费',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      '你随时可以继续使用免费版，Pro 只是帮你解除限制。',
+    proCompareTitle: '升级 Pro 你能获得什么',
+
+    proCtaMonthly: '开通月度 Pro',
+    proCtaStayFree: '继续使用免费版',
+    proCtaYearly: '开通年度 Pro',
+
+    proFeatureAdsFree: '底部显示横幅广告',
+    proFeatureAdsPro: '无广告，专注体验',
+    proFeatureHabits: '可跟踪的习惯数量',
+    proFeatureHabitsFree: '最多 3 个习惯',
+    proFeatureHabitsPro: '习惯数量不限',
+    proFeatureThemesFree: '1 个主题（暗色）',
+    proFeatureThemesPro: '解锁所有主题',
+
+    proFinePrint:
+      '订阅会自动续费。你可以随时在 App Store 或 Google Play 的账户设置中取消。',
+    proMonthlyTagline: '从小开始，随时可取消。',
+    proPlanFreeTitle: '免费版',
+    proPlanMonthlyTitle: '月度计划',
+    proPlanYearlyBadge: '最划算',
+    proPlanYearlyTitle: '年度计划',
+    proSubtitle: '突破 3 个习惯的限制，让你的链条停不下来。',
+    proYearlySavingShort: '大约节省 37%（相当于 8 个月免费）。',
+    proYearlyTagline: '为认真打造链条的人准备。',
+
+    restoreSoon: '恢复购买功能将在后续更新中提供。',
+
+    themeCyberBlueLabel: '赛博蓝',
+    themeDarkLabel: '暗色',
+    themeDesc: '选择你喜欢的界面风格。（Pro 主题稍后提供。）',
+    themeNeonPinkLabel: '霓虹粉',
+
+    tutorialEditIconBody: '首先，选择一个与习惯相符的图标。',
+    tutorialEditNameBody:
+      '然后给这个习惯起个名字。\n例如：“喝水”、“读书”。',
+    tutorialEditSubmitBody:
+      '准备就绪！\n点击下面的创建按钮，将此习惯添加到首页。',
+    tutorialExplainChainBody:
+      '每点一次，连续天数增加，今天会在你的链条上点亮。\n坚持下去，链条会越来越长。',
+    tutorialGotIt: '明白了',
+    tutorialNext: '下一步',
+    tutorialPressFabBody:
+      '点击右下角的 + 按钮，创建第一个习惯。',
+    tutorialPressHabitBody:
+      '现在点一下刚创建的习惯。\n点击即表示今天已完成。',
+    tutorialStart: '开始',
+    tutorialWelcomeBody:
+      '欢迎！\nDotChain 帮助你构建习惯链。\n先用 + 按钮创建第一个习惯吧。',
   },
   ko: {
     ...baseEn,
     daysStreak: '연속 일수',
     yourChain: '당신의 체인',
-    allDoneDays: '완벽하게 한 날 수',
+    allDoneDays: '모든 습관을 완료한 날 수',
     settings: '설정',
     hapticOff: '진동 꺼짐',
     language: '언어',
@@ -1050,7 +1553,8 @@ const dictionaries = {
     click: '클릭',
     pop: '팝',
     flowEffectTitle: '전류 애니메이션',
-    flowEffectHelp: '체인 라인을 따라 네온 전류가 흐르게 합니다. 더 차분한 화면을 원하면 꺼두세요.',
+    flowEffectHelp:
+      '체인 라인을 따라 네온 전류가 흐릅니다. 더 차분한 화면을 원하면 꺼두세요.',
     heatmapRangeTitle: '체인 표시 기간',
     heatmapRangeHelp: '홈 히트맵에 체인을 며칠치까지 보여줄지 선택하세요.',
     heatmapRange30: '1개월',
@@ -1061,17 +1565,17 @@ const dictionaries = {
     heatmapSummarySuffix: '일',
     heatmapAgoSuffix: '일 전',
     heatmapToday: '오늘',
-    freeThemeNote: '무료: 다크만 / Pro는 네온핑크·사이버블루 해제',
-    proThemeNote: 'Pro 테마는 페이월 후 활성화.',
+    freeThemeNote: '무료: 다크 테마만 사용 가능 / Pro에서 네온 핑크·사이버 블루 사용 가능',
+    proThemeNote: 'Pro 테마는 결제 이후에 활성화됩니다.',
     restoreDesc: '구매 복원(추후)',
-    licenses: 'OSS 라이선스(추후)',
+    licenses: '오픈 소스 라이선스(추후)',
     openPro: 'DotChain Pro 열기',
     heroPaywall: '네온 세계로 업그레이드',
-    priceMonthly: '$2.99 / 월',
+    priceMonthly: '$1.99 / 월',
     onboardingTitle: 'DotChain에 오신 것을 환영합니다',
     onboardingBody: '한 번 탭, 강한 진동. 오늘의 체인을 쌓아요.',
     start: '시작하기',
-    paywallNote: '결제/광고는 나중에 추가.',
+    paywallNote: '결제와 광고 기능은 나중에 추가될 예정입니다.',
     homeLoading: '로딩 중...',
     homeAddHabitLabel: '습관 추가',
     editNewHabit: '새 습관',
@@ -1082,11 +1586,11 @@ const dictionaries = {
     editSaveChanges: '변경사항 저장',
     editCreateHabit: '습관 만들기',
     editDeleteHabit: '습관 삭제',
-    proTitle: 'DotChain Pro',
+    proTitle: '체인을 해방하세요.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: '무제한 습관',
-    proFeatureThemes: '모든 테마 해제 (Neon Pink / Cyber Blue)',
-        proFeatureAds: '광고 없음',
+    proFeatureThemes: '모든 테마 잠금 해제 (Neon Pink / Cyber Blue)',
+    proFeatureAds: '광고 없음',
     habitButtonSuffix: ' 습관 버튼',
     iconCatBasic: '기본',
     iconCatHealth: '건강',
@@ -1106,7 +1610,7 @@ const dictionaries = {
     reminderNotificationBody: '지금 당신의 체인을 이어갈 시간입니다.',
     streak7Title: '7일 연속 달성!',
     streak7Message: '일주일 내내 체인을 이어갔어요. 훌륭합니다!',
-    ok: 'OK',
+    ok: '확인',
     languageChange: '언어 변경',
     currentLanguage: '현재',
     languageNameEn: '영어',
@@ -1131,6 +1635,76 @@ const dictionaries = {
     tapSoundLabel: '탭 사운드 스타일',
     proOnlyTitle: 'Pro 전용 기능',
     proOnlyTheme: '이 테마는 Pro에서만 사용 가능합니다.',
+
+    // 결손된 키 보충
+    cancel: '취소',
+    delete: '삭제',
+    deleteConfirmBody: '정말 삭제하시겠어요? 이 작업은 되돌릴 수 없습니다.',
+    comingSoonTitle: '곧 제공 예정',
+    onboardingPunch: '이것이 DotChain입니다.',
+
+    paywallBestValueBadge: '최고 혜택',
+    paywallMonthlyLabel: '월간 플랜',
+    paywallMonthlySub: '매달 결제됩니다. 언제든 취소할 수 있습니다.',
+    paywallYearlyLabel: '연간 플랜',
+    paywallYearlySub: '연 1회 결제됩니다. 언제든 취소할 수 있습니다.',
+
+    priceFree: '$0 / 평생',
+    priceYearly: '$14.99 / 년',
+
+    proCompareHeaderFeature: '기능',
+    proCompareHeaderFree: '무료',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      '언제든 무료 플랜에 머물 수 있습니다. Pro는 단지 제한을 없앨 뿐입니다.',
+    proCompareTitle: 'Pro로 얻는 것',
+
+    proCtaMonthly: '월간 Pro 시작',
+    proCtaStayFree: '무료 플랜 계속 사용',
+    proCtaYearly: '연간 Pro 시작',
+
+    proFeatureAdsFree: '하단 배너 광고',
+    proFeatureAdsPro: '광고 없음, 온전히 집중',
+    proFeatureHabits: '추적 가능한 습관 수',
+    proFeatureHabitsFree: '최대 3개 습관',
+    proFeatureHabitsPro: '무제한 습관',
+    proFeatureThemesFree: '1개 테마 (다크)',
+    proFeatureThemesPro: '모든 테마 사용 가능',
+
+    proFinePrint:
+      '구독은 자동 갱신됩니다. App Store 또는 Google Play 계정 설정에서 언제든 취소할 수 있습니다.',
+    proMonthlyTagline: '작게 시작해서 언제든 취소하세요.',
+    proPlanFreeTitle: '무료',
+    proPlanMonthlyTitle: '월간',
+    proPlanYearlyBadge: '최고 혜택',
+    proPlanYearlyTitle: '연간',
+    proSubtitle: '3개 제한을 넘어 점의 체인을 멈추지 않게 하세요.',
+    proYearlySavingShort: '약 37% 절약 (8개월 무료와 비슷).',
+    proYearlyTagline: '체인을 진지하게 관리하는 사람을 위해.',
+
+    restoreSoon: '구매 복원 기능은 향후 업데이트에서 추가될 예정입니다.',
+
+    themeCyberBlueLabel: '사이버 블루',
+    themeDarkLabel: '다크',
+    themeDesc: '원하는 분위기를 골라 보세요. (Pro 테마는 추후 추가 예정입니다.)',
+    themeNeonPinkLabel: '네온 핑크',
+
+    tutorialEditIconBody: '먼저, 습관에 어울리는 아이콘을 선택하세요.',
+    tutorialEditNameBody:
+      '다음으로, 습관 이름을 입력하세요.\n예: "물 마시기", "책 읽기".',
+    tutorialEditSubmitBody:
+      '준비됐어요!\n아래 만들기 버튼을 눌러 이 습관을 홈 화면에 추가하세요.',
+    tutorialExplainChainBody:
+      '탭할 때마다 연속 일수가 늘어나고, 오늘이 체인 위에서 빛납니다.\n계속해서 체인을 더 길게 이어 보세요.',
+    tutorialGotIt: '알겠어요',
+    tutorialNext: '다음',
+    tutorialPressFabBody:
+      '오른쪽 아래 + 버튼을 눌러 첫 습관을 만들어 보세요.',
+    tutorialPressHabitBody:
+      '방금 만든 습관을 탭하세요.\n탭하면 오늘이 "완료"로 표시됩니다.',
+    tutorialStart: '시작하기',
+    tutorialWelcomeBody:
+      '환영합니다!\nDotChain은 당신의 습관 체인을 쌓을 수 있게 도와줍니다.\n먼저 + 버튼을 눌러 첫 번째 습관을 만들어 보세요.',
   },
   hi: {
     ...baseEn,
@@ -1160,17 +1734,17 @@ const dictionaries = {
     heatmapSummarySuffix: ' दिन',
     heatmapAgoSuffix: ' दिन पहले',
     heatmapToday: 'आज',
-    freeThemeNote: 'फ्री: केवल डार्क / प्रो से नीऑन पिंक, साइबर ब्लू खुलते हैं',
-    proThemeNote: 'प्रो थीम पेवॉल के बाद सक्रिय होंगे।',
-    restoreDesc: 'पुनर्स्थापन (जल्द)',
-    licenses: 'ओएसएस लाइसेंस (जल्द)',
+    freeThemeNote: 'फ्री: केवल डार्क / Pro में Neon Pink और Cyber Blue अनलॉक होते हैं',
+    proThemeNote: 'Pro थीम भुगतान के बाद सक्रिय होंगे।',
+    restoreDesc: 'खरीद पुनर्स्थापित (जल्द)',
+    licenses: 'ओपन सोर्स लाइसेंस (जल्द)',
     openPro: 'DotChain Pro खोलें',
     heroPaywall: 'नीऑन दुनिया में अपग्रेड करें',
-    priceMonthly: '$2.99 / माह',
+    priceMonthly: '$1.99 / माह',
     onboardingTitle: 'DotChain में स्वागत है',
     onboardingBody: 'एक टैप, तेज वाइब्रेशन। आज की चेन बनाएं।',
     start: 'शुरू करें',
-    paywallNote: 'बिलिंग/ऐड बाद में।',
+    paywallNote: 'बिलिंग और विज्ञापन सुविधाएँ बाद में जोड़ी जाएँगी।',
     homeLoading: 'लोड हो रहा है...',
     homeAddHabitLabel: 'आदत जोड़ें',
     editNewHabit: 'नई आदत',
@@ -1181,11 +1755,11 @@ const dictionaries = {
     editSaveChanges: 'परिवर्तन सहेजें',
     editCreateHabit: 'आदत बनाएं',
     editDeleteHabit: 'आदत हटाएं',
-    proTitle: 'DotChain Pro',
+    proTitle: 'अपनी चेन अनलॉक करें।',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'असीमित आदतें',
     proFeatureThemes: 'सभी थीम अनलॉक (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'कोई विज्ञापन नहीं',
+    proFeatureAds: 'कोई विज्ञापन नहीं',
     habitButtonSuffix: ' आदत बटन',
     iconCatBasic: 'बेसिक',
     iconCatHealth: 'स्वास्थ्य',
@@ -1205,7 +1779,7 @@ const dictionaries = {
     reminderNotificationBody: 'अपनी चेन आगे बढ़ाने का समय है।',
     streak7Title: '7 दिन की श्रृंखला!',
     streak7Message: 'आपने पूरा एक सप्ताह श्रृंखला बनाए रखी। शानदार!',
-    ok: 'OK',
+    ok: 'ठीक है',
     languageChange: 'भाषा बदलें',
     currentLanguage: 'वर्तमान',
     languageNameEn: 'अंग्रेज़ी',
@@ -1230,12 +1804,82 @@ const dictionaries = {
     tapSoundLabel: 'टैप ध्वनि शैली',
     proOnlyTitle: 'केवल प्रो के लिए',
     proOnlyTheme: 'यह थीम प्रो में उपलब्ध है।',
+
+    // अनुपस्थित कुंजियों का追加
+    cancel: 'रद्द करें',
+    delete: 'हटाएँ',
+    deleteConfirmBody: 'क्या आप वाकई हटाना चाहते हैं? यह क्रिया वापस नहीं ली जा सकती।',
+    comingSoonTitle: 'जल्द ही आ रहा है',
+    onboardingPunch: 'यही है DotChain।',
+
+    paywallBestValueBadge: 'सबसे किफायती',
+    paywallMonthlyLabel: 'मासिक योजना',
+    paywallMonthlySub: 'हर महीने बिलिंग। कभी भी रद्द करें।',
+    paywallYearlyLabel: 'वार्षिक योजना',
+    paywallYearlySub: 'साल में एक बार बिलिंग। कभी भी रद्द करें।',
+
+    priceFree: '$0 / हमेशा के लिए',
+    priceYearly: '$14.99 / वर्ष',
+
+    proCompareHeaderFeature: 'फ़ीचर',
+    proCompareHeaderFree: 'मुफ़्त',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'आप चाहें तो हमेशा मुफ़्त प्लान पर रह सकते हैं। Pro सिर्फ़ सीमाएँ हटाता है।',
+    proCompareTitle: 'Pro लेने पर आपको क्या मिलता है',
+
+    proCtaMonthly: 'मासिक Pro प्लान लें',
+    proCtaStayFree: 'मुफ़्त संस्करण जारी रखें',
+    proCtaYearly: 'वार्षिक Pro प्लान लें',
+
+    proFeatureAdsFree: 'स्क्रीन के नीचे बैनर विज्ञापन',
+    proFeatureAdsPro: 'कोई विज्ञापन नहीं, पूरा ध्यान',
+    proFeatureHabits: 'जिन आदतों को आप ट्रैक कर सकते हैं',
+    proFeatureHabitsFree: 'अधिकतम 3 आदतें',
+    proFeatureHabitsPro: 'असीमित आदतें',
+    proFeatureThemesFree: '1 थीम (डार्क)',
+    proFeatureThemesPro: 'सभी थीम अनलॉक',
+
+    proFinePrint:
+      'सदस्यता अपने-आप नवीनीकृत हो जाती है। आप App Store या Google Play की अकाउंट सेटिंग्स से कभी भी रद्द कर सकते हैं।',
+    proMonthlyTagline: 'छोटे से शुरुआत करें, कभी भी रद्द करें।',
+    proPlanFreeTitle: 'मुफ़्त',
+    proPlanMonthlyTitle: 'मासिक',
+    proPlanYearlyBadge: 'सबसे किफायती',
+    proPlanYearlyTitle: 'वार्षिक',
+    proSubtitle: '3 आदतों की सीमा से आगे बढ़ें और अपनी चेन को रोकना मुश्किल बनाएं।',
+    proYearlySavingShort: 'लगभग 37% बचत (लगभग 8 महीने मुफ़्त के बराबर)।',
+    proYearlyTagline: 'जो अपनी चेन को गंभीरता से बनाना चाहते हैं, उनके लिए।',
+
+    restoreSoon: 'खरीद बहाल करने का विकल्प आने वाले अपडेट में जोड़ा जाएगा।',
+
+    themeCyberBlueLabel: 'साइबर ब्लू',
+    themeDarkLabel: 'डार्क',
+    themeDesc: 'ऐप का माहौल चुनें। (Pro थीम बाद में जोड़े जाएंगे।)',
+    themeNeonPinkLabel: 'नियोन पिंक',
+
+    tutorialEditIconBody: 'सबसे पहले, अपनी आदत से मेल खाता एक आइकन चुनें।',
+    tutorialEditNameBody:
+      'फिर, अपनी आदत के लिए नाम लिखें।\nजैसे: "पानी पिएँ", "किताब पढ़ें"।',
+    tutorialEditSubmitBody:
+      'सब तैयार है!\nइस आदत को होम स्क्रीन में जोड़ने के लिए नीचे दिए गए "बनाएँ" बटन को टैप करें।',
+    tutorialExplainChainBody:
+      'हर टैप पर आपका "लगातार दिन" काउंटर बढ़ता है और आज का दिन "आपकी चेन" पर हाइलाइट हो जाता है।\nलगातार करते रहें, आपकी चेन लंबी होती जाएगी।',
+    tutorialGotIt: 'समझ गया',
+    tutorialNext: 'आगे',
+    tutorialPressFabBody:
+      'नीचे दाएँ कोने में + बटन दबाकर पहली आदत बनाएं।',
+    tutorialPressHabitBody:
+      'अब वह आदत टैप करें जो आपने अभी बनाई है।\nटैप करने से आज "पूरा" चिन्हित हो जाएगा।',
+    tutorialStart: 'शुरू करें',
+    tutorialWelcomeBody:
+      'स्वागत है!\nDotChain आपको आदतों की चेन बनाने में मदद करता है।\nसबसे पहले + बटन से अपनी पहली आदत बनाएँ।',
   },
   id: {
     ...baseEn,
     daysStreak: 'HARI BERUNTUN',
     yourChain: 'RANTAI KAMU',
-    allDoneDays: 'HARI SELESAI SEMUA',
+    allDoneDays: 'HARI SEMUA SELESAI',
     settings: 'Pengaturan',
     hapticOff: 'Getar mati',
     language: 'Bahasa',
@@ -1260,16 +1904,16 @@ const dictionaries = {
     heatmapAgoSuffix: ' hari yang lalu',
     heatmapToday: 'Hari ini',
     freeThemeNote: 'Gratis: hanya Dark / Pro membuka Neon Pink & Cyber Blue',
-    proThemeNote: 'Tema Pro aktif setelah paywall.',
-    restoreDesc: 'Pulihkan (segera)',
-    licenses: 'Lisensi OSS (segera)',
+    proThemeNote: 'Tema Pro aktif setelah pembayaran.',
+    restoreDesc: 'Pulihkan pembelian (segera)',
+    licenses: 'Lisensi sumber terbuka (segera)',
     openPro: 'Buka DotChain Pro',
     heroPaywall: 'Upgrade ke dunia neon',
-    priceMonthly: '$2.99 / bulan',
+    priceMonthly: '$1.99 / bulan',
     onboardingTitle: 'Selamat datang di DotChain',
     onboardingBody: 'Sekali tap, getaran kuat. Bangun rantai hari ini.',
     start: 'Mulai',
-    paywallNote: 'Billing/iklan menyusul.',
+    paywallNote: 'Fitur penagihan dan iklan akan ditambahkan nanti.',
     homeLoading: 'Memuat...',
     homeAddHabitLabel: 'Tambah kebiasaan',
     editNewHabit: 'Kebiasaan baru',
@@ -1280,11 +1924,11 @@ const dictionaries = {
     editSaveChanges: 'Simpan perubahan',
     editCreateHabit: 'Buat kebiasaan',
     editDeleteHabit: 'Hapus kebiasaan',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Bebaskan rantaimu.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Kebiasaan tak terbatas',
     proFeatureThemes: 'Semua tema terbuka (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Tanpa iklan',
+    proFeatureAds: 'Tanpa iklan',
     habitButtonSuffix: ' tombol kebiasaan',
     iconCatBasic: 'Dasar',
     iconCatHealth: 'Kesehatan',
@@ -1329,11 +1973,81 @@ const dictionaries = {
     tapSoundLabel: 'Gaya suara ketukan',
     proOnlyTitle: 'Hanya untuk Pro',
     proOnlyTheme: 'Tema ini tersedia di Pro.',
+
+    // Melengkapi 51 kunci yang hilang
+    cancel: 'Batal',
+    delete: 'Hapus',
+    deleteConfirmBody: 'Yakin ingin menghapus? Tindakan ini tidak bisa dibatalkan.',
+    comingSoonTitle: 'Segera hadir',
+    onboardingPunch: 'Inilah DotChain.',
+
+    paywallBestValueBadge: 'Paling hemat',
+    paywallMonthlyLabel: 'Paket bulanan',
+    paywallMonthlySub: 'Ditagih setiap bulan. Bisa dibatalkan kapan saja.',
+    paywallYearlyLabel: 'Paket tahunan',
+    paywallYearlySub: 'Ditagih setahun sekali. Bisa dibatalkan kapan saja.',
+
+    priceFree: '$0 / selamanya',
+    priceYearly: '$14.99 / tahun',
+
+    proCompareHeaderFeature: 'Fitur',
+    proCompareHeaderFree: 'Gratis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Kamu selalu bisa tetap di paket Gratis. Pro hanya menghapus batas-batasnya.',
+    proCompareTitle: 'Apa yang kamu dapatkan dengan Pro',
+
+    proCtaMonthly: 'Dapatkan Pro bulanan',
+    proCtaStayFree: 'Lanjut dengan versi gratis',
+    proCtaYearly: 'Dapatkan Pro tahunan',
+
+    proFeatureAdsFree: 'Banner iklan di bagian bawah',
+    proFeatureAdsPro: 'Tanpa iklan, fokus penuh',
+    proFeatureHabits: 'Kebiasaan yang bisa kamu lacak',
+    proFeatureHabitsFree: 'Maksimal 3 kebiasaan',
+    proFeatureHabitsPro: 'Kebiasaan tak terbatas',
+    proFeatureThemesFree: '1 tema (Gelap)',
+    proFeatureThemesPro: 'Semua tema terbuka',
+
+    proFinePrint:
+      'Langganan diperpanjang otomatis. Kamu bisa membatalkannya kapan saja dari pengaturan akun App Store atau Google Play.',
+    proMonthlyTagline: 'Mulai kecil, bisa dibatalkan kapan saja.',
+    proPlanFreeTitle: 'Gratis',
+    proPlanMonthlyTitle: 'Bulanan',
+    proPlanYearlyBadge: 'Paling hemat',
+    proPlanYearlyTitle: 'Tahunan',
+    proSubtitle: 'Lewati 3 kebiasaan dan buat titik-titikmu tak terhentikan.',
+    proYearlySavingShort: 'Hemat sekitar 37% (seperti 8 bulan gratis).',
+    proYearlyTagline: 'Untuk pembangun rantai yang benar-benar serius.',
+
+    restoreSoon: 'Fitur memulihkan pembelian akan ditambahkan di pembaruan berikutnya.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'Gelap',
+    themeDesc: 'Pilih suasana aplikasi. (Tema Pro akan hadir belakangan.)',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody: 'Pertama, pilih ikon yang sesuai dengan kebiasaanmu.',
+    tutorialEditNameBody:
+      'Berikutnya, beri nama untuk kebiasaanmu.\nContoh: "Minum air", "Membaca buku".',
+    tutorialEditSubmitBody:
+      'Semua siap!\nKetuk tombol buat di bawah untuk menambahkan kebiasaan ini ke beranda.',
+    tutorialExplainChainBody:
+      'Setiap kali kamu mengetuk, hitungan HARI BERUNTUN bertambah dan hari ini akan menyala di RANTAI KAMU.\nTerus lanjutkan untuk memanjangkan rantaimu.',
+    tutorialGotIt: 'Mengerti',
+    tutorialNext: 'Berikutnya',
+    tutorialPressFabBody:
+      'Ketuk tombol + di kanan bawah untuk membuat kebiasaan pertamamu.',
+    tutorialPressHabitBody:
+      'Sekarang ketuk kebiasaan yang baru kamu buat.\nDengan mengetuknya, hari ini akan ditandai sebagai "selesai".',
+    tutorialStart: 'Mulai',
+    tutorialWelcomeBody:
+      'Selamat datang!\nDotChain membantu kamu membangun rantai kebiasaan.\nMulai dengan membuat kebiasaan pertama lewat tombol +.',
   },
   th: {
     ...baseEn,
     daysStreak: 'จำนวนวันต่อเนื่อง',
-    yourChain: 'โซ่ของคุณ',
+    yourChain: 'เชนของคุณ',
     allDoneDays: 'จำนวนวันที่ทำครบทั้งหมด',
     settings: 'การตั้งค่า',
     hapticOff: 'ปิดการสั่น',
@@ -1347,7 +2061,8 @@ const dictionaries = {
     click: 'คลิก',
     pop: 'ป็อป',
     flowEffectTitle: 'แอนิเมชันกระแสไฟ',
-    flowEffectHelp: 'ให้กระแสไฟนีออนไหลไปตามเส้นโซ่ หากต้องการหน้าจอที่นิ่งกว่าให้ปิดฟีเจอร์นี้ได้',
+    flowEffectHelp:
+      'ให้กระแสไฟนีออนไหลไปตามเชนของคุณ หากต้องการหน้าจอที่นิ่งกว่านี้ให้ปิดฟีเจอร์นี้ได้',
     heatmapRangeTitle: 'ช่วงวันที่แสดงเชน',
     heatmapRangeHelp: 'เลือกจำนวนวันที่จะแสดงเชนในฮีตแมปหน้าหลัก',
     heatmapRange30: '1 เดือน',
@@ -1358,32 +2073,32 @@ const dictionaries = {
     heatmapSummarySuffix: ' วัน',
     heatmapAgoSuffix: ' วันที่แล้ว',
     heatmapToday: 'วันนี้',
-    freeThemeNote: 'ฟรี: ธีมมืดเท่านั้น / Pro ปลดล็อก Neon Pink, Cyber Blue',
-    proThemeNote: 'ธีม Pro จะใช้หลังเพย์วอลล์',
+    freeThemeNote: 'ฟรี: ธีมมืดเท่านั้น / Pro ปลดล็อก Neon Pink และ Cyber Blue',
+    proThemeNote: 'ธีม Pro จะใช้ได้หลังจากเปิดระบบ Pro แล้ว',
     restoreDesc: 'กู้คืน (เร็ว ๆ นี้)',
     licenses: 'สัญญาอนุญาต OSS (เร็ว ๆ นี้)',
     openPro: 'เปิด DotChain Pro',
     heroPaywall: 'อัปเกรดสู่โลกนีออน',
-    priceMonthly: '$2.99 / เดือน',
+    priceMonthly: '$1.99 / เดือน',
     onboardingTitle: 'ยินดีต้อนรับสู่ DotChain',
-    onboardingBody: 'แตะครั้งเดียว สั่นแรง สร้างโซ่ของวันนี้',
+    onboardingBody: 'แตะครั้งเดียว สั่นแรง มาสร้างเชนของวันนี้กัน',
     start: 'เริ่ม',
-    paywallNote: 'การชำระเงิน/โฆษณาจะเพิ่มภายหลัง',
+    paywallNote: 'การชำระเงินและโฆษณาจะถูกเพิ่มภายหลัง',
     homeLoading: 'กำลังโหลด...',
     homeAddHabitLabel: 'เพิ่มนิสัย',
     editNewHabit: 'นิสัยใหม่',
-    editHabitTitle: 'แก้นิสัย',
+    editHabitTitle: 'แก้ไขนิสัย',
     editIconLabel: 'ไอคอน',
     editNameLabel: 'ชื่อ (สูงสุด 20 ตัวอักษร)',
     editNamePlaceholder: 'ตั้งชื่อนิสัยของคุณ...',
     editSaveChanges: 'บันทึกการเปลี่ยนแปลง',
     editCreateHabit: 'สร้างนิสัย',
     editDeleteHabit: 'ลบนิสัย',
-    proTitle: 'DotChain Pro',
+    proTitle: 'ปลดล็อกเชนของคุณ',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'นิสัยไม่จำกัด',
     proFeatureThemes: 'ปลดล็อกทุกธีม (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'ไม่มีโฆษณา',
+    proFeatureAds: 'ไม่มีโฆษณา',
     habitButtonSuffix: ' ปุ่มนิสัย',
     iconCatBasic: 'พื้นฐาน',
     iconCatHealth: 'สุขภาพ',
@@ -1397,13 +2112,13 @@ const dictionaries = {
     habitLimitTitle: 'ขีดจำกัดแพ็กเกจฟรี',
     habitLimitBody: 'แพ็กเกจฟรีสร้างนิสัยได้สูงสุด 3 รายการ',
     hapticsDescription: 'การตอบสนองแบบสั่น',
-    reminderSectionTitle: 'การแจ้งเตือนเตือนความจำ',
+    reminderSectionTitle: 'การแจ้งเตือนนิสัย',
     reminderToggleLabel: 'ใช้การเตือนความจำ',
     reminderTimeLabel: 'เวลาการแจ้งเตือน',
-    reminderNotificationBody: 'ถึงเวลาสร้างสายโซ่ของคุณแล้ว',
+    reminderNotificationBody: 'ถึงเวลาสร้างเชนของคุณแล้ว',
     streak7Title: 'ต่อเนื่อง 7 วัน!',
-    streak7Message: 'คุณรักษาสายโซ่ได้ครบหนึ่งสัปดาห์ เยี่ยมมาก!',
-    ok: 'OK',
+    streak7Message: 'คุณรักษาเชนต่อเนื่องได้ครบหนึ่งสัปดาห์ เยี่ยมมาก!',
+    ok: 'ตกลง',
     languageChange: 'เปลี่ยนภาษา',
     currentLanguage: 'ปัจจุบัน',
     languageNameEn: 'อังกฤษ',
@@ -1428,7 +2143,88 @@ const dictionaries = {
     tapSoundLabel: 'สไตล์เสียงแตะ',
     proOnlyTitle: 'สำหรับ Pro เท่านั้น',
     proOnlyTheme: 'ธีมนี้ใช้ได้เฉพาะใน Pro',
+
+    cancel: 'ยกเลิก',
+    delete: 'ลบ',
+    deleteConfirmBody: 'แน่ใจหรือไม่ว่าต้องการลบ? การกระทำนี้ไม่สามารถย้อนกลับได้.',
+    comingSoonTitle: 'เร็ว ๆ นี้',
+    onboardingPunch: 'นี่คือ DotChain.',
+
+    paywallBestValueBadge: 'คุ้มที่สุด',
+    paywallMonthlyLabel: 'แพ็กเกจรายเดือน',
+    paywallMonthlySub: 'ตัดบิลทุกเดือน ยกเลิกได้ทุกเมื่อ.',
+    paywallYearlyLabel: 'แพ็กเกจรายปี',
+    paywallYearlySub: 'ตัดบิลปีละครั้ง ยกเลิกได้ทุกเมื่อ.',
+
+    priceFree: '$0 / ตลอดไป',
+    priceYearly: '$14.99 / ปี',
+
+    proCompareHeaderFeature: 'ฟีเจอร์',
+    proCompareHeaderFree: 'ฟรี',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'คุณสามารถใช้แบบฟรีต่อไปได้เสมอ Pro แค่เอาข้อจำกัดออก.',
+    proCompareTitle: 'คุณจะได้อะไรจาก Pro',
+
+    proCtaMonthly: 'สมัคร Pro รายเดือน',
+    proCtaStayFree: 'ใช้แบบฟรีต่อไป',
+    proCtaYearly: 'สมัคร Pro รายปี',
+
+    proFeatureAdsFree: 'แบนเนอร์โฆษณาด้านล่าง',
+    proFeatureAdsPro: 'ไม่มีโฆษณา โฟกัสได้เต็มที่',
+    proFeatureHabits: 'จำนวนพฤติกรรมที่ติดตามได้',
+    proFeatureHabitsFree: 'นิสัยได้สูงสุด 3 รายการ',
+    proFeatureHabitsPro: 'นิสัยไม่จำกัด',
+    proFeatureThemesFree: '1 ธีม (ธีมมืด)',
+    proFeatureThemesPro: 'ปลดล็อกทุกธีม',
+
+    proFinePrint:
+      'การสมัครจะต่ออายุอัตโนมัติ คุณสามารถยกเลิกได้ตลอดเวลาในการตั้งค่าบัญชี App Store หรือ Google Play ของคุณ.',
+    proMonthlyTagline: 'เริ่มแบบเล็ก ๆ ยกเลิกเมื่อไหร่ก็ได้.',
+    proPlanFreeTitle: 'ฟรี',
+    proPlanMonthlyTitle: 'รายเดือน',
+    proPlanYearlyBadge: 'คุ้มที่สุด',
+    proPlanYearlyTitle: 'รายปี',
+    proSubtitle:
+      'ไปให้ไกลกว่า 3 นิสัย แล้วทำให้เชนของคุณหยุดไม่อยู่.',
+    proYearlySavingShort:
+      'ประหยัดประมาณ 37% (เหมือนได้ใช้ฟรี 8 เดือน).',
+    proYearlyTagline: 'สำหรับคนสร้างเชนตัวจริง.',
+
+    restoreSoon:
+      'ฟังก์ชันกู้คืนการซื้อจะถูกเพิ่มในอัปเดตถัดไป.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'ธีมมืด',
+    themeDesc:
+      'เลือกบรรยากาศที่คุณชอบ (ธีม Pro จะถูกเพิ่มในภายหลัง).',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody:
+      'ก่อนอื่น เลือกไอคอนที่เข้ากับนิสัยของคุณ.',
+    tutorialEditNameBody:
+      'ถัดไป ตั้งชื่อนิสัยของคุณ
+ตัวอย่างเช่น "ดื่มน้ำ", "อ่านหนังสือ".',
+    tutorialEditSubmitBody:
+      'พร้อมแล้ว!
+แตะปุ่มสร้างด้านล่างเพื่อเพิ่มนิสัยนี้ไปยังหน้าหลักของคุณ.',
+    tutorialExplainChainBody:
+      'เมื่อแตะแล้ว จำนวนวันต่อเนื่องของคุณจะเพิ่มขึ้น และวันนี้จะติดสว่างบนเชนของคุณ
+ทำต่อไปเพื่อยืดเชนให้ยาวขึ้น.',
+    tutorialGotIt: 'เข้าใจแล้ว',
+    tutorialNext: 'ถัดไป',
+    tutorialPressFabBody:
+      'แตะปุ่ม + ด้านล่างขวาเพื่อสร้างนิสัยแรกของคุณ.',
+    tutorialPressHabitBody:
+      'ตอนนี้ให้แตะนิสัยที่คุณเพิ่งสร้าง
+การแตะจะนับว่าวันนี้ "ทำแล้ว".',
+    tutorialStart: 'เริ่มเลย',
+    tutorialWelcomeBody:
+      'ยินดีต้อนรับ!
+DotChain ช่วยให้คุณสร้างเชนนิสัยของตัวเองได้
+เริ่มจากการสร้างนิสัยแรกของคุณด้วยปุ่ม +.',
   },
+
   vi: {
     ...baseEn,
     daysStreak: 'SỐ NGÀY LIÊN TIẾP',
@@ -1702,7 +2498,7 @@ const dictionaries = {
     reminderNotificationBody: 'Zincirini ilerletme zamanı.',
     streak7Title: '7 günlük seri!',
     streak7Message: 'Bir hafta boyunca zincirini sürdürdün. Harika!',
-    ok: 'OK',
+    ok: 'Tamam',
     languageChange: 'Dili değiştir',
     currentLanguage: 'Geçerli',
     languageNameEn: 'İngilizce',
@@ -1727,12 +2523,101 @@ const dictionaries = {
     tapSoundLabel: 'Dokunma sesi stili',
     proOnlyTitle: 'Yalnızca Pro için',
     proOnlyTheme: 'Bu tema Pro ile kullanılabilir.',
+
+    // --- Overwrite & additions for full tr localization ---
+    allDoneDays: 'TÜM ALIŞKANLIKLARIN TAMAMLANDIĞI GÜNLER',
+    freeThemeNote:
+      'Ücretsiz: sadece Dark / Pro ile Neon Pink ve Cyber Blue temaları açılır.',
+    proThemeNote: 'Pro temalar ödeme sonrasında etkinleşir.',
+    licenses: 'Açık kaynak lisansları (yakında)',
+    paywallNote: 'Faturalandırma ve reklam özellikleri daha sonra eklenecek.',
+    restoreDesc: 'Satın alımları geri yükleme (yakında)',
+    proTitle: 'Zincirini serbest bırak.',
+    proFeatureThemes: 'Tüm temaların kilidi açılır (Neon Pink / Cyber Blue)',
+    priceMonthly: '$1.99 / ay',
+
+    // Dialogs
+    cancel: 'İptal',
+    delete: 'Sil',
+    deleteConfirmBody: 'Emin misin? Bu işlem geri alınamaz.',
+
+    // Onboarding / punch
+    onboardingPunch: 'İşte DotChain.',
+
+    // Pricing / paywall labels
+    priceFree: '$0 / sonsuza kadar',
+    priceYearly: '$14.99 / yıl',
+    paywallMonthlyLabel: 'Aylık plan',
+    paywallMonthlySub: 'Her ay faturalandırılır. İstediğin zaman iptal edebilirsin.',
+    paywallYearlyLabel: 'Yıllık plan',
+    paywallYearlySub: 'Yılda bir kez faturalandırılır. İstediğin zaman iptal edebilirsin.',
+    paywallBestValueBadge: 'En avantajlı',
+    comingSoonTitle: 'Yakında geliyor',
+    restoreSoon:
+      'Satın alımları geri yükleme özelliği ilerideki bir güncellemede eklenecek.',
+
+    // Themes
+    themeDarkLabel: 'Dark',
+    themeNeonPinkLabel: 'Neon Pink',
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDesc: 'Sevdiğin havayı seç. (Pro temalar daha sonra eklenecek.)',
+
+    // Pro plan descriptions
+    proSubtitle:
+      '3 alışkanlık sınırını aş ve nokta zincirini durdurulamaz hale getir.',
+    proPlanFreeTitle: 'Ücretsiz',
+    proPlanMonthlyTitle: 'Aylık',
+    proPlanYearlyTitle: 'Yıllık',
+    proPlanYearlyBadge: 'En avantajlı',
+
+    proCompareTitle: 'Pro ile neler kazanırsın',
+    proCompareSubtitle:
+      'Her zaman Ücretsiz planda kalabilirsin. Pro sadece sınırları kaldırır.',
+    proCompareHeaderFeature: 'Özellik',
+    proCompareHeaderFree: 'Ücretsiz',
+    proCompareHeaderPro: 'Pro',
+
+    proFeatureHabits: 'Takip edebileceğin alışkanlık sayısı',
+    proFeatureHabitsFree: 'En fazla 3 alışkanlık',
+    proFeatureHabitsPro: 'Sınırsız alışkanlık',
+    proFeatureThemesFree: '1 tema (Dark)',
+    proFeatureThemesPro: 'Tüm temalar açılır',
+    proFeatureAdsFree: 'Alt kısımda banner reklam',
+    proFeatureAdsPro: 'Reklam yok, tam odak',
+
+    proMonthlyTagline: 'Küçük başla, istediğin zaman iptal et.',
+    proYearlyTagline: 'Zincirini ciddiye alanlar için.',
+    proYearlySavingShort: 'Yaklaşık %37 tasarruf (8 ay bedava gibi).',
+
+    proCtaMonthly: 'Aylık Pro al',
+    proCtaYearly: 'Yıllık Pro al',
+    proCtaStayFree: 'Ücretsiz planda kal',
+    proFinePrint:
+      'Abonelik otomatik olarak yenilenir. İstediğin zaman App Store veya Google Play hesap ayarlarından iptal edebilirsin.',
+
+    // Tutorial
+    tutorialWelcomeBody:
+      'Hoş geldin!\nDotChain, alışkanlık zincirini kurmana yardım eder.\nİlk alışkanlığını + düğmesinden oluşturarak başla.',
+    tutorialPressFabBody:
+      'Sağ alttaki + düğmesine dokunarak ilk alışkanlığını oluştur.',
+    tutorialPressHabitBody:
+      'Şimdi az önce oluşturduğun alışkanlığa dokun.\nHer dokunuş bugün için "yapıldı" olarak işaretler.',
+    tutorialExplainChainBody:
+      'Her dokunduğunda GÜN SERİSİN artar ve bugün ZİNCİRİN üzerinde yanar.\nZincirini uzatmak için devam et.',
+    tutorialEditIconBody: 'Önce, alışkanlığına uyan bir ikon seç.',
+    tutorialEditNameBody:
+      'Sonra, alışkanlığına bir ad yaz.\nÖrneğin: "Su iç", "Kitap oku".',
+    tutorialEditSubmitBody:
+      'Hazırsın!\nBu alışkanlığı ana ekrana eklemek için aşağıdaki oluştur düğmesine dokun.',
+    tutorialNext: 'İleri',
+    tutorialStart: 'Başla',
+    tutorialGotIt: 'Anladım',
   },
   nl: {
     ...baseEn,
-    daysStreak: 'DAGEN OP RIJ',
-    yourChain: 'JOUW KETEN',
-    allDoneDays: 'VOLLEDIG VOLTOOIDE DAGEN',
+    daysStreak: 'Dagen op rij',
+    yourChain: 'Jouw keten',
+    allDoneDays: 'Volledig voltooide dagen',
     settings: 'Instellingen',
     hapticOff: 'Trillen uit',
     language: 'Taal',
@@ -1759,16 +2644,16 @@ const dictionaries = {
     heatmapAgoSuffix: ' dagen geleden',
     heatmapToday: 'Vandaag',
     freeThemeNote: 'Gratis: alleen Donker / Pro ontgrendelt Neon Pink & Cyber Blue',
-    proThemeNote: 'Pro-thema\'s na paywall.',
-    restoreDesc: 'Herstellen (binnenkort)',
-    licenses: 'OSS-licenties (binnenkort)',
+    proThemeNote: 'Pro-thema\'s worden later ontgrendeld.',
+    restoreDesc: 'Aankopen herstellen (binnenkort)',
+    licenses: 'Open-source licenties (binnenkort)',
     openPro: 'Open DotChain Pro',
     heroPaywall: 'Upgrade naar de neonwereld',
-    priceMonthly: '$2.99 / maand',
+    priceMonthly: '$1.99 / maand',
     onboardingTitle: 'Welkom bij DotChain',
     onboardingBody: 'Eén tik, sterke trilling. Bouw de keten van vandaag.',
     start: 'Start',
-    paywallNote: 'Facturatie/ads later.',
+    paywallNote: 'Facturering en advertenties worden later toegevoegd.',
     homeLoading: 'Bezig met laden...',
     homeAddHabitLabel: 'Gewoonte toevoegen',
     editNewHabit: 'Nieuwe gewoonte',
@@ -1779,11 +2664,11 @@ const dictionaries = {
     editSaveChanges: 'Wijzigingen opslaan',
     editCreateHabit: 'Gewoonte maken',
     editDeleteHabit: 'Gewoonte verwijderen',
-    proTitle: 'DotChain Pro',
+    proTitle: 'Ontgrendel je keten.',
     proHeaderTitle: 'DotChain Pro',
     proFeatureUnlimited: 'Onbeperkte gewoonten',
     proFeatureThemes: 'Alle thema’s ontgrendeld (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Geen advertenties',
+    proFeatureAds: 'Geen advertenties',
     habitButtonSuffix: ' gewoonteknop',
     iconCatBasic: 'Basis',
     iconCatHealth: 'Gezondheid',
@@ -1828,6 +2713,82 @@ const dictionaries = {
     tapSoundLabel: 'Tikgeluidstijl',
     proOnlyTitle: 'Alleen voor Pro',
     proOnlyTheme: 'Dit thema is beschikbaar met Pro.',
+
+    // Aanvullen ontbrekende 51 keys
+    cancel: 'Annuleren',
+    delete: 'Verwijderen',
+    deleteConfirmBody:
+      'Weet je het zeker? Deze actie kan niet ongedaan worden gemaakt.',
+    comingSoonTitle: 'Binnenkort beschikbaar',
+    onboardingPunch: 'Dit is DotChain.',
+
+    paywallBestValueBadge: 'Meest voordelig',
+    paywallMonthlyLabel: 'Maandelijks abonnement',
+    paywallMonthlySub:
+      'Maandelijks gefactureerd. Op elk moment opzegbaar.',
+    paywallYearlyLabel: 'Jaarlijks abonnement',
+    paywallYearlySub:
+      'Jaarlijks één keer gefactureerd. Op elk moment opzegbaar.',
+
+    priceFree: '$0 / voor altijd',
+    priceYearly: '$14.99 / jaar',
+
+    proCompareHeaderFeature: 'Functie',
+    proCompareHeaderFree: 'Gratis',
+    proCompareHeaderPro: 'Pro',
+    proCompareSubtitle:
+      'Je kunt altijd bij het gratis abonnement blijven. Pro haalt alleen de limieten weg.',
+    proCompareTitle: 'Wat je krijgt met Pro',
+
+    proCtaMonthly: 'Pro maandelijks nemen',
+    proCtaStayFree: 'Gratis blijven gebruiken',
+    proCtaYearly: 'Pro jaarlijks nemen',
+
+    proFeatureAdsFree: 'Advertentiebanner onderin',
+    proFeatureAdsPro: 'Geen advertenties, volledige focus',
+    proFeatureHabits: 'Gewoonten die je kunt bijhouden',
+    proFeatureHabitsFree: 'Maximaal 3 gewoonten',
+    proFeatureHabitsPro: 'Onbeperkt aantal gewoonten',
+    proFeatureThemesFree: '1 thema (Donker)',
+    proFeatureThemesPro: 'Alle thema\'s ontgrendeld',
+
+    proFinePrint:
+      'Abonnement wordt automatisch verlengd. Je kunt op elk moment opzeggen via de instellingen van je App Store- of Google Play-account.',
+    proMonthlyTagline: 'Begin klein, opzeggen kan altijd.',
+    proPlanFreeTitle: 'Gratis',
+    proPlanMonthlyTitle: 'Maandelijks',
+    proPlanYearlyBadge: 'Meest voordelig',
+    proPlanYearlyTitle: 'Jaarlijks',
+    proSubtitle: 'Ga verder dan 3 gewoonten en maak je keten niet te stoppen.',
+    proYearlySavingShort: 'Bespaar ongeveer 37% (alsof 8 maanden gratis zijn).',
+    proYearlyTagline: 'Voor echte ketenbouwers.',
+
+    restoreSoon:
+      'Herstellen van aankopen wordt in een volgende update toegevoegd.',
+
+    themeCyberBlueLabel: 'Cyber Blue',
+    themeDarkLabel: 'Donker',
+    themeDesc:
+      'Kies de sfeer die bij je past. (Pro-thema\'s worden later toegevoegd.)',
+    themeNeonPinkLabel: 'Neon Pink',
+
+    tutorialEditIconBody:
+      'Kies eerst een pictogram dat bij je gewoonte past.',
+    tutorialEditNameBody:
+      'Geef je gewoonte daarna een naam.\nBijvoorbeeld: "Water drinken", "Boek lezen".',
+    tutorialEditSubmitBody:
+      'Klaar!\nTik op de knop hieronder om deze gewoonte aan je startscherm toe te voegen.',
+    tutorialExplainChainBody:
+      'Door te tikken is je DAGEN OP RIJ toegenomen en licht vandaag op in JOUW KETEN.\nGa zo door om je keten langer te maken.',
+    tutorialGotIt: 'Begrepen',
+    tutorialNext: 'Volgende',
+    tutorialPressFabBody:
+      'Tik op de +-knop rechtsonder om je eerste gewoonte te maken.',
+    tutorialPressHabitBody:
+      'Tik nu op de gewoonte die je zojuist hebt gemaakt.\nDoor te tikken wordt vandaag als "gedaan" gemarkeerd.',
+    tutorialStart: 'Start',
+    tutorialWelcomeBody:
+      'Welkom!\nMet DotChain bouw je jouw gewoontenketen.\nBegin met het maken van je eerste gewoonte via de +-knop.',
   },
   sv: {
     ...baseEn,
