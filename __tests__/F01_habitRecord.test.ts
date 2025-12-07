@@ -1,5 +1,10 @@
 import { getLocalDateKey } from '@/src/core/dateKey';
-import { useHabitStore, selectHeatmapIntensity, selectStreak, selectAllDoneDays } from '@/src/stores/habitStore';
+import {
+  useHabitStore,
+  selectHeatmapIntensity,
+  selectStreak,
+  selectAllDoneDays,
+} from '@/src/stores/habitStore';
 import { insertLog, deleteLogForDate } from '@/src/features/habit/logTable';
 
 // AsyncStorage を Jest 用にダミー実装に差し替える
@@ -60,7 +65,11 @@ describe('F-01: 習慣実行の記録（HabitStore / セレクタのテスト）
   beforeEach(() => {
     const baseState = useHabitStore.getState();
     const today = new Date();
-    const createdAtDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    const createdAtDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7,
+    );
 
     const sampleHabit = {
       id: 'habit-1',
@@ -102,7 +111,11 @@ describe('F-01: 習慣実行の記録（HabitStore / セレクタのテスト）
 
     // 期待: DB への insertLog が 1 回呼ばれている
     expect(insertLog).toHaveBeenCalledTimes(1);
-    expect(insertLog).toHaveBeenCalledWith('habit-1', todayKey, expect.any(String));
+    expect(insertLog).toHaveBeenCalledWith(
+      'habit-1',
+      todayKey,
+      expect.any(String),
+    );
   });
 
   it('2回目のタップで今日のログが OFF になり、deleteLogForDate が呼ばれる', async () => {
@@ -164,12 +177,18 @@ describe('F-01: 習慣実行の記録（HabitStore / セレクタのテスト）
   it('selectHeatmapIntensity: 日付ごとの達成件数と最大レベルが計算される', () => {
     const today = new Date();
     const key = (offset: number) =>
-      getLocalDateKey(new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset));
+      getLocalDateKey(
+        new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset),
+      );
 
     const day0 = key(0);
     const day1 = key(1);
 
-    const createdAtDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
+    const createdAtDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 10,
+    );
     const createdAt = createdAtDate.toISOString();
 
     const dummyState = {
@@ -191,21 +210,27 @@ describe('F-01: 習慣実行の記録（HabitStore / セレクタのテスト）
 
     expect(maxLevel).toBe(2); // 習慣が2つなので「最大レベル」は 2
     // day0 は h1 と h2 の2件、day1 は h1 の1件
-    expect(counts.get(day0)).toBe(2);
-    expect(counts.get(day1)).toBe(1);
+    expect(counts[day0]).toBe(2);
+    expect(counts[day1]).toBe(1);
   });
 
   it('selectStreak: 連続日数が正しくカウントされる', () => {
     const today = new Date();
     const key = (offset: number) =>
-      getLocalDateKey(new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset));
+      getLocalDateKey(
+        new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset),
+      );
 
     // 「今日〜2日前まで毎日どれかの習慣を達成」している状態を作る
     const day0 = key(0); // 今日
     const day1 = key(1); // 1日前
     const day2 = key(2); // 2日前
 
-    const createdAtDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
+    const createdAtDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 10,
+    );
     const createdAt = createdAtDate.toISOString();
 
     const dummyState = {
@@ -231,12 +256,18 @@ describe('F-01: 習慣実行の記録（HabitStore / セレクタのテスト）
   it('selectAllDoneDays: 全習慣達成した日数だけをカウントする', () => {
     const today = new Date();
     const key = (offset: number) =>
-      getLocalDateKey(new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset));
+      getLocalDateKey(
+        new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset),
+      );
 
     const day0 = key(0); // 今日
     const day1 = key(1); // 1日前
 
-    const createdAtDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10);
+    const createdAtDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 10,
+    );
     const createdAt = createdAtDate.toISOString();
 
     const dummyState = {
