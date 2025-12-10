@@ -44,7 +44,11 @@
         }
       ],
       "expo-localization",
-      "expo-notifications"
+      "expo-notifications",
+      "expo-font",
+      "expo-secure-store",
+      "expo-sqlite",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
