@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { TamaguiProvider, Theme } from 'tamagui';
 import config from '../tamagui.config';
-import { ToastHost } from './ToastHost';
+import ToastHost from '@/src/ui/ToastHost';
 import { useEffect, useRef } from 'react';
 import { AppState } from 'react-native';
 import { useHabitStore } from '@/src/stores/habitStore';

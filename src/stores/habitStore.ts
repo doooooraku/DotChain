@@ -127,7 +127,24 @@ export const useHabitStore = create<HabitState>()(
 );
 
 // 日付ごとの達成数と最大レベル（＝習慣数）を返す
+// メモ化キャッシュ（同じ状態なら同じ参照を返す）
+let heatmapCache:
+  | {
+      logsRef: HabitState['logs'];
+      habitsLen: number;
+      result: { counts: Record<string, number>; maxLevel: number };
+    }
+  | undefined;
+
 export const selectHeatmapIntensity = (state: HabitState) => {
+  if (
+    heatmapCache &&
+    heatmapCache.logsRef === state.logs &&
+    heatmapCache.habitsLen === state.habits.length
+  ) {
+    return heatmapCache.result;
+  }
+
   const counts: Record<string, number> = {};
   Object.values(state.logs).forEach((dates) => {
     dates.forEach((date) => {
@@ -135,7 +152,9 @@ export const selectHeatmapIntensity = (state: HabitState) => {
     });
   });
   const maxLevel = state.habits.length || 1;
-  return { counts, maxLevel };
+  const result = { counts, maxLevel };
+  heatmapCache = { logsRef: state.logs, habitsLen: state.habits.length, result };
+  return result;
 };
 
 // 「1日に1つでも習慣を達成した日」の“現在の連続日数”

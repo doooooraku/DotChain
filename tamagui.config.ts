@@ -21,6 +21,7 @@ const tokens = createTokens({
     2: 8,
     3: 12,
     4: 16,
+    true: 16, // default space size baseline for scaling
     5: 20,
     6: 24,
     7: 28,
@@ -34,6 +35,7 @@ const tokens = createTokens({
     2: 8,
     3: 12,
     4: 16,
+    true: 16, // default component size baseline for scaling
     5: 20,
     6: 24,
     8: 32,

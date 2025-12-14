@@ -1,19 +1,30 @@
 import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
 
 import { t } from '@/src/core/i18n/i18n';
 
 const DAILY_REMINDER_ID = 'daily-reminder';
 
-// 前景でもアラート・サウンドを出す（サウンドはOS設定に依存）
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    shouldShowBanner: true,
-    shouldShowList: true,
-  }),
-});
+// 初期化は遅延実行し、Expo Go ではスキップ
+let notificationInitialized = false;
+
+export async function initNotifications() {
+  if (notificationInitialized) return;
+  // Expo Go ではプッシュ関連が制限されるためスキップ
+  if (Constants.appOwnership === 'expo') {
+    return;
+  }
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+      shouldShowBanner: true,
+      shouldShowList: true,
+    }),
+  });
+  notificationInitialized = true;
+}
 
 type TimeParts = { hour: number; minute: number };
 

@@ -145,8 +145,6 @@ describe('F-01: 習慣実行の記録（HabitStore / セレクタのテスト）
   });
 
   it('DB エラー時は状態を変更せず error に errorToggleFailed が入る', async () => {
-    const todayKey = getLocalDateKey(new Date());
-
     // 事前状態: OFF
     useHabitStore.setState((state) => ({
       ...state,

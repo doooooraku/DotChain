@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as NotificationManager from '@/src/core/notification/NotificationManager';
+import { initNotifications } from '@/src/core/notification/NotificationManager';
 
 export type HeatmapDaysOption = 30 | 60 | 180 | 365;
 
@@ -60,6 +61,7 @@ export const useSettingsStore = create<SettingsState>()(
       setReminderEnabled: async (v) => {
         set({ reminderEnabled: Boolean(v) });
         if (v) {
+          await initNotifications();
           const granted = await NotificationManager.requestPermissions();
           if (granted) {
             const { reminderTime } = get();
@@ -82,6 +84,7 @@ export const useSettingsStore = create<SettingsState>()(
         set({ reminderTime: safe });
 
         if (get().reminderEnabled) {
+          await initNotifications();
           await NotificationManager.scheduleDailyReminder(safe);
         }
       },
