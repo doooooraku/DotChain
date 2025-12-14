@@ -260,7 +260,7 @@ export default function HomeScreen() {
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressFab' && (
-        <TutorialOverlay message={t('tutorialPressFabBody')} verticalAlign="top" />
+        <TutorialOverlay message={t('tutorialPressFabBody')} verticalAlign="center" />
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressHabit' && habits.length > 0 && (

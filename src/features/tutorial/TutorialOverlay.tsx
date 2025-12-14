@@ -25,8 +25,13 @@ export function TutorialOverlay({
   const justifyContent =
     verticalAlign === 'top' ? 'flex-start' : verticalAlign === 'bottom' ? 'flex-end' : 'center';
 
+  // 背景タップで進めるかどうかを明示的に判定
+  const canTapBackground = Boolean(backgroundTapEnabled && onNext);
+  // カード内に“押せる要素”があるか（ボタンまたは children）
+  const hasInteractiveCard = Boolean((onNext && buttonLabel) || children);
+
   const handleBackgroundPress = () => {
-    if (backgroundTapEnabled && onNext) {
+    if (canTapBackground && onNext) {
       onNext();
     }
   };
@@ -39,13 +44,16 @@ export function TutorialOverlay({
       justifyContent={justifyContent}
       alignItems="center"
       padding={24}
-      zIndex={100}>
+      zIndex={100}
+      pointerEvents="box-none" // 親自体はタッチを奪わない
+    >
       {/* 背景レイヤー（黒半透明） */}
       <Stack
         position="absolute"
         inset={0}
         backgroundColor="rgba(0,0,0,0.75)"
-        onPress={handleBackgroundPress}
+        pointerEvents={canTapBackground ? 'auto' : 'none'} // 触れさせたい時だけタッチを受ける
+        onPress={canTapBackground ? handleBackgroundPress : undefined}
       />
 
       {/* カードレイヤー */}
@@ -56,7 +64,9 @@ export function TutorialOverlay({
         padding="$4"
         gap="$3"
         borderWidth={1}
-        borderColor="$neonGreen">
+        borderColor="$neonGreen"
+        // ボタンも子要素も無い場合はカードもタッチを奪わない（下のUIに通す）
+        pointerEvents={hasInteractiveCard ? 'auto' : 'none'}>
         <Text color="$text" fontSize={16} lineHeight={22} textAlign="center">
           {message}
         </Text>
