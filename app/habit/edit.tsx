@@ -176,8 +176,10 @@ export default function EditScreen() {
           message={t('tutorialEditIconBody')}
           buttonLabel={t('tutorialNext')}
           onNext={() => setEditStep('name')}
-          backgroundTapEnabled
+          allowPassthrough
+          backdropOpacity={0}
           verticalAlign="bottom"
+          cardOffsetY={-24}
         />
       )}
 
@@ -186,8 +188,10 @@ export default function EditScreen() {
           message={t('tutorialEditNameBody')}
           buttonLabel={t('tutorialNext')}
           onNext={() => setEditStep('submit')}
-          backgroundTapEnabled
+          allowPassthrough
+          backdropOpacity={0}
           verticalAlign="center"
+          cardOffsetY={48}
         />
       )}
 
@@ -196,8 +200,10 @@ export default function EditScreen() {
           message={t('tutorialEditSubmitBody')}
           buttonLabel={t('tutorialGotIt')}
           onNext={() => setEditStep('none')}
-          backgroundTapEnabled
-          verticalAlign="top"
+          allowPassthrough
+          backdropOpacity={0}
+          verticalAlign="bottom"
+          cardOffsetY={-24}
         />
       )}
     </ScrollView>

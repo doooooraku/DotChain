@@ -33,7 +33,6 @@ export default function HomeScreen() {
   const hapticsOn = useSettingsStore((s) => s.haptics);
   const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 60);
   const electricFlow = useSettingsStore((s) => s.electricFlow);
-  const isPro = useSettingsStore((s) => s.isPro ?? false);
   const { counts: heatmapCounts, maxLevel } = useHabitStore(selectHeatmapIntensity);
   const streak = useHabitStore(selectStreak);
   const allDoneDays = useHabitStore(selectAllDoneDays);
@@ -42,9 +41,9 @@ export default function HomeScreen() {
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
   const muted = theme.muted.val?.toString() ?? '#888888';
   const bg = theme.background.val?.toString() ?? '#000000';
-  const adHeight = 64;
-  const fabBottom = isPro ? 32 : 32 + adHeight;
-  const listPaddingBottom = isPro ? 140 : 140 + adHeight;
+  // 広告機能削除: Free/Pro 共通余白にする
+  const fabBottom = 32;
+  const listPaddingBottom = 140;
 
   const hasSeenOnboarding = useSettingsStore((s) => s.hasSeenOnboarding);
   const setHasSeenOnboarding = useSettingsStore((s) => s.setHasSeenOnboarding);
@@ -264,7 +263,12 @@ export default function HomeScreen() {
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressFab' && (
-        <TutorialOverlay message={t('tutorialPressFabBody')} verticalAlign="center" />
+        <TutorialOverlay
+          message={t('tutorialPressFabBody')}
+          allowPassthrough
+          backdropOpacity={0.55}
+          verticalAlign="center"
+        />
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressHabit' && habits.length > 0 && (
@@ -284,20 +288,6 @@ export default function HomeScreen() {
         />
       )}
 
-      {/* 広告エリア（Freeユーザーのみ表示） */}
-      {!isPro && (
-        <Stack
-          height={adHeight}
-          backgroundColor="$background"
-          alignItems="center"
-          justifyContent="center"
-          borderTopWidth={1}
-          borderColor="$gray">
-          <Text color="$muted" fontSize={12}>
-            Ad space
-          </Text>
-        </Stack>
-      )}
     </Stack>
   );
 }

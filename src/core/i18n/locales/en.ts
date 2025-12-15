@@ -49,8 +49,8 @@ const baseEn = {
   proFeatureHabitsPro: 'Unlimited habits',
   proFeatureThemesFree: '1 theme (Dark)',
   proFeatureThemesPro: 'All themes unlocked',
-  proFeatureAdsFree: 'Banner ads at the bottom',
-  proFeatureAdsPro: 'No ads, full focus',
+  proFeatureAdsFree: '',
+  proFeatureAdsPro: '',
   proOnlyTitle: 'Pro only feature',
   proOnlyTheme: 'This theme is available with Pro.',
   proCtaYearly: 'Get Yearly Pro',
@@ -118,7 +118,7 @@ const baseEn = {
   proHeaderTitle: 'DotChain Pro',
   proFeatureUnlimited: 'Unlimited habits',
   proFeatureThemes: 'All themes unlocked (Neon Pink / Cyber Blue)',
-  proFeatureAds: 'No ads',
+  proFeatureAds: '',
   // --- Accessibility ---
   habitButtonSuffix: ' habit button',
   // --- Errors ---

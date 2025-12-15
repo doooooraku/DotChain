@@ -1,94 +1,117 @@
-import { ReactNode } from 'react';
-import { Stack, Text, Button, YStack } from 'tamagui';
+import { Stack, Text, Button } from 'tamagui';
+
+export type VerticalAlign = 'top' | 'center' | 'bottom';
 
 export type TutorialOverlayProps = {
-  message: string; // i18n 済みの文言を親から渡す
-  buttonLabel?: string; // i18n 済みの文言を親から渡す。省略時はボタン非表示
+  message: string;
+  buttonLabel?: string;
   onNext?: () => void;
-  children?: ReactNode;
 
-  // 背景タップで onNext を呼ぶかどうか（デフォルト: 無効）
+  // 背景タップで次へ（必要なステップだけtrue）
   backgroundTapEnabled?: boolean;
 
-  // カードの縦位置を変える
-  verticalAlign?: 'top' | 'center' | 'bottom';
+  // カード縦位置
+  verticalAlign?: VerticalAlign;
+
+  // true: 下のUIを触れる（暗幕がタップを通す）
+  allowPassthrough?: boolean;
+
+  // 暗幕の濃さ（0〜1）
+  backdropOpacity?: number;
+
+  // カードの上下位置微調整
+  cardOffsetY?: number;
 };
+
+function toJustify(verticalAlign: VerticalAlign) {
+  switch (verticalAlign) {
+    case 'top':
+      return 'flex-start';
+    case 'bottom':
+      return 'flex-end';
+    default:
+      return 'center';
+  }
+}
 
 export function TutorialOverlay({
   message,
-  buttonLabel,
+  buttonLabel = 'Next',
   onNext,
-  children,
   backgroundTapEnabled = false,
   verticalAlign = 'center',
+  allowPassthrough = false,
+  backdropOpacity = 0.72,
+  cardOffsetY = 0,
 }: TutorialOverlayProps) {
-  const justifyContent =
-    verticalAlign === 'top' ? 'flex-start' : verticalAlign === 'bottom' ? 'flex-end' : 'center';
-
-  // 背景タップで進めるかどうかを明示的に判定
-  const canTapBackground = Boolean(backgroundTapEnabled && onNext);
-  // カード内に“押せる要素”があるか（ボタンまたは children）
-  const hasInteractiveCard = Boolean((onNext && buttonLabel) || children);
-
-  const handleBackgroundPress = () => {
-    if (canTapBackground && onNext) {
-      onNext();
-    }
-  };
+  const justifyContent = toJustify(verticalAlign);
 
   return (
     <Stack
       testID="tutorial-overlay"
       position="absolute"
-      inset={0}
-      justifyContent={justifyContent}
-      alignItems="center"
-      padding={24}
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
       zIndex={100}
-      pointerEvents="box-none" // 親自体はタッチを奪わない
+      pointerEvents={allowPassthrough ? 'box-none' : 'auto'}
+      alignItems="center"
+      justifyContent={justifyContent}
+      paddingTop={verticalAlign === 'top' ? 72 : 0}
+      paddingBottom={verticalAlign === 'bottom' ? 72 : 0}
     >
-      {/* 背景レイヤー（黒半透明） */}
+      {/* 暗幕レイヤー */}
       <Stack
         position="absolute"
-        inset={0}
-        backgroundColor="rgba(0,0,0,0.75)"
-        pointerEvents={canTapBackground ? 'auto' : 'none'} // 触れさせたい時だけタッチを受ける
-        onPress={canTapBackground ? handleBackgroundPress : undefined}
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        backgroundColor={`rgba(0,0,0,${backdropOpacity})`}
+        pointerEvents={allowPassthrough ? 'none' : 'auto'}
+        onPress={backgroundTapEnabled ? onNext : undefined}
       />
 
-      {/* カードレイヤー */}
-      <YStack
-        maxWidth={320}
-        backgroundColor="$surface"
-        borderRadius="$4"
+      {/* メッセージカード */}
+      <Stack
+        pointerEvents="auto"
+        backgroundColor="$background"
+        borderRadius="$6"
         padding="$4"
-        gap="$3"
-        borderWidth={1}
+        width="85%"
+        maxWidth={360}
+        borderWidth={2}
         borderColor="$neonGreen"
-        // ボタンも子要素も無い場合はカードもタッチを奪わない（下のUIに通す）
-        pointerEvents={hasInteractiveCard ? 'auto' : 'none'}>
-        <Text color="$text" fontSize={16} lineHeight={22} textAlign="center">
+        shadowColor="$neonGreen"
+        shadowOpacity={0.35}
+        shadowRadius={16}
+        shadowOffset={{ width: 0, height: 8 }}
+        style={{ transform: [{ translateY: cardOffsetY }] }}
+      >
+        <Text color="$text" fontSize="$5" textAlign="center" marginBottom="$3">
           {message}
         </Text>
 
-        {children}
-
-        {onNext && buttonLabel && (
+        {!!onNext && (
           <Button
-            testID="tutorial-overlay-next-button"
+            onPress={onNext}
             size="$4"
-            alignSelf="stretch"
-            marginTop="$2"
-            fontWeight="800"
-            pressStyle={{ scale: 0.97 }}
+            height="$4"
+            alignSelf="center"
+            width="80%"
+            minWidth={200}
+            maxWidth={320}
             backgroundColor="$neonGreen"
-            color="#000"
-            borderRadius="$4"
-            onPress={onNext}>
-            {buttonLabel}
+        borderRadius="$6"
+            pressStyle={{ opacity: 0.85 }}
+          >
+            <Text color="$background" fontWeight="800" fontSize="$5">
+              {buttonLabel}
+            </Text>
           </Button>
         )}
-      </YStack>
+      </Stack>
     </Stack>
   );
 }
