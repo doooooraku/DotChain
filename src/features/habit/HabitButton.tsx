@@ -65,25 +65,25 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
   const shadowOpacityValue = shadowOpacity as unknown as number;
 
   const handlePressIn = () => {
-    Animated.spring(pressScale, {
-      toValue: 0.96,
-      useNativeDriver: true,
-      friction: 8,
-      tension: 150,
-    }).start();
+      Animated.spring(pressScale, {
+        toValue: 0.96,
+        useNativeDriver: false,
+        friction: 8,
+        tension: 150,
+      }).start();
   };
 
   const handlePressOut = () => {
     Animated.sequence([
       Animated.spring(pressScale, {
         toValue: 1.05,
-        useNativeDriver: true,
+        useNativeDriver: false,
         friction: 6,
         tension: 180,
       }),
       Animated.spring(pressScale, {
         toValue: 1,
-        useNativeDriver: true,
+        useNativeDriver: false,
         friction: 8,
         tension: 150,
       }),

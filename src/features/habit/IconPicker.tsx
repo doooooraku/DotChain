@@ -117,8 +117,9 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
           const isActive = cat.id === activeCategoryId;
           return (
             <Button
+              size="$3"
+              paddingHorizontal="$3"
               key={cat.id}
-              size="$2"
               borderRadius="$6"
               backgroundColor={isActive ? '$neonGreen' : '$surface'}
               color={isActive ? '#000' : '$muted'}
@@ -157,6 +158,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
                 shadowOffset={{ width: 0, height: 6 }}>
                 <Button
                   accessibilityLabel={opt.label}
+                  size="$3"
                   backgroundColor="transparent"
                   width="100%"
                   height="100%"

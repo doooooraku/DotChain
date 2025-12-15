@@ -76,7 +76,11 @@ export function TutorialOverlay({
         {onNext && buttonLabel && (
           <Button
             testID="tutorial-overlay-next-button"
+            size="$4"
+            alignSelf="stretch"
             marginTop="$2"
+            fontWeight="800"
+            pressStyle={{ scale: 0.97 }}
             backgroundColor="$neonGreen"
             color="#000"
             borderRadius="$4"

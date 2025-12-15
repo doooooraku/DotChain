@@ -125,9 +125,13 @@ export default function EditScreen() {
       <IconPicker value={selectedIcon} onChange={setSelectedIcon} />
 
       <Text color="$text" fontWeight="700">
-        {t('editNameLabel')}
+        {t('editNameLabel').replace(/\s*\(.*\)\s*$/, '')}
       </Text>
       <Input
+        size="$4"
+        height={48}
+        fontSize={16}
+        paddingHorizontal="$3"
         value={name}
         onChangeText={(v) => setName(v)}
         placeholder={t('editNamePlaceholder')}
@@ -139,17 +143,29 @@ export default function EditScreen() {
       <Text
         color={isTitleTooLong ? '$neonPink' : '$muted'}
         fontSize={12}
-        marginTop={4}
-      >
+        marginTop={4}>
         {titleLength} / {HABIT_TITLE_MAX_LENGTH}
       </Text>
 
-      <Button backgroundColor="$neonGreen" color="#000" borderRadius="$4" onPress={handleSave}>
+      <Button
+        size="$4"
+        height={48}
+        fontWeight="800"
+        backgroundColor="$neonGreen"
+        color="#000"
+        borderRadius="$4"
+        onPress={handleSave}>
         {isEdit ? t('editSaveChanges') : t('editCreateHabit')}
       </Button>
 
       {isEdit && (
-        <Button backgroundColor="$background" color="$neonPink" onPress={handleDelete}>
+        <Button
+          size="$4"
+          height={48}
+          backgroundColor="$background"
+          color="$neonPink"
+          borderRadius="$4"
+          onPress={handleDelete}>
           {t('editDeleteHabit')}
         </Button>
       )}

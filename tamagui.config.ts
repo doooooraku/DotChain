@@ -31,17 +31,17 @@ const tokens = createTokens({
   },
   size: {
     0: 0,
-    1: 4,
-    2: 8,
-    3: 12,
-    4: 16,
-    true: 16, // default component size baseline for scaling
-    5: 20,
-    6: 24,
-    8: 32,
-    10: 40,
-    12: 48,
-    14: 56,
+    1: 20,
+    2: 28,
+    3: 36,
+    4: 44,
+    true: 44, // default component size baseline for scaling (button/input向け)
+    5: 52,
+    6: 64,
+    7: 74,
+    8: 84,
+    9: 94,
+    10: 104,
   },
   radius: {
     0: 0,

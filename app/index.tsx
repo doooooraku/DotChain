@@ -49,6 +49,7 @@ export default function HomeScreen() {
   const hasSeenOnboarding = useSettingsStore((s) => s.hasSeenOnboarding);
   const setHasSeenOnboarding = useSettingsStore((s) => s.setHasSeenOnboarding);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>('none');
+  const isPressFabStep = !hasSeenOnboarding && tutorialStep === 'pressFab';
 
   useEffect(() => {
     loadAll();
@@ -231,12 +232,15 @@ export default function HomeScreen() {
         height={64}
         borderRadius={32}
         backgroundColor={neon}
+        borderWidth={isPressFabStep ? 2 : 0}
+        borderColor={isPressFabStep ? '#FFFFFF' : 'transparent'}
         alignItems="center"
         justifyContent="center"
         shadowColor={neon}
-        shadowOpacity={0.8}
-        shadowRadius={24}
+        shadowOpacity={isPressFabStep ? 1 : 0.8}
+        shadowRadius={isPressFabStep ? 28 : 24}
         shadowOffset={{ width: 0, height: 6 }}
+        zIndex={isPressFabStep ? 200 : 10}
         onPress={handlePressAdd}
         asChild>
         <Button
