@@ -272,7 +272,12 @@ export default function HomeScreen() {
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'pressHabit' && habits.length > 0 && (
-        <TutorialOverlay message={t('tutorialPressHabitBody')} verticalAlign="top" />
+        <TutorialOverlay
+          message={t('tutorialPressHabitBody')}
+          allowPassthrough
+          backdropOpacity={0.55}
+          verticalAlign="top"
+        />
       )}
 
       {!hasSeenOnboarding && tutorialStep === 'explainChain' && (
