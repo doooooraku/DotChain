@@ -15,7 +15,7 @@ export default function SettingsScreen() {
   const setTapSound = useSettingsStore((s) => s.setTapSound);
   const electricFlow = useSettingsStore((s) => s.electricFlow);
   const setElectricFlow = useSettingsStore((s) => s.setElectricFlow);
-  const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 60);
+  const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 7);
   const setHeatmapDays = useSettingsStore((s) => s.setHeatmapDays);
   const themeName = useSettingsStore((s) => s.theme);
   const setTheme = useSettingsStore((s) => s.setTheme);
@@ -27,7 +27,7 @@ export default function SettingsScreen() {
   const theme = useTheme();
   const isPro = useSettingsStore((s) => s.isPro ?? false);
 
-  const heatmapOptions: HeatmapDaysOption[] = [30, 60, 180, 365];
+  const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
   const LANGUAGE_META: Record<Lang, { flag: string; labelKey: TranslationKey }> = {
     en: { flag: '🇺🇸', labelKey: 'languageNameEn' },
@@ -54,6 +54,7 @@ export default function SettingsScreen() {
   const [languageSheetVisible, setLanguageSheetVisible] = React.useState(false);
 
   const HEATMAP_LABEL_KEY: Record<HeatmapDaysOption, TranslationKey> = {
+    7: 'heatmapRange7',
     30: 'heatmapRange30',
     60: 'heatmapRange60',
     180: 'heatmapRange180',

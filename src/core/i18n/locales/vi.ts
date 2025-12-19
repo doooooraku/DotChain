@@ -22,6 +22,7 @@ const dict = {
     heatmapRangeTitle: 'Khoảng thời gian hiển thị chuỗi',
     heatmapRangeHelp:
       'Chọn số ngày chuỗi hiển thị trên bản đồ nhiệt màn hình chính.',
+    heatmapRange7: '1 tuần',
     heatmapRange30: '1 tháng',
     heatmapRange60: '2 tháng',
     heatmapRange180: '6 tháng',
@@ -45,7 +46,7 @@ const dict = {
     homeAddHabitLabel: 'Thêm thói quen',
     editNewHabit: 'Thói quen mới',
     editHabitTitle: 'Chỉnh sửa thói quen',
-    editIconLabel: 'Biểu tượng',
+    editCategoryLabel: 'Danh mục',
     editNameLabel: 'Tên (tối đa 20 ký tự)',
     editNamePlaceholder: 'Đặt tên cho thói quen...',
     editSaveChanges: 'Lưu thay đổi',

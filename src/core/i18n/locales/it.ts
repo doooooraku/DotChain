@@ -22,6 +22,7 @@ const dict = {
     heatmapRangeTitle: `Intervallo di visualizzazione della catena`,
     heatmapRangeHelp:
       `Scegli quanti giorni della catena mostrare nella mappa di calore della schermata iniziale.`,
+    heatmapRange7: '1 settimana',
     heatmapRange30: `1 mese`,
     heatmapRange60: `2 mesi`,
     heatmapRange180: `6 mesi`,
@@ -45,7 +46,7 @@ const dict = {
     homeAddHabitLabel: `Aggiungi abitudine`,
     editNewHabit: `Nuova abitudine`,
     editHabitTitle: `Modifica abitudine`,
-    editIconLabel: `Icona`,
+    editCategoryLabel: `Categoria`,
     editNameLabel: `Nome (max 20 caratteri)`,
     editNamePlaceholder: `Dai un nome alla tua abitudine...`,
     editSaveChanges: `Salva modifiche`,

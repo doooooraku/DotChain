@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentProps } from 'react';
+import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } from 'tamagui';
@@ -31,7 +31,7 @@ export default function HomeScreen() {
   const loading = useHabitStore((s) => s.loading);
   const error = useHabitStore((s) => s.error);
   const hapticsOn = useSettingsStore((s) => s.haptics);
-  const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 60);
+  const heatmapDays = useSettingsStore((s) => s.heatmapDays ?? 7);
   const electricFlow = useSettingsStore((s) => s.electricFlow);
   const { counts: heatmapCounts, maxLevel } = useHabitStore(selectHeatmapIntensity);
   const streak = useHabitStore(selectStreak);
@@ -49,6 +49,13 @@ export default function HomeScreen() {
   const setHasSeenOnboarding = useSettingsStore((s) => s.setHasSeenOnboarding);
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>('none');
   const isPressFabStep = !hasSeenOnboarding && tutorialStep === 'pressFab';
+  const heatmapScrollRef = useRef<any>(null);
+  const hasScrolledHeatmap = useRef(false);
+
+  useEffect(() => {
+    // 表示期間を変えたら最新側へ再スクロールさせる
+    hasScrolledHeatmap.current = false;
+  }, [heatmapDays]);
 
   useEffect(() => {
     loadAll();
@@ -168,9 +175,15 @@ export default function HomeScreen() {
             {t('heatmapSummarySuffix')}
           </Text>
           <ScrollView
+            ref={heatmapScrollRef}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingVertical: 4 }}>
+            contentContainerStyle={{ paddingVertical: 4 }}
+            onContentSizeChange={() => {
+              if (hasScrolledHeatmap.current) return;
+              (heatmapScrollRef.current as any)?.scrollToEnd?.({ animated: false });
+              hasScrolledHeatmap.current = true;
+            }}>
             <HeatmapChain
               days={heatmapDays}
               intensityByDate={heatmapCounts}

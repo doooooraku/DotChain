@@ -22,6 +22,7 @@ const dict = {
     heatmapRangeTitle: 'Weergaveperiode van de keten',
     heatmapRangeHelp:
       'Kies hoeveel dagen van je keten op de heatmap van het startscherm worden getoond.',
+    heatmapRange7: '1 week',
     heatmapRange30: '1 maand',
     heatmapRange60: '2 maanden',
     heatmapRange180: '6 maanden',
@@ -45,7 +46,7 @@ const dict = {
     homeAddHabitLabel: 'Gewoonte toevoegen',
     editNewHabit: 'Nieuwe gewoonte',
     editHabitTitle: 'Gewoonte bewerken',
-    editIconLabel: 'Pictogram',
+    editCategoryLabel: 'Categorie',
     editNameLabel: 'Naam (max 20 tekens)',
     editNamePlaceholder: 'Geef je gewoonte een naam...',
     editSaveChanges: 'Wijzigingen opslaan',

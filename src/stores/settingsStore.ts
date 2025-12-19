@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as NotificationManager from '@/src/core/notification/NotificationManager';
 import { initNotifications } from '@/src/core/notification/NotificationManager';
 
-export type HeatmapDaysOption = 30 | 60 | 180 | 365;
+export type HeatmapDaysOption = 7 | 30 | 60 | 180 | 365;
 
 type SettingsState = {
   sound: boolean;
@@ -39,7 +39,7 @@ export const useSettingsStore = create<SettingsState>()(
       theme: 'dark',
       tapSound: 'click',
       hasSeenOnboarding: false,
-      heatmapDays: 60,
+      heatmapDays: 7,
       electricFlow: true,
       hasRequestedReview: false,
       isPro: false,
@@ -51,8 +51,8 @@ export const useSettingsStore = create<SettingsState>()(
       setTapSound: (v) => set({ tapSound: v }),
       setHasSeenOnboarding: (v) => set({ hasSeenOnboarding: v }),
       setHeatmapDays: (days) => {
-        const allowed: HeatmapDaysOption[] = [30, 60, 180, 365];
-        const safe = allowed.includes(days) ? days : 60;
+        const allowed: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
+        const safe = allowed.includes(days) ? days : 7;
         set({ heatmapDays: safe });
       },
       setElectricFlow: (v) => set({ electricFlow: Boolean(v) }),

@@ -26,6 +26,7 @@ const baseEn = {
   // Heatmap range
   heatmapRangeTitle: 'Chain display range',
   heatmapRangeHelp: 'Choose how many days of your chain to show in the home heatmap.',
+  heatmapRange7: '1 week',
   heatmapRange30: '1 month',
   heatmapRange60: '2 months',
   heatmapRange180: '6 months',
@@ -100,7 +101,7 @@ const baseEn = {
   // --- Edit ---
   editNewHabit: 'New Habit',
   editHabitTitle: 'Edit Habit',
-  editIconLabel: 'Icon',
+  editCategoryLabel: 'Category',
   editNameLabel: 'Name (max 20 characters)',
   editNamePlaceholder: 'Name your habit...',
   editSaveChanges: 'Save Changes',

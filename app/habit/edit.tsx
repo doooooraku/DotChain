@@ -120,7 +120,7 @@ export default function EditScreen() {
       </Text>
 
       <Text color="$text" fontWeight="700" marginBottom="$2">
-        {t('editIconLabel')}
+        {t('editCategoryLabel')}
       </Text>
       <IconPicker value={selectedIcon} onChange={setSelectedIcon} />
 

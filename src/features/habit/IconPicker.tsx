@@ -99,10 +99,9 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
   // value が変わったらカテゴリも追従
   useEffect(() => {
     const catId = findCategoryIdByIconId(value);
-    if (catId && catId !== activeCategoryId) {
-      setActiveCategoryId(catId);
-    }
-  }, [value, activeCategoryId]);
+    // value が変わったときだけ初期カテゴリを合わせる（タブ操作で強制リセットしない）
+    setActiveCategoryId((prev) => (catId && catId !== prev ? catId : prev));
+  }, [value]);
 
   const activeCategory = useMemo(
     () => ICON_CATEGORIES.find((cat) => cat.id === activeCategoryId) ?? ICON_CATEGORIES[0],
@@ -112,7 +111,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
   return (
     <YStack gap="$4">
       {/* カテゴリタブ */}
-      <XStack gap="$2" flexWrap="wrap">
+      <XStack gap="$2" flexWrap="wrap" justifyContent="center">
         {ICON_CATEGORIES.map((cat) => {
           const isActive = cat.id === activeCategoryId;
           return (
@@ -138,7 +137,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
           {t(activeCategory.titleKey as any)}
         </Text>
 
-        <XStack flexWrap="wrap" gap="$3">
+        <XStack flexWrap="wrap" gap="$3" justifyContent="center" width="100%">
           {activeCategory.icons.map((opt) => {
             const active = value === opt.id;
             return (

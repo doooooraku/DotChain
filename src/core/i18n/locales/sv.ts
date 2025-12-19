@@ -22,6 +22,7 @@ const dict = {
     heatmapRangeTitle: 'Visningsperiod för kedjan',
     heatmapRangeHelp:
       'Välj hur många dagar av kedjan som ska visas i heatmapen på startsidan.',
+    heatmapRange7: '1 vecka',
     heatmapRange30: '1 månad',
     heatmapRange60: '2 månader',
     heatmapRange180: '6 månader',
@@ -45,7 +46,7 @@ const dict = {
     homeAddHabitLabel: 'Lägg till vana',
     editNewHabit: 'Ny vana',
     editHabitTitle: 'Redigera vana',
-    editIconLabel: 'Ikon',
+    editCategoryLabel: 'Kategori',
     editNameLabel: 'Namn (max 20 tecken)',
     editNamePlaceholder: 'Namnge din vana...',
     editSaveChanges: 'Spara ändringar',
