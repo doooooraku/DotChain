@@ -45,7 +45,7 @@ const dict = {
     homeAddHabitLabel: 'Gewohnheit hinzufügen',
     editNewHabit: 'Neue Gewohnheit',
     editHabitTitle: 'Gewohnheit bearbeiten',
-    editCategoryLabel: 'Category',
+    editCategoryLabel: 'Kategorie',
     editNameLabel: 'Name (max. 20 Zeichen)',
     editNamePlaceholder: 'Benenne deine Gewohnheit...',
     editSaveChanges: 'Änderungen speichern',

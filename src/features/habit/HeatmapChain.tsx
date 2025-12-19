@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, type ReactNode } from 'react';
-import { XStack } from 'tamagui';
+import { XStack, Stack } from 'tamagui';
 import { Animated, Easing } from 'react-native';
 import { getLocalDateKey } from '@/src/core/dateKey';
 
@@ -11,6 +11,10 @@ type Props = {
   colorBg: string;
   colorBorder: string;
   flowEnabled?: boolean;
+  /**
+   * 7日表示だけは横スクロールせず、画面幅を均等に使う
+   */
+  variant?: 'default' | 'week';
 };
 
 /**
@@ -27,6 +31,7 @@ export const HeatmapChain = memo(function HeatmapChain({
   colorBg,
   colorBorder,
   flowEnabled = true,
+  variant = 'default',
 }: Props) {
   const pulse = useRef(new Animated.Value(0)).current;
   const current = useRef(new Animated.Value(0)).current;
@@ -76,6 +81,12 @@ export const HeatmapChain = memo(function HeatmapChain({
   const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] });
   const shadow = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.1, 0.35] });
 
+  const isWeek = variant === 'week' && days === 7;
+  const DOT = isWeek ? 24 : 18;
+  const LINK_WIDTH = isWeek ? 16 : 12; // week では flexGrow と併用して幅を使い切る
+  const OUTER_GAP = isWeek ? '$1' : '$2';
+  const INNER_GAP = '$1';
+
   const cells = Array.from({ length: days }).map((_, idx) => {
     const date = new Date();
     date.setDate(date.getDate() - (days - 1 - idx));
@@ -84,7 +95,7 @@ export const HeatmapChain = memo(function HeatmapChain({
     const level = intensityByDate[key] ?? 0;
     const active = level > 0;
     const ratio = maxLevel > 0 ? level / maxLevel : 0;
-    const baseOpacity = active ? 0.3 + 0.7 * ratio : 0.15;
+    const baseOpacity = active ? 0.3 + 0.7 * ratio : isWeek ? 0.22 : 0.15;
 
     const nextDate = new Date(date);
     nextDate.setDate(date.getDate() + 1);
@@ -99,37 +110,36 @@ export const HeatmapChain = memo(function HeatmapChain({
       outputRange: [1, 0, 0],
     });
 
+    const linkStyleBase = isWeek
+      ? { flexGrow: 1, minWidth: LINK_WIDTH, height: 2 }
+      : { width: LINK_WIDTH, height: 2 };
+
     let linkNode: ReactNode = null;
-    if (linkActive) {
-      if (flowEnabled) {
+    if (idx < days - 1) {
+      if (linkActive) {
         linkNode = (
           <Animated.View
             style={{
-              width: 12,
-              height: 2,
+              ...linkStyleBase,
               borderRadius: 1,
               backgroundColor: colorActive,
-              opacity: Animated.multiply(shadow, linkGlow),
+              opacity: flowEnabled ? Animated.multiply(shadow, linkGlow) : shadow,
               shadowColor: colorActive,
-              shadowOpacity: Animated.multiply(shadow, linkGlow),
-              shadowRadius: 6,
+              shadowOpacity: flowEnabled ? Animated.multiply(shadow, linkGlow) : shadow,
+              shadowRadius: flowEnabled ? 6 : 4,
               shadowOffset: { width: 0, height: 0 },
             }}
           />
         );
-      } else {
+      } else if (isWeek) {
+        // 週表示のときはリンクが無い箇所もダミー幅で均等配置する
         linkNode = (
           <Animated.View
             style={{
-              width: 12,
-              height: 2,
+              ...linkStyleBase,
               borderRadius: 1,
-              backgroundColor: colorActive,
-              opacity: shadow,
-              shadowColor: colorActive,
-              shadowOpacity: shadow,
-              shadowRadius: 4,
-              shadowOffset: { width: 0, height: 0 },
+              backgroundColor: colorBorder,
+              opacity: 0.18,
             }}
           />
         );
@@ -137,12 +147,12 @@ export const HeatmapChain = memo(function HeatmapChain({
     }
 
     return (
-      <XStack key={key} alignItems="center" gap="$1">
+      <XStack key={key} alignItems="center" gap={INNER_GAP}>
         <Animated.View
           style={{
-            width: 18,
-            height: 18,
-            borderRadius: 8,
+            width: DOT,
+            height: DOT,
+            borderRadius: DOT / 2 - 1,
             borderWidth: active ? 0 : 1,
             borderColor: colorBorder,
             backgroundColor: active ? colorActive : colorBg,
@@ -160,5 +170,13 @@ export const HeatmapChain = memo(function HeatmapChain({
     );
   });
 
-  return <XStack gap="$2">{cells}</XStack>;
+  return (
+    <XStack
+      gap={OUTER_GAP}
+      width={isWeek ? '100%' : undefined}
+      alignItems="center"
+      justifyContent={isWeek ? 'space-between' : undefined}>
+      {cells}
+    </XStack>
+  );
 });

@@ -45,7 +45,7 @@ describe('F-03: 設定変更（SettingsStore のユニットテスト）', () =>
       theme: 'dark',
       tapSound: 'click',
       hasSeenOnboarding: false,
-      heatmapDays: 60,
+      heatmapDays: 7,
       electricFlow: true,
       hasRequestedReview: false,
       isPro: false,
@@ -92,14 +92,14 @@ describe('F-03: 設定変更（SettingsStore のユニットテスト）', () =>
   };
 
   const heatmapCases: HeatmapCase[] = [
+    { input: 7, expected: 7 },
     { input: 30, expected: 30 },
     { input: 60, expected: 60 },
     { input: 180, expected: 180 },
     { input: 365, expected: 365 },
-    // 許可されていない値は 60 にフォールバック
-    { input: 7, expected: 60 },
-    { input: 999, expected: 60 },
-    { input: 0, expected: 60 },
+    // 許可されていない値は 7 にフォールバック
+    { input: 999, expected: 7 },
+    { input: 0, expected: 7 },
   ];
 
   test.each(heatmapCases)(

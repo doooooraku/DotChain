@@ -44,7 +44,7 @@ const dict = {
     homeAddHabitLabel: 'Tambah tabiat',
     editNewHabit: 'Tabiat baharu',
     editHabitTitle: 'Edit tabiat',
-    editCategoryLabel: 'Category',
+    editCategoryLabel: 'Kategori',
     editNameLabel: 'Nama (maks 20 aksara)',
     editNamePlaceholder: 'Namakan tabiat anda...',
     editSaveChanges: 'Simpan perubahan',

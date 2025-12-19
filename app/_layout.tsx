@@ -6,6 +6,8 @@ import config from '../tamagui.config';
 import ToastHost from '@/src/ui/ToastHost';
 import { useEffect, useRef } from 'react';
 import { AppState } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import { useHabitStore } from '@/src/stores/habitStore';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
@@ -22,6 +24,14 @@ export default function RootLayout() {
   const lastDate = useRef(getLocalDateKey());
   const themeName = useSettingsStore((s) => s.theme);
   const { t } = useTranslation();
+  const isDark = themeName === 'dark';
+
+  const headerBase = {
+    headerStyle: { backgroundColor: isDark ? '#000' : '#fff' },
+    headerTintColor: isDark ? '#fff' : '#000',
+    headerTitleStyle: { color: isDark ? '#fff' : '#000' },
+    headerShadowVisible: false,
+  } as const;
 
   useEffect(() => {
     const sub = AppState.addEventListener('change', (state) => {
@@ -38,30 +48,47 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <TamaguiProvider config={config}>
-      <Theme name={themeName}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: config.tokens.color.background.val },
-          }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen
-            name="settings/index"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: t('settings') }}
-          />
-          <Stack.Screen
-            name="habit/edit"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: t('editHabitTitle') }}
-          />
-          <Stack.Screen
-            name="pro/index"
-            options={{ presentation: 'modal', headerShown: true, headerTitle: t('proHeaderTitle') }}
-          />
-        </Stack>
-        <StatusBar style="light" />
-        <ToastHost />
-      </Theme>
-    </TamaguiProvider>
+    <SafeAreaProvider>
+      <TamaguiProvider config={config}>
+        <Theme name={themeName}>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: config.tokens.color.background.val },
+            }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen
+              name="settings/index"
+              options={{
+                presentation: 'modal',
+                headerShown: true,
+                headerTitle: t('settings'),
+                ...headerBase,
+              }}
+            />
+            <Stack.Screen
+              name="habit/edit"
+              options={{
+                presentation: 'modal',
+                headerShown: true,
+                headerTitle: t('editHabitTitle'),
+                ...headerBase,
+              }}
+            />
+            <Stack.Screen
+              name="pro/index"
+              options={{
+                presentation: 'modal',
+                headerShown: true,
+                headerTitle: t('proHeaderTitle'),
+                ...headerBase,
+              }}
+            />
+          </Stack>
+          <StatusBar style={isDark ? 'light' : 'dark'} />
+          <ToastHost />
+        </Theme>
+      </TamaguiProvider>
+    </SafeAreaProvider>
   );
 }

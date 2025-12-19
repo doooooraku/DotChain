@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useState } from 'react';
-import { Button, Stack, Text, XStack, YStack, useTheme } from 'tamagui';
+import { Button, Stack, Text, XStack, YStack, ScrollView, useTheme } from 'tamagui';
 
 import { t } from '@/src/core/i18n/i18n';
 
@@ -137,39 +137,44 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
           {t(activeCategory.titleKey as any)}
         </Text>
 
-        <XStack flexWrap="wrap" gap="$3" justifyContent="center" width="100%">
-          {activeCategory.icons.map((opt) => {
-            const active = value === opt.id;
-            return (
-              <Stack
-                key={opt.id}
-                width={56}
-                height={56}
-                borderRadius={16}
-                borderWidth={2}
-                borderColor={active ? neon : theme.gray.val?.toString() ?? '#444'}
-                backgroundColor={active ? '$neonGreen' : '$surface'}
-                alignItems="center"
-                justifyContent="center"
-                shadowColor={neon}
-                shadowOpacity={active ? 0.6 : 0}
-                shadowRadius={16}
-                shadowOffset={{ width: 0, height: 6 }}>
-                <Button
-                  accessibilityLabel={opt.label}
-                  size="$3"
-                  backgroundColor="transparent"
-                  width="100%"
-                  height="100%"
-                  onPress={() => onChange(opt.id)}>
-                  <Text fontSize={28} textAlign="center">
-                    {opt.emoji}
-                  </Text>
-                </Button>
-              </Stack>
-            );
-          })}
-        </XStack>
+        <ScrollView
+          maxHeight={320}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingVertical: 4 }}>
+          <XStack flexWrap="wrap" gap="$3" justifyContent="center" width="100%">
+            {activeCategory.icons.map((opt) => {
+              const active = value === opt.id;
+              return (
+                <Stack
+                  key={opt.id}
+                  width={56}
+                  height={56}
+                  borderRadius={16}
+                  borderWidth={2}
+                  borderColor={active ? neon : theme.gray.val?.toString() ?? '#444'}
+                  backgroundColor={active ? '$neonGreen' : '$surface'}
+                  alignItems="center"
+                  justifyContent="center"
+                  shadowColor={neon}
+                  shadowOpacity={active ? 0.6 : 0}
+                  shadowRadius={16}
+                  shadowOffset={{ width: 0, height: 6 }}>
+                  <Button
+                    accessibilityLabel={opt.label}
+                    size="$3"
+                    backgroundColor="transparent"
+                    width="100%"
+                    height="100%"
+                    onPress={() => onChange(opt.id)}>
+                    <Text fontSize={28} textAlign="center">
+                      {opt.emoji}
+                    </Text>
+                  </Button>
+                </Stack>
+              );
+            })}
+          </XStack>
+        </ScrollView>
       </YStack>
     </YStack>
   );

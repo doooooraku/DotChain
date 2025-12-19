@@ -45,7 +45,7 @@ const dict = {
     homeAddHabitLabel: 'Alışkanlık ekle',
     editNewHabit: 'Yeni alışkanlık',
     editHabitTitle: 'Alışkanlık düzenle',
-    editCategoryLabel: 'Category',
+    editCategoryLabel: 'Kategori',
     editNameLabel: 'Ad (en fazla 20 karakter)',
     editNamePlaceholder: 'Alışkanlığına ad ver...',
     editSaveChanges: 'Değişiklikleri kaydet',

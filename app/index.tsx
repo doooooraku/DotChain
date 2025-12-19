@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } from 'tamagui';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { HabitButton } from '@/src/features/habit/HabitButton';
 import { HeatmapChain } from '@/src/features/habit/HeatmapChain';
@@ -24,6 +25,7 @@ export default function HomeScreen() {
   const params = useLocalSearchParams<{ fromTutorial?: string }>();
   const { t } = useTranslation();
   const { record } = useHabitRecord();
+  const insets = useSafeAreaInsets();
 
   const habits = useHabitStore((s) => s.habits);
   const today = useHabitStore((s) => s.today);
@@ -109,7 +111,7 @@ export default function HomeScreen() {
 
   return (
     <Stack flex={1} backgroundColor="$background">
-      <YStack padding={16} paddingBottom={0}>
+      <YStack paddingHorizontal={16} paddingBottom={0} paddingTop={insets.top + 12}>
         {/* ヘッダー（右側に Pro / Settings ボタンのみ） */}
         <XStack justifyContent="flex-end" alignItems="center">
           <XStack gap="$3">
@@ -134,38 +136,44 @@ export default function HomeScreen() {
           </XStack>
         </XStack>
 
-      {/* ストリーク + All Done Days */}
-      <YStack
-        marginTop="$4"
-        backgroundColor="$surface"
-        padding="$4"
-        borderRadius="$4"
-        borderWidth={1}
-        borderColor="$gray"
-        gap="$3">
-        <XStack justifyContent="space-between" alignItems="flex-end">
-          <YStack gap="$1">
-            <Text color={muted} letterSpacing={1}>
-              {t('daysStreak')}
-            </Text>
-            <Text color={neon} fontSize={28} fontWeight="800">
-              🔥 {streak}
-            </Text>
-          </YStack>
+      {/* ストリーク / All Done を別カードに分割 */}
+      <XStack marginTop="$4" gap="$3">
+        <YStack
+          flex={1}
+          backgroundColor="$surface"
+          padding="$4"
+          borderRadius="$4"
+          borderWidth={1}
+          borderColor="$gray"
+          gap="$2">
+          <Text color={muted} letterSpacing={1} fontWeight="700">
+            {t('daysStreak')}
+          </Text>
+          <Text color={neon} fontSize={28} fontWeight="800">
+            🔥 {streak}
+          </Text>
+        </YStack>
 
-          <YStack gap="$1" alignItems="flex-end">
-            <Text color={muted} letterSpacing={1}>
-              {t('allDoneDays')}
-            </Text>
-            <Text color={neon} fontSize={28} fontWeight="800">
-              ✅ {allDoneDays}
-            </Text>
-          </YStack>
-        </XStack>
-      </YStack>
+        <YStack
+          flex={1}
+          backgroundColor="$surface"
+          padding="$4"
+          borderRadius="$4"
+          borderWidth={1}
+          borderColor="$gray"
+          gap="$2"
+          alignItems="flex-end">
+          <Text color={muted} letterSpacing={1} fontWeight="700">
+            {t('allDoneDays')}
+          </Text>
+          <Text color={neon} fontSize={28} fontWeight="800">
+            ✅ {allDoneDays}
+          </Text>
+        </YStack>
+      </XStack>
 
-        {/* ヒートマップ（横スクロール） */}
-        <YStack marginTop="$4" gap="$2">
+        {/* ヒートマップ（7日は幅いっぱい、8日以上は横スクロール） */}
+        <YStack marginTop="$4" gap="$2" width="100%">
           <Text color={muted} letterSpacing={1}>
             {t('yourChain')}
           </Text>
@@ -174,26 +182,41 @@ export default function HomeScreen() {
             {heatmapDays}
             {t('heatmapSummarySuffix')}
           </Text>
-          <ScrollView
-            ref={heatmapScrollRef}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingVertical: 4 }}
-            onContentSizeChange={() => {
-              if (hasScrolledHeatmap.current) return;
-              (heatmapScrollRef.current as any)?.scrollToEnd?.({ animated: false });
-              hasScrolledHeatmap.current = true;
-            }}>
-            <HeatmapChain
-              days={heatmapDays}
-              intensityByDate={heatmapCounts}
-              maxLevel={maxLevel}
-              colorActive={neon}
-              colorBg={bg}
-              colorBorder={theme.gray.val?.toString() ?? '#222'}
-              flowEnabled={electricFlow}
-            />
-         </ScrollView>
+          {heatmapDays === 7 ? (
+            <YStack paddingVertical="$2" width="100%">
+              <HeatmapChain
+                days={heatmapDays}
+                intensityByDate={heatmapCounts}
+                maxLevel={maxLevel}
+                colorActive={neon}
+                colorBg={bg}
+                colorBorder={theme.gray.val?.toString() ?? '#222'}
+                flowEnabled={electricFlow}
+                variant="week"
+              />
+            </YStack>
+          ) : (
+            <ScrollView
+              ref={heatmapScrollRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingVertical: 4 }}
+              onContentSizeChange={() => {
+                if (hasScrolledHeatmap.current) return;
+                (heatmapScrollRef.current as any)?.scrollToEnd?.({ animated: false });
+                hasScrolledHeatmap.current = true;
+              }}>
+              <HeatmapChain
+                days={heatmapDays}
+                intensityByDate={heatmapCounts}
+                maxLevel={maxLevel}
+                colorActive={neon}
+                colorBg={bg}
+                colorBorder={theme.gray.val?.toString() ?? '#222'}
+                flowEnabled={electricFlow}
+              />
+            </ScrollView>
+          )}
           <XStack justifyContent="space-between">
             <Text color={muted} fontSize={10}>
               {'◀ '}
@@ -212,7 +235,11 @@ export default function HomeScreen() {
       <ScrollView
         flex={1}
         backgroundColor="$background"
-        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: listPaddingBottom }}>
+        contentContainerStyle={{
+          paddingHorizontal: 16,
+          paddingTop: 16 + insets.top,
+          paddingBottom: listPaddingBottom,
+        }}>
         <YStack gap="$4">
           {loading && (
             <XStack gap="$2" alignItems="center">
