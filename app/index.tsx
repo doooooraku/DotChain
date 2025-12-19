@@ -145,13 +145,19 @@ export default function HomeScreen() {
           borderRadius="$4"
           borderWidth={1}
           borderColor="$gray"
-          gap="$2">
-          <Text color={muted} letterSpacing={1} fontWeight="700">
+          gap="$2"
+          alignItems="center"
+          justifyContent="center"
+          minHeight={88}>
+          <Text color={muted} letterSpacing={1} fontWeight="700" textAlign="center">
             {t('daysStreak')}
           </Text>
-          <Text color={neon} fontSize={28} fontWeight="800">
-            🔥 {streak}
-          </Text>
+          <XStack alignItems="center" gap="$2">
+            <Text fontSize={24}>🔥</Text>
+            <Text color={neon} fontSize={28} fontWeight="800" textAlign="center">
+              {streak}
+            </Text>
+          </XStack>
         </YStack>
 
         <YStack
@@ -162,13 +168,18 @@ export default function HomeScreen() {
           borderWidth={1}
           borderColor="$gray"
           gap="$2"
-          alignItems="flex-end">
-          <Text color={muted} letterSpacing={1} fontWeight="700">
+          alignItems="center"
+          justifyContent="center"
+          minHeight={88}>
+          <Text color={muted} letterSpacing={1} fontWeight="700" textAlign="center">
             {t('allDoneDays')}
           </Text>
-          <Text color={neon} fontSize={28} fontWeight="800">
-            ✅ {allDoneDays}
-          </Text>
+          <XStack alignItems="center" gap="$2">
+            <Text fontSize={24}>✅</Text>
+            <Text color={neon} fontSize={28} fontWeight="800" textAlign="center">
+              {allDoneDays}
+            </Text>
+          </XStack>
         </YStack>
       </XStack>
 

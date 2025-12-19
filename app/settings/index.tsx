@@ -1,7 +1,8 @@
 import React from 'react';
-import { Alert, Modal, Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { Href, useRouter } from 'expo-router';
-import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme } from 'tamagui';
+import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Select } from 'tamagui';
+import { Check, ChevronDown } from '@tamagui/lucide-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
 import { t, useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
@@ -51,7 +52,6 @@ export default function SettingsScreen() {
   };
   const router = useRouter();
   const [showTimePicker, setShowTimePicker] = React.useState(false);
-  const [languageSheetVisible, setLanguageSheetVisible] = React.useState(false);
 
   const HEATMAP_LABEL_KEY: Record<HeatmapDaysOption, TranslationKey> = {
     7: 'heatmapRange7',
@@ -93,67 +93,47 @@ export default function SettingsScreen() {
       </Text>
 
       <Section title={t('language')}>
-        <Row>
-          <Text color="$text" fontSize={15}>
-            {LANGUAGE_META[lang].flag} {t(LANGUAGE_META[lang].labelKey)} ({lang.toUpperCase()})
-          </Text>
-          <Button
-            size="$3"
-            borderRadius={999}
-            backgroundColor="$surface"
+        <Select value={lang} onValueChange={(code) => setLangStore(code as Lang)}>
+          <Select.Trigger
+            iconAfter={ChevronDown}
             borderWidth={1}
             borderColor="$gray"
-            onPress={() => setLanguageSheetVisible(true)}>
-            <Text color="$text">{t('languageChange')}</Text>
-          </Button>
-        </Row>
+            backgroundColor="$surface"
+            borderRadius="$4"
+            padding="$3">
+            <XStack alignItems="center" justifyContent="space-between" width="100%">
+              <XStack alignItems="center" gap="$2">
+                <Text fontSize={18}>{LANGUAGE_META[lang].flag}</Text>
+                <Text color="$text" fontSize={15} fontWeight="700">
+                  {t(LANGUAGE_META[lang].labelKey)} ({lang.toUpperCase()})
+                </Text>
+              </XStack>
+            </XStack>
+          </Select.Trigger>
 
-        <Modal
-          visible={languageSheetVisible}
-          animationType="slide"
-          transparent
-          onRequestClose={() => setLanguageSheetVisible(false)}>
-          <YStack flex={1} justifyContent="flex-end" backgroundColor="rgba(0,0,0,0.5)">
-            <YStack
-              backgroundColor="$background"
-              padding="$4"
-              borderTopLeftRadius="$6"
-              borderTopRightRadius="$6"
-              gap="$2">
-              {languageOptions.map((code) => {
+          <Select.Content zIndex={200000}>
+            <Select.Viewport minWidth={280}>
+              {languageOptions.map((code, index) => {
                 const meta = LANGUAGE_META[code];
-                const isActive = lang === code;
                 return (
-                  <Button
+                  <Select.Item
                     key={code}
-                    justifyContent="space-between"
-                    backgroundColor={isActive ? '$surface' : '$background'}
-                    borderColor={isActive ? '$neonGreen' : '$gray'}
-                    borderWidth={1}
-                    onPress={() => {
-                      setLangStore(code);
-                      setLanguageSheetVisible(false);
-                    }}>
-                    <XStack alignItems="center" justifyContent="space-between" flex={1} gap="$2">
-                      <Text color="$text">
-                        {meta.flag} {t(meta.labelKey)} ({code.toUpperCase()})
-                      </Text>
-                      {isActive && (
-                        <Text color="$neonGreen" fontSize={12}>
-                          {t('currentLanguage')}
-                        </Text>
-                      )}
-                    </XStack>
-                  </Button>
+                    value={code}
+                    index={index}
+                    borderRadius="$3"
+                    paddingVertical="$2">
+                    <Select.ItemText>
+                      {meta.flag} {t(meta.labelKey)} ({code.toUpperCase()})
+                    </Select.ItemText>
+                    <Select.ItemIndicator marginLeft="auto">
+                      <Check size={16} />
+                    </Select.ItemIndicator>
+                  </Select.Item>
                 );
               })}
-
-              <Button onPress={() => setLanguageSheetVisible(false)}>
-                <Text color="$text">{t('cancel')}</Text>
-              </Button>
-            </YStack>
-          </YStack>
-        </Modal>
+            </Select.Viewport>
+          </Select.Content>
+        </Select>
       </Section>
 
       <Section title={t('sound')}>

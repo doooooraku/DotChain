@@ -1,6 +1,7 @@
-import { memo, useEffect, useRef, type ReactNode } from 'react';
-import { XStack, Stack } from 'tamagui';
-import { Animated, Easing } from 'react-native';
+import { memo, useEffect, useMemo, useRef } from 'react';
+import { Animated, Easing, StyleSheet, View } from 'react-native';
+import { XStack } from 'tamagui';
+import { LinearGradient } from 'expo-linear-gradient';
 import { getLocalDateKey } from '@/src/core/dateKey';
 
 type Props = {
@@ -11,9 +12,7 @@ type Props = {
   colorBg: string;
   colorBorder: string;
   flowEnabled?: boolean;
-  /**
-   * 7日表示だけは横スクロールせず、画面幅を均等に使う
-   */
+  /** 7日表示だけは横スクロールせず、画面幅を均等に使う */
   variant?: 'default' | 'week';
 };
 
@@ -81,91 +80,70 @@ export const HeatmapChain = memo(function HeatmapChain({
   const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] });
   const shadow = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.1, 0.35] });
 
+  const todayKey = useMemo(() => getLocalDateKey(new Date()), []);
+
+  const dates = useMemo(() => {
+    const list: string[] = [];
+    const today = new Date();
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      list.push(getLocalDateKey(d));
+    }
+    return list;
+  }, [days]);
+
+  const currentIndex = useMemo(() => dates.indexOf(todayKey), [dates, todayKey]);
+
   const isWeek = variant === 'week' && days === 7;
   const DOT = isWeek ? 24 : 18;
-  const LINK_WIDTH = isWeek ? 16 : 12; // week では flexGrow と併用して幅を使い切る
+  const DOT_RADIUS = Math.round(DOT * (isWeek ? 0.42 : 0.45));
+  const LINK_WIDTH = isWeek ? 16 : 12; // weekでは flexGrow と組み合わせて幅を使い切る
+  const LINK_HEIGHT = isWeek ? 3 : 2;
   const OUTER_GAP = isWeek ? '$1' : '$2';
   const INNER_GAP = '$1';
 
-  const cells = Array.from({ length: days }).map((_, idx) => {
-    const date = new Date();
-    date.setDate(date.getDate() - (days - 1 - idx));
-    const key = getLocalDateKey(date);
+  const cells = dates.map((dateKey, idx) => {
+    const intensity = intensityByDate[dateKey] ?? 0;
+    const active = intensity > 0;
+    const ratio = maxLevel > 0 ? intensity / maxLevel : 0;
+    const baseOpacity = active ? 0.35 + 0.6 * ratio : isWeek ? 0.22 : 0.15;
+    const isToday = dateKey === todayKey;
 
-    const level = intensityByDate[key] ?? 0;
-    const active = level > 0;
-    const ratio = maxLevel > 0 ? level / maxLevel : 0;
-    const baseOpacity = active ? 0.3 + 0.7 * ratio : isWeek ? 0.22 : 0.15;
-
-    const nextDate = new Date(date);
-    nextDate.setDate(date.getDate() + 1);
-    const nextKey = getLocalDateKey(nextDate);
-    const nextLevel = intensityByDate[nextKey] ?? 0;
+    const nextKey = dates[idx + 1];
+    const nextLevel = nextKey ? intensityByDate[nextKey] ?? 0 : 0;
     const linkActive = active && nextLevel > 0;
 
-    const phaseBase = days > 1 ? idx / (days - 1) : 0;
-    const phase = Animated.modulo(Animated.add(current, 1 - phaseBase), 1);
-    const linkGlow = phase.interpolate({
-      inputRange: [0, 0.25, 1],
-      outputRange: [1, 0, 0],
-    });
-
-    const linkStyleBase = isWeek
-      ? { flexGrow: 1, minWidth: LINK_WIDTH, height: 2 }
-      : { width: LINK_WIDTH, height: 2 };
-
-    let linkNode: ReactNode = null;
-    if (idx < days - 1) {
-      if (linkActive) {
-        linkNode = (
-          <Animated.View
-            style={{
-              ...linkStyleBase,
-              borderRadius: 1,
-              backgroundColor: colorActive,
-              opacity: flowEnabled ? Animated.multiply(shadow, linkGlow) : shadow,
-              shadowColor: colorActive,
-              shadowOpacity: flowEnabled ? Animated.multiply(shadow, linkGlow) : shadow,
-              shadowRadius: flowEnabled ? 6 : 4,
-              shadowOffset: { width: 0, height: 0 },
-            }}
-          />
-        );
-      } else if (isWeek) {
-        // 週表示のときはリンクが無い箇所もダミー幅で均等配置する
-        linkNode = (
-          <Animated.View
-            style={{
-              ...linkStyleBase,
-              borderRadius: 1,
-              backgroundColor: colorBorder,
-              opacity: 0.18,
-            }}
-          />
-        );
-      }
-    }
+    const phase = dates.length > 1 ? ((idx - currentIndex + dates.length) % dates.length) / dates.length : 0;
 
     return (
-      <XStack key={key} alignItems="center" gap={INNER_GAP}>
-        <Animated.View
-          style={{
-            width: DOT,
-            height: DOT,
-            borderRadius: DOT / 2 - 1,
-            borderWidth: active ? 0 : 1,
-            borderColor: colorBorder,
-            backgroundColor: active ? colorActive : colorBg,
-            opacity: baseOpacity,
-            transform: [{ scale: active ? scale : 1 }],
-            shadowColor: colorActive,
-            shadowOpacity: active ? shadow : 0,
-            shadowRadius: 10,
-            shadowOffset: { width: 0, height: 4 },
-            elevation: active ? 4 : 0,
-          }}
+      <XStack key={dateKey} alignItems="center" gap={INNER_GAP} flexGrow={isWeek ? 1 : 0}>
+        <Node
+          size={DOT}
+          radius={DOT_RADIUS}
+          active={active}
+          isToday={isToday}
+          opacity={baseOpacity}
+          colorActive={colorActive}
+          colorBg={colorBg}
+          colorBorder={colorBorder}
+          scale={scale}
+          shadow={shadow}
         />
-        {linkNode}
+
+        {idx < dates.length - 1 && (
+          <Link
+            width={LINK_WIDTH}
+            height={LINK_HEIGHT}
+            active={linkActive}
+            flowEnabled={flowEnabled}
+            phase={phase}
+            pulse={current}
+            colorActive={colorActive}
+            colorBorder={colorBorder}
+            keepSpace={isWeek}
+          />
+        )}
       </XStack>
     );
   });
@@ -180,3 +158,154 @@ export const HeatmapChain = memo(function HeatmapChain({
     </XStack>
   );
 });
+
+function Node({
+  size,
+  radius,
+  active,
+  isToday,
+  opacity,
+  colorActive,
+  colorBg,
+  colorBorder,
+  scale,
+  shadow,
+}: {
+  size: number;
+  radius: number;
+  active: boolean;
+  isToday: boolean;
+  opacity: number;
+  colorActive: string;
+  colorBg: string;
+  colorBorder: string;
+  scale: Animated.AnimatedInterpolation<number>;
+  shadow: Animated.AnimatedInterpolation<number>;
+}) {
+  return (
+    <Animated.View
+      style={[
+        styles.nodeBase,
+        {
+          width: size,
+          height: size,
+          borderRadius: radius,
+          borderColor: active ? colorBorder : 'rgba(255,255,255,0.12)',
+          opacity,
+          transform: [{ scale: active ? (scale as any) : 1 }],
+          shadowColor: colorActive,
+          shadowOpacity: active ? (shadow as any) : 0,
+        },
+      ]}>
+      <View style={[StyleSheet.absoluteFill, { backgroundColor: colorBg }]} />
+      {active && (
+        <LinearGradient
+          colors={[rgba(colorActive, 0.3), rgba(colorActive, 0.95)]}
+          start={{ x: 0.1, y: 0.1 }}
+          end={{ x: 0.9, y: 0.9 }}
+          style={StyleSheet.absoluteFill}
+        />
+      )}
+      <View style={[styles.nodeHighlight, { borderRadius: radius }]} />
+      {isToday && active && <View style={[styles.nodeDot, { borderRadius: radius / 2 }]} />}
+    </Animated.View>
+  );
+}
+
+function Link({
+  width,
+  height,
+  active,
+  flowEnabled,
+  phase,
+  pulse,
+  colorActive,
+  colorBorder,
+  keepSpace,
+}: {
+  width: number;
+  height: number;
+  active: boolean;
+  flowEnabled: boolean;
+  phase: number;
+  pulse: Animated.Value;
+  colorActive: string;
+  colorBorder: string;
+  keepSpace?: boolean;
+}) {
+  const translateX = pulse.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-width * 0.35, width * 0.35],
+  });
+
+  const show = active || keepSpace;
+
+  return (
+    <Animated.View
+      style={[
+        styles.linkBase,
+        {
+          width,
+          height,
+          opacity: active ? 1 : keepSpace ? 0.18 : 0,
+          transform: flowEnabled && active ? [{ translateX }] : undefined,
+        },
+      ]}>
+      {show && (
+        <LinearGradient
+          colors={[
+            rgba(colorActive, 0.08),
+            rgba(colorActive, 0.9),
+            rgba(colorActive, 0.08),
+          ]}
+          start={{ x: phase, y: 0.5 }}
+          end={{ x: phase + 1, y: 0.5 }}
+          style={StyleSheet.absoluteFill}
+        />
+      )}
+      {!active && !keepSpace && (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { backgroundColor: colorBorder, opacity: 0.1, borderRadius: 999 },
+          ]}
+        />
+      )}
+    </Animated.View>
+  );
+}
+
+const styles = StyleSheet.create({
+  nodeBase: {
+    borderWidth: 1,
+    overflow: 'hidden',
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 6,
+  },
+  nodeHighlight: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+  },
+  nodeDot: {
+    position: 'absolute',
+    width: '38%',
+    height: '38%',
+    backgroundColor: 'rgba(255,255,255,0.55)',
+    top: '31%',
+    left: '31%',
+  },
+  linkBase: {
+    borderRadius: 999,
+    overflow: 'hidden',
+  },
+});
+
+function rgba(hex: string, a: number) {
+  const c = hex.replace('#', '').trim();
+  if (c.length !== 6) return `rgba(0,0,0,${a})`;
+  const r = parseInt(c.slice(0, 2), 16);
+  const g = parseInt(c.slice(2, 4), 16);
+  const b = parseInt(c.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${a})`;
+}
