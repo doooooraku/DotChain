@@ -36,25 +36,30 @@ export const HeatmapChain = memo(function HeatmapChain({
   const current = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    if (!flowEnabled) {
+      pulse.stopAnimation();
+      pulse.setValue(0);
+      return;
+    }
     const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(pulse, {
           toValue: 1,
           duration: 1200,
           easing: Easing.inOut(Easing.ease),
-          useNativeDriver: false, // shadowOpacity を動かすため
+          useNativeDriver: true,
         }),
         Animated.timing(pulse, {
           toValue: 0,
           duration: 1200,
           easing: Easing.inOut(Easing.ease),
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
       ]),
     );
     animation.start();
     return () => animation.stop();
-  }, [pulse]);
+  }, [flowEnabled, pulse]);
 
   useEffect(() => {
     if (!flowEnabled) {
@@ -67,7 +72,7 @@ export const HeatmapChain = memo(function HeatmapChain({
         toValue: 1,
         duration: 2400,
         easing: Easing.linear,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }),
     );
     animation.start();

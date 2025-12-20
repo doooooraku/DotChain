@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
+import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } from 'tamagui';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useWindowDimensions } from 'react-native';
-import ConfettiCannon from 'react-native-confetti-cannon';
 
 import { HabitButton } from '@/src/features/habit/HabitButton';
 import { HeatmapChain } from '@/src/features/habit/HeatmapChain';
@@ -42,17 +40,12 @@ export default function HomeScreen() {
   const allDoneDays = useHabitStore(selectAllDoneDays);
 
   const theme = useTheme();
-  const { width: screenWidth } = useWindowDimensions();
   const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
   const muted = theme.muted.val?.toString() ?? '#888888';
   const bg = theme.background.val?.toString() ?? '#000000';
   // 広告機能削除: Free/Pro 共通余白にする
   const fabBottom = 32;
   const listPaddingBottom = 140;
-  // Confetti 演出用
-  const confettiColors = useMemo(() => makeConfettiColors(neon), [neon]);
-  const [confettiSeed, setConfettiSeed] = useState(0);
-  const fireConfetti = () => setConfettiSeed((s) => s + 1);
   const togglingRef = useRef<Set<string>>(new Set());
 
   const hasSeenOnboarding = useSettingsStore((s) => s.hasSeenOnboarding);
@@ -103,7 +96,6 @@ export default function HomeScreen() {
         try {
           const didComplete = await record(habit.id);
           if (didComplete) {
-            fireConfetti();
             if (isTutorialTarget) {
               setTutorialStep('explainChain');
             }
@@ -361,66 +353,6 @@ export default function HomeScreen() {
         />
       )}
 
-      {/* 紙吹雪（達成時のみ発火） */}
-      {confettiSeed > 0 && (
-        <YStack
-          pointerEvents="none"
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          zIndex={9999}>
-          {[0.2, 0.5, 0.8].map((x, i) => (
-            <ConfettiCannon
-              key={`${confettiSeed}-${i}`}
-              count={70}
-              origin={{ x: screenWidth * x, y: 0 }}
-              fadeOut
-              explosionSpeed={450}
-              fallSpeed={2600}
-              colors={confettiColors}
-            />
-          ))}
-        </YStack>
-      )}
-
     </Stack>
   );
-}
-
-// Confetti 用の色をネオン基調で生成
-function makeConfettiColors(primary: string) {
-  const safe = normalizeHex(primary) ?? '#39FF14';
-  return [
-    safe,
-    mixHex(safe, '#ffffff', 0.35),
-    mixHex(safe, '#ffffff', 0.65),
-    mixHex(safe, '#000000', 0.2),
-    '#ffffff',
-  ];
-}
-
-function normalizeHex(hex: string) {
-  const h = hex.trim();
-  if (/^#[0-9a-fA-F]{6}$/.test(h)) return h;
-  return null;
-}
-
-function mixHex(a: string, b: string, t: number) {
-  const ar = parseInt(a.slice(1, 3), 16);
-  const ag = parseInt(a.slice(3, 5), 16);
-  const ab = parseInt(a.slice(5, 7), 16);
-
-  const br = parseInt(b.slice(1, 3), 16);
-  const bg = parseInt(b.slice(3, 5), 16);
-  const bb = parseInt(b.slice(5, 7), 16);
-
-  const rr = Math.round(ar + (br - ar) * t);
-  const rg = Math.round(ag + (bg - ag) * t);
-  const rb = Math.round(ab + (bb - ab) * t);
-
-  return `#${rr.toString(16).padStart(2, '0')}${rg.toString(16).padStart(2, '0')}${rb
-    .toString(16)
-    .padStart(2, '0')}`;
 }
