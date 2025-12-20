@@ -40,9 +40,9 @@ export default function HomeScreen() {
   const allDoneDays = useHabitStore(selectAllDoneDays);
 
   const theme = useTheme();
-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
-  const muted = theme.muted.val?.toString() ?? '#888888';
-  const bg = theme.background.val?.toString() ?? '#000000';
+  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+  const muted = theme?.muted?.val?.toString() ?? '#888888';
+  const bg = theme?.background?.val?.toString() ?? '#000000';
   // 広告機能削除: Free/Pro 共通余白にする
   const fabBottom = 32;
   const listPaddingBottom = 140;
@@ -210,7 +210,7 @@ export default function HomeScreen() {
                 maxLevel={maxLevel}
                 colorActive={neon}
                 colorBg={bg}
-                colorBorder={theme.gray.val?.toString() ?? '#222'}
+                colorBorder={theme?.gray?.val?.toString() ?? '#222'}
                 flowEnabled={electricFlow}
                 variant="week"
               />
@@ -232,7 +232,7 @@ export default function HomeScreen() {
                 maxLevel={maxLevel}
                 colorActive={neon}
                 colorBg={bg}
-                colorBorder={theme.gray.val?.toString() ?? '#222'}
+                colorBorder={theme?.gray?.val?.toString() ?? '#222'}
                 flowEnabled={electricFlow}
               />
             </ScrollView>

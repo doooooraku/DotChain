@@ -1,4 +1,5 @@
 import { createFont, createTamagui, createTokens } from 'tamagui';
+import { createAnimations } from '@tamagui/animations-react-native';
 
 const tokens = createTokens({
   color: {
@@ -104,6 +105,19 @@ const bodyFont = createFont({
   },
 });
 
+const media = {
+  maxSm: { maxWidth: 660 },
+  maxMd: { maxWidth: 860 },
+  maxLg: { maxWidth: 1120 },
+} as const;
+
+const animations = createAnimations({
+  fast: { type: 'spring', damping: 20, mass: 1.2, stiffness: 250 },
+  medium: { type: 'spring', damping: 12, mass: 1, stiffness: 140 },
+  slow: { type: 'spring', damping: 18, stiffness: 70 },
+  bouncy: { type: 'spring', damping: 15, mass: 0.9, stiffness: 120 },
+});
+
 const config = createTamagui({
   tokens,
   themes: {
@@ -144,6 +158,8 @@ const config = createTamagui({
   fonts: {
     body: bodyFont,
   },
+  media,
+  animations,
   shorthands: {
     p: 'padding',
     px: 'paddingHorizontal',
@@ -163,6 +179,4 @@ const config = createTamagui({
     br: 'borderRadius',
   },
 });
-
-export type AppConfig = typeof config;
 export default config;

@@ -88,7 +88,7 @@ function findCategoryIdByIconId(iconId: string | null | undefined): IconCategory
 
 export const IconPicker = memo(function IconPicker({ value, onChange }: IconPickerProps) {
   const theme = useTheme();
-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
 
   // 初期カテゴリは現在の value に合わせる（なければ basic）
   const [activeCategoryId, setActiveCategoryId] = useState<IconCategoryId>(() => {
@@ -151,7 +151,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
                   height={56}
                   borderRadius={16}
                   borderWidth={2}
-                  borderColor={active ? neon : theme.gray.val?.toString() ?? '#444'}
+                  borderColor={active ? neon : theme?.gray?.val?.toString() ?? '#444'}
                   backgroundColor={active ? '$neonGreen' : '$surface'}
                   alignItems="center"
                   justifyContent="center"

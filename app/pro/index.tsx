@@ -11,7 +11,7 @@ type PlanType = 'monthly' | 'yearly';
 
 function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void }) {
   const theme = useTheme();
-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
   const titleKey: TKey = type === 'monthly' ? 'proPlanMonthlyTitle' : 'proPlanYearlyTitle';
   const priceKey: TKey = type === 'monthly' ? 'priceMonthly' : 'priceYearly';
   const taglineKey: TKey = type === 'monthly' ? 'proMonthlyTagline' : 'proYearlyTagline';
@@ -32,13 +32,13 @@ function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void 
           {t(titleKey)}
         </Text>
         {isYearly && (
-          <Text color={neon} fontSize={12} fontWeight="800">
+          <Text color={neon ?? '#39FF14'} fontSize={12} fontWeight="800">
             {t('proPlanYearlyBadge')}
           </Text>
         )}
       </XStack>
 
-      <Text color={neon} fontSize={20} fontWeight="800">
+      <Text color={neon ?? '#39FF14'} fontSize={20} fontWeight="800">
         {t(priceKey)}
       </Text>
 
@@ -86,8 +86,8 @@ function CompareRow({ featureKey, freeKey, proKey }: { featureKey: TKey; freeKey
 
 export default function PaywallScreen() {
   const theme = useTheme();
-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
-  const bg = theme.background.val?.toString() ?? '#000';
+  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+  const bg = theme?.background?.val?.toString() ?? '#000';
 
   const handlePlan = () => {
     Alert.alert(t('comingSoonTitle') ?? 'Coming soon', t('paywallNote'));
@@ -177,6 +177,6 @@ export default function PaywallScreen() {
           </Text>
         </YStack>
       </ScrollView>
-    </Stack>
+      </Stack>
   );
 }

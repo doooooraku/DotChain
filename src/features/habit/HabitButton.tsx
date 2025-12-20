@@ -23,9 +23,9 @@ type Props = {
 export function HabitButton({ label, size, active, iconName = 'checkbox', onPress, onLongPress }: Props) {
   const height = size === 'big' ? 160 : 110;
   const theme = useTheme();
-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
-  const bg = theme.background.val?.toString() ?? '#000';
-  const border = theme.gray.val?.toString() ?? '#222';
+  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+  const bg = theme?.background?.val?.toString() ?? '#000';
+  const border = theme?.gray?.val?.toString() ?? '#222';
   const glow = useRef(new Animated.Value(0)).current;
   const pressScale = useRef(new Animated.Value(1)).current;
 

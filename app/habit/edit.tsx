@@ -133,7 +133,7 @@ export default function EditScreen() {
         fontSize={16}
         paddingHorizontal="$3"
         value={name}
-        onChangeText={(v) => setName(v)}
+        onChangeText={(v: string) => setName(v)}
         placeholder={t('editNamePlaceholder')}
         placeholderTextColor="#888888"
         backgroundColor="$surface"

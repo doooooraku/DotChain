@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import { TamaguiProvider, Theme } from 'tamagui';
+import { PortalProvider } from '@tamagui/portal';
 import config from '../tamagui.config';
 import ToastHost from '@/src/ui/ToastHost';
 import { useEffect, useRef } from 'react';
@@ -50,44 +51,46 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <TamaguiProvider config={config}>
-        <Theme name={themeName}>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: config.tokens.color.background.val },
-            }}>
-            <Stack.Screen name="index" />
-            <Stack.Screen
-              name="settings/index"
-              options={{
-                presentation: 'modal',
-                headerShown: true,
-                headerTitle: t('settings'),
-                ...headerBase,
-              }}
-            />
-            <Stack.Screen
-              name="habit/edit"
-              options={{
-                presentation: 'modal',
-                headerShown: true,
-                headerTitle: t('editHabitTitle'),
-                ...headerBase,
-              }}
-            />
-            <Stack.Screen
-              name="pro/index"
-              options={{
-                presentation: 'modal',
-                headerShown: true,
-                headerTitle: t('proHeaderTitle'),
-                ...headerBase,
-              }}
-            />
-          </Stack>
-          <StatusBar style={isDark ? 'light' : 'dark'} />
-          <ToastHost />
-        </Theme>
+        <PortalProvider shouldAddRootHost>
+          <Theme name={themeName}>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: config.tokens.color.background.val },
+              }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen
+                name="settings/index"
+                options={{
+                  presentation: 'modal',
+                  headerShown: true,
+                  headerTitle: t('settings'),
+                  ...headerBase,
+                }}
+              />
+              <Stack.Screen
+                name="habit/edit"
+                options={{
+                  presentation: 'modal',
+                  headerShown: true,
+                  headerTitle: t('editHabitTitle'),
+                  ...headerBase,
+                }}
+              />
+              <Stack.Screen
+                name="pro/index"
+                options={{
+                  presentation: 'modal',
+                  headerShown: true,
+                  headerTitle: t('proHeaderTitle'),
+                  ...headerBase,
+                }}
+              />
+            </Stack>
+            <StatusBar style={isDark ? 'light' : 'dark'} />
+            <ToastHost />
+          </Theme>
+        </PortalProvider>
       </TamaguiProvider>
     </SafeAreaProvider>
   );

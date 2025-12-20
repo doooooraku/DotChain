@@ -1,0 +1,528 @@
+diff --git a/.tamagui/tamagui.config.json b/.tamagui/tamagui.config.json
+index 26c3484..d6c7825 100644
+--- a/.tamagui/tamagui.config.json
++++ b/.tamagui/tamagui.config.json
+@@ -28313,19 +28313,52 @@
+     "onlyAllowShorthands": false,
+     "fontLanguages": [],
+     "animations": {
+-      "isReactNative": false,
+-      "supportsCSS": true,
+-      "classNameAnimation": true,
+-      "isStub": true,
+-      "animations": {},
+-      "useAnimations": "Function",
+-      "usePresence": "Function",
+-      "ResetPresence": "Function",
++      "isReactNative": true,
++      "animations": {
++        "fast": {
++          "type": "spring",
++          "damping": 20,
++          "mass": 1.2,
++          "stiffness": 250
++        },
++        "medium": {
++          "type": "spring",
++          "damping": 12,
++          "mass": 1,
++          "stiffness": 140
++        },
++        "slow": {
++          "type": "spring",
++          "damping": 18,
++          "stiffness": 70
++        },
++        "bouncy": {
++          "type": "spring",
++          "damping": 15,
++          "mass": 0.9,
++          "stiffness": 120
++        }
++      },
++      "View": "Component",
++      "Text": "Component",
+       "useAnimatedNumber": "Function",
++      "useAnimatedNumberReaction": "Function",
+       "useAnimatedNumberStyle": "Function",
+-      "useAnimatedNumberReaction": "Function"
++      "usePresence": "Function",
++      "ResetPresence": "Function",
++      "useAnimations": "Function"
++    },
++    "media": {
++      "maxSm": {
++        "maxWidth": 660
++      },
++      "maxMd": {
++        "maxWidth": 860
++      },
++      "maxLg": {
++        "maxWidth": 1120
++      }
+     },
+-    "media": {},
+     "tokens": {
+       "color": {
+         "background": {
+diff --git a/app/_layout.tsx b/app/_layout.tsx
+index 2e05a0e..a24c586 100644
+--- a/app/_layout.tsx
++++ b/app/_layout.tsx
+@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
+ import { StatusBar } from 'expo-status-bar';
+ import 'react-native-reanimated';
+ import { TamaguiProvider, Theme } from 'tamagui';
++import { PortalProvider } from '@tamagui/portal';
+ import config from '../tamagui.config';
+ import ToastHost from '@/src/ui/ToastHost';
+ import { useEffect, useRef } from 'react';
+@@ -50,44 +51,46 @@ export default function RootLayout() {
+   return (
+     <SafeAreaProvider>
+       <TamaguiProvider config={config}>
+-        <Theme name={themeName}>
+-          <Stack
+-            screenOptions={{
+-              headerShown: false,
+-              contentStyle: { backgroundColor: config.tokens.color.background.val },
+-            }}>
+-            <Stack.Screen name="index" />
+-            <Stack.Screen
+-              name="settings/index"
+-              options={{
+-                presentation: 'modal',
+-                headerShown: true,
+-                headerTitle: t('settings'),
+-                ...headerBase,
+-              }}
+-            />
+-            <Stack.Screen
+-              name="habit/edit"
+-              options={{
+-                presentation: 'modal',
+-                headerShown: true,
+-                headerTitle: t('editHabitTitle'),
+-                ...headerBase,
+-              }}
+-            />
+-            <Stack.Screen
+-              name="pro/index"
+-              options={{
+-                presentation: 'modal',
+-                headerShown: true,
+-                headerTitle: t('proHeaderTitle'),
+-                ...headerBase,
+-              }}
+-            />
+-          </Stack>
+-          <StatusBar style={isDark ? 'light' : 'dark'} />
+-          <ToastHost />
+-        </Theme>
++        <PortalProvider shouldAddRootHost>
++          <Theme name={themeName}>
++            <Stack
++              screenOptions={{
++                headerShown: false,
++                contentStyle: { backgroundColor: config.tokens.color.background.val },
++              }}>
++              <Stack.Screen name="index" />
++              <Stack.Screen
++                name="settings/index"
++                options={{
++                  presentation: 'modal',
++                  headerShown: true,
++                  headerTitle: t('settings'),
++                  ...headerBase,
++                }}
++              />
++              <Stack.Screen
++                name="habit/edit"
++                options={{
++                  presentation: 'modal',
++                  headerShown: true,
++                  headerTitle: t('editHabitTitle'),
++                  ...headerBase,
++                }}
++              />
++              <Stack.Screen
++                name="pro/index"
++                options={{
++                  presentation: 'modal',
++                  headerShown: true,
++                  headerTitle: t('proHeaderTitle'),
++                  ...headerBase,
++                }}
++              />
++            </Stack>
++            <StatusBar style={isDark ? 'light' : 'dark'} />
++            <ToastHost />
++          </Theme>
++        </PortalProvider>
+       </TamaguiProvider>
+     </SafeAreaProvider>
+   );
+diff --git a/app/habit/edit.tsx b/app/habit/edit.tsx
+index 8a982af..994da7a 100644
+--- a/app/habit/edit.tsx
++++ b/app/habit/edit.tsx
+@@ -133,7 +133,7 @@ export default function EditScreen() {
+         fontSize={16}
+         paddingHorizontal="$3"
+         value={name}
+-        onChangeText={(v) => setName(v)}
++        onChangeText={(v: string) => setName(v)}
+         placeholder={t('editNamePlaceholder')}
+         placeholderTextColor="#888888"
+         backgroundColor="$surface"
+diff --git a/app/index.tsx b/app/index.tsx
+index 1fcded6..da3cdf7 100644
+--- a/app/index.tsx
++++ b/app/index.tsx
+@@ -40,9 +40,9 @@ export default function HomeScreen() {
+   const allDoneDays = useHabitStore(selectAllDoneDays);
+ 
+   const theme = useTheme();
+-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+-  const muted = theme.muted.val?.toString() ?? '#888888';
+-  const bg = theme.background.val?.toString() ?? '#000000';
++  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
++  const muted = theme?.muted?.val?.toString() ?? '#888888';
++  const bg = theme?.background?.val?.toString() ?? '#000000';
+   // 広告機能削除: Free/Pro 共通余白にする
+   const fabBottom = 32;
+   const listPaddingBottom = 140;
+@@ -210,7 +210,7 @@ export default function HomeScreen() {
+                 maxLevel={maxLevel}
+                 colorActive={neon}
+                 colorBg={bg}
+-                colorBorder={theme.gray.val?.toString() ?? '#222'}
++                colorBorder={theme?.gray?.val?.toString() ?? '#222'}
+                 flowEnabled={electricFlow}
+                 variant="week"
+               />
+@@ -232,7 +232,7 @@ export default function HomeScreen() {
+                 maxLevel={maxLevel}
+                 colorActive={neon}
+                 colorBg={bg}
+-                colorBorder={theme.gray.val?.toString() ?? '#222'}
++                colorBorder={theme?.gray?.val?.toString() ?? '#222'}
+                 flowEnabled={electricFlow}
+               />
+             </ScrollView>
+diff --git a/app/pro/index.tsx b/app/pro/index.tsx
+index 3b273ec..51df945 100644
+--- a/app/pro/index.tsx
++++ b/app/pro/index.tsx
+@@ -11,7 +11,7 @@ type PlanType = 'monthly' | 'yearly';
+ 
+ function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void }) {
+   const theme = useTheme();
+-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
++  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+   const titleKey: TKey = type === 'monthly' ? 'proPlanMonthlyTitle' : 'proPlanYearlyTitle';
+   const priceKey: TKey = type === 'monthly' ? 'priceMonthly' : 'priceYearly';
+   const taglineKey: TKey = type === 'monthly' ? 'proMonthlyTagline' : 'proYearlyTagline';
+@@ -32,13 +32,13 @@ function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void
+           {t(titleKey)}
+         </Text>
+         {isYearly && (
+-          <Text color={neon} fontSize={12} fontWeight="800">
++          <Text color={neon ?? '#39FF14'} fontSize={12} fontWeight="800">
+             {t('proPlanYearlyBadge')}
+           </Text>
+         )}
+       </XStack>
+ 
+-      <Text color={neon} fontSize={20} fontWeight="800">
++      <Text color={neon ?? '#39FF14'} fontSize={20} fontWeight="800">
+         {t(priceKey)}
+       </Text>
+ 
+@@ -86,8 +86,8 @@ function CompareRow({ featureKey, freeKey, proKey }: { featureKey: TKey; freeKey
+ 
+ export default function PaywallScreen() {
+   const theme = useTheme();
+-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+-  const bg = theme.background.val?.toString() ?? '#000';
++  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
++  const bg = theme?.background?.val?.toString() ?? '#000';
+ 
+   const handlePlan = () => {
+     Alert.alert(t('comingSoonTitle') ?? 'Coming soon', t('paywallNote'));
+@@ -177,6 +177,6 @@ export default function PaywallScreen() {
+           </Text>
+         </YStack>
+       </ScrollView>
+-    </Stack>
++      </Stack>
+   );
+ }
+diff --git a/app/settings/index.tsx b/app/settings/index.tsx
+index 7f0c74f..9dbac7d 100644
+--- a/app/settings/index.tsx
++++ b/app/settings/index.tsx
+@@ -1,8 +1,9 @@
+ import React from 'react';
+ import { Alert, Platform } from 'react-native';
+ import { Href, useRouter } from 'expo-router';
+-import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Select } from 'tamagui';
+-import { Check, ChevronDown } from '@tamagui/lucide-icons';
++import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Popover } from 'tamagui';
++import { Check } from '@tamagui/lucide-icons';
++import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
+ import DateTimePicker from '@react-native-community/datetimepicker';
+ import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
+ import { t, useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
+@@ -27,6 +28,7 @@ export default function SettingsScreen() {
+   const { lang, setLang: setLangStore } = useTranslation();
+   const theme = useTheme();
+   const isPro = useSettingsStore((s) => s.isPro ?? false);
++  const [langOpen, setLangOpen] = React.useState(false);
+ 
+   const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
+   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
+@@ -93,47 +95,76 @@ export default function SettingsScreen() {
+       </Text>
+ 
+       <Section title={t('language')}>
+-        <Select value={lang} onValueChange={(code) => setLangStore(code as Lang)}>
+-          <Select.Trigger
+-            iconAfter={ChevronDown}
+-            borderWidth={1}
+-            borderColor="$gray"
+-            backgroundColor="$surface"
+-            borderRadius="$4"
+-            padding="$3">
+-            <XStack alignItems="center" justifyContent="space-between" width="100%">
++        <Popover open={langOpen} onOpenChange={setLangOpen} placement="bottom-start">
++          <Popover.Trigger asChild>
++            <Button
++              width="100%"
++              justifyContent="space-between"
++              borderWidth={1}
++              borderColor="$gray"
++              backgroundColor="$surface"
++              borderRadius="$4"
++              padding="$3"
++              onPress={() => setLangOpen((o) => !o)}>
+               <XStack alignItems="center" gap="$2">
+                 <Text fontSize={18}>{LANGUAGE_META[lang].flag}</Text>
+                 <Text color="$text" fontSize={15} fontWeight="700">
+-                  <Select.Value color="$text" />
++                  {t(LANGUAGE_META[lang].labelKey)} ({lang.toUpperCase()})
+                 </Text>
+               </XStack>
+-            </XStack>
+-          </Select.Trigger>
++            </Button>
++          </Popover.Trigger>
+ 
+-          <Select.Content zIndex={200000}>
+-            <Select.Viewport minWidth={280}>
+-              {languageOptions.map((code, index) => {
+-                const meta = LANGUAGE_META[code];
+-                return (
+-                  <Select.Item
+-                    key={code}
+-                    value={code}
+-                    index={index}
+-                    borderRadius="$3"
+-                    paddingVertical="$2">
+-                    <Select.ItemText color="$text">
+-                      {meta.flag} {t(meta.labelKey)} ({code.toUpperCase()})
+-                    </Select.ItemText>
+-                    <Select.ItemIndicator marginLeft="auto">
+-                      <Check size={16} />
+-                    </Select.ItemIndicator>
+-                  </Select.Item>
+-                );
+-              })}
+-            </Select.Viewport>
+-          </Select.Content>
+-        </Select>
++          <Popover.Content
++            elevate
++            borderRadius="$4"
++            borderWidth={1}
++            borderColor="$gray"
++            backgroundColor="$surface"
++            padding="$2"
++            maxHeight={320}
++            minWidth={260}
++            width="$18">
++            <ScrollView
++              showsVerticalScrollIndicator
++              persistentScrollbar
++              indicatorStyle="white"
++              contentContainerStyle={{ paddingRight: 8 }}
++              style={{ paddingRight: 8 }}
++              scrollIndicatorInsets={{ right: 6 }}>
++              <YStack gap="$1" paddingVertical="$1">
++                {languageOptions.map((code) => {
++                  const meta = LANGUAGE_META[code];
++                  const active = lang === code;
++                  return (
++                    <Button
++                      key={code}
++                      size="$3"
++                      justifyContent="space-between"
++                      backgroundColor={active ? '$surface' : '$background'}
++                      borderColor={active ? '$neonGreen' : '$gray'}
++                      borderWidth={1}
++                      onPress={() => {
++                        // i18nストアを即時更新（全画面リアクティブに切替）
++                        setLangStore(code as Lang);
++                        // グローバルヘルパーも更新（他モジュールの参照用）
++                        setLangGlobal(code as Lang);
++                        setLangOpen(false);
++                      }}>
++                      <XStack alignItems="center" gap="$2">
++                        <Text>{meta.flag}</Text>
++                        <Text color="$text">
++                          {t(meta.labelKey)} ({code.toUpperCase()})
++                        </Text>
++                      </XStack>
++                      {active && <Check size={16} color="#39FF14" />}
++                    </Button>
++                  );
++                })}
++              </YStack>
++            </ScrollView>
++          </Popover.Content>
++        </Popover>
+       </Section>
+ 
+       <Section title={t('sound')}>
+@@ -172,7 +203,7 @@ export default function SettingsScreen() {
+         <XStack gap="$3" marginTop="$1">
+           <ThemeDot
+             label={t('themeDarkLabel')}
+-            color={theme.background.val?.toString() ?? '#04060A'}
++            color={theme?.background?.val?.toString() ?? '#04060A'}
+             active={themeName === 'dark'}
+             onPress={() => setTheme('dark')}
+           />
+diff --git a/package.json b/package.json
+index f4cca3a..e30f2f2 100644
+--- a/package.json
++++ b/package.json
+@@ -23,8 +23,10 @@
+     "@react-navigation/elements": "^2.6.3",
+     "@react-navigation/native": "^7.1.8",
+     "@supabase/supabase-js": "^2.81.1",
++    "@tamagui/animations-react-native": "^1.138.5",
+     "@tamagui/core": "1.138.5",
+     "@tamagui/lucide-icons": "1.138.5",
++    "@tamagui/portal": "1.138.5",
+     "@tanstack/react-query": "^5.90.10",
+     "expo": "~54.0.27",
+     "expo-av": "^16.0.8",
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 2299004..ac0285b 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -29,12 +29,18 @@ importers:
+       '@supabase/supabase-js':
+         specifier: ^2.81.1
+         version: 2.81.1
++      '@tamagui/animations-react-native':
++        specifier: ^1.138.5
++        version: 1.138.5(react-dom@19.1.0(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+       '@tamagui/core':
+         specifier: 1.138.5
+         version: 1.138.5(react-dom@19.1.0(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+       '@tamagui/lucide-icons':
+         specifier: 1.138.5
+         version: 1.138.5(react-dom@19.1.0(react@19.1.0))(react-native-svg@15.15.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
++      '@tamagui/portal':
++        specifier: 1.138.5
++        version: 1.138.5(react-dom@19.1.0(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+       '@tanstack/react-query':
+         specifier: ^5.90.10
+         version: 5.90.10(react@19.1.0)
+diff --git a/src/features/habit/HabitButton.tsx b/src/features/habit/HabitButton.tsx
+index 0cb6991..c519546 100644
+--- a/src/features/habit/HabitButton.tsx
++++ b/src/features/habit/HabitButton.tsx
+@@ -23,9 +23,9 @@ type Props = {
+ export function HabitButton({ label, size, active, iconName = 'checkbox', onPress, onLongPress }: Props) {
+   const height = size === 'big' ? 160 : 110;
+   const theme = useTheme();
+-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
+-  const bg = theme.background.val?.toString() ?? '#000';
+-  const border = theme.gray.val?.toString() ?? '#222';
++  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
++  const bg = theme?.background?.val?.toString() ?? '#000';
++  const border = theme?.gray?.val?.toString() ?? '#222';
+   const glow = useRef(new Animated.Value(0)).current;
+   const pressScale = useRef(new Animated.Value(1)).current;
+ 
+diff --git a/src/features/habit/IconPicker.tsx b/src/features/habit/IconPicker.tsx
+index fbd1b7c..a61cb0f 100644
+--- a/src/features/habit/IconPicker.tsx
++++ b/src/features/habit/IconPicker.tsx
+@@ -88,7 +88,7 @@ function findCategoryIdByIconId(iconId: string | null | undefined): IconCategory
+ 
+ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPickerProps) {
+   const theme = useTheme();
+-  const neon = theme.neonGreen.val?.toString() ?? '#39FF14';
++  const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+ 
+   // 初期カテゴリは現在の value に合わせる（なければ basic）
+   const [activeCategoryId, setActiveCategoryId] = useState<IconCategoryId>(() => {
+@@ -151,7 +151,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
+                   height={56}
+                   borderRadius={16}
+                   borderWidth={2}
+-                  borderColor={active ? neon : theme.gray.val?.toString() ?? '#444'}
++                  borderColor={active ? neon : theme?.gray?.val?.toString() ?? '#444'}
+                   backgroundColor={active ? '$neonGreen' : '$surface'}
+                   alignItems="center"
+                   justifyContent="center"
+diff --git a/tamagui.config.ts b/tamagui.config.ts
+index e116fd0..1b619b2 100644
+--- a/tamagui.config.ts
++++ b/tamagui.config.ts
+@@ -1,4 +1,5 @@
+ import { createFont, createTamagui, createTokens } from 'tamagui';
++import { createAnimations } from '@tamagui/animations-react-native';
+ 
+ const tokens = createTokens({
+   color: {
+@@ -104,6 +105,19 @@ const bodyFont = createFont({
+   },
+ });
+ 
++const media = {
++  maxSm: { maxWidth: 660 },
++  maxMd: { maxWidth: 860 },
++  maxLg: { maxWidth: 1120 },
++} as const;
++
++const animations = createAnimations({
++  fast: { type: 'spring', damping: 20, mass: 1.2, stiffness: 250 },
++  medium: { type: 'spring', damping: 12, mass: 1, stiffness: 140 },
++  slow: { type: 'spring', damping: 18, stiffness: 70 },
++  bouncy: { type: 'spring', damping: 15, mass: 0.9, stiffness: 120 },
++});
++
+ const config = createTamagui({
+   tokens,
+   themes: {
+@@ -144,6 +158,8 @@ const config = createTamagui({
+   fonts: {
+     body: bodyFont,
+   },
++  media,
++  animations,
+   shorthands: {
+     p: 'padding',
+     px: 'paddingHorizontal',
+@@ -163,6 +179,4 @@ const config = createTamagui({
+     br: 'borderRadius',
+   },
+ });
+-
+-export type AppConfig = typeof config;
+ export default config;

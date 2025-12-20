@@ -1,8 +1,9 @@
 import React from 'react';
 import { Alert, Platform } from 'react-native';
 import { Href, useRouter } from 'expo-router';
-import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Select } from 'tamagui';
-import { Check, ChevronDown } from '@tamagui/lucide-icons';
+import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Popover } from 'tamagui';
+import { Check } from '@tamagui/lucide-icons';
+import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
 import { t, useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
@@ -27,6 +28,7 @@ export default function SettingsScreen() {
   const { lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const isPro = useSettingsStore((s) => s.isPro ?? false);
+  const [langOpen, setLangOpen] = React.useState(false);
 
   const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
   const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
@@ -93,47 +95,76 @@ export default function SettingsScreen() {
       </Text>
 
       <Section title={t('language')}>
-        <Select value={lang} onValueChange={(code) => setLangStore(code as Lang)}>
-          <Select.Trigger
-            iconAfter={ChevronDown}
-            borderWidth={1}
-            borderColor="$gray"
-            backgroundColor="$surface"
-            borderRadius="$4"
-            padding="$3">
-            <XStack alignItems="center" justifyContent="space-between" width="100%">
+        <Popover open={langOpen} onOpenChange={setLangOpen} placement="bottom-start">
+          <Popover.Trigger asChild>
+            <Button
+              width="100%"
+              justifyContent="space-between"
+              borderWidth={1}
+              borderColor="$gray"
+              backgroundColor="$surface"
+              borderRadius="$4"
+              padding="$3"
+              onPress={() => setLangOpen((o) => !o)}>
               <XStack alignItems="center" gap="$2">
                 <Text fontSize={18}>{LANGUAGE_META[lang].flag}</Text>
                 <Text color="$text" fontSize={15} fontWeight="700">
-                  <Select.Value color="$text" />
+                  {t(LANGUAGE_META[lang].labelKey)} ({lang.toUpperCase()})
                 </Text>
               </XStack>
-            </XStack>
-          </Select.Trigger>
+            </Button>
+          </Popover.Trigger>
 
-          <Select.Content zIndex={200000}>
-            <Select.Viewport minWidth={280}>
-              {languageOptions.map((code, index) => {
-                const meta = LANGUAGE_META[code];
-                return (
-                  <Select.Item
-                    key={code}
-                    value={code}
-                    index={index}
-                    borderRadius="$3"
-                    paddingVertical="$2">
-                    <Select.ItemText color="$text">
-                      {meta.flag} {t(meta.labelKey)} ({code.toUpperCase()})
-                    </Select.ItemText>
-                    <Select.ItemIndicator marginLeft="auto">
-                      <Check size={16} />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                );
-              })}
-            </Select.Viewport>
-          </Select.Content>
-        </Select>
+          <Popover.Content
+            elevate
+            borderRadius="$4"
+            borderWidth={1}
+            borderColor="$gray"
+            backgroundColor="$surface"
+            padding="$2"
+            maxHeight={320}
+            minWidth={260}
+            width="$18">
+            <ScrollView
+              showsVerticalScrollIndicator
+              persistentScrollbar
+              indicatorStyle="white"
+              contentContainerStyle={{ paddingRight: 8 }}
+              style={{ paddingRight: 8 }}
+              scrollIndicatorInsets={{ right: 6 }}>
+              <YStack gap="$1" paddingVertical="$1">
+                {languageOptions.map((code) => {
+                  const meta = LANGUAGE_META[code];
+                  const active = lang === code;
+                  return (
+                    <Button
+                      key={code}
+                      size="$3"
+                      justifyContent="space-between"
+                      backgroundColor={active ? '$surface' : '$background'}
+                      borderColor={active ? '$neonGreen' : '$gray'}
+                      borderWidth={1}
+                      onPress={() => {
+                        // i18nストアを即時更新（全画面リアクティブに切替）
+                        setLangStore(code as Lang);
+                        // グローバルヘルパーも更新（他モジュールの参照用）
+                        setLangGlobal(code as Lang);
+                        setLangOpen(false);
+                      }}>
+                      <XStack alignItems="center" gap="$2">
+                        <Text>{meta.flag}</Text>
+                        <Text color="$text">
+                          {t(meta.labelKey)} ({code.toUpperCase()})
+                        </Text>
+                      </XStack>
+                      {active && <Check size={16} color="#39FF14" />}
+                    </Button>
+                  );
+                })}
+              </YStack>
+            </ScrollView>
+          </Popover.Content>
+        </Popover>
       </Section>
 
       <Section title={t('sound')}>
@@ -172,7 +203,7 @@ export default function SettingsScreen() {
         <XStack gap="$3" marginTop="$1">
           <ThemeDot
             label={t('themeDarkLabel')}
-            color={theme.background.val?.toString() ?? '#04060A'}
+            color={theme?.background?.val?.toString() ?? '#04060A'}
             active={themeName === 'dark'}
             onPress={() => setTheme('dark')}
           />
