@@ -60,7 +60,10 @@ export function useHabitRecord() {
   const setHasRequestedReview = useSettingsStore((s) => s.setHasRequestedReview);
 
   const record = useCallback(
-    async (habitId: string) => {
+    /**
+     * 返り値: toggle 後に「達成状態になったら true」「未達成/取り消しなら false」
+     */
+    async (habitId: string): Promise<boolean> => {
       // フィードバック系は fire-and-forget（待たない）
       void playClick();
       void triggerImpact();
@@ -96,6 +99,8 @@ export function useHabitRecord() {
             }, 800);
           }
         }
+
+        return isDone;
       } catch (err) {
         throw err;
       }

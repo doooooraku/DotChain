@@ -43,13 +43,13 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
           toValue: 1,
           duration: 800,
           easing: Easing.inOut(Easing.ease),
-          useNativeDriver: false, // shadowOpacity を動かすため
+          useNativeDriver: true,
         }),
         Animated.timing(glow, {
           toValue: 0,
           duration: 800,
           easing: Easing.inOut(Easing.ease),
-          useNativeDriver: false,
+          useNativeDriver: true,
         }),
       ]),
     );
@@ -60,14 +60,10 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
     };
   }, [glow, active]);
 
-  const shadowOpacity = glow.interpolate({ inputRange: [0, 1], outputRange: active ? [0.4, 0.7] : [0.1, 0.2] });
-  // NOTE: interpolate は 0〜1 の数値を返す想定。型上はアニメーション値なので unknown 経由で number として扱う。
-  const shadowOpacityValue = shadowOpacity as unknown as number;
-
   const handlePressIn = () => {
       Animated.spring(pressScale, {
         toValue: 0.96,
-        useNativeDriver: false,
+        useNativeDriver: true,
         friction: 8,
         tension: 150,
       }).start();
@@ -77,13 +73,13 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
     Animated.sequence([
       Animated.spring(pressScale, {
         toValue: 1.05,
-        useNativeDriver: false,
+        useNativeDriver: true,
         friction: 6,
         tension: 180,
       }),
       Animated.spring(pressScale, {
         toValue: 1,
-        useNativeDriver: false,
+        useNativeDriver: true,
         friction: 8,
         tension: 150,
       }),
@@ -112,17 +108,23 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
             borderRadius: 24,
             alignItems: 'center',
             justifyContent: 'center',
-            shadowColor: neon,
-            shadowOpacity: shadowOpacityValue,
-            shadowRadius: 18,
-            shadowOffset: { width: 0, height: 6 },
-            elevation: active ? 10 : 2,
             transform: [{ scale: pressScale }],
           }}>
           <Ionicons
             name={iconName}
             size={size === 'big' ? 52 : 36}
             color={active ? '#000000' : '#EEEEEE'}
+          />
+          {/* グローを shadow ではなく半透明オーバーレイで表現（nativeDriver対応） */}
+          <Animated.View
+            pointerEvents="none"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: 24,
+              backgroundColor: neon,
+              opacity: glow.interpolate({ inputRange: [0, 1], outputRange: active ? [0.06, 0.14] : [0, 0] }),
+            }}
           />
         </Animated.View>
       </Pressable>

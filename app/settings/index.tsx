@@ -105,7 +105,7 @@ export default function SettingsScreen() {
               <XStack alignItems="center" gap="$2">
                 <Text fontSize={18}>{LANGUAGE_META[lang].flag}</Text>
                 <Text color="$text" fontSize={15} fontWeight="700">
-                  {t(LANGUAGE_META[lang].labelKey)} ({lang.toUpperCase()})
+                  <Select.Value color="$text" />
                 </Text>
               </XStack>
             </XStack>
@@ -122,7 +122,7 @@ export default function SettingsScreen() {
                     index={index}
                     borderRadius="$3"
                     paddingVertical="$2">
-                    <Select.ItemText>
+                    <Select.ItemText color="$text">
                       {meta.flag} {t(meta.labelKey)} ({code.toUpperCase()})
                     </Select.ItemText>
                     <Select.ItemIndicator marginLeft="auto">

@@ -128,7 +128,6 @@ export const HeatmapChain = memo(function HeatmapChain({
           colorBg={colorBg}
           colorBorder={colorBorder}
           scale={scale}
-          shadow={shadow}
         />
 
         {idx < dates.length - 1 && (
@@ -169,7 +168,6 @@ function Node({
   colorBg,
   colorBorder,
   scale,
-  shadow,
 }: {
   size: number;
   radius: number;
@@ -180,7 +178,6 @@ function Node({
   colorBg: string;
   colorBorder: string;
   scale: Animated.AnimatedInterpolation<number>;
-  shadow: Animated.AnimatedInterpolation<number>;
 }) {
   return (
     <Animated.View
@@ -193,8 +190,6 @@ function Node({
           borderColor: active ? colorBorder : 'rgba(255,255,255,0.12)',
           opacity,
           transform: [{ scale: active ? (scale as any) : 1 }],
-          shadowColor: colorActive,
-          shadowOpacity: active ? (shadow as any) : 0,
         },
       ]}>
       <View style={[StyleSheet.absoluteFill, { backgroundColor: colorBg }]} />

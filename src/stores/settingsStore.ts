@@ -40,7 +40,7 @@ export const useSettingsStore = create<SettingsState>()(
       tapSound: 'click',
       hasSeenOnboarding: false,
       heatmapDays: 7,
-      electricFlow: true,
+      electricFlow: false,
       hasRequestedReview: false,
       isPro: false,
       reminderEnabled: false,

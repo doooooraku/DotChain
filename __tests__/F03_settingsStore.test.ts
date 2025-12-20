@@ -46,7 +46,7 @@ describe('F-03: 設定変更（SettingsStore のユニットテスト）', () =>
       tapSound: 'click',
       hasSeenOnboarding: false,
       heatmapDays: 7,
-      electricFlow: true,
+      electricFlow: false,
       hasRequestedReview: false,
       isPro: false,
       reminderEnabled: false,

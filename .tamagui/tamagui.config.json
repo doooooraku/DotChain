@@ -3458,6 +3458,7 @@
               "tag": "button",
               "role": "button",
               "focusable": true,
+              "disableClassName": true,
               "unstyled": false
             },
             "validStyles": {
@@ -3815,6 +3816,7 @@
               "tag": "button",
               "role": "button",
               "focusable": true,
+              "disableClassName": true,
               "unstyled": false
             },
             "validStyles": {
@@ -8897,7 +8899,8 @@
                     "width": "auto",
                     "height": "auto",
                     "maxHeight": "100vh",
-                    "position": "fixed"
+                    "position": "fixed",
+                    "zIndex": 1
                   }
                 }
               }
@@ -28309,7 +28312,19 @@
     },
     "onlyAllowShorthands": false,
     "fontLanguages": [],
-    "animations": {},
+    "animations": {
+      "isReactNative": false,
+      "supportsCSS": true,
+      "classNameAnimation": true,
+      "isStub": true,
+      "animations": {},
+      "useAnimations": "Function",
+      "usePresence": "Function",
+      "ResetPresence": "Function",
+      "useAnimatedNumber": "Function",
+      "useAnimatedNumberStyle": "Function",
+      "useAnimatedNumberReaction": "Function"
+    },
     "media": {},
     "tokens": {
       "color": {
@@ -28684,46 +28699,46 @@
       "dark": {
         "background": "#000000",
         "surface": "#0b0b0b",
+        "gray": "#222222",
         "muted": "#888888",
         "neonGreen": "#39FF14",
         "neonPink": "#FF00FF",
-        "gray": "#222222",
-        "text": "#FFFFFF",
-        "accent": "#39FF14",
-        "shadow": "#39FF14",
         "cyberBlue": "#00C8FF",
         "warning": "#FFA500",
         "error": "#FF4D4F",
+        "text": "#FFFFFF",
+        "accent": "#39FF14",
+        "shadow": "#39FF14",
         "id": "dark"
       },
       "neonPink": {
         "background": "#000000",
-        "surface": "#0b0b0b",
-        "muted": "#888888",
-        "neonGreen": "#39FF14",
-        "neonPink": "#FF00FF",
+        "surface": "#150013",
         "gray": "#222222",
-        "text": "#FFFFFF",
-        "accent": "#39FF14",
-        "shadow": "#39FF14",
+        "muted": "#888888",
+        "neonGreen": "#FF00FF",
+        "neonPink": "#FF00FF",
         "cyberBlue": "#00C8FF",
         "warning": "#FFA500",
         "error": "#FF4D4F",
+        "text": "#FFFFFF",
+        "accent": "#FF00FF",
+        "shadow": "#FF00FF",
         "id": "neonPink"
       },
       "cyberBlue": {
         "background": "#000000",
-        "surface": "#0b0b0b",
-        "muted": "#888888",
-        "neonGreen": "#39FF14",
-        "neonPink": "#FF00FF",
+        "surface": "#00131a",
         "gray": "#222222",
-        "text": "#FFFFFF",
-        "accent": "#39FF14",
-        "shadow": "#39FF14",
+        "muted": "#888888",
+        "neonGreen": "#00C8FF",
+        "neonPink": "#FF00FF",
         "cyberBlue": "#00C8FF",
         "warning": "#FFA500",
         "error": "#FF4D4F",
+        "text": "#FFFFFF",
+        "accent": "#00C8FF",
+        "shadow": "#00C8FF",
         "id": "cyberBlue"
       }
     },
