@@ -14,6 +14,7 @@ type SettingsState = {
   hasSeenOnboarding: boolean;
   heatmapDays: HeatmapDaysOption;
   electricFlow: boolean;
+  electricFlowUserToggled: boolean;
   hasRequestedReview: boolean;
   isPro: boolean;
   reminderEnabled: boolean;
@@ -40,7 +41,9 @@ export const useSettingsStore = create<SettingsState>()(
       tapSound: 'click',
       hasSeenOnboarding: false,
       heatmapDays: 7,
-      electricFlow: false,
+      // 短期レンジ（〜60日）は初期ON、長期レンジ（180/365）は初期OFFとする
+      electricFlow: true,
+      electricFlowUserToggled: false,
       hasRequestedReview: false,
       isPro: false,
       reminderEnabled: false,
@@ -53,9 +56,15 @@ export const useSettingsStore = create<SettingsState>()(
       setHeatmapDays: (days) => {
         const allowed: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
         const safe = allowed.includes(days) ? days : 7;
-        set({ heatmapDays: safe });
+        // ユーザーが手動で電流をいじっていなければ、レンジに応じて自動切替
+        if (!get().electricFlowUserToggled) {
+          const nextFlowDefault = safe <= 60; // 1週/1か月/2か月はON、半年/1年はOFF
+          set({ heatmapDays: safe, electricFlow: nextFlowDefault });
+        } else {
+          set({ heatmapDays: safe });
+        }
       },
-      setElectricFlow: (v) => set({ electricFlow: Boolean(v) }),
+      setElectricFlow: (v) => set({ electricFlow: Boolean(v), electricFlowUserToggled: true }),
       setHasRequestedReview: (v) => set({ hasRequestedReview: Boolean(v) }),
       setIsPro: (v) => set({ isPro: Boolean(v) }),
       setReminderEnabled: async (v) => {

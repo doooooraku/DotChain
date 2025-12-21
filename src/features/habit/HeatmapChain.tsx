@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useRef } from 'react';
-import { Animated, Easing, StyleSheet, View } from 'react-native';
+import { Animated, Easing, StyleSheet, View, type ColorValue } from 'react-native';
 import { XStack } from 'tamagui';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getLocalDateKey } from '@/src/core/dateKey';
@@ -103,8 +103,9 @@ export const HeatmapChain = memo(function HeatmapChain({
   const isWeek = variant === 'week' && days === 7;
   const DOT = isWeek ? 24 : 18;
   const DOT_RADIUS = Math.round(DOT * (isWeek ? 0.42 : 0.45));
-  const LINK_WIDTH = isWeek ? 16 : 12; // weekでは flexGrow と組み合わせて幅を使い切る
-  const LINK_HEIGHT = isWeek ? 3 : 2;
+  // 線を少し太めにして「流れている」ことが分かりやすいようにする
+  const LINK_WIDTH = isWeek ? 22 : 16; // weekでは flexGrow と組み合わせて幅を使い切る
+  const LINK_HEIGHT = 3;
   const OUTER_GAP = isWeek ? '$1' : '$2';
   const INNER_GAP = '$1';
 
@@ -134,7 +135,6 @@ export const HeatmapChain = memo(function HeatmapChain({
           colorBorder={colorBorder}
           scale={scale}
           opacityBoost={isToday ? 0.05 : 0}
-          isToday={isToday}
         />
 
         {idx < dates.length - 1 && (
@@ -176,7 +176,6 @@ function Node({
   colorBorder,
   scale,
   opacityBoost = 0,
-  isToday,
 }: {
   size: number;
   radius: number;
@@ -247,6 +246,9 @@ function Link({
   });
 
   const show = active || keepSpace;
+  const linkColors: readonly [ColorValue, ColorValue, ColorValue] = active
+    ? [rgba(colorActive, 0.35), rgba(colorActive, 1), rgba(colorActive, 0.35)]
+    : [rgba(colorActive, 0.06), rgba(colorActive, 0.2), rgba(colorActive, 0.06)];
 
   return (
     <Animated.View
@@ -261,11 +263,7 @@ function Link({
       ]}>
       {show && (
         <LinearGradient
-          colors={[
-            rgba(colorActive, 0.08),
-            rgba(colorActive, 0.9),
-            rgba(colorActive, 0.08),
-          ]}
+          colors={linkColors}
           start={{ x: phase, y: 0.5 }}
           end={{ x: phase + 1, y: 0.5 }}
           style={StyleSheet.absoluteFill}

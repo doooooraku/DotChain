@@ -23,6 +23,7 @@ import { getLocalDateKey } from '@/src/core/dateKey';
 export default function RootLayout() {
   const appState = useRef(AppState.currentState);
   const lastDate = useRef(getLocalDateKey());
+  const midnightTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const themeName = useSettingsStore((s) => s.theme);
   const { t } = useTranslation();
   const isDark = themeName === 'dark';
@@ -35,6 +36,23 @@ export default function RootLayout() {
   } as const;
 
   useEffect(() => {
+    const scheduleMidnightSync = () => {
+      const now = new Date();
+      const next = new Date(now);
+      next.setHours(24, 0, 0, 0);
+      const delay = next.getTime() - now.getTime();
+      return setTimeout(() => {
+        const today = getLocalDateKey();
+        if (today !== lastDate.current) {
+          useHabitStore.getState().loadAll();
+          lastDate.current = today;
+        }
+        midnightTimer.current = scheduleMidnightSync();
+      }, delay);
+    };
+
+    midnightTimer.current = scheduleMidnightSync();
+
     const sub = AppState.addEventListener('change', (state) => {
       if (appState.current.match(/inactive|background/) && state === 'active') {
         const today = getLocalDateKey();
@@ -45,7 +63,14 @@ export default function RootLayout() {
       }
       appState.current = state;
     });
-    return () => sub.remove();
+
+    return () => {
+      sub.remove();
+      if (midnightTimer.current) {
+        clearTimeout(midnightTimer.current);
+        midnightTimer.current = null;
+      }
+    };
   }, []);
 
   return (

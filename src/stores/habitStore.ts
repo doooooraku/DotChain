@@ -121,7 +121,8 @@ export const useHabitStore = create<HabitState>()(
     {
       name: 'dotchain-habits',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({ today: state.today, habits: state.habits, logs: state.logs }),
+      // today は日付依存の一時データなので永続化しない（ズレ防止）
+      partialize: (state) => ({ habits: state.habits, logs: state.logs }),
     },
   ),
 );
