@@ -6,7 +6,7 @@ import { Check } from '@tamagui/lucide-icons';
 import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
-import { t, useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
+import { useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
 
 export default function SettingsScreen() {
   const sound = useSettingsStore((s) => s.sound);
@@ -25,7 +25,7 @@ export default function SettingsScreen() {
   const reminderTime = useSettingsStore((s) => s.reminderTime);
   const setReminderEnabled = useSettingsStore((s) => s.setReminderEnabled);
   const setReminderTime = useSettingsStore((s) => s.setReminderTime);
-  const { lang, setLang: setLangStore } = useTranslation();
+  const { t, lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
   const isPro = useSettingsStore((s) => s.isPro ?? false);
   const [langOpen, setLangOpen] = React.useState(false);

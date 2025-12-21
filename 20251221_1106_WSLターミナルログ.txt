@@ -1,0 +1,204 @@
+diff --git a/app/habit/edit.tsx b/app/habit/edit.tsx
+index 994da7a..9fb36b0 100644
+--- a/app/habit/edit.tsx
++++ b/app/habit/edit.tsx
+@@ -179,7 +179,7 @@ export default function EditScreen() {
+           allowPassthrough
+           backdropOpacity={0}
+           verticalAlign="bottom"
+-          cardOffsetY={-24}
++          cardOffsetY={250}
+         />
+       )}
+ 
+@@ -191,7 +191,7 @@ export default function EditScreen() {
+           allowPassthrough
+           backdropOpacity={0}
+           verticalAlign="center"
+-          cardOffsetY={48}
++          cardOffsetY={250}
+         />
+       )}
+ 
+@@ -203,7 +203,7 @@ export default function EditScreen() {
+           allowPassthrough
+           backdropOpacity={0}
+           verticalAlign="bottom"
+-          cardOffsetY={-24}
++          cardOffsetY={-124}
+         />
+       )}
+     </ScrollView>
+diff --git a/app/pro/index.tsx b/app/pro/index.tsx
+index 51df945..1eaa4f4 100644
+--- a/app/pro/index.tsx
++++ b/app/pro/index.tsx
+@@ -3,15 +3,14 @@ import { LinearGradient } from 'expo-linear-gradient';
+ import { Ionicons } from '@expo/vector-icons';
+ import { ScrollView, Stack, Text, YStack, XStack, Button, useTheme } from 'tamagui';
+ 
+-import { t } from '@/src/core/i18n/i18n';
+-
+-type TKey = Parameters<typeof t>[0];
++import { useTranslation, type TranslationKey as TKey } from '@/src/core/i18n/i18n';
+ 
+ type PlanType = 'monthly' | 'yearly';
+ 
+ function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void }) {
+   const theme = useTheme();
+   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
++  const { t } = useTranslation();
+   const titleKey: TKey = type === 'monthly' ? 'proPlanMonthlyTitle' : 'proPlanYearlyTitle';
+   const priceKey: TKey = type === 'monthly' ? 'priceMonthly' : 'priceYearly';
+   const taglineKey: TKey = type === 'monthly' ? 'proMonthlyTagline' : 'proYearlyTagline';
+@@ -63,6 +62,7 @@ function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void
+ }
+ 
+ function CompareRow({ featureKey, freeKey, proKey }: { featureKey: TKey; freeKey: TKey; proKey: TKey }) {
++  const { t } = useTranslation();
+   return (
+     <XStack paddingVertical="$2" borderBottomWidth={1} borderColor="$gray">
+       <YStack flex={1.2}>
+@@ -88,6 +88,7 @@ export default function PaywallScreen() {
+   const theme = useTheme();
+   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+   const bg = theme?.background?.val?.toString() ?? '#000';
++  const { t } = useTranslation();
+ 
+   const handlePlan = () => {
+     Alert.alert(t('comingSoonTitle') ?? 'Coming soon', t('paywallNote'));
+diff --git a/app/settings/index.tsx b/app/settings/index.tsx
+index 9dbac7d..c59d55a 100644
+--- a/app/settings/index.tsx
++++ b/app/settings/index.tsx
+@@ -6,7 +6,7 @@ import { Check } from '@tamagui/lucide-icons';
+ import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
+ import DateTimePicker from '@react-native-community/datetimepicker';
+ import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
+-import { t, useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
++import { useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
+ 
+ export default function SettingsScreen() {
+   const sound = useSettingsStore((s) => s.sound);
+@@ -25,7 +25,7 @@ export default function SettingsScreen() {
+   const reminderTime = useSettingsStore((s) => s.reminderTime);
+   const setReminderEnabled = useSettingsStore((s) => s.setReminderEnabled);
+   const setReminderTime = useSettingsStore((s) => s.setReminderTime);
+-  const { lang, setLang: setLangStore } = useTranslation();
++  const { t, lang, setLang: setLangStore } = useTranslation();
+   const theme = useTheme();
+   const isPro = useSettingsStore((s) => s.isPro ?? false);
+   const [langOpen, setLangOpen] = React.useState(false);
+diff --git a/src/features/habit/HabitButton.tsx b/src/features/habit/HabitButton.tsx
+index c519546..29657a0 100644
+--- a/src/features/habit/HabitButton.tsx
++++ b/src/features/habit/HabitButton.tsx
+@@ -2,7 +2,7 @@ import { Text, YStack, useTheme } from 'tamagui';
+ import { Ionicons } from '@expo/vector-icons';
+ import { Pressable, Animated, Easing } from 'react-native';
+ import { useEffect, useRef, type ComponentProps } from 'react';
+-import { t } from '@/src/core/i18n/i18n';
++import { useTranslation } from '@/src/core/i18n/i18n';
+ 
+ type IconName = ComponentProps<typeof Ionicons>['name'];
+ 
+@@ -23,6 +23,7 @@ type Props = {
+ export function HabitButton({ label, size, active, iconName = 'checkbox', onPress, onLongPress }: Props) {
+   const height = size === 'big' ? 160 : 110;
+   const theme = useTheme();
++  const { t } = useTranslation();
+   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+   const bg = theme?.background?.val?.toString() ?? '#000';
+   const border = theme?.gray?.val?.toString() ?? '#222';
+diff --git a/src/features/habit/HeatmapChain.tsx b/src/features/habit/HeatmapChain.tsx
+index f43f89c..5228664 100644
+--- a/src/features/habit/HeatmapChain.tsx
++++ b/src/features/habit/HeatmapChain.tsx
+@@ -133,6 +133,8 @@ export const HeatmapChain = memo(function HeatmapChain({
+           colorBg={colorBg}
+           colorBorder={colorBorder}
+           scale={scale}
++          opacityBoost={isToday ? 0.05 : 0}
++          isToday={isToday}
+         />
+ 
+         {idx < dates.length - 1 && (
+@@ -173,6 +175,8 @@ function Node({
+   colorBg,
+   colorBorder,
+   scale,
++  opacityBoost = 0,
++  isToday,
+ }: {
+   size: number;
+   radius: number;
+@@ -183,7 +187,11 @@ function Node({
+   colorBg: string;
+   colorBorder: string;
+   scale: Animated.AnimatedInterpolation<number>;
++  opacityBoost?: number;
+ }) {
++  const boostedOpacity = Math.min(1, opacity + opacityBoost);
++  const activeBorder = isToday ? lighten(colorBorder, 0.1) : colorBorder;
++
+   return (
+     <Animated.View
+       style={[
+@@ -192,8 +200,8 @@ function Node({
+           width: size,
+           height: size,
+           borderRadius: radius,
+-          borderColor: active ? colorBorder : 'rgba(255,255,255,0.12)',
+-          opacity,
++          borderColor: active ? activeBorder : 'rgba(255,255,255,0.12)',
++          opacity: boostedOpacity,
+           transform: [{ scale: active ? (scale as any) : 1 }],
+         },
+       ]}>
+@@ -207,7 +215,7 @@ function Node({
+         />
+       )}
+       <View style={[styles.nodeHighlight, { borderRadius: radius }]} />
+-      {isToday && active && <View style={[styles.nodeDot, { borderRadius: radius / 2 }]} />}
++      {active && <View style={[styles.nodeDot, { borderRadius: radius / 2 }]} />}
+     </Animated.View>
+   );
+ }
+@@ -309,3 +317,16 @@ function rgba(hex: string, a: number) {
+   const b = parseInt(c.slice(4, 6), 16);
+   return `rgba(${r},${g},${b},${a})`;
+ }
++
++function lighten(hex: string, amount: number) {
++  const c = hex.replace('#', '').trim();
++  if (c.length !== 6) return hex;
++  const r = parseInt(c.slice(0, 2), 16);
++  const g = parseInt(c.slice(2, 4), 16);
++  const b = parseInt(c.slice(4, 6), 16);
++  const mix = (v: number) => Math.min(255, Math.round(v + (255 - v) * amount));
++  const rr = mix(r).toString(16).padStart(2, '0');
++  const gg = mix(g).toString(16).padStart(2, '0');
++  const bb = mix(b).toString(16).padStart(2, '0');
++  return `#${rr}${gg}${bb}`;
++}
+diff --git a/src/features/habit/IconPicker.tsx b/src/features/habit/IconPicker.tsx
+index a61cb0f..97959d0 100644
+--- a/src/features/habit/IconPicker.tsx
++++ b/src/features/habit/IconPicker.tsx
+@@ -1,7 +1,7 @@
+ import { memo, useEffect, useMemo, useState } from 'react';
+ import { Button, Stack, Text, XStack, YStack, ScrollView, useTheme } from 'tamagui';
+ 
+-import { t } from '@/src/core/i18n/i18n';
++import { useTranslation } from '@/src/core/i18n/i18n';
+ 
+ export type IconPickerProps = {
+   value?: string | null;
+@@ -89,6 +89,7 @@ function findCategoryIdByIconId(iconId: string | null | undefined): IconCategory
+ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPickerProps) {
+   const theme = useTheme();
+   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
++  const { t } = useTranslation();
+ 
+   // 初期カテゴリは現在の value に合わせる（なければ basic）
+   const [activeCategoryId, setActiveCategoryId] = useState<IconCategoryId>(() => {

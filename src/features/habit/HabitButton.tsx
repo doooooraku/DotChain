@@ -2,7 +2,7 @@ import { Text, YStack, useTheme } from 'tamagui';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Animated, Easing } from 'react-native';
 import { useEffect, useRef, type ComponentProps } from 'react';
-import { t } from '@/src/core/i18n/i18n';
+import { useTranslation } from '@/src/core/i18n/i18n';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
@@ -23,6 +23,7 @@ type Props = {
 export function HabitButton({ label, size, active, iconName = 'checkbox', onPress, onLongPress }: Props) {
   const height = size === 'big' ? 160 : 110;
   const theme = useTheme();
+  const { t } = useTranslation();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
   const bg = theme?.background?.val?.toString() ?? '#000';
   const border = theme?.gray?.val?.toString() ?? '#222';

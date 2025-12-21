@@ -1,7 +1,7 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { Button, Stack, Text, XStack, YStack, ScrollView, useTheme } from 'tamagui';
 
-import { t } from '@/src/core/i18n/i18n';
+import { useTranslation } from '@/src/core/i18n/i18n';
 
 export type IconPickerProps = {
   value?: string | null;
@@ -89,6 +89,7 @@ function findCategoryIdByIconId(iconId: string | null | undefined): IconCategory
 export const IconPicker = memo(function IconPicker({ value, onChange }: IconPickerProps) {
   const theme = useTheme();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+  const { t } = useTranslation();
 
   // 初期カテゴリは現在の value に合わせる（なければ basic）
   const [activeCategoryId, setActiveCategoryId] = useState<IconCategoryId>(() => {

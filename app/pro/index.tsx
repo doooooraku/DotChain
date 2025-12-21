@@ -3,15 +3,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, YStack, XStack, Button, useTheme } from 'tamagui';
 
-import { t } from '@/src/core/i18n/i18n';
-
-type TKey = Parameters<typeof t>[0];
+import { useTranslation, type TranslationKey as TKey } from '@/src/core/i18n/i18n';
 
 type PlanType = 'monthly' | 'yearly';
 
 function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void }) {
   const theme = useTheme();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
+  const { t } = useTranslation();
   const titleKey: TKey = type === 'monthly' ? 'proPlanMonthlyTitle' : 'proPlanYearlyTitle';
   const priceKey: TKey = type === 'monthly' ? 'priceMonthly' : 'priceYearly';
   const taglineKey: TKey = type === 'monthly' ? 'proMonthlyTagline' : 'proYearlyTagline';
@@ -63,6 +62,7 @@ function PlanPriceCard({ type, onPress }: { type: PlanType; onPress: () => void 
 }
 
 function CompareRow({ featureKey, freeKey, proKey }: { featureKey: TKey; freeKey: TKey; proKey: TKey }) {
+  const { t } = useTranslation();
   return (
     <XStack paddingVertical="$2" borderBottomWidth={1} borderColor="$gray">
       <YStack flex={1.2}>
@@ -88,6 +88,7 @@ export default function PaywallScreen() {
   const theme = useTheme();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
   const bg = theme?.background?.val?.toString() ?? '#000';
+  const { t } = useTranslation();
 
   const handlePlan = () => {
     Alert.alert(t('comingSoonTitle') ?? 'Coming soon', t('paywallNote'));

@@ -179,7 +179,7 @@ export default function EditScreen() {
           allowPassthrough
           backdropOpacity={0}
           verticalAlign="bottom"
-          cardOffsetY={-24}
+          cardOffsetY={250}
         />
       )}
 
@@ -191,7 +191,7 @@ export default function EditScreen() {
           allowPassthrough
           backdropOpacity={0}
           verticalAlign="center"
-          cardOffsetY={48}
+          cardOffsetY={250}
         />
       )}
 
@@ -203,7 +203,7 @@ export default function EditScreen() {
           allowPassthrough
           backdropOpacity={0}
           verticalAlign="bottom"
-          cardOffsetY={-24}
+          cardOffsetY={-124}
         />
       )}
     </ScrollView>

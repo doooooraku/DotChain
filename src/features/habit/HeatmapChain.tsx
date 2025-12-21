@@ -133,6 +133,8 @@ export const HeatmapChain = memo(function HeatmapChain({
           colorBg={colorBg}
           colorBorder={colorBorder}
           scale={scale}
+          opacityBoost={isToday ? 0.05 : 0}
+          isToday={isToday}
         />
 
         {idx < dates.length - 1 && (
@@ -173,6 +175,8 @@ function Node({
   colorBg,
   colorBorder,
   scale,
+  opacityBoost = 0,
+  isToday,
 }: {
   size: number;
   radius: number;
@@ -183,7 +187,11 @@ function Node({
   colorBg: string;
   colorBorder: string;
   scale: Animated.AnimatedInterpolation<number>;
+  opacityBoost?: number;
 }) {
+  const boostedOpacity = Math.min(1, opacity + opacityBoost);
+  const activeBorder = isToday ? lighten(colorBorder, 0.1) : colorBorder;
+
   return (
     <Animated.View
       style={[
@@ -192,8 +200,8 @@ function Node({
           width: size,
           height: size,
           borderRadius: radius,
-          borderColor: active ? colorBorder : 'rgba(255,255,255,0.12)',
-          opacity,
+          borderColor: active ? activeBorder : 'rgba(255,255,255,0.12)',
+          opacity: boostedOpacity,
           transform: [{ scale: active ? (scale as any) : 1 }],
         },
       ]}>
@@ -207,7 +215,7 @@ function Node({
         />
       )}
       <View style={[styles.nodeHighlight, { borderRadius: radius }]} />
-      {isToday && active && <View style={[styles.nodeDot, { borderRadius: radius / 2 }]} />}
+      {active && <View style={[styles.nodeDot, { borderRadius: radius / 2 }]} />}
     </Animated.View>
   );
 }
@@ -308,4 +316,17 @@ function rgba(hex: string, a: number) {
   const g = parseInt(c.slice(2, 4), 16);
   const b = parseInt(c.slice(4, 6), 16);
   return `rgba(${r},${g},${b},${a})`;
+}
+
+function lighten(hex: string, amount: number) {
+  const c = hex.replace('#', '').trim();
+  if (c.length !== 6) return hex;
+  const r = parseInt(c.slice(0, 2), 16);
+  const g = parseInt(c.slice(2, 4), 16);
+  const b = parseInt(c.slice(4, 6), 16);
+  const mix = (v: number) => Math.min(255, Math.round(v + (255 - v) * amount));
+  const rr = mix(r).toString(16).padStart(2, '0');
+  const gg = mix(g).toString(16).padStart(2, '0');
+  const bb = mix(b).toString(16).padStart(2, '0');
+  return `#${rr}${gg}${bb}`;
 }
