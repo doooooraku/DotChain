@@ -69,6 +69,7 @@ export const HABIT_ICON_CATEGORIES: HabitIconCategory[] = [
       { id: 'walk-outline', label: 'Walk' },
       { id: 'moon-outline', label: 'Sleep' },
       { id: 'fitness-outline', label: 'Workout' },
+      { id: 'barbell-outline', label: 'Barbell' },
     ],
   },
   {
@@ -78,7 +79,6 @@ export const HABIT_ICON_CATEGORIES: HabitIconCategory[] = [
       { id: 'book-outline', label: 'Read' },
       { id: 'brush-outline', label: 'Art' },
       { id: 'tv-outline', label: 'Media' },
-      { id: 'laptop-outline', label: 'PC work' },
       { id: 'school-outline', label: 'Study' },
       { id: 'globe-outline', label: 'Language' },
     ],
