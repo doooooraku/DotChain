@@ -1,10 +1,9 @@
 import { Text, YStack, useTheme } from 'tamagui';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Animated, Easing } from 'react-native';
-import { useEffect, useRef, type ComponentProps } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from '@/src/core/i18n/i18n';
-
-type IconName = ComponentProps<typeof Ionicons>['name'];
+import { normalizeHabitIconName } from '@/src/features/habit/habitIcons';
 
 type Props = {
   /**
@@ -15,18 +14,19 @@ type Props = {
   label: string;
   size: 'big' | 'medium';
   active: boolean;
-  iconName?: IconName;
+  iconName?: string | null;
   onPress: () => void;
   onLongPress?: () => void;
 };
 
-export function HabitButton({ label, size, active, iconName = 'checkbox', onPress, onLongPress }: Props) {
+export function HabitButton({ label, size, active, iconName, onPress, onLongPress }: Props) {
   const height = size === 'big' ? 160 : 110;
   const theme = useTheme();
   const { t } = useTranslation();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
   const bg = theme?.background?.val?.toString() ?? '#000';
   const border = theme?.gray?.val?.toString() ?? '#222';
+  const resolvedIcon = normalizeHabitIconName(iconName);
   const glow = useRef(new Animated.Value(0)).current;
   const pressScale = useRef(new Animated.Value(1)).current;
 
@@ -112,7 +112,7 @@ export function HabitButton({ label, size, active, iconName = 'checkbox', onPres
             transform: [{ scale: pressScale }],
           }}>
           <Ionicons
-            name={iconName}
+            name={resolvedIcon}
             size={size === 'big' ? 52 : 36}
             color={active ? '#000000' : '#EEEEEE'}
           />

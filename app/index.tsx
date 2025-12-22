@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ComponentProps } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, XStack, YStack, Button, Spinner, useTheme } from 'tamagui';
@@ -18,8 +18,6 @@ import { useTranslation } from '@/src/core/i18n/i18n';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 
 type TutorialStep = 'none' | 'welcome' | 'pressFab' | 'pressHabit' | 'explainChain';
-type IconName = ComponentProps<typeof Ionicons>['name'];
-
 export default function HomeScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ fromTutorial?: string }>();
@@ -111,7 +109,7 @@ export default function HomeScreen() {
           label={habit.title}
           size={idx === 0 ? 'big' : 'medium'}
           active={Boolean(today[habit.id])}
-          iconName={habit.icon as IconName}
+          iconName={habit.icon}
           onPress={handlePressHabit}
           onLongPress={() => router.push(`/habit/edit?id=${habit.id}` as Href)}
         />

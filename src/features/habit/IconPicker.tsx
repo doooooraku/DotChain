@@ -1,88 +1,24 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { Button, Stack, Text, XStack, YStack, ScrollView, useTheme } from 'tamagui';
+import { Ionicons } from '@expo/vector-icons';
 
 import { useTranslation } from '@/src/core/i18n/i18n';
+import {
+  HABIT_ICON_CATEGORIES,
+  type HabitIconName,
+  type IconCategoryId,
+  normalizeHabitIconName,
+} from '@/src/features/habit/habitIcons';
 
 export type IconPickerProps = {
   value?: string | null;
-  onChange: (value: string) => void;
+  onChange: (value: HabitIconName) => void;
 };
-
-// 使ってよいアイコンIDの一覧（既存IDは変更しない）
-type IconId =
-  | 'flame'
-  | 'checkbox'
-  | 'sparkles'
-  | 'water'
-  | 'walk'
-  | 'moon'
-  | 'fitness'
-  | 'book'
-  | 'brush'
-  | 'tv'
-  | 'clean'
-  | 'laundry'
-  | 'pc'
-  | 'study'
-  | 'language';
-
-// カテゴリIDとタイトルキーを型で縛る
-type IconCategoryId = 'basic' | 'health' | 'learning';
-type IconCategoryTitleKey = 'iconCatBasic' | 'iconCatHealth' | 'iconCatLearning';
-
-type IconOption = {
-  id: IconId; // DB に保存する値（習慣.icon）
-  emoji: string;
-  label: string; // アクセシビリティ用（英語固定）
-};
-
-type IconCategory = {
-  id: IconCategoryId;
-  titleKey: IconCategoryTitleKey; // i18n キー
-  icons: IconOption[];
-};
-
-// 既存IDは変えない（既存データのアイコンを壊さないため）
-const ICON_CATEGORIES: IconCategory[] = [
-  {
-    id: 'basic',
-    titleKey: 'iconCatBasic',
-    icons: [
-      { id: 'flame', emoji: '🔥', label: 'Streak' },
-      { id: 'checkbox', emoji: '☑️', label: 'Task' },
-      { id: 'sparkles', emoji: '✨', label: 'Shine' },
-      { id: 'clean', emoji: '🧹', label: 'Cleaning' },
-      { id: 'laundry', emoji: '🧺', label: 'Laundry' },
-    ],
-  },
-  {
-    id: 'health',
-    titleKey: 'iconCatHealth',
-    icons: [
-      { id: 'water', emoji: '💧', label: 'Water' },
-      { id: 'walk', emoji: '🚶‍♂️', label: 'Walk' },
-      { id: 'moon', emoji: '🌙', label: 'Sleep' },
-      { id: 'fitness', emoji: '🏋️‍♂️', label: 'Workout' },
-    ],
-  },
-  {
-    id: 'learning',
-    titleKey: 'iconCatLearning',
-    icons: [
-      { id: 'book', emoji: '📚', label: 'Read' },
-      { id: 'brush', emoji: '🖌️', label: 'Art' },
-      { id: 'tv', emoji: '📺', label: 'Media' },
-      { id: 'pc', emoji: '💻', label: 'PC work' },
-      { id: 'study', emoji: '✏️', label: 'Study' },
-      { id: 'language', emoji: '🌐', label: 'Language' },
-    ],
-  },
-];
 
 // iconId から所属カテゴリを検索
 function findCategoryIdByIconId(iconId: string | null | undefined): IconCategoryId | null {
   if (!iconId) return null;
-  const category = ICON_CATEGORIES.find((cat) => cat.icons.some((opt) => opt.id === iconId));
+  const category = HABIT_ICON_CATEGORIES.find((cat) => cat.icons.some((opt) => opt.id === iconId));
   return category?.id ?? null;
 }
 
@@ -91,21 +27,23 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
   const { t } = useTranslation();
 
+  const normalizedValue = normalizeHabitIconName(value);
+
   // 初期カテゴリは現在の value に合わせる（なければ basic）
   const [activeCategoryId, setActiveCategoryId] = useState<IconCategoryId>(() => {
-    const fromValue = findCategoryIdByIconId(value);
-    return fromValue ?? (ICON_CATEGORIES[0]?.id ?? 'basic');
+    const fromValue = findCategoryIdByIconId(normalizedValue);
+    return fromValue ?? (HABIT_ICON_CATEGORIES[0]?.id ?? 'basic');
   });
 
   // value が変わったらカテゴリも追従
   useEffect(() => {
-    const catId = findCategoryIdByIconId(value);
+    const catId = findCategoryIdByIconId(normalizeHabitIconName(value));
     // value が変わったときだけ初期カテゴリを合わせる（タブ操作で強制リセットしない）
     setActiveCategoryId((prev) => (catId && catId !== prev ? catId : prev));
   }, [value]);
 
   const activeCategory = useMemo(
-    () => ICON_CATEGORIES.find((cat) => cat.id === activeCategoryId) ?? ICON_CATEGORIES[0],
+    () => HABIT_ICON_CATEGORIES.find((cat) => cat.id === activeCategoryId) ?? HABIT_ICON_CATEGORIES[0],
     [activeCategoryId],
   );
 
@@ -113,7 +51,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
     <YStack gap="$4">
       {/* カテゴリタブ */}
       <XStack gap="$2" flexWrap="wrap" justifyContent="center">
-        {ICON_CATEGORIES.map((cat) => {
+        {HABIT_ICON_CATEGORIES.map((cat) => {
           const isActive = cat.id === activeCategoryId;
           return (
             <Button
@@ -144,7 +82,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
           contentContainerStyle={{ paddingVertical: 4 }}>
           <XStack flexWrap="wrap" gap="$3" justifyContent="center" width="100%">
             {activeCategory.icons.map((opt) => {
-              const active = value === opt.id;
+              const active = normalizedValue === opt.id;
               return (
                 <Stack
                   key={opt.id}
@@ -167,9 +105,11 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
                     width="100%"
                     height="100%"
                     onPress={() => onChange(opt.id)}>
-                    <Text fontSize={28} textAlign="center">
-                      {opt.emoji}
-                    </Text>
+                    <Ionicons
+                      name={opt.id}
+                      size={26}
+                      color={active ? '#000000' : '#EEEEEE'}
+                    />
                   </Button>
                 </Stack>
               );

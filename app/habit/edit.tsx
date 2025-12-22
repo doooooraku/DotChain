@@ -7,6 +7,7 @@ import { useHabitStore } from '@/src/stores/habitStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { IconPicker } from '@/src/features/habit/IconPicker';
 import { TutorialOverlay } from '@/src/features/tutorial/TutorialOverlay';
+import { normalizeHabitIconName } from '@/src/features/habit/habitIcons';
 
 const HABIT_TITLE_MAX_LENGTH = 20;
 const MAX_FREE_HABITS = 3;
@@ -21,7 +22,7 @@ export default function EditScreen() {
 
   const target = habits.find((h) => h.id === id);
   const [name, setName] = useState(target?.title ?? '');
-  const [selectedIcon, setSelectedIcon] = useState(target?.icon ?? 'walk');
+  const [selectedIcon, setSelectedIcon] = useState(() => normalizeHabitIconName(target?.icon));
   const isEdit = Boolean(id);
   const isTutorial = tutorial === '1' && !isEdit;
 
@@ -30,7 +31,7 @@ export default function EditScreen() {
 
   useEffect(() => {
     setName(target?.title ?? '');
-    setSelectedIcon(target?.icon ?? 'walk');
+    setSelectedIcon(normalizeHabitIconName(target?.icon));
   }, [target?.title, target?.icon]);
 
   useEffect(() => {
