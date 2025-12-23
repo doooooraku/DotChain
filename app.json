@@ -10,11 +10,11 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.doooo.dotchain",
+      "bundleIdentifier": "com.doooooraku.dotchain",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.doooo.dotchain",
+      "package": "com.doooooraku.dotchain",
       "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
