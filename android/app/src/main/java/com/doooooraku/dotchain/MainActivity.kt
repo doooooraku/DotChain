@@ -1,4 +1,4 @@
-package com.doooo.dotchain
+package com.doooooraku.dotchain
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

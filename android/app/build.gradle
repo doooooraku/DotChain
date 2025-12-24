@@ -87,9 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.doooo.dotchain'
+    namespace 'com.doooooraku.dotchain'
     defaultConfig {
-        applicationId 'com.doooo.dotchain'
+        applicationId 'com.doooooraku.dotchain'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
