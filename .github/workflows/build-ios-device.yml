@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     name: Build IPA
-    # どのパソコンを使うか：Macの最新版（iPhoneアプリを作るにはMacが必須だから）
     runs-on: macos-latest
 
     steps:
@@ -17,18 +16,18 @@ jobs:
       - name: 📥 コードを取得
         uses: actions/checkout@v4
 
-      # 2. アプリを作るための基本ソフト(Node.js)を入れる
-      - name: 🛠️ Node.jsをセットアップ
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
-      # 3. 便利なインストールツール(pnpm)を入れる
+      # 【★修正ポイント】先にpnpmを入れる！
       - name: 📦 pnpmをインストール
         uses: pnpm/action-setup@v3
         with:
           version: 9
+
+      # 3. その後にNode.jsを入れる
+      - name: 🛠️ Node.jsをセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm' # これでエラーが出なくなる！
 
       # 4. Expoのビルド道具(EAS CLI)を入れる
       - name: 🚀 EAS CLIをインストール
@@ -39,7 +38,6 @@ jobs:
         run: pnpm install
 
       # 6. 【重要】秘密の鍵(.env)をロボットの元で復活させる
-      # あなたがGitHub Secretsに預けた鍵を使って、ファイルを作ります
       - name: 🔓 .envファイルを作成
         env:
           RC_KEY: ${{ secrets.RC_API_KEY_IOS }}
@@ -47,8 +45,6 @@ jobs:
           echo "EXPO_PUBLIC_RC_API_KEY_IOS=$RC_KEY" > .env
 
       # 7. いよいよアプリ本体を作成（ビルド）！
-      # --local: ロボットがいるこのパソコン(GitHub Actions)で作る
-      # --profile production: 本番用（実機用）の設定で作る
       - name: 🏗️ iPhoneアプリ(IPA)をビルド
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
