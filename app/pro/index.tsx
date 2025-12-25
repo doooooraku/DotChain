@@ -7,6 +7,8 @@ import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTranslation, type TranslationKey as TKey } from '@/src/core/i18n/i18n';
+import { useProStore } from '@/src/stores/proStore';
+import { useUiStore } from '@/src/stores/uiStore';
 
 type PlanType = 'monthly' | 'yearly';
 
@@ -142,9 +144,37 @@ export default function PaywallScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [selectedPlan, setSelectedPlan] = useState<PlanType>('yearly');
+  const purchaseMonthly = useProStore((s) => s.purchaseMonthly);
+  const purchaseYearly = useProStore((s) => s.purchaseYearly);
+  const restorePurchase = useProStore((s) => s.restore);
+  const isLoading = useProStore((s) => s.isLoading);
+  const showToast = useUiStore((s) => s.showToast);
 
-  const handlePurchase = () => {
-    Alert.alert(t('proHeaderTitle'), t('proFinePrint'));
+  const handlePurchase = async () => {
+    try {
+      const state =
+        selectedPlan === 'yearly' ? await purchaseYearly() : await purchaseMonthly();
+      if (state.isPro) {
+        Alert.alert(t('proHeaderTitle'), t('purchaseSuccess'));
+      } else {
+        showToast({ kind: 'error', message: t('purchaseFailed') });
+      }
+    } catch {
+      showToast({ kind: 'error', message: t('purchaseFailed') });
+    }
+  };
+
+  const handleRestore = async () => {
+    try {
+      const result = await restorePurchase();
+      if (result.hasActive) {
+        Alert.alert(t('restore'), t('restoreSuccess'));
+      } else {
+        showToast({ kind: 'info', message: t('restoreNotFound') });
+      }
+    } catch {
+      showToast({ kind: 'error', message: t('restoreFailed') });
+    }
   };
 
   const handleStayFree = () => {
@@ -252,6 +282,7 @@ export default function PaywallScreen() {
           borderRadius={999}
           backgroundColor="$neonGreen"
           onPress={handlePurchase}
+          disabled={isLoading}
           pressStyle={{ opacity: 0.85 }}>
           <Text color="#000" fontWeight="800">
             {selectedPlan === 'yearly' ? t('proCtaYearly') : t('proCtaMonthly')}
@@ -260,6 +291,15 @@ export default function PaywallScreen() {
         <Text color="$muted" fontSize={10} lineHeight={14} textAlign="center">
           {t('proFinePrint')}
         </Text>
+        <Button
+          chromeless
+          disabled={isLoading}
+          onPress={handleRestore}
+          accessibilityLabel={t('restore')}>
+          <Text color="$muted" fontWeight="600">
+            {t('restore')}
+          </Text>
+        </Button>
         <Button
           chromeless
           onPress={handleStayFree}

@@ -6,6 +6,8 @@ import { Check } from '@tamagui/lucide-icons';
 import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsStore';
+import { useProStore } from '@/src/stores/proStore';
+import { useUiStore } from '@/src/stores/uiStore';
 import { useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
 
 export default function SettingsScreen() {
@@ -27,7 +29,10 @@ export default function SettingsScreen() {
   const setReminderTime = useSettingsStore((s) => s.setReminderTime);
   const { t, lang, setLang: setLangStore } = useTranslation();
   const theme = useTheme();
-  const isPro = useSettingsStore((s) => s.isPro ?? false);
+  const isPro = useProStore((s) => s.isPro);
+  const restorePurchase = useProStore((s) => s.restore);
+  const proLoading = useProStore((s) => s.isLoading);
+  const showToast = useUiStore((s) => s.showToast);
   const [langOpen, setLangOpen] = React.useState(false);
 
   const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
@@ -82,6 +87,19 @@ export default function SettingsScreen() {
       const h = selected.getHours().toString().padStart(2, '0');
       const m = selected.getMinutes().toString().padStart(2, '0');
       void setReminderTime(`${h}:${m}`);
+    }
+  };
+
+  const handleRestore = async () => {
+    try {
+      const result = await restorePurchase();
+      if (result.hasActive) {
+        Alert.alert(t('restore'), t('restoreSuccess'));
+      } else {
+        showToast({ kind: 'info', message: t('restoreNotFound') });
+      }
+    } catch {
+      showToast({ kind: 'error', message: t('restoreFailed') });
     }
   };
 
@@ -351,7 +369,8 @@ export default function SettingsScreen() {
             borderWidth={1}
             borderColor="$gray"
             borderRadius={999}
-            onPress={() => Alert.alert(t('restore'), t('restoreSoon'))}>
+            disabled={proLoading}
+            onPress={handleRestore}>
             {t('restore')}
           </Button>
         </XStack>

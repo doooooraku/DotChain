@@ -48,7 +48,6 @@ describe('F-03: 設定変更（SettingsStore のユニットテスト）', () =>
       heatmapDays: 7,
       electricFlow: false,
       hasRequestedReview: false,
-      isPro: false,
       reminderEnabled: false,
       reminderTime: '08:00',
     });
@@ -69,7 +68,6 @@ describe('F-03: 設定変更（SettingsStore のユニットテスト）', () =>
     store.setHasSeenOnboarding(true);
     store.setElectricFlow(false);
     store.setHasRequestedReview(true);
-    store.setIsPro(true);
 
     const updated = useSettingsStore.getState();
 
@@ -80,7 +78,6 @@ describe('F-03: 設定変更（SettingsStore のユニットテスト）', () =>
     expect(updated.hasSeenOnboarding).toBe(true);
     expect(updated.electricFlow).toBe(false);
     expect(updated.hasRequestedReview).toBe(true);
-    expect(updated.isPro).toBe(true);
   });
 
   //

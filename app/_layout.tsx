@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useHabitStore } from '@/src/stores/habitStore';
 import { useSettingsStore } from '@/src/stores/settingsStore';
+import { useProStore } from '@/src/stores/proStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { getLocalDateKey } from '@/src/core/dateKey';
 
@@ -25,6 +26,7 @@ export default function RootLayout() {
   const lastDate = useRef(getLocalDateKey());
   const midnightTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const themeName = useSettingsStore((s) => s.theme);
+  const initPro = useProStore((s) => s.init);
   const { t } = useTranslation();
   const isDark = themeName === 'dark';
 
@@ -72,6 +74,10 @@ export default function RootLayout() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    void initPro();
+  }, [initPro]);
 
   return (
     <SafeAreaProvider>
