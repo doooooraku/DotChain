@@ -11,13 +11,13 @@ import de from './locales/de';
 import it from './locales/it';
 import pt from './locales/pt';
 import ru from './locales/ru';
-import zh from './locales/zh';
+import zhHans from './locales/zhHans';
+import zhHant from './locales/zhHant';
 import ko from './locales/ko';
 import hi from './locales/hi';
 import id from './locales/id';
 import th from './locales/th';
 import vi from './locales/vi';
-import ms from './locales/ms';
 import tr from './locales/tr';
 import nl from './locales/nl';
 import sv from './locales/sv';
@@ -31,13 +31,13 @@ const dictionaries = {
   it,
   pt,
   ru,
-  zh,
+  zhHans,
+  zhHant,
   ko,
   hi,
   id,
   th,
   vi,
-  ms,
   tr,
   nl,
   sv,
@@ -50,13 +50,43 @@ const isSupportedLang = (code?: string): code is Lang => {
   return code in dictionaries;
 };
 
+const normalizeLang = (
+  rawCode?: string,
+  tag?: string,
+  script?: string | null,
+  region?: string | null,
+): Lang => {
+  if (rawCode && isSupportedLang(rawCode)) return rawCode;
+
+  const code = rawCode?.toLowerCase();
+  const tagLower = tag?.toLowerCase();
+  const regionUpper = region?.toUpperCase();
+
+  if (code === 'zh' || tagLower?.startsWith('zh')) {
+    const isHant =
+      tagLower?.includes('hant') ||
+      script === 'Hant' ||
+      (regionUpper != null && ['TW', 'HK', 'MO'].includes(regionUpper));
+    return isHant ? 'zhHant' : 'zhHans';
+  }
+
+  if (code === 'ms') return 'zhHans';
+
+  if (code && isSupportedLang(code)) return code;
+
+  return 'en';
+};
+
 const detectInitialLang = (): Lang => {
   try {
     const locales = Localization.getLocales();
     const primary = locales?.[0];
-    const code = primary?.languageCode?.toLowerCase();
-    if (isSupportedLang(code)) return code;
-    return 'en';
+    return normalizeLang(
+      primary?.languageCode,
+      primary?.languageTag,
+      primary?.languageScriptCode,
+      primary?.regionCode,
+    );
   } catch {
     return 'en';
   }
@@ -71,11 +101,18 @@ const useI18nStore = create<I18nState>()(
   persist(
     (set) => ({
       lang: detectInitialLang(),
-      setLang: (lang) => set({ lang: isSupportedLang(lang) ? lang : 'en' }),
+      setLang: (lang) => set({ lang: normalizeLang(lang) }),
     }),
     {
       name: 'dotchain-i18n',
       storage: createJSONStorage(() => AsyncStorage),
+      onRehydrateStorage: () => (state) => {
+        if (!state) return;
+        const normalized = normalizeLang(state.lang);
+        if (state.lang !== normalized) {
+          state.setLang(normalized);
+        }
+      },
     },
   ),
 );

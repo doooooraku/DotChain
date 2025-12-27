@@ -36,7 +36,26 @@ export default function SettingsScreen() {
   const [langOpen, setLangOpen] = React.useState(false);
 
   const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
-  const languageOptions: Lang[] = ['en','ja','fr','es','de','it','pt','ru','zh','ko','hi','id','th','vi','ms','tr','nl','sv'];
+  const languageOptions: Lang[] = [
+    'en',
+    'ja',
+    'fr',
+    'es',
+    'de',
+    'it',
+    'pt',
+    'ru',
+    'zhHans',
+    'zhHant',
+    'ko',
+    'hi',
+    'id',
+    'th',
+    'vi',
+    'tr',
+    'nl',
+    'sv',
+  ];
   const LANGUAGE_META: Record<Lang, { flag: string; labelKey: TranslationKey }> = {
     en: { flag: '🇺🇸', labelKey: 'languageNameEn' },
     ja: { flag: '🇯🇵', labelKey: 'languageNameJa' },
@@ -46,13 +65,13 @@ export default function SettingsScreen() {
     it: { flag: '🇮🇹', labelKey: 'languageNameIt' },
     pt: { flag: '🇵🇹', labelKey: 'languageNamePt' },
     ru: { flag: '🇷🇺', labelKey: 'languageNameRu' },
-    zh: { flag: '🇨🇳', labelKey: 'languageNameZh' },
+    zhHans: { flag: '🇨🇳', labelKey: 'languageNameZhHans' },
+    zhHant: { flag: '🇹🇼', labelKey: 'languageNameZhHant' },
     ko: { flag: '🇰🇷', labelKey: 'languageNameKo' },
     hi: { flag: '🇮🇳', labelKey: 'languageNameHi' },
     id: { flag: '🇮🇩', labelKey: 'languageNameId' },
     th: { flag: '🇹🇭', labelKey: 'languageNameTh' },
     vi: { flag: '🇻🇳', labelKey: 'languageNameVi' },
-    ms: { flag: '🇲🇾', labelKey: 'languageNameMs' },
     tr: { flag: '🇹🇷', labelKey: 'languageNameTr' },
     nl: { flag: '🇳🇱', labelKey: 'languageNameNl' },
     sv: { flag: '🇸🇪', labelKey: 'languageNameSv' },
