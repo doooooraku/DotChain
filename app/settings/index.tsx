@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Platform } from 'react-native';
 import { Href, useRouter } from 'expo-router';
-import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Popover } from 'tamagui';
+import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Popover, ToggleGroup } from 'tamagui';
 import { Check } from '@tamagui/lucide-icons';
 import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -195,14 +195,39 @@ export default function SettingsScreen() {
         <XStack gap="$3" alignItems="center">
           <Text color="$text">{t('tapSoundLabel')}</Text>
         </XStack>
-        <XStack gap="$3" alignItems="center">
-          <Text color="$text">{t('click')}</Text>
-          <SettingsSwitch
-            checked={tapSound === 'pop'}
-            onCheckedChange={(v) => setTapSound(v ? 'pop' : 'click')}
-          />
-          <Text color="$text">{t('pop')}</Text>
-        </XStack>
+        <ToggleGroup
+          type="single"
+          value={tapSound}
+          onValueChange={(v) => v && setTapSound(v as 'click' | 'pop')}
+          orientation="horizontal"
+          disablePassBorderRadius
+          width="100%"
+          borderRadius="$4"
+          borderWidth={1}
+          borderColor="$gray"
+          backgroundColor="$background"
+          overflow="hidden">
+          <ToggleGroup.Item
+            value="click"
+            flex={1}
+            paddingVertical="$2"
+            borderRightWidth={1}
+            borderColor="$gray"
+            backgroundColor={tapSound === 'click' ? '$surface' : '$background'}>
+            <Text color={tapSound === 'click' ? '$text' : '$muted'} textAlign="center" fontWeight="700">
+              {t('click')}
+            </Text>
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
+            value="pop"
+            flex={1}
+            paddingVertical="$2"
+            backgroundColor={tapSound === 'pop' ? '$surface' : '$background'}>
+            <Text color={tapSound === 'pop' ? '$text' : '$muted'} textAlign="center" fontWeight="700">
+              {t('pop')}
+            </Text>
+          </ToggleGroup.Item>
+        </ToggleGroup>
       </Section>
 
       <Section title={t('haptics')}>
@@ -293,6 +318,8 @@ export default function SettingsScreen() {
                   value={timeStringToDate(reminderTime)}
                   mode="time"
                   display="spinner"
+                  textColor="#FFFFFF"
+                  themeVariant="dark"
                   onChange={handleTimeChange}
                 />
               ) : (
@@ -302,6 +329,7 @@ export default function SettingsScreen() {
                   borderWidth={1}
                   borderColor="$gray"
                   backgroundColor="$surface"
+                  color="$text"
                   onPress={() => setShowTimePicker(true)}>
                   {reminderTime}
                 </Button>
@@ -378,6 +406,7 @@ export default function SettingsScreen() {
             borderWidth={1}
             borderColor="$gray"
             borderRadius={999}
+            color="$text"
             disabled={proLoading}
             onPress={handleRestore}>
             {t('restore')}
