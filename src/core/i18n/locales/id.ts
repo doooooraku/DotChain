@@ -1,174 +1,163 @@
 import baseEn from './en';
 
 const dict = {
-    ...baseEn,
-    daysStreak: 'HARI BERUNTUN',
-    yourChain: 'RANTAI KAMU',
-    allDoneDays: 'HARI SEMUA SELESAI',
-    settings: 'Pengaturan',
-    hapticOff: 'Getar mati',
-    language: 'Bahasa',
-    sound: 'Suara',
-    haptics: 'Getaran',
-    theme: 'Tema',
-    restore: 'Pulihkan pembelian',
-    version: 'Versi aplikasi',
-    tapSound: 'Suara tap',
-    click: 'Klik',
-    pop: 'Pop',
-    flowEffectTitle: 'Animasi aliran listrik',
-    flowEffectHelp: 'Biarkan aliran neon mengalir di garis rantai. Matikan jika ingin tampilan lebih tenang.',
-    heatmapRangeTitle: 'Rentang tampilan rantai',
-    heatmapRangeHelp: 'Pilih berapa hari rantai yang ditampilkan di heatmap beranda.',
-    heatmapRange7: '1 minggu',
-    heatmapRange30: '1 bulan',
-    heatmapRange60: '2 bulan',
-    heatmapRange180: '6 bulan',
-    heatmapRange365: '1 tahun',
-    heatmapSummaryPrefix: '',
-    heatmapSummarySuffix: ' hari terakhir',
-    heatmapAgoSuffix: ' hari yang lalu',
-    heatmapToday: 'Hari ini',
-    freeThemeNote: 'Gratis: hanya Dark / Pro membuka Neon Pink & Cyber Blue',
-    proThemeNote: 'Tema Pro aktif setelah pembayaran.',
-    restoreDesc: 'Pulihkan pembelian (segera)',
-    licenses: 'Lisensi sumber terbuka (segera)',
-    openPro: 'Buka DotChain Pro',
-    heroPaywall: 'Upgrade ke dunia neon',
-    priceMonthly: '$1.99 / bulan',
-    onboardingTitle: 'Selamat datang di DotChain',
-    onboardingBody: 'Sekali tap, getaran kuat. Bangun rantai hari ini.',
-    start: 'Mulai',
-    paywallNote: 'Fitur penagihan dan iklan akan ditambahkan nanti.',
-    homeLoading: 'Memuat...',
-    homeAddHabitLabel: 'Tambah kebiasaan',
-    editNewHabit: 'Kebiasaan baru',
-    editHabitTitle: 'Edit kebiasaan',
-    editCategoryLabel: 'Kategori',
-    editNameLabel: 'Nama (maks 20 karakter)',
-    editNamePlaceholder: 'Beri nama kebiasaanmu...',
-    editSaveChanges: 'Simpan perubahan',
-    editCreateHabit: 'Buat kebiasaan',
-    editDeleteHabit: 'Hapus kebiasaan',
-    proTitle: 'Bebaskan rantaimu.',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'Kebiasaan tak terbatas',
-    proFeatureThemes: 'Semua tema terbuka (Neon Pink / Cyber Blue)',
-    proFeatureAds: 'Tanpa iklan',
-    habitButtonSuffix: ' tombol kebiasaan',
-    iconCatBasic: 'Dasar',
-    iconCatHealth: 'Kesehatan',
-    iconCatLearning: 'Belajar & Kerja',
-    errorLoadFailed: 'Gagal memuat data',
-    errorTitleRequired: 'Judul wajib diisi.',
-    errorTitleTooLong: 'Judul harus 20 karakter atau kurang.',
-    errorSaveFailed: 'Gagal menyimpan.',
-    errorDeleteFailed: 'Gagal menghapus.',
-    errorToggleFailed: 'Gagal memperbarui.',
-    habitLimitTitle: 'Batas paket gratis',
-    habitLimitBody: 'Dalam paket gratis kamu bisa membuat hingga 3 kebiasaan.',
-    hapticsDescription: 'Umpan balik haptik',
-    reminderSectionTitle: 'Notifikasi pengingat',
-    reminderToggleLabel: 'Gunakan pengingat',
-    reminderTimeLabel: 'Waktu notifikasi',
-    reminderNotificationBody: 'Saatnya membangun rantaimu.',
-    streak7Title: 'Rangkaian 7 hari!',
-    streak7Message: 'Kamu menjaga rantaimu selama satu minggu penuh. Kerja bagus!',
-    ok: 'OK',
-    languageChange: 'Ganti bahasa',
-    currentLanguage: 'Saat ini',
-    languageNameEn: 'Inggris',
-    languageNameJa: 'Jepang',
-    languageNameFr: 'Perancis',
-    languageNameEs: 'Spanyol',
-    languageNameDe: 'Jerman',
-    languageNameIt: 'Italia',
-    languageNamePt: 'Portugis',
-    languageNameRu: 'Rusia',
-    languageNameZh: 'Tionghoa',
-    languageNameKo: 'Korea',
-    languageNameHi: 'Hindi',
-    languageNameId: 'Bahasa Indonesia',
-    languageNameTh: 'Thai',
-    languageNameVi: 'Vietnam',
-    languageNameMs: 'Melayu',
-    languageNameTr: 'Turki',
-    languageNameNl: 'Belanda',
-    languageNameSv: 'Swedia',
-    soundSwitchLabel: 'Aktifkan suara',
-    tapSoundLabel: 'Gaya suara ketukan',
-    proOnlyTitle: 'Hanya untuk Pro',
-    proOnlyTheme: 'Tema ini tersedia di Pro.',
+  ...baseEn,
+  // --- Home / Header (ホーム画面 / ヘッダー) ---
+  daysStreak: 'HARI BERUNTUN',       // 英語: DAYS STREAK (連続日数)
+  yourChain: 'RANTAI KAMU',          // 英語: YOUR CHAIN (あなたのチェーン)
+  allDoneDays: 'HARI TUNTAS',        // 英語: ALL DONE DAYS (全て完了した日)
 
-    // Melengkapi 51 kunci yang hilang
-    cancel: 'Batal',
-    delete: 'Hapus',
-    deleteConfirmBody: 'Yakin ingin menghapus? Tindakan ini tidak bisa dibatalkan.',
-    comingSoonTitle: 'Segera hadir',
-    onboardingPunch: 'Inilah DotChain.',
+  // --- Settings (General) (設定：一般) ---
+  settings: 'Pengaturan',            // 設定
+  hapticOff: 'Getaran mati',         // 振動オフ
+  language: 'Bahasa',                // 言語
+  sound: 'Suara',                    // 音
+  haptics: 'Getaran',                // 振動 (Haptics)
+  theme: 'Tema',                     // テーマ
 
-    paywallBestValueBadge: 'Paling hemat',
-    paywallMonthlyLabel: 'Paket bulanan',
-    paywallMonthlySub: 'Ditagih setiap bulan. Bisa dibatalkan kapan saja.',
-    paywallYearlyLabel: 'Paket tahunan',
-    paywallYearlySub: 'Ditagih setahun sekali. Bisa dibatalkan kapan saja.',
+  // --- Purchase / Restore (購入 / 復元) ---
+  restore: 'Pulihkan Pembelian',     // 購入の復元
+  purchaseSuccess: 'Paket Pro kini aktif.', // 購入成功
+  purchaseFailed: 'Pembelian gagal. Silakan coba lagi nanti.', // 購入失敗
+  restoreSuccess: 'Riwayat pembelian dipulihkan.', // 復元成功
+  restoreNotFound: 'Tidak ada pembelian untuk dipulihkan.', // 復元データなし
+  restoreFailed: 'Gagal memulihkan pembelian.', // 復元失敗
 
-    priceFree: '$0 / selamanya',
-    priceYearly: '$14.99 / tahun',
+  // --- Settings (Sound & Info) (設定：音と情報) ---
+  version: 'Versi Aplikasi',         // アプリバージョン
+  tapSound: 'Suara Tap',             // タップ音
+  click: 'Klik',                     // クリック
+  pop: 'Pop',                        // ポップ
+  soundSwitchLabel: 'Efek Suara',    // 効果音
 
-    proCompareHeaderFeature: 'Fitur',
-    proCompareHeaderFree: 'Gratis',
-    proCompareHeaderPro: 'Pro',
-    proCompareSubtitle:
-      'Kamu selalu bisa tetap di paket Gratis. Pro hanya menghapus batas-batasnya.',
-    proCompareTitle: 'Apa yang kamu dapatkan dengan Pro',
+  // --- Pro Screen (Paywall) (Pro画面 / 課金) ---
+  proTitle: 'Buka rantaimu.',        // 英語: Unlock your chain.
+  proHeaderTitle: 'DotChain Pro',
+  proSubtitle: 'Lebih dari 3 kebiasaan dan buat titik-titikmu tak terhentikan.',
+  proPlanFreeTitle: 'Gratis',        // 無料
+  proPlanMonthlyTitle: 'Bulanan',    // 月額
+  proPlanYearlyTitle: 'Tahunan',     // 年額
+  proPlanYearlyBadge: 'Paling Hemat', // 英語: Best value (一番お得/節約できる)
+  proBadgeShort: 'PRO',
+  priceFree: 'Rp0 / selamanya',      // ずっと0ルピア (または $0)
+  proOnlyTitle: 'Fitur Pro',         // Pro機能
+  proOnlyTheme: 'Upgrade ke Pro untuk menggunakan tema ini.',
+  openPro: 'Lihat Paket Pro',        // Proプランを見る
+  cancel: 'Batal',                   // キャンセル
 
-    proCtaMonthly: 'Dapatkan Pro bulanan',
-    proCtaStayFree: 'Lanjut dengan versi gratis',
-    proCtaYearly: 'Dapatkan Pro tahunan',
+  // --- Settings (Appearance) (設定：見た目) ---
+  flowEffectTitle: 'Animasi Aliran Listrik', // 電気の流れのアニメーション
+  flowEffectHelp:
+    'Biarkan aliran neon mengalir di sepanjang rantaimu. Matikan jika ingin tampilan yang lebih tenang.',
 
-    proFeatureAdsFree: 'Banner iklan di bagian bawah',
-    proFeatureAdsPro: 'Tanpa iklan, fokus penuh',
-    proFeatureHabits: 'Kebiasaan yang bisa kamu lacak',
-    proFeatureHabitsFree: 'Maksimal 3 kebiasaan',
-    proFeatureHabitsPro: 'Kebiasaan tak terbatas',
-    proFeatureThemesFree: '1 tema (Gelap)',
-    proFeatureThemesPro: 'Semua tema terbuka',
+  // --- Heatmap Range (Settings) (ヒートマップ表示期間) ---
+  heatmapRangeTitle: 'Rentang Tampilan',
+  heatmapRangeHelp: 'Pilih berapa hari rantai yang akan ditampilkan di peta panas beranda.',
+  heatmapRange7: '1 minggu',
+  heatmapRange30: '1 bulan',
+  heatmapRange60: '2 bulan',
+  heatmapRange90: '3 bulan',
+  heatmapRange180: '6 bulan',
+  heatmapRange365: '1 tahun',
+  heatmapSummaryPrefix: '',          // 空文字 (数字の後ろに言葉が来るため)
+  heatmapSummarySuffix: ' hari terakhir', // 「〜 hari terakhir (過去〜日間)」
+  heatmapAgoSuffix: ' hari lalu',    // 「〜日前」
+  heatmapToday: 'Hari ini',
 
-    proFinePrint:
-      'Langganan diperpanjang otomatis. Kamu bisa membatalkannya kapan saja dari pengaturan akun App Store atau Google Play.',
-    proMonthlyTagline: 'Mulai kecil, bisa dibatalkan kapan saja.',
-    proPlanFreeTitle: 'Gratis',
-    proPlanMonthlyTitle: 'Bulanan',
-    proPlanYearlyBadge: 'Paling hemat',
-    proPlanYearlyTitle: 'Tahunan',
-    proSubtitle: 'Lewati 3 kebiasaan dan buat titik-titikmu tak terhentikan.',
-    proYearlySavingShort: 'Hemat sekitar 37% (seperti 8 bulan gratis).',
-    proYearlyTagline: 'Untuk pembangun rantai yang benar-benar serius.',
+  // --- Themes (テーマ) ---
+  themeDesc: 'Ubah tampilan aplikasi.',
+  themeDarkLabel: 'Gelap',           // Dark
+  themeNeonPinkLabel: 'Neon Pink',
+  themeCyberBlueLabel: 'Cyber Blue',
+  freeThemeNote: 'Gratis: Hanya Gelap / Pro membuka Neon Pink & Cyber Blue',
+  proThemeNote: 'Tema Pro akan terbuka setelah berlangganan.',
 
-    restoreSoon: 'Fitur memulihkan pembelian akan ditambahkan di pembaruan berikutnya.',
+  // --- Habit Management (習慣管理) ---
+  newHabitTitle: 'Kebiasaan Baru',
+  editHabitTitle: 'Edit Kebiasaan',
+  habitNameLabel: 'Nama',
+  habitNamePlaceholder: 'Cth: Minum air, Baca buku',
+  habitIconLabel: 'Ikon',
+  deleteHabit: 'Hapus kebiasaan ini',
+  deleteConfirmationTitle: 'Hapus?',
+  deleteConfirmationMessage: 'Tindakan ini tidak bisa dibatalkan. Semua riwayat akan hilang.',
+  save: 'Simpan',
+  create: 'Buat',
 
-    themeCyberBlueLabel: 'Cyber Blue',
-    themeDarkLabel: 'Gelap',
-    themeDesc: 'Pilih suasana aplikasi. (Tema Pro akan hadir belakangan.)',
-    themeNeonPinkLabel: 'Neon Pink',
+  // --- Icon Categories & Labels (アイコンカテゴリとラベル) ---
+  iconCatBasic: 'Dasar',
+  iconCatHealth: 'Kesehatan',
+  iconCatLearning: 'Belajar',
 
-    tutorialEditIconBody: 'Pertama, pilih ikon yang sesuai dengan kebiasaanmu.',
-    tutorialEditNameBody:
-      'Berikutnya, beri nama untuk kebiasaanmu.\nContoh: "Minum air", "Membaca buku".',
-    tutorialEditSubmitBody:
-      'Semua siap!\nKetuk tombol buat di bawah untuk menambahkan kebiasaan ini ke beranda.',
-    tutorialExplainChainBody:
-      'Setiap kali kamu mengetuk, hitungan HARI BERUNTUN bertambah dan hari ini akan menyala di RANTAI KAMU.\nTerus lanjutkan untuk memanjangkan rantaimu.',
-    tutorialGotIt: 'Mengerti',
-    tutorialNext: 'Berikutnya',
-    tutorialPressFabBody:
-      'Ketuk tombol + di kanan bawah untuk membuat kebiasaan pertamamu.',
-    tutorialPressHabitBody:
-      'Sekarang ketuk kebiasaan yang baru kamu buat.\nDengan mengetuknya, hari ini akan ditandai sebagai "selesai".',
-    tutorialStart: 'Mulai',
-    tutorialWelcomeBody:
-      'Selamat datang!\nDotChain membantu kamu membangun rantai kebiasaan.\nMulai dengan membuat kebiasaan pertama lewat tombol +.',
+  iconLabelStreak: 'Runtun',         // Streak
+  iconLabelTask: 'Tugas',            // Task
+  iconLabelShine: 'Kilau',           // Shine
+  iconLabelClean: 'Bersih',          // Clean
+  iconLabelLaundry: 'Cucian',        // Laundry
+  iconLabelWater: 'Air',             // Water
+  iconLabelWalk: 'Jalan',            // Walk
+  iconLabelSleep: 'Tidur',           // Sleep
+  iconLabelWorkout: 'Olahraga',      // Workout
+  iconLabelBarbell: 'Barbel',        // Barbell
+  iconLabelRead: 'Baca',             // Read
+  iconLabelArt: 'Seni',              // Art
+  iconLabelMedia: 'Media',           // Media
+  iconLabelStudy: 'Belajar',         // Study
+  iconLabelLanguage: 'Bahasa',       // Language
+
+  // --- Misc / Errors (その他 / エラー) ---
+  habitButtonSuffix: ' tombol kebiasaan', // アクセシビリティ用
+  errorLoadFailed: 'Gagal memuat data.',
+  errorTitleRequired: 'Nama wajib diisi.',
+  errorTitleTooLong: 'Nama maksimal 20 karakter.',
+  errorSaveFailed: 'Gagal menyimpan.',
+  errorDeleteFailed: 'Gagal menghapus.',
+  errorToggleFailed: 'Gagal memperbarui.',
+  habitLimitTitle: 'Batas Paket Gratis',
+  habitLimitBody: 'Di paket gratis, kamu hanya bisa membuat hingga 3 kebiasaan.',
+
+  // --- Settings description (設定の説明) ---
+  hapticsDescription: 'Umpan balik getaran',
+
+  // --- Reminder (リマインダー) ---
+  reminderSectionTitle: 'Pengingat',
+  reminderToggleLabel: 'Gunakan pengingat',
+  reminderTimeLabel: 'Waktu notifikasi',
+  reminderNotificationBody: 'Waktunya membangun rantaimu!', // チェーンを作る時間だよ！
+
+  // --- Review (7-day streak) (レビュー依頼) ---
+  streak7Title: '7 hari beruntun!',
+  streak7Message: 'Kamu telah menjaga rantaimu selama seminggu penuh. Kerja bagus!',
+  ok: 'Mantap',
+
+  // --- Language labels (言語名) ---
+  languageChange: 'Ganti Bahasa',
+  currentLanguage: 'Saat ini',
+  languageNameEn: 'Inggris',
+  languageNameJa: 'Jepang',
+  languageNameFr: 'Prancis',
+  languageNameEs: 'Spanyol',
+  languageNameDe: 'Jerman',
+  languageNameIt: 'Italia',
+  languageNamePt: 'Portugis',
+  languageNameRu: 'Rusia',
+  languageNameZh: 'Mandarin',
+  languageNameKo: 'Korea',
+  languageNameHi: 'Hindi',
+  languageNameId: 'Indonesia',
+  languageNameTh: 'Thailand',
+  languageNameVi: 'Vietnam',
+  languageNameMs: 'Melayu',
+  languageNameTr: 'Turki',
+  languageNameNl: 'Belanda',
+  languageNameSv: 'Swedia',
+
+  // --- Tutorial (チュートリアル) ---
+  tutorialNext: 'Lanjut',
+  tutorialWelcome: 'Selamat datang di DotChain',
+  tutorialDesc1: 'Hubungkan kebiasaan harianmu dan bangun rantaimu sendiri.',
+  tutorialDesc2: 'Jangan putus rantainya agar kebiasaanmu tetap terjaga.',
+  tutorialStart: 'Mulai',
 };
 
 export default dict;

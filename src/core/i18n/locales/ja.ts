@@ -2,9 +2,9 @@ import baseEn from './en';
 
 const dict = {
     ...baseEn,
-    daysStreak: '連続日数',
+    daysStreak: '連続達成日数',
     yourChain: 'チェーン',
-    allDoneDays: 'All Done 日数',
+    allDoneDays: '全習慣達成日数',
     settings: '設定',
     hapticOff: '振動オフ',
     language: '言語',
@@ -175,7 +175,7 @@ const dict = {
     languageNameTr: 'トルコ語',
     languageNameNl: 'オランダ語',
     languageNameSv: 'スウェーデン語',
-    soundSwitchLabel: 'サウンドを鳴らす',
+    soundSwitchLabel: 'サウンド効果',
     tapSoundLabel: 'タップ音の種類',
     proOnlyTitle: 'Pro専用機能',
     proOnlyTheme: 'このテーマはProで利用できます。',

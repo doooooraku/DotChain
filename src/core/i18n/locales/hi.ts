@@ -1,174 +1,163 @@
 import baseEn from './en';
 
 const dict = {
-    ...baseEn,
-    daysStreak: 'लगातार दिन',
-    yourChain: 'आपकी चेन',
-    allDoneDays: 'सभी पूरे हुए दिन',
-    settings: 'सेटिंग्स',
-    hapticOff: 'वाइब्रेशन बंद',
-    language: 'भाषा',
-    sound: 'साउंड',
-    haptics: 'वाइब्रेशन',
-    theme: 'थीम',
-    restore: 'खरीद पुनर्स्थापित करें',
-    version: 'ऐप संस्करण',
-    tapSound: 'टैप साउंड',
-    click: 'क्लिक',
-    pop: 'पॉप',
-    flowEffectTitle: 'इलेक्ट्रिक फ्लो ऐनिमेशन',
-    flowEffectHelp: 'चेन की लाइन पर नियोन जैसी धारा बहती है। शांत लुक चाहिए तो इसे बंद करें।',
-    heatmapRangeTitle: 'चेन दिखाने की अवधि',
-    heatmapRangeHelp: 'होम हीटमैप में चेन के कितने दिन दिखाने हैं, चुनें।',
-    heatmapRange7: '1 सप्ताह',
-    heatmapRange30: '1 माह',
-    heatmapRange60: '2 माह',
-    heatmapRange180: '6 माह',
-    heatmapRange365: '1 वर्ष',
-    heatmapSummaryPrefix: 'पिछले ',
-    heatmapSummarySuffix: ' दिन',
-    heatmapAgoSuffix: ' दिन पहले',
-    heatmapToday: 'आज',
-    freeThemeNote: 'फ्री: केवल डार्क / Pro में Neon Pink और Cyber Blue अनलॉक होते हैं',
-    proThemeNote: 'Pro थीम भुगतान के बाद सक्रिय होंगे।',
-    restoreDesc: 'खरीद पुनर्स्थापित (जल्द)',
-    licenses: 'ओपन सोर्स लाइसेंस (जल्द)',
-    openPro: 'DotChain Pro खोलें',
-    heroPaywall: 'नीऑन दुनिया में अपग्रेड करें',
-    priceMonthly: '$1.99 / माह',
-    onboardingTitle: 'DotChain में स्वागत है',
-    onboardingBody: 'एक टैप, तेज वाइब्रेशन। आज की चेन बनाएं।',
-    start: 'शुरू करें',
-    paywallNote: 'बिलिंग और विज्ञापन सुविधाएँ बाद में जोड़ी जाएँगी।',
-    homeLoading: 'लोड हो रहा है...',
-    homeAddHabitLabel: 'आदत जोड़ें',
-    editNewHabit: 'नई आदत',
-    editHabitTitle: 'आदत संपादित करें',
-    editCategoryLabel: 'श्रेणी',
-    editNameLabel: 'नाम (अधिकतम 20 अक्षर)',
-    editNamePlaceholder: 'अपनी आदत का नाम लिखें...',
-    editSaveChanges: 'परिवर्तन सहेजें',
-    editCreateHabit: 'आदत बनाएं',
-    editDeleteHabit: 'आदत हटाएं',
-    proTitle: 'अपनी चेन अनलॉक करें।',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'असीमित आदतें',
-    proFeatureThemes: 'सभी थीम अनलॉक (Neon Pink / Cyber Blue)',
-    proFeatureAds: 'कोई विज्ञापन नहीं',
-    habitButtonSuffix: ' आदत बटन',
-    iconCatBasic: 'बेसिक',
-    iconCatHealth: 'स्वास्थ्य',
-    iconCatLearning: 'सीखना व काम',
-    errorLoadFailed: 'डेटा लोड करने में विफल',
-    errorTitleRequired: 'शीर्षक आवश्यक है।',
-    errorTitleTooLong: 'शीर्षक 20 वर्ण या उससे कम होना चाहिए।',
-    errorSaveFailed: 'सहेजने में विफल।',
-    errorDeleteFailed: 'हटाने में विफल।',
-    errorToggleFailed: 'रिकॉर्ड अपडेट करने में विफल।',
-    habitLimitTitle: 'मुफ़्त योजना की सीमा',
-    habitLimitBody: 'मुफ़्त योजना में आप अधिकतम 3 आदतें बना सकते हैं।',
-    hapticsDescription: 'हैप्टिक फीडबैक',
-    reminderSectionTitle: 'रिमाइंडर सूचना',
-    reminderToggleLabel: 'रिमाइंडर उपयोग करें',
-    reminderTimeLabel: 'सूचना का समय',
-    reminderNotificationBody: 'अपनी चेन आगे बढ़ाने का समय है।',
-    streak7Title: '7 दिन की श्रृंखला!',
-    streak7Message: 'आपने पूरा एक सप्ताह श्रृंखला बनाए रखी। शानदार!',
-    ok: 'ठीक है',
-    languageChange: 'भाषा बदलें',
-    currentLanguage: 'वर्तमान',
-    languageNameEn: 'अंग्रेज़ी',
-    languageNameJa: 'जापानी',
-    languageNameFr: 'फ़्रेंच',
-    languageNameEs: 'स्पेनिश',
-    languageNameDe: 'जर्मन',
-    languageNameIt: 'इतालवी',
-    languageNamePt: 'पुर्तगाली',
-    languageNameRu: 'रूसी',
-    languageNameZh: 'चीनी',
-    languageNameKo: 'कोरियाई',
-    languageNameHi: 'हिन्दी',
-    languageNameId: 'इंडोनेशियाई',
-    languageNameTh: 'थाई',
-    languageNameVi: 'वियतनामी',
-    languageNameMs: 'मलय',
-    languageNameTr: 'तुर्की',
-    languageNameNl: 'डच',
-    languageNameSv: 'स्वीडिश',
-    soundSwitchLabel: 'ध्वनि चालू करें',
-    tapSoundLabel: 'टैप ध्वनि शैली',
-    proOnlyTitle: 'केवल प्रो के लिए',
-    proOnlyTheme: 'यह थीम प्रो में उपलब्ध है।',
+  ...baseEn,
+  // --- Home / Header (ホーム画面 / ヘッダー) ---
+  daysStreak: 'लगातार दिन',          // 英語: DAYS STREAK (連続日数)
+  yourChain: 'आपकी चेन',             // 英語: YOUR CHAIN (あなたのチェーン)
+  allDoneDays: 'पूरे किए गए दिन',    // 英語: ALL DONE DAYS (全て完了した日)
 
-    // अनुपस्थित कुंजियों का追加
-    cancel: 'रद्द करें',
-    delete: 'हटाएँ',
-    deleteConfirmBody: 'क्या आप वाकई हटाना चाहते हैं? यह क्रिया वापस नहीं ली जा सकती।',
-    comingSoonTitle: 'जल्द ही आ रहा है',
-    onboardingPunch: 'यही है DotChain।',
+  // --- Settings (General) (設定：一般) ---
+  settings: 'सेटिंग्स',              // 設定 (Settings)
+  hapticOff: 'वाइब्रेशन बंद',        // 振動オフ
+  language: 'भाषा',                  // 言語
+  sound: 'साउंड',                    // 音 (Sound)
+  haptics: 'हैप्टिक्स',              // 振動 (Haptics)
+  theme: 'थीम',                      // テーマ
 
-    paywallBestValueBadge: 'सबसे किफायती',
-    paywallMonthlyLabel: 'मासिक योजना',
-    paywallMonthlySub: 'हर महीने बिलिंग। कभी भी रद्द करें।',
-    paywallYearlyLabel: 'वार्षिक योजना',
-    paywallYearlySub: 'साल में एक बार बिलिंग। कभी भी रद्द करें।',
+  // --- Purchase / Restore (購入 / 復元) ---
+  restore: 'खरीद बहाल करें',         // 購入の復元 (Restore purchases)
+  purchaseSuccess: 'Pro प्लान अब सक्रिय है।', // 購入成功
+  purchaseFailed: 'खरीदारी विफल रही। कृपया बाद में पुनः प्रयास करें।', // 購入失敗
+  restoreSuccess: 'खरीद इतिहास बहाल कर दिया गया।', // 復元成功
+  restoreNotFound: 'बहाल करने के लिए कोई खरीदारी नहीं मिली।', // 復元データなし
+  restoreFailed: 'खरीद बहाल करने में विफल।', // 復元失敗
 
-    priceFree: '$0 / हमेशा के लिए',
-    priceYearly: '$14.99 / वर्ष',
+  // --- Settings (Sound & Info) (設定：音と情報) ---
+  version: 'ऐप वर्ज़न',              // アプリバージョン
+  tapSound: 'टैप साउंड',             // タップ音
+  click: 'क्लिक',                    // クリック
+  pop: 'पॉप',                        // ポップ
+  soundSwitchLabel: 'साउंड इफेक्ट्स', // 効果音
 
-    proCompareHeaderFeature: 'फ़ीचर',
-    proCompareHeaderFree: 'मुफ़्त',
-    proCompareHeaderPro: 'Pro',
-    proCompareSubtitle:
-      'आप चाहें तो हमेशा मुफ़्त प्लान पर रह सकते हैं। Pro सिर्फ़ सीमाएँ हटाता है।',
-    proCompareTitle: 'Pro लेने पर आपको क्या मिलता है',
+  // --- Pro Screen (Paywall) (Pro画面 / 課金) ---
+  proTitle: 'अपनी चेन को अनलॉक करें।', // 英語: Unlock your chain.
+  proHeaderTitle: 'DotChain Pro',
+  proSubtitle: '3 आदतों से आगे बढ़ें और अपने डॉट्स को रोकना मुश्किल बनाएं।',
+  proPlanFreeTitle: 'फ्री',          // 無料
+  proPlanMonthlyTitle: 'मासिक',      // 月額
+  proPlanYearlyTitle: 'वार्षिक',     // 年額
+  proPlanYearlyBadge: 'सबसे किफायती', // 英語: Best value (最も価値がある/お得)
+  proBadgeShort: 'PRO',
+  priceFree: '₹0 / हमेशा के लिए',    // ずっと0ルピー (または $0)
+  proOnlyTitle: 'Pro फीचर',          // Pro機能
+  proOnlyTheme: 'इस थीम का उपयोग करने के लिए Pro में अपग्रेड करें।',
+  openPro: 'Pro प्लान देखें',        // Proプランを見る
+  cancel: 'रद्द करें',               // キャンセル
 
-    proCtaMonthly: 'मासिक Pro प्लान लें',
-    proCtaStayFree: 'मुफ़्त संस्करण जारी रखें',
-    proCtaYearly: 'वार्षिक Pro प्लान लें',
+  // --- Settings (Appearance) (設定：見た目) ---
+  flowEffectTitle: 'इलेक्ट्रिक फ्लो ऐनिमेशन', // 電気の流れのアニメーション
+  flowEffectHelp:
+    'अपनी चेन लाइन पर एक नियन प्रवाह चलने दें। यदि आप शांत लुक चाहते हैं तो इसे बंद कर दें।',
 
-    proFeatureAdsFree: 'स्क्रीन के नीचे बैनर विज्ञापन',
-    proFeatureAdsPro: 'कोई विज्ञापन नहीं, पूरा ध्यान',
-    proFeatureHabits: 'जिन आदतों को आप ट्रैक कर सकते हैं',
-    proFeatureHabitsFree: 'अधिकतम 3 आदतें',
-    proFeatureHabitsPro: 'असीमित आदतें',
-    proFeatureThemesFree: '1 थीम (डार्क)',
-    proFeatureThemesPro: 'सभी थीम अनलॉक',
+  // --- Heatmap Range (Settings) (ヒートマップ表示期間) ---
+  heatmapRangeTitle: 'चेन दिखाने की अवधि',
+  heatmapRangeHelp: 'चुनें कि होम स्क्रीन हीटमैप पर आपकी चेन के कितने दिन दिखाई दें।',
+  heatmapRange7: '1 सप्ताह',
+  heatmapRange30: '1 महीना',
+  heatmapRange60: '2 महीने',
+  heatmapRange90: '3 महीने',
+  heatmapRange180: '6 महीने',
+  heatmapRange365: '1 साल',
+  heatmapSummaryPrefix: 'पिछले ',      // 「過去〜」
+  heatmapSummarySuffix: ' दिन',        // 「〜日」
+  heatmapAgoSuffix: ' दिन पहले',       // 「〜日前」
+  heatmapToday: 'आज',
 
-    proFinePrint:
-      'सदस्यता अपने-आप नवीनीकृत हो जाती है। आप App Store या Google Play की अकाउंट सेटिंग्स से कभी भी रद्द कर सकते हैं।',
-    proMonthlyTagline: 'छोटे से शुरुआत करें, कभी भी रद्द करें।',
-    proPlanFreeTitle: 'मुफ़्त',
-    proPlanMonthlyTitle: 'मासिक',
-    proPlanYearlyBadge: 'सबसे किफायती',
-    proPlanYearlyTitle: 'वार्षिक',
-    proSubtitle: '3 आदतों की सीमा से आगे बढ़ें और अपनी चेन को रोकना मुश्किल बनाएं।',
-    proYearlySavingShort: 'लगभग 37% बचत (लगभग 8 महीने मुफ़्त के बराबर)।',
-    proYearlyTagline: 'जो अपनी चेन को गंभीरता से बनाना चाहते हैं, उनके लिए।',
+  // --- Themes (テーマ) ---
+  themeDesc: 'ऐप का स्वरूप बदलें।',
+  themeDarkLabel: 'डार्क',             // Dark
+  themeNeonPinkLabel: 'नियन पिंक',
+  themeCyberBlueLabel: 'साइबर ब्लू',
+  freeThemeNote: 'फ्री: केवल डार्क / Pro में नियन पिंक और साइबर ब्लू अनलॉक होते हैं',
+  proThemeNote: 'Pro थीम सदस्यता के बाद उपलब्ध होंगे।',
 
-    restoreSoon: 'खरीद बहाल करने का विकल्प आने वाले अपडेट में जोड़ा जाएगा।',
+  // --- Habit Management (習慣管理) ---
+  newHabitTitle: 'नई आदत',
+  editHabitTitle: 'आदत बदलें',
+  habitNameLabel: 'नाम',
+  habitNamePlaceholder: 'जैसे: पानी पीना, किताब पढ़ना',
+  habitIconLabel: 'आइकन',
+  deleteHabit: 'यह आदत हटाएं',
+  deleteConfirmationTitle: 'हटाएं?',
+  deleteConfirmationMessage: 'इसे पूर्ववत नहीं किया जा सकता। सारा इतिहास मिट जाएगा।',
+  save: 'सेव करें',
+  create: 'बनाएं',
 
-    themeCyberBlueLabel: 'साइबर ब्लू',
-    themeDarkLabel: 'डार्क',
-    themeDesc: 'ऐप का माहौल चुनें। (Pro थीम बाद में जोड़े जाएंगे।)',
-    themeNeonPinkLabel: 'नियोन पिंक',
+  // --- Icon Categories & Labels (アイコンカテゴリとラベル) ---
+  iconCatBasic: 'बेसिक',
+  iconCatHealth: 'सेहत',
+  iconCatLearning: 'सीखना',
 
-    tutorialEditIconBody: 'सबसे पहले, अपनी आदत से मेल खाता एक आइकन चुनें।',
-    tutorialEditNameBody:
-      'फिर, अपनी आदत के लिए नाम लिखें।\nजैसे: "पानी पिएँ", "किताब पढ़ें"।',
-    tutorialEditSubmitBody:
-      'सब तैयार है!\nइस आदत को होम स्क्रीन में जोड़ने के लिए नीचे दिए गए "बनाएँ" बटन को टैप करें।',
-    tutorialExplainChainBody:
-      'हर टैप पर आपका "लगातार दिन" काउंटर बढ़ता है और आज का दिन "आपकी चेन" पर हाइलाइट हो जाता है।\nलगातार करते रहें, आपकी चेन लंबी होती जाएगी।',
-    tutorialGotIt: 'समझ गया',
-    tutorialNext: 'आगे',
-    tutorialPressFabBody:
-      'नीचे दाएँ कोने में + बटन दबाकर पहली आदत बनाएं।',
-    tutorialPressHabitBody:
-      'अब वह आदत टैप करें जो आपने अभी बनाई है।\nटैप करने से आज "पूरा" चिन्हित हो जाएगा।',
-    tutorialStart: 'शुरू करें',
-    tutorialWelcomeBody:
-      'स्वागत है!\nDotChain आपको आदतों की चेन बनाने में मदद करता है।\nसबसे पहले + बटन से अपनी पहली आदत बनाएँ।',
+  iconLabelStreak: 'लगातार',         // Streak
+  iconLabelTask: 'कार्य',            // Task
+  iconLabelShine: 'चमक',             // Shine
+  iconLabelClean: 'सफाई',            // Clean
+  iconLabelLaundry: 'धुलाई',         // Laundry
+  iconLabelWater: 'पानी',            // Water
+  iconLabelWalk: 'चलना',             // Walk
+  iconLabelSleep: 'नींद',            // Sleep
+  iconLabelWorkout: 'कसरत',          // Workout
+  iconLabelBarbell: 'डंबल',          // Barbell
+  iconLabelRead: 'पढ़ना',            // Read
+  iconLabelArt: 'कला',               // Art
+  iconLabelMedia: 'मीडिया',          // Media
+  iconLabelStudy: 'पढ़ाई',           // Study
+  iconLabelLanguage: 'भाषा',         // Language
+
+  // --- Misc / Errors (その他 / エラー) ---
+  habitButtonSuffix: ' आदत बटन',     // アクセシビリティ用
+  errorLoadFailed: 'डेटा लोड करने में विफल।',
+  errorTitleRequired: 'नाम आवश्यक है।',
+  errorTitleTooLong: 'नाम 20 अक्षरों या उससे कम का होना चाहिए।',
+  errorSaveFailed: 'सेव करने में विफल।',
+  errorDeleteFailed: 'हटाने में विफल।',
+  errorToggleFailed: 'अपडेट करने में विफल।',
+  habitLimitTitle: 'फ्री प्लान की सीमा',
+  habitLimitBody: 'फ्री प्लान में आप 3 आदतें तक बना सकते हैं।',
+
+  // --- Settings description (設定の説明) ---
+  hapticsDescription: 'हैप्टिक फीडबैक (कंपन)',
+
+  // --- Reminder (リマインダー) ---
+  reminderSectionTitle: 'रिमाइंडर',
+  reminderToggleLabel: 'रिमाइंडर का उपयोग करें',
+  reminderTimeLabel: 'नोटिफिकेशन का समय',
+  reminderNotificationBody: 'यह आपकी चेन बनाने का समय है!', // チェーンを作る時間だよ！
+
+  // --- Review (7-day streak) (レビュー依頼) ---
+  streak7Title: '7 दिन लगातार!',
+  streak7Message: 'आपने पूरे एक सप्ताह अपनी चेन बनाए रखी। बहुत बढ़िया!',
+  ok: 'शानदार',
+
+  // --- Language labels (言語名) ---
+  languageChange: 'भाषा बदलें',
+  currentLanguage: 'वर्तमान',
+  languageNameEn: 'अंग्रेजी',
+  languageNameJa: 'जापानी',
+  languageNameFr: 'फ्रेंच',
+  languageNameEs: 'स्पेनिश',
+  languageNameDe: 'जर्मन',
+  languageNameIt: 'इतालवी',
+  languageNamePt: 'पुर्तगाली',
+  languageNameRu: 'रूसी',
+  languageNameZh: 'चीनी',
+  languageNameKo: 'कोरियाई',
+  languageNameHi: 'हिन्दी',
+  languageNameId: 'इंडोनेशियाई',
+  languageNameTh: 'थाई',
+  languageNameVi: 'वियतनामी',
+  languageNameMs: 'मलय',
+  languageNameTr: 'तुर्की',
+  languageNameNl: 'डच',
+  languageNameSv: 'स्वीडिश',
+
+  // --- Tutorial (チュートリアル) ---
+  tutorialNext: 'आगे',
+  tutorialWelcome: 'DotChain में आपका स्वागत है',
+  tutorialDesc1: 'अपनी दैनिक आदतों को जोड़ें और अपनी खुद की चेन बनाएं।',
+  tutorialDesc2: 'आदत बनाए रखने के लिए चेन को टूटने न दें।',
+  tutorialStart: 'शुरू करें',
 };
 
 export default dict;

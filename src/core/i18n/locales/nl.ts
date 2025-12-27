@@ -1,182 +1,163 @@
 import baseEn from './en';
 
 const dict = {
-    ...baseEn,
-    daysStreak: 'Dagen op rij',
-    yourChain: 'Jouw keten',
-    allDoneDays: 'Volledig voltooide dagen',
-    settings: 'Instellingen',
-    hapticOff: 'Trillen uit',
-    language: 'Taal',
-    sound: 'Geluid',
-    haptics: 'Trillen',
-    theme: 'Thema',
-    restore: 'Aankopen herstellen',
-    version: 'App-versie',
-    tapSound: 'Tikgeluid',
-    click: 'Klik',
-    pop: 'Pop',
-    flowEffectTitle: 'Elektrische stroom-animatie',
-    flowEffectHelp:
-      'Laat een neonstroom over je ketenlijn lopen. Zet uit als je een rustiger beeld wilt.',
-    heatmapRangeTitle: 'Weergaveperiode van de keten',
-    heatmapRangeHelp:
-      'Kies hoeveel dagen van je keten op de heatmap van het startscherm worden getoond.',
-    heatmapRange7: '1 week',
-    heatmapRange30: '1 maand',
-    heatmapRange60: '2 maanden',
-    heatmapRange180: '6 maanden',
-    heatmapRange365: '1 jaar',
-    heatmapSummaryPrefix: 'Afgelopen ',
-    heatmapSummarySuffix: ' dagen',
-    heatmapAgoSuffix: ' dagen geleden',
-    heatmapToday: 'Vandaag',
-    freeThemeNote: 'Gratis: alleen Donker / Pro ontgrendelt Neon Pink & Cyber Blue',
-    proThemeNote: 'Pro-thema\'s worden later ontgrendeld.',
-    restoreDesc: 'Aankopen herstellen (binnenkort)',
-    licenses: 'Open-source licenties (binnenkort)',
-    openPro: 'Open DotChain Pro',
-    heroPaywall: 'Upgrade naar de neonwereld',
-    priceMonthly: '$1.99 / maand',
-    onboardingTitle: 'Welkom bij DotChain',
-    onboardingBody: 'Eén tik, sterke trilling. Bouw de keten van vandaag.',
-    start: 'Start',
-    paywallNote: 'Facturering en advertenties worden later toegevoegd.',
-    homeLoading: 'Bezig met laden...',
-    homeAddHabitLabel: 'Gewoonte toevoegen',
-    editNewHabit: 'Nieuwe gewoonte',
-    editHabitTitle: 'Gewoonte bewerken',
-    editCategoryLabel: 'Categorie',
-    editNameLabel: 'Naam (max 20 tekens)',
-    editNamePlaceholder: 'Geef je gewoonte een naam...',
-    editSaveChanges: 'Wijzigingen opslaan',
-    editCreateHabit: 'Gewoonte maken',
-    editDeleteHabit: 'Gewoonte verwijderen',
-    proTitle: 'Ontgrendel je keten.',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'Onbeperkte gewoonten',
-    proFeatureThemes: 'Alle thema’s ontgrendeld (Neon Pink / Cyber Blue)',
-    proFeatureAds: 'Geen advertenties',
-    habitButtonSuffix: ' gewoonteknop',
-    iconCatBasic: 'Basis',
-    iconCatHealth: 'Gezondheid',
-    iconCatLearning: 'Leren & Werk',
-    errorLoadFailed: 'Gegevens laden mislukt',
-    errorTitleRequired: 'Titel is verplicht.',
-    errorTitleTooLong: 'Titel mag maximaal 20 tekens bevatten.',
-    errorSaveFailed: 'Opslaan mislukt.',
-    errorDeleteFailed: 'Verwijderen mislukt.',
-    errorToggleFailed: 'Bijwerken mislukt.',
-    habitLimitTitle: 'Limiet van gratis abonnement',
-    habitLimitBody: 'In het gratis abonnement kun je maximaal 3 gewoonten aanmaken.',
-    hapticsDescription: 'Haptische feedback',
-    reminderSectionTitle: 'Herinneringsmelding',
-    reminderToggleLabel: 'Herinnering gebruiken',
-    reminderTimeLabel: 'Meldingtijd',
-    reminderNotificationBody: 'Tijd om je keten voort te zetten.',
-    streak7Title: '7 dagen op rij!',
-    streak7Message: 'Je hield je keten een volle week vol. Goed gedaan!',
-    ok: 'OK',
-    languageChange: 'Taal wijzigen',
-    currentLanguage: 'Huidig',
-    languageNameEn: 'Engels',
-    languageNameJa: 'Japans',
-    languageNameFr: 'Frans',
-    languageNameEs: 'Spaans',
-    languageNameDe: 'Duits',
-    languageNameIt: 'Italiaans',
-    languageNamePt: 'Portugees',
-    languageNameRu: 'Russisch',
-    languageNameZh: 'Chinees',
-    languageNameKo: 'Koreaans',
-    languageNameHi: 'Hindi',
-    languageNameId: 'Indonesisch',
-    languageNameTh: 'Thais',
-    languageNameVi: 'Vietnamees',
-    languageNameMs: 'Maleis',
-    languageNameTr: 'Turks',
-    languageNameNl: 'Nederlands',
-    languageNameSv: 'Zweeds',
-    soundSwitchLabel: 'Geluid inschakelen',
-    tapSoundLabel: 'Tikgeluidstijl',
-    proOnlyTitle: 'Alleen voor Pro',
-    proOnlyTheme: 'Dit thema is beschikbaar met Pro.',
+  ...baseEn,
+  // --- Home / Header (ホーム画面 / ヘッダー) ---
+  daysStreak: 'DAGEN OP RIJ',        // 英語: DAYS STREAK (連続日数)
+  yourChain: 'JOUW KETEN',           // 英語: YOUR CHAIN
+  allDoneDays: 'DAGEN VOLTOOID',     // 英語: ALL DONE DAYS (全て完了した日)
 
-    // Aanvullen ontbrekende 51 keys
-    cancel: 'Annuleren',
-    delete: 'Verwijderen',
-    deleteConfirmBody:
-      'Weet je het zeker? Deze actie kan niet ongedaan worden gemaakt.',
-    comingSoonTitle: 'Binnenkort beschikbaar',
-    onboardingPunch: 'Dit is DotChain.',
+  // --- Settings (General) (設定：一般) ---
+  settings: 'Instellingen',          // 設定
+  hapticOff: 'Trillen uit',          // 振動オフ
+  language: 'Taal',                  // 言語
+  sound: 'Geluid',                   // 音
+  haptics: 'Trillen',                // 振動 (Haptics - 一般的にTrillen)
+  theme: 'Thema',                    // テーマ
 
-    paywallBestValueBadge: 'Meest voordelig',
-    paywallMonthlyLabel: 'Maandelijks abonnement',
-    paywallMonthlySub:
-      'Maandelijks gefactureerd. Op elk moment opzegbaar.',
-    paywallYearlyLabel: 'Jaarlijks abonnement',
-    paywallYearlySub:
-      'Jaarlijks één keer gefactureerd. Op elk moment opzegbaar.',
+  // --- Purchase / Restore (購入 / 復元) ---
+  restore: 'Aankopen herstellen',    // 購入の復元
+  purchaseSuccess: 'Pro-abonnement is nu actief.', // 購入成功
+  purchaseFailed: 'Aankoop mislukt. Probeer het later opnieuw.', // 購入失敗
+  restoreSuccess: 'Aankoopgeschiedenis hersteld.', // 復元成功 (長い単語ですがここは大丈夫)
+  restoreNotFound: 'Geen aankopen gevonden om te herstellen.', // 復元データなし
+  restoreFailed: 'Herstellen van aankopen mislukt.', // 復元失敗
 
-    priceFree: '$0 / voor altijd',
-    priceYearly: '$14.99 / jaar',
+  // --- Settings (Sound & Info) (設定：音と情報) ---
+  version: 'App-versie',             // アプリバージョン
+  tapSound: 'Tikgeluid',             // タップ音
+  click: 'Klik',                     // クリック
+  pop: 'Pop',                        // ポップ
+  soundSwitchLabel: 'Geluidseffecten', // 効果音
 
-    proCompareHeaderFeature: 'Functie',
-    proCompareHeaderFree: 'Gratis',
-    proCompareHeaderPro: 'Pro',
-    proCompareSubtitle:
-      'Je kunt altijd bij het gratis abonnement blijven. Pro haalt alleen de limieten weg.',
-    proCompareTitle: 'Wat je krijgt met Pro',
+  // --- Pro Screen (Paywall) (Pro画面 / 課金) ---
+  proTitle: 'Ontgrendel je keten.',  // 英語: Unlock your chain.
+  proHeaderTitle: 'DotChain Pro',
+  proSubtitle: 'Ga verder dan 3 gewoonten en maak je stippen onstuitbaar.',
+  proPlanFreeTitle: 'Gratis',        // 無料
+  proPlanMonthlyTitle: 'Maandelijks', // 月額
+  proPlanYearlyTitle: 'Jaarlijks',   // 年額
+  proPlanYearlyBadge: 'Beste keus',  // 英語: Best value (一番お得/ベストチョイス)
+  proBadgeShort: 'PRO',
+  priceFree: '€0 / voor altijd',     // ずっと0ユーロ (または $0)
+  proOnlyTitle: 'Pro-functie',       // Pro機能
+  proOnlyTheme: 'Upgrade naar Pro om dit thema te gebruiken.',
+  openPro: 'Bekijk Pro-plan',        // Proプランを見る
+  cancel: 'Annuleren',               // キャンセル
 
-    proCtaMonthly: 'Pro maandelijks nemen',
-    proCtaStayFree: 'Gratis blijven gebruiken',
-    proCtaYearly: 'Pro jaarlijks nemen',
+  // --- Settings (Appearance) (設定：見た目) ---
+  flowEffectTitle: 'Elektrische stroom-animatie', // 電気の流れのアニメーション
+  flowEffectHelp:
+    'Laat een neonstroom over je ketenlijn lopen. Zet uit als je een rustiger beeld wilt.',
 
-    proFeatureAdsFree: 'Advertentiebanner onderin',
-    proFeatureAdsPro: 'Geen advertenties, volledige focus',
-    proFeatureHabits: 'Gewoonten die je kunt bijhouden',
-    proFeatureHabitsFree: 'Maximaal 3 gewoonten',
-    proFeatureHabitsPro: 'Onbeperkt aantal gewoonten',
-    proFeatureThemesFree: '1 thema (Donker)',
-    proFeatureThemesPro: 'Alle thema\'s ontgrendeld',
+  // --- Heatmap Range (Settings) (ヒートマップ表示期間) ---
+  heatmapRangeTitle: 'Weergaveperiode',
+  heatmapRangeHelp: 'Kies hoeveel dagen van je keten op de heatmap van het startscherm worden getoond.',
+  heatmapRange7: '1 week',
+  heatmapRange30: '1 maand',
+  heatmapRange60: '2 maanden',
+  heatmapRange90: '3 maanden',
+  heatmapRange180: '6 maanden',
+  heatmapRange365: '1 jaar',
+  heatmapSummaryPrefix: 'Afgelopen ', // 「Afgelopen (過去〜/終わった〜)」
+  heatmapSummarySuffix: ' dagen',     // 「dagen (〜日間)」
+  heatmapAgoSuffix: ' dagen geleden', // 「〜日前」
+  heatmapToday: 'Vandaag',
 
-    proFinePrint:
-      'Abonnement wordt automatisch verlengd. Je kunt op elk moment opzeggen via de instellingen van je App Store- of Google Play-account.',
-    proMonthlyTagline: 'Begin klein, opzeggen kan altijd.',
-    proPlanFreeTitle: 'Gratis',
-    proPlanMonthlyTitle: 'Maandelijks',
-    proPlanYearlyBadge: 'Meest voordelig',
-    proPlanYearlyTitle: 'Jaarlijks',
-    proSubtitle: 'Ga verder dan 3 gewoonten en maak je keten niet te stoppen.',
-    proYearlySavingShort: 'Bespaar ongeveer 37% (alsof 8 maanden gratis zijn).',
-    proYearlyTagline: 'Voor echte ketenbouwers.',
+  // --- Themes (テーマ) ---
+  themeDesc: 'Verander het uiterlijk van de app.',
+  themeDarkLabel: 'Donker',          // Dark
+  themeNeonPinkLabel: 'Neon Pink',
+  themeCyberBlueLabel: 'Cyber Blue',
+  freeThemeNote: 'Gratis: alleen Donker / Pro ontgrendelt Neon Pink & Cyber Blue',
+  proThemeNote: 'Pro-thema\'s komen binnenkort.',
 
-    restoreSoon:
-      'Herstellen van aankopen wordt in een volgende update toegevoegd.',
+  // --- Habit Management (習慣管理) ---
+  newHabitTitle: 'Nieuwe gewoonte',
+  editHabitTitle: 'Gewoonte bewerken',
+  habitNameLabel: 'Naam',
+  habitNamePlaceholder: 'bijv. Water drinken, Lezen',
+  habitIconLabel: 'Icoon',
+  deleteHabit: 'Verwijder deze gewoonte',
+  deleteConfirmationTitle: 'Verwijderen?',
+  deleteConfirmationMessage: 'Dit kan niet ongedaan worden gemaakt. Alle geschiedenis gaat verloren.',
+  save: 'Opslaan',
+  create: 'Aanmaken',
 
-    themeCyberBlueLabel: 'Cyber Blue',
-    themeDarkLabel: 'Donker',
-    themeDesc:
-      'Kies de sfeer die bij je past. (Pro-thema\'s worden later toegevoegd.)',
-    themeNeonPinkLabel: 'Neon Pink',
+  // --- Icon Categories & Labels (アイコンカテゴリとラベル) ---
+  iconCatBasic: 'Basis',
+  iconCatHealth: 'Gezondheid',
+  iconCatLearning: 'Leren',
 
-    tutorialEditIconBody:
-      'Kies eerst een pictogram dat bij je gewoonte past.',
-    tutorialEditNameBody:
-      'Geef je gewoonte daarna een naam.\nBijvoorbeeld: "Water drinken", "Boek lezen".',
-    tutorialEditSubmitBody:
-      'Klaar!\nTik op de knop hieronder om deze gewoonte aan je startscherm toe te voegen.',
-    tutorialExplainChainBody:
-      'Door te tikken is je DAGEN OP RIJ toegenomen en licht vandaag op in JOUW KETEN.\nGa zo door om je keten langer te maken.',
-    tutorialGotIt: 'Begrepen',
-    tutorialNext: 'Volgende',
-    tutorialPressFabBody:
-      'Tik op de +-knop rechtsonder om je eerste gewoonte te maken.',
-    tutorialPressHabitBody:
-      'Tik nu op de gewoonte die je zojuist hebt gemaakt.\nDoor te tikken wordt vandaag als "gedaan" gemarkeerd.',
-    tutorialStart: 'Start',
-    tutorialWelcomeBody:
-      'Welkom!\nMet DotChain bouw je jouw gewoontenketen.\nBegin met het maken van je eerste gewoonte via de +-knop.',
+  iconLabelStreak: 'Reeks',          // Streak (連続)
+  iconLabelTask: 'Taak',             // Task
+  iconLabelShine: 'Glans',           // Shine
+  iconLabelClean: 'Schoonmaken',     // Clean
+  iconLabelLaundry: 'De was',        // Laundry
+  iconLabelWater: 'Water',           // Water
+  iconLabelWalk: 'Wandelen',         // Walk
+  iconLabelSleep: 'Slapen',          // Sleep
+  iconLabelWorkout: 'Training',      // Workout
+  iconLabelBarbell: 'Halter',        // Barbell
+  iconLabelRead: 'Lezen',            // Read
+  iconLabelArt: 'Kunst',             // Art
+  iconLabelMedia: 'Media',           // Media
+  iconLabelStudy: 'Studie',          // Study
+  iconLabelLanguage: 'Taal',         // Language
+
+  // --- Misc / Errors (その他 / エラー) ---
+  habitButtonSuffix: ' gewoonteknop', // アクセシビリティ用
+  errorLoadFailed: 'Gegevens laden mislukt.',
+  errorTitleRequired: 'Naam is verplicht.',
+  errorTitleTooLong: 'Naam mag maximaal 20 tekens bevatten.',
+  errorSaveFailed: 'Opslaan mislukt.',
+  errorDeleteFailed: 'Verwijderen mislukt.',
+  errorToggleFailed: 'Updaten mislukt.',
+  habitLimitTitle: 'Limiet gratis plan',
+  habitLimitBody: 'In het gratis plan kun je maximaal 3 gewoonten aanmaken.',
+
+  // --- Settings description (設定の説明) ---
+  hapticsDescription: 'Haptische feedback (trillen)',
+
+  // --- Reminder (リマインダー) ---
+  reminderSectionTitle: 'Herinnering',
+  reminderToggleLabel: 'Gebruik herinnering',
+  reminderTimeLabel: 'Tijdstip melding',
+  reminderNotificationBody: 'Het is tijd om aan je keten te bouwen!', // チェーンを作る時間だよ！
+
+  // --- Review (7-day streak) (レビュー依頼) ---
+  streak7Title: '7 dagen op rij!',
+  streak7Message: 'Je hebt je keten een hele week volgehouden. Goed bezig!',
+  ok: 'Geweldig',
+
+  // --- Language labels (言語名) ---
+  languageChange: 'Taal wijzigen',
+  currentLanguage: 'Huidige',
+  languageNameEn: 'Engels',
+  languageNameJa: 'Japans',
+  languageNameFr: 'Frans',
+  languageNameEs: 'Spaans',
+  languageNameDe: 'Duits',
+  languageNameIt: 'Italiaans',
+  languageNamePt: 'Portugees',
+  languageNameRu: 'Russisch',
+  languageNameZh: 'Chinees',
+  languageNameKo: 'Koreaans',
+  languageNameHi: 'Hindi',
+  languageNameId: 'Indonesisch',
+  languageNameTh: 'Thais',
+  languageNameVi: 'Vietnamees',
+  languageNameMs: 'Maleis',
+  languageNameTr: 'Turks',
+  languageNameNl: 'Nederlands',
+  languageNameSv: 'Zweeds',
+
+  // --- Tutorial (チュートリアル) ---
+  tutorialNext: 'Volgende',
+  tutorialWelcome: 'Welkom bij DotChain',
+  tutorialDesc1: 'Verbind je dagelijkse gewoonten en bouw je eigen keten.',
+  tutorialDesc2: 'Breek de keten niet om de gewoonte vast te houden.',
+  tutorialStart: 'Starten',
 };
 
 export default dict;

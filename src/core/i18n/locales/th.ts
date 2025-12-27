@@ -1,185 +1,163 @@
 import baseEn from './en';
 
 const dict = {
-    ...baseEn,
-    daysStreak: 'จำนวนวันต่อเนื่อง',
-    yourChain: 'เชนของคุณ',
-    allDoneDays: 'จำนวนวันที่ทำครบทั้งหมด',
-    settings: 'การตั้งค่า',
-    hapticOff: 'ปิดการสั่น',
-    language: 'ภาษา',
-    sound: 'เสียง',
-    haptics: 'การสั่น',
-    theme: 'ธีม',
-    restore: 'กู้คืนการซื้อ',
-    version: 'เวอร์ชันแอป',
-    tapSound: 'เสียงแตะ',
-    click: 'คลิก',
-    pop: 'ป็อป',
-    flowEffectTitle: 'แอนิเมชันกระแสไฟ',
-    flowEffectHelp:
-      'ให้กระแสไฟนีออนไหลไปตามเชนของคุณ หากต้องการหน้าจอที่นิ่งกว่านี้ให้ปิดฟีเจอร์นี้ได้',
-    heatmapRangeTitle: 'ช่วงวันที่แสดงเชน',
-    heatmapRangeHelp: 'เลือกจำนวนวันที่จะแสดงเชนในฮีตแมปหน้าหลัก',
-    heatmapRange7: '1 สัปดาห์',
-    heatmapRange30: '1 เดือน',
-    heatmapRange60: '2 เดือน',
-    heatmapRange180: '6 เดือน',
-    heatmapRange365: '1 ปี',
-    heatmapSummaryPrefix: 'ย้อนหลัง ',
-    heatmapSummarySuffix: ' วัน',
-    heatmapAgoSuffix: ' วันที่แล้ว',
-    heatmapToday: 'วันนี้',
-    freeThemeNote: 'ฟรี: ธีมมืดเท่านั้น / Pro ปลดล็อก Neon Pink และ Cyber Blue',
-    proThemeNote: 'ธีม Pro จะใช้ได้หลังจากเปิดระบบ Pro แล้ว',
-    restoreDesc: 'กู้คืน (เร็ว ๆ นี้)',
-    licenses: 'สัญญาอนุญาต OSS (เร็ว ๆ นี้)',
-    openPro: 'เปิด DotChain Pro',
-    heroPaywall: 'อัปเกรดสู่โลกนีออน',
-    priceMonthly: '$1.99 / เดือน',
-    onboardingTitle: 'ยินดีต้อนรับสู่ DotChain',
-    onboardingBody: 'แตะครั้งเดียว สั่นแรง มาสร้างเชนของวันนี้กัน',
-    start: 'เริ่ม',
-    paywallNote: 'การชำระเงินและโฆษณาจะถูกเพิ่มภายหลัง',
-    homeLoading: 'กำลังโหลด...',
-    homeAddHabitLabel: 'เพิ่มนิสัย',
-    editNewHabit: 'นิสัยใหม่',
-    editHabitTitle: 'แก้ไขนิสัย',
-    editCategoryLabel: 'หมวดหมู่',
-    editNameLabel: 'ชื่อ (สูงสุด 20 ตัวอักษร)',
-    editNamePlaceholder: 'ตั้งชื่อนิสัยของคุณ...',
-    editSaveChanges: 'บันทึกการเปลี่ยนแปลง',
-    editCreateHabit: 'สร้างนิสัย',
-    editDeleteHabit: 'ลบนิสัย',
-    proTitle: 'ปลดล็อกเชนของคุณ',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'นิสัยไม่จำกัด',
-    proFeatureThemes: 'ปลดล็อกทุกธีม (Neon Pink / Cyber Blue)',
-    proFeatureAds: 'ไม่มีโฆษณา',
-    habitButtonSuffix: ' ปุ่มนิสัย',
-    iconCatBasic: 'พื้นฐาน',
-    iconCatHealth: 'สุขภาพ',
-    iconCatLearning: 'การเรียนรู้และงาน',
-    errorLoadFailed: 'โหลดข้อมูลล้มเหลว',
-    errorTitleRequired: 'ต้องใส่ชื่อเรื่อง',
-    errorTitleTooLong: 'ชื่อเรื่องต้องไม่เกิน 20 อักขระ',
-    errorSaveFailed: 'บันทึกล้มเหลว',
-    errorDeleteFailed: 'ลบล้มเหลว',
-    errorToggleFailed: 'อัปเดตไม่สำเร็จ',
-    habitLimitTitle: 'ขีดจำกัดแพ็กเกจฟรี',
-    habitLimitBody: 'แพ็กเกจฟรีสร้างนิสัยได้สูงสุด 3 รายการ',
-    hapticsDescription: 'การตอบสนองแบบสั่น',
-    reminderSectionTitle: 'การแจ้งเตือนนิสัย',
-    reminderToggleLabel: 'ใช้การเตือนความจำ',
-    reminderTimeLabel: 'เวลาการแจ้งเตือน',
-    reminderNotificationBody: 'ถึงเวลาสร้างเชนของคุณแล้ว',
-    streak7Title: 'ต่อเนื่อง 7 วัน!',
-    streak7Message: 'คุณรักษาเชนต่อเนื่องได้ครบหนึ่งสัปดาห์ เยี่ยมมาก!',
-    ok: 'ตกลง',
-    languageChange: 'เปลี่ยนภาษา',
-    currentLanguage: 'ปัจจุบัน',
-    languageNameEn: 'อังกฤษ',
-    languageNameJa: 'ญี่ปุ่น',
-    languageNameFr: 'ฝรั่งเศส',
-    languageNameEs: 'สเปน',
-    languageNameDe: 'เยอรมัน',
-    languageNameIt: 'อิตาลี',
-    languageNamePt: 'โปรตุเกส',
-    languageNameRu: 'รัสเซีย',
-    languageNameZh: 'จีน',
-    languageNameKo: 'เกาหลี',
-    languageNameHi: 'ฮินดี',
-    languageNameId: 'อินโดนีเซีย',
-    languageNameTh: 'ไทย',
-    languageNameVi: 'เวียดนาม',
-    languageNameMs: 'มาเลย์',
-    languageNameTr: 'ตุรกี',
-    languageNameNl: 'ดัตช์',
-    languageNameSv: 'สวีเดน',
-    soundSwitchLabel: 'เปิดเสียง',
-    tapSoundLabel: 'สไตล์เสียงแตะ',
-    proOnlyTitle: 'สำหรับ Pro เท่านั้น',
-    proOnlyTheme: 'ธีมนี้ใช้ได้เฉพาะใน Pro',
+  ...baseEn,
+  // --- Home / Header (ホーム画面 / ヘッダー) ---
+  daysStreak: 'วันต่อเนื่อง',        // 英語: DAYS STREAK (連続日数)
+  yourChain: 'เชนของคุณ',            // 英語: YOUR CHAIN (あなたのチェーン)
+  allDoneDays: 'วันที่ทำครบ',        // 英語: ALL DONE DAYS (全て完了した日)
 
-    cancel: 'ยกเลิก',
-    delete: 'ลบ',
-    deleteConfirmBody: 'แน่ใจหรือไม่ว่าต้องการลบ? การกระทำนี้ไม่สามารถย้อนกลับได้.',
-    comingSoonTitle: 'เร็ว ๆ นี้',
-    onboardingPunch: 'นี่คือ DotChain.',
+  // --- Settings (General) (設定：一般) ---
+  settings: 'การตั้งค่า',            // 設定
+  hapticOff: 'ปิดการสั่น',           // 振動オフ
+  language: 'ภาษา',                  // 言語
+  sound: 'เสียง',                    // 音
+  haptics: 'การสั่น',                // 振動 (Haptics)
+  theme: 'ธีม',                      // テーマ
 
-    paywallBestValueBadge: 'คุ้มที่สุด',
-    paywallMonthlyLabel: 'แพ็กเกจรายเดือน',
-    paywallMonthlySub: 'ตัดบิลทุกเดือน ยกเลิกได้ทุกเมื่อ.',
-    paywallYearlyLabel: 'แพ็กเกจรายปี',
-    paywallYearlySub: 'ตัดบิลปีละครั้ง ยกเลิกได้ทุกเมื่อ.',
+  // --- Purchase / Restore (購入 / 復元) ---
+  restore: 'กู้คืนการซื้อ',          // 購入の復元
+  purchaseSuccess: 'แพ็กเกจ Pro ใช้งานได้แล้ว', // 購入成功
+  purchaseFailed: 'การสั่งซื้อล้มเหลว โปรดลองใหม่ภายหลัง', // 購入失敗
+  restoreSuccess: 'กู้คืนประวัติการซื้อแล้ว', // 復元成功
+  restoreNotFound: 'ไม่พบประวัติการซื้อ',    // 復元データなし
+  restoreFailed: 'กู้คืนการซื้อไม่สำเร็จ',   // 復元失敗
 
-    priceFree: '$0 / ตลอดไป',
-    priceYearly: '$14.99 / ปี',
+  // --- Settings (Sound & Info) (設定：音と情報) ---
+  version: 'เวอร์ชันแอป',            // アプリバージョン
+  tapSound: 'เสียงกด',               // タップ音
+  click: 'คลิก',                     // クリック
+  pop: 'ป๊อป',                       // ポップ
+  soundSwitchLabel: 'เอฟเฟกต์เสียง', // 効果音
 
-    proCompareHeaderFeature: 'ฟีเจอร์',
-    proCompareHeaderFree: 'ฟรี',
-    proCompareHeaderPro: 'Pro',
-    proCompareSubtitle:
-      'คุณสามารถใช้แบบฟรีต่อไปได้เสมอ Pro แค่เอาข้อจำกัดออก.',
-    proCompareTitle: 'คุณจะได้อะไรจาก Pro',
+  // --- Pro Screen (Paywall) (Pro画面 / 課金) ---
+  proTitle: 'ปลดล็อกเชนของคุณ',      // 英語: Unlock your chain.
+  proHeaderTitle: 'DotChain Pro',
+  proSubtitle: 'ก้าวข้ามขีดจำกัด 3 นิสัย และทำให้จุดของคุณไม่หยุดนิ่ง',
+  proPlanFreeTitle: 'ฟรี',           // 無料
+  proPlanMonthlyTitle: 'รายเดือน',   // 月額
+  proPlanYearlyTitle: 'รายปี',       // 年額
+  proPlanYearlyBadge: 'คุ้มที่สุด',  // 英語: Best value (一番お得/価値がある)
+  proBadgeShort: 'PRO',
+  priceFree: '฿0 / ตลอดไป',          // ずっと0バーツ (または $0)
+  proOnlyTitle: 'ฟีเจอร์ Pro',       // Pro機能
+  proOnlyTheme: 'อัปเกรดเป็น Pro เพื่อใช้ธีมนี้',
+  openPro: 'ดูแพ็กเกจ Pro',          // Proプランを見る
+  cancel: 'ยกเลิก',                  // キャンセル
 
-    proCtaMonthly: 'สมัคร Pro รายเดือน',
-    proCtaStayFree: 'ใช้แบบฟรีต่อไป',
-    proCtaYearly: 'สมัคร Pro รายปี',
+  // --- Settings (Appearance) (設定：見た目) ---
+  flowEffectTitle: 'แอนิเมชันกระแสไฟ', // 電気の流れのアニメーション
+  flowEffectHelp:
+    'ให้แสงนีออนไหลผ่านเส้นเชนของคุณ ปิดได้หากต้องการหน้าจอที่นิ่งสงบ',
 
-    proFeatureAdsFree: 'แบนเนอร์โฆษณาด้านล่าง',
-    proFeatureAdsPro: 'ไม่มีโฆษณา โฟกัสได้เต็มที่',
-    proFeatureHabits: 'จำนวนพฤติกรรมที่ติดตามได้',
-    proFeatureHabitsFree: 'นิสัยได้สูงสุด 3 รายการ',
-    proFeatureHabitsPro: 'นิสัยไม่จำกัด',
-    proFeatureThemesFree: '1 ธีม (ธีมมืด)',
-    proFeatureThemesPro: 'ปลดล็อกทุกธีม',
+  // --- Heatmap Range (Settings) (ヒートマップ表示期間) ---
+  heatmapRangeTitle: 'ระยะเวลาแสดงผล',
+  heatmapRangeHelp: 'เลือกจำนวนวันที่ต้องการแสดงเชนบนหน้าโฮม',
+  heatmapRange7: '1 สัปดาห์',
+  heatmapRange30: '1 เดือน',
+  heatmapRange60: '2 เดือน',
+  heatmapRange90: '3 เดือน',
+  heatmapRange180: '6 เดือน',
+  heatmapRange365: '1 ปี',
+  heatmapSummaryPrefix: 'ย้อนหลัง ', // 「過去〜」
+  heatmapSummarySuffix: ' วัน',      // 「〜日」
+  heatmapAgoSuffix: ' วันที่แล้ว',   // 「〜日前」
+  heatmapToday: 'วันนี้',
 
-    proFinePrint:
-      'การสมัครจะต่ออายุอัตโนมัติ คุณสามารถยกเลิกได้ตลอดเวลาในการตั้งค่าบัญชี App Store หรือ Google Play ของคุณ.',
-    proMonthlyTagline: 'เริ่มแบบเล็ก ๆ ยกเลิกเมื่อไหร่ก็ได้.',
-    proPlanFreeTitle: 'ฟรี',
-    proPlanMonthlyTitle: 'รายเดือน',
-    proPlanYearlyBadge: 'คุ้มที่สุด',
-    proPlanYearlyTitle: 'รายปี',
-    proSubtitle:
-      'ไปให้ไกลกว่า 3 นิสัย แล้วทำให้เชนของคุณหยุดไม่อยู่.',
-    proYearlySavingShort:
-      'ประหยัดประมาณ 37% (เหมือนได้ใช้ฟรี 8 เดือน).',
-    proYearlyTagline: 'สำหรับคนสร้างเชนตัวจริง.',
+  // --- Themes (テーマ) ---
+  themeDesc: 'เปลี่ยนหน้าตาของแอป',
+  themeDarkLabel: 'มืด',             // Dark
+  themeNeonPinkLabel: 'นีออนชมพู',
+  themeCyberBlueLabel: 'ไซเบอร์บลู',
+  freeThemeNote: 'ฟรี: ใช้ได้เฉพาะธีมมืด / Pro: ปลดล็อกนีออนชมพูและไซเบอร์บลู',
+  proThemeNote: 'ธีม Pro จะใช้ได้หลังจากสมัครสมาชิก',
 
-    restoreSoon:
-      'ฟังก์ชันกู้คืนการซื้อจะถูกเพิ่มในอัปเดตถัดไป.',
+  // --- Habit Management (習慣管理) ---
+  newHabitTitle: 'นิสัยใหม่',
+  editHabitTitle: 'แก้ไขนิสัย',
+  habitNameLabel: 'ชื่อ',
+  habitNamePlaceholder: 'เช่น ดื่มน้ำ, อ่านหนังสือ',
+  habitIconLabel: 'ไอคอน',
+  deleteHabit: 'ลบนิสัยนี้',
+  deleteConfirmationTitle: 'ยืนยันการลบ?',
+  deleteConfirmationMessage: 'การกระทำนี้ไม่สามารถย้อนกลับได้ ประวัติทั้งหมดจะหายไป',
+  save: 'บันทึก',
+  create: 'สร้าง',
 
-    themeCyberBlueLabel: 'Cyber Blue',
-    themeDarkLabel: 'ธีมมืด',
-    themeDesc:
-      'เลือกบรรยากาศที่คุณชอบ (ธีม Pro จะถูกเพิ่มในภายหลัง).',
-    themeNeonPinkLabel: 'Neon Pink',
+  // --- Icon Categories & Labels (アイコンカテゴリとラベル) ---
+  iconCatBasic: 'พื้นฐาน',
+  iconCatHealth: 'สุขภาพ',
+  iconCatLearning: 'การเรียนรู้',
 
-    tutorialEditIconBody:
-      'ก่อนอื่น เลือกไอคอนที่เข้ากับนิสัยของคุณ.',
-    tutorialEditNameBody:
-      `ถัดไป ตั้งชื่อนิสัยของคุณ
-ตัวอย่างเช่น "ดื่มน้ำ", "อ่านหนังสือ".`,
-    tutorialEditSubmitBody:
-      `พร้อมแล้ว!
-แตะปุ่มสร้างด้านล่างเพื่อเพิ่มนิสัยนี้ไปยังหน้าหลักของคุณ.`,
-    tutorialExplainChainBody:
-      `เมื่อแตะแล้ว จำนวนวันต่อเนื่องของคุณจะเพิ่มขึ้น และวันนี้จะติดสว่างบนเชนของคุณ
-ทำต่อไปเพื่อยืดเชนให้ยาวขึ้น.`,
-    tutorialGotIt: 'เข้าใจแล้ว',
-    tutorialNext: 'ถัดไป',
-    tutorialPressFabBody:
-      'แตะปุ่ม + ด้านล่างขวาเพื่อสร้างนิสัยแรกของคุณ.',
-    tutorialPressHabitBody:
-      `ตอนนี้ให้แตะนิสัยที่คุณเพิ่งสร้าง
-การแตะจะนับว่าวันนี้ "ทำแล้ว".`,
-    tutorialStart: 'เริ่มเลย',
-    tutorialWelcomeBody:
-      `ยินดีต้อนรับ!
-DotChain ช่วยให้คุณสร้างเชนนิสัยของตัวเองได้
-เริ่มจากการสร้างนิสัยแรกของคุณด้วยปุ่ม +.`,
+  iconLabelStreak: 'ต่อเนื่อง',      // Streak
+  iconLabelTask: 'งาน',              // Task
+  iconLabelShine: 'สดใส',            // Shine
+  iconLabelClean: 'ทำความสะอาด',     // Clean
+  iconLabelLaundry: 'ซักผ้า',        // Laundry
+  iconLabelWater: 'ดื่มน้ำ',         // Water
+  iconLabelWalk: 'เดิน',             // Walk
+  iconLabelSleep: 'นอนหลับ',         // Sleep
+  iconLabelWorkout: 'ออกกำลังกาย',   // Workout
+  iconLabelBarbell: 'ยกน้ำหนัก',     // Barbell
+  iconLabelRead: 'อ่าน',             // Read
+  iconLabelArt: 'ศิลปะ',             // Art
+  iconLabelMedia: 'สื่อ',            // Media
+  iconLabelStudy: 'เรียน',           // Study
+  iconLabelLanguage: 'ภาษา',         // Language
+
+  // --- Misc / Errors (その他 / エラー) ---
+  habitButtonSuffix: ' ปุ่มนิสัย',   // アクセシビリティ用
+  errorLoadFailed: 'โหลดข้อมูลล้มเหลว',
+  errorTitleRequired: 'กรุณาระบุชื่อ',
+  errorTitleTooLong: 'ชื่อต้องไม่เกิน 20 ตัวอักษร',
+  errorSaveFailed: 'บันทึกไม่สำเร็จ',
+  errorDeleteFailed: 'ลบไม่สำเร็จ',
+  errorToggleFailed: 'อัปเดตไม่สำเร็จ',
+  habitLimitTitle: 'ขีดจำกัดแพ็กเกจฟรี',
+  habitLimitBody: 'แพ็กเกจฟรีสร้างได้สูงสุด 3 นิสัย',
+
+  // --- Settings description (設定の説明) ---
+  hapticsDescription: 'ระบบสั่นตอบสนอง (Haptic)',
+
+  // --- Reminder (リマインダー) ---
+  reminderSectionTitle: 'แจ้งเตือน',
+  reminderToggleLabel: 'เปิดใช้แจ้งเตือน',
+  reminderTimeLabel: 'เวลาแจ้งเตือน',
+  reminderNotificationBody: 'ได้เวลาสร้างเชนของคุณแล้ว!', // チェーンを作る時間だよ！
+
+  // --- Review (7-day streak) (レビュー依頼) ---
+  streak7Title: 'ต่อเนื่อง 7 วัน!',
+  streak7Message: 'คุณรักษาเชนได้ครบหนึ่งสัปดาห์แล้ว สุดยอดมาก!',
+  ok: 'ยอดเยี่ยม',
+
+  // --- Language labels (言語名) ---
+  languageChange: 'เปลี่ยนภาษา',
+  currentLanguage: 'ปัจจุบัน',
+  languageNameEn: 'อังกฤษ',
+  languageNameJa: 'ญี่ปุ่น',
+  languageNameFr: 'ฝรั่งเศส',
+  languageNameEs: 'สเปน',
+  languageNameDe: 'เยอรมัน',
+  languageNameIt: 'อิตาลี',
+  languageNamePt: 'โปรตุเกส',
+  languageNameRu: 'รัสเซีย',
+  languageNameZh: 'จีน',
+  languageNameKo: 'เกาหลี',
+  languageNameHi: 'ฮินดี',
+  languageNameId: 'อินโดนีเซีย',
+  languageNameTh: 'ไทย',
+  languageNameVi: 'เวียดนาม',
+  languageNameMs: 'มาเลย์',
+  languageNameTr: 'ตุรกี',
+  languageNameNl: 'ดัตช์',
+  languageNameSv: 'สวีเดน',
+
+  // --- Tutorial (チュートリアル) ---
+  tutorialNext: 'ถัดไป',
+  tutorialWelcome: 'ยินดีต้อนรับสู่ DotChain',
+  tutorialDesc1: 'เชื่อมต่อนิสัยประจำวันและสร้างเชนของคุณเอง',
+  tutorialDesc2: 'อย่าให้เชนขาด เพื่อให้นิสัยคงอยู่ตลอดไป',
+  tutorialStart: 'เริ่มต้น',
 };
 
 export default dict;

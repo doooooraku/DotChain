@@ -1,182 +1,163 @@
 import baseEn from './en';
 
 const dict = {
-    ...baseEn,
-    daysStreak: 'GÜN SERİSİ',
-    yourChain: 'ZİNCİRİN',
-    allDoneDays: 'TAMAMEN YAPILAN GÜNLER',
-    settings: 'Ayarlar',
-    hapticOff: 'Titreşim kapalı',
-    language: 'Dil',
-    sound: 'Ses',
-    haptics: 'Titreşim',
-    theme: 'Tema',
-    restore: 'Satın alımı geri yükle',
-    version: 'Uygulama sürümü',
-    tapSound: 'Dokunma sesi',
-    click: 'Tık',
-    pop: 'Pop',
-    flowEffectTitle: 'Elektrik akışı animasyonu',
-    flowEffectHelp:
-      'Zincir çizgin boyunca neon bir akış dolaşır. Daha sakin bir görünüm istersen kapatabilirsin.',
-    heatmapRangeTitle: 'Zincir gösterim süresi',
-    heatmapRangeHelp: 'Ana ekrandaki ısı haritasında zincirin kaç günü gösterileceğini seç.',
-    heatmapRange7: '1 hafta',
-    heatmapRange30: '1 ay',
-    heatmapRange60: '2 ay',
-    heatmapRange180: '6 ay',
-    heatmapRange365: '1 yıl',
-    heatmapSummaryPrefix: 'Son ',
-    heatmapSummarySuffix: ' gün',
-    heatmapAgoSuffix: ' gün önce',
-    heatmapToday: 'Bugün',
-    freeThemeNote: 'Ücretsiz: yalnızca Dark / Pro Neon Pink, Cyber Blue açar',
-    proThemeNote: 'Pro temalar paywall sonrası.',
-    restoreDesc: 'Geri yükleme (yakında)',
-    licenses: 'OSS lisansları (yakında)',
-    openPro: "DotChain Pro`yu aç",
-    heroPaywall: `Neon dünyasına geç`,
-    priceMonthly: `$2.99 / ay`,
-    onboardingTitle: "DotChain`e hoş geldin",
-    onboardingBody: 'Tek dokunuş, güçlü titreşim. Bugünün zincirini kur.',
-    start: 'Başla',
-    paywallNote: 'Faturalama/reklam sonra.',
-    homeLoading: 'Yükleniyor...',
-    homeAddHabitLabel: 'Alışkanlık ekle',
-    editNewHabit: 'Yeni alışkanlık',
-    editHabitTitle: 'Alışkanlık düzenle',
-    editCategoryLabel: 'Kategori',
-    editNameLabel: 'Ad (en fazla 20 karakter)',
-    editNamePlaceholder: 'Alışkanlığına ad ver...',
-    editSaveChanges: 'Değişiklikleri kaydet',
-    editCreateHabit: 'Alışkanlık oluştur',
-    editDeleteHabit: 'Alışkanlığı sil',
-    proTitle: 'DotChain Pro',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'Sınırsız alışkanlık',
-    proFeatureThemes: 'Tüm temalar açık (Neon Pink / Cyber Blue)',
-        proFeatureAds: 'Reklamsız',
-    habitButtonSuffix: ' alışkanlık düğmesi',
-    iconCatBasic: 'Temel',
-    iconCatHealth: 'Sağlık',
-    iconCatLearning: 'Öğrenme ve İş',
-    errorLoadFailed: 'Veri yüklenemedi',
-    errorTitleRequired: 'Başlık gerekli.',
-    errorTitleTooLong: 'Başlık en fazla 20 karakter olmalı.',
-    errorSaveFailed: 'Kaydetme başarısız.',
-    errorDeleteFailed: 'Silme başarısız.',
-    errorToggleFailed: 'Güncelleme başarısız.',
-    habitLimitTitle: 'Ücretsiz plan sınırı',
-    habitLimitBody: 'Ücretsiz planda en fazla 3 alışkanlık oluşturabilirsiniz.',
-    hapticsDescription: 'Dokunsal geri bildirim',
-    reminderSectionTitle: 'Hatırlatma bildirimi',
-    reminderToggleLabel: 'Hatırlatıcıyı kullan',
-    reminderTimeLabel: 'Bildirim zamanı',
-    reminderNotificationBody: 'Zincirini ilerletme zamanı.',
-    streak7Title: '7 günlük seri!',
-    streak7Message: 'Bir hafta boyunca zincirini sürdürdün. Harika!',
-    ok: 'Tamam',
-    languageChange: 'Dili değiştir',
-    currentLanguage: 'Geçerli',
-    languageNameEn: 'İngilizce',
-    languageNameJa: 'Japonca',
-    languageNameFr: 'Fransızca',
-    languageNameEs: 'İspanyolca',
-    languageNameDe: 'Almanca',
-    languageNameIt: 'İtalyanca',
-    languageNamePt: 'Portekizce',
-    languageNameRu: 'Rusça',
-    languageNameZh: 'Çince',
-    languageNameKo: 'Korece',
-    languageNameHi: 'Hintçe',
-    languageNameId: 'Endonezce',
-    languageNameTh: 'Tayca',
-    languageNameVi: 'Vietnamca',
-    languageNameMs: 'Malayca',
-    languageNameTr: 'Türkçe',
-    languageNameNl: 'Flemenkçe',
-    languageNameSv: 'İsveççe',
-    soundSwitchLabel: 'Sesi aç',
-    tapSoundLabel: 'Dokunma sesi stili',
-    proOnlyTitle: 'Yalnızca Pro için',
-    proOnlyTheme: 'Bu tema Pro ile kullanılabilir.',
+  ...baseEn,
+  // --- Home / Header (ホーム画面 / ヘッダー) ---
+  daysStreak: 'GÜN SERİSİ',         // 英語: DAYS STREAK (連続日数)
+  yourChain: 'ZİNCİRİN',             // 英語: YOUR CHAIN (あなたのチェーン)
+  allDoneDays: 'TAMAMLANAN GÜNLER',  // 英語: ALL DONE DAYS (全て完了した日)
 
-    // Dialogs
-    cancel: 'İptal',
-    delete: 'Sil',
-    deleteConfirmBody: 'Emin misin? Bu işlem geri alınamaz.',
+  // --- Settings (General) (設定：一般) ---
+  settings: 'Ayarlar',               // 設定
+  hapticOff: 'Titreşim kapalı',      // 振動オフ
+  language: 'Dil',                   // 言語
+  sound: 'Ses',                      // 音
+  haptics: 'Titreşim',               // 振動 (Haptics)
+  theme: 'Tema',                     // テーマ
 
-    // Onboarding / punch
-    onboardingPunch: 'İşte DotChain.',
+  // --- Purchase / Restore (購入 / 復元) ---
+  restore: 'Satın Alımları Yükle',   // 購入の復元 (少し短縮してボタンに収める)
+  purchaseSuccess: 'Pro plan artık aktif.', // 購入成功
+  purchaseFailed: 'Satın alma başarısız. Lütfen sonra tekrar dene.', // 購入失敗
+  restoreSuccess: 'Satın alma geçmişi yüklendi.', // 復元成功
+  restoreNotFound: 'Geri yüklenecek satın alma bulunamadı.', // 復元データなし
+  restoreFailed: 'Satın alımlar yüklenemedi.', // 復元失敗
 
-    // Pricing / paywall labels
-    priceFree: '$0 / sonsuza kadar',
-    priceYearly: '$14.99 / yıl',
-    paywallMonthlyLabel: 'Aylık plan',
-    paywallMonthlySub: 'Her ay faturalandırılır. İstediğin zaman iptal edebilirsin.',
-    paywallYearlyLabel: 'Yıllık plan',
-    paywallYearlySub: 'Yılda bir kez faturalandırılır. İstediğin zaman iptal edebilirsin.',
-    paywallBestValueBadge: 'En avantajlı',
-    comingSoonTitle: 'Yakında geliyor',
-    restoreSoon:
-      'Satın alımları geri yükleme özelliği ilerideki bir güncellemede eklenecek.',
+  // --- Settings (Sound & Info) (設定：音と情報) ---
+  version: 'Uygulama Sürümü',        // アプリバージョン
+  tapSound: 'Dokunma sesi',          // タップ音
+  click: 'Tık',                      // クリック
+  pop: 'Pop',                        // ポップ
+  soundSwitchLabel: 'Ses Efektleri', // 効果音
 
-    // Themes
-    themeDarkLabel: 'Dark',
-    themeNeonPinkLabel: 'Neon Pink',
-    themeCyberBlueLabel: 'Cyber Blue',
-    themeDesc: 'Sevdiğin havayı seç. (Pro temalar daha sonra eklenecek.)',
+  // --- Pro Screen (Paywall) (Pro画面 / 課金) ---
+  proTitle: 'Zincirinin kilidini aç.', // 英語: Unlock your chain.
+  proHeaderTitle: 'DotChain Pro',
+  proSubtitle: '3 alışkanlığın ötesine geç ve noktalarını durdurulamaz yap.',
+  proPlanFreeTitle: 'Ücretsiz',      // 無料
+  proPlanMonthlyTitle: 'Aylık',      // 月額
+  proPlanYearlyTitle: 'Yıllık',      // 年額
+  proPlanYearlyBadge: 'En Avantajlı', // 英語: Best value (一番お得)
+  proBadgeShort: 'PRO',
+  priceFree: '₺0 / sonsuza kadar',   // ずっと0リラ (または $0)
+  proOnlyTitle: 'Pro Özellik',       // Pro機能
+  proOnlyTheme: 'Bu temayı kullanmak için Pro\'ya geç.',
+  openPro: 'Pro Planı Gör',          // Proプランを見る
+  cancel: 'İptal',                   // キャンセル
 
-    // Pro plan descriptions
-    proSubtitle:
-      '3 alışkanlık sınırını aş ve nokta zincirini durdurulamaz hale getir.',
-    proPlanFreeTitle: 'Ücretsiz',
-    proPlanMonthlyTitle: 'Aylık',
-    proPlanYearlyTitle: 'Yıllık',
-    proPlanYearlyBadge: 'En avantajlı',
+  // --- Settings (Appearance) (設定：見た目) ---
+  flowEffectTitle: 'Elektrik Akışı Animasyonu', // 電気の流れのアニメーション
+  flowEffectHelp:
+    'Zincir hattın boyunca neon bir akışın gezinmesine izin ver. Daha sakin bir görünüm istersen kapat.',
 
-    proCompareTitle: 'Pro ile neler kazanırsın',
-    proCompareSubtitle:
-      'Her zaman Ücretsiz planda kalabilirsin. Pro sadece sınırları kaldırır.',
-    proCompareHeaderFeature: 'Özellik',
-    proCompareHeaderFree: 'Ücretsiz',
-    proCompareHeaderPro: 'Pro',
+  // --- Heatmap Range (Settings) (ヒートマップ表示期間) ---
+  heatmapRangeTitle: 'Görüntüleme Aralığı',
+  heatmapRangeHelp: 'Ana ekrandaki ısı haritasında zincirinin kaç gününün gösterileceğini seç.',
+  heatmapRange7: '1 hafta',
+  heatmapRange30: '1 ay',
+  heatmapRange60: '2 ay',
+  heatmapRange90: '3 ay',
+  heatmapRange180: '6 ay',
+  heatmapRange365: '1 yıl',
+  heatmapSummaryPrefix: 'Son ',      // 「Son (最後の/過去の)」
+  heatmapSummarySuffix: ' gün',      // 「gün (日)」
+  heatmapAgoSuffix: ' gün önce',     // 「gün önce (日前)」
+  heatmapToday: 'Bugün',
 
-    proFeatureHabits: 'Takip edebileceğin alışkanlık sayısı',
-    proFeatureHabitsFree: 'En fazla 3 alışkanlık',
-    proFeatureHabitsPro: 'Sınırsız alışkanlık',
-    proFeatureThemesFree: '1 tema (Dark)',
-    proFeatureThemesPro: 'Tüm temalar açılır',
-    proFeatureAdsFree: 'Alt kısımda banner reklam',
-    proFeatureAdsPro: 'Reklam yok, tam odak',
+  // --- Themes (テーマ) ---
+  themeDesc: 'Uygulama görünümünü değiştir.',
+  themeDarkLabel: 'Koyu',            // Dark
+  themeNeonPinkLabel: 'Neon Pembe',
+  themeCyberBlueLabel: 'Siber Mavi',
+  freeThemeNote: 'Ücretsiz: Sadece Koyu / Pro: Neon Pembe ve Siber Mavi\'yi açar',
+  proThemeNote: 'Pro temalar yakında gelecek.',
 
-    proMonthlyTagline: 'Küçük başla, istediğin zaman iptal et.',
-    proYearlyTagline: 'Zincirini ciddiye alanlar için.',
-    proYearlySavingShort: 'Yaklaşık %37 tasarruf (8 ay bedava gibi).',
+  // --- Habit Management (習慣管理) ---
+  newHabitTitle: 'Yeni Alışkanlık',
+  editHabitTitle: 'Alışkanlığı Düzenle',
+  habitNameLabel: 'İsim',
+  habitNamePlaceholder: 'ör: Su iç, Kitap oku',
+  habitIconLabel: 'Simge',
+  deleteHabit: 'Bu alışkanlığı sil',
+  deleteConfirmationTitle: 'Silinsin mi?',
+  deleteConfirmationMessage: 'Bu işlem geri alınamaz. Tüm geçmiş kaybolacak.',
+  save: 'Kaydet',
+  create: 'Oluştur',
 
-    proCtaMonthly: 'Aylık Pro al',
-    proCtaYearly: 'Yıllık Pro al',
-    proCtaStayFree: 'Ücretsiz planda kal',
-    proFinePrint:
-      'Abonelik otomatik olarak yenilenir. İstediğin zaman App Store veya Google Play hesap ayarlarından iptal edebilirsin.',
+  // --- Icon Categories & Labels (アイコンカテゴリとラベル) ---
+  iconCatBasic: 'Temel',
+  iconCatHealth: 'Sağlık',
+  iconCatLearning: 'Öğrenme',
 
-    // Tutorial
-    tutorialWelcomeBody:
-      'Hoş geldin!\nDotChain, alışkanlık zincirini kurmana yardım eder.\nİlk alışkanlığını + düğmesinden oluşturarak başla.',
-    tutorialPressFabBody:
-      'Sağ alttaki + düğmesine dokunarak ilk alışkanlığını oluştur.',
-    tutorialPressHabitBody:
-      'Şimdi az önce oluşturduğun alışkanlığa dokun.\nHer dokunuş bugün için "yapıldı" olarak işaretler.',
-    tutorialExplainChainBody:
-      'Her dokunduğunda GÜN SERİSİN artar ve bugün ZİNCİRİN üzerinde yanar.\nZincirini uzatmak için devam et.',
-    tutorialEditIconBody: 'Önce, alışkanlığına uyan bir ikon seç.',
-    tutorialEditNameBody:
-      'Sonra, alışkanlığına bir ad yaz.\nÖrneğin: "Su iç", "Kitap oku".',
-    tutorialEditSubmitBody:
-      'Hazırsın!\nBu alışkanlığı ana ekrana eklemek için aşağıdaki oluştur düğmesine dokun.',
-    tutorialNext: 'İleri',
-    tutorialStart: 'Başla',
-    tutorialGotIt: 'Anladım',
+  iconLabelStreak: 'Seri',           // Streak
+  iconLabelTask: 'Görev',            // Task
+  iconLabelShine: 'Parıltı',         // Shine
+  iconLabelClean: 'Temizlik',        // Clean
+  iconLabelLaundry: 'Çamaşır',       // Laundry
+  iconLabelWater: 'Su',              // Water
+  iconLabelWalk: 'Yürüyüş',          // Walk
+  iconLabelSleep: 'Uyku',            // Sleep
+  iconLabelWorkout: 'Antrenman',     // Workout
+  iconLabelBarbell: 'Halter',        // Barbell
+  iconLabelRead: 'Okuma',            // Read
+  iconLabelArt: 'Sanat',             // Art
+  iconLabelMedia: 'Medya',           // Media
+  iconLabelStudy: 'Ders',            // Study
+  iconLabelLanguage: 'Dil',          // Language
+
+  // --- Misc / Errors (その他 / エラー) ---
+  habitButtonSuffix: ' alışkanlık düğmesi', // アクセシビリティ用
+  errorLoadFailed: 'Veri yüklenemedi.',
+  errorTitleRequired: 'İsim gerekli.',
+  errorTitleTooLong: 'İsim 20 karakterden kısa olmalı.',
+  errorSaveFailed: 'Kaydedilemedi.',
+  errorDeleteFailed: 'Silinemedi.',
+  errorToggleFailed: 'Güncellenemedi.',
+  habitLimitTitle: 'Ücretsiz plan limiti',
+  habitLimitBody: 'Ücretsiz planda en fazla 3 alışkanlık oluşturabilirsin.',
+
+  // --- Settings description (設定の説明) ---
+  hapticsDescription: 'Dokunsal geri bildirim (titreşim)',
+
+  // --- Reminder (リマインダー) ---
+  reminderSectionTitle: 'Hatırlatıcı',
+  reminderToggleLabel: 'Hatırlatıcı kullan',
+  reminderTimeLabel: 'Bildirim zamanı',
+  reminderNotificationBody: 'Zincirini kurma zamanı!', // チェーンを作る時間だよ！
+
+  // --- Review (7-day streak) (レビュー依頼) ---
+  streak7Title: '7 günlük seri!',
+  streak7Message: 'Zincirini tam bir hafta korudun. Harika iş!',
+  ok: 'Süper',
+
+  // --- Language labels (言語名) ---
+  languageChange: 'Dili değiştir',
+  currentLanguage: 'Mevcut',
+  languageNameEn: 'İngilizce',
+  languageNameJa: 'Japonca',
+  languageNameFr: 'Fransızca',
+  languageNameEs: 'İspanyolca',
+  languageNameDe: 'Almanca',
+  languageNameIt: 'İtalyanca',
+  languageNamePt: 'Portekizce',
+  languageNameRu: 'Rusça',
+  languageNameZh: 'Çince',
+  languageNameKo: 'Korece',
+  languageNameHi: 'Hintçe',
+  languageNameId: 'Endonezce',
+  languageNameTh: 'Tayca',
+  languageNameVi: 'Vietnamca',
+  languageNameMs: 'Malayca',
+  languageNameTr: 'Türkçe',
+  languageNameNl: 'Felemenkçe',
+  languageNameSv: 'İsveççe',
+
+  // --- Tutorial (チュートリアル) ---
+  tutorialNext: 'İleri',
+  tutorialWelcome: 'DotChain\'e Hoş Geldin',
+  tutorialDesc1: 'Günlük alışkanlıklarını birleştir ve kendi zincirini kur.',
+  tutorialDesc2: 'Alışkanlığın kalıcı olması için zinciri kırma.',
+  tutorialStart: 'Başla',
 };
 
 export default dict;

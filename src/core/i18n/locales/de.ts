@@ -1,176 +1,163 @@
 import baseEn from './en';
 
 const dict = {
-    ...baseEn,
-    daysStreak: 'Tage in Folge',
-    yourChain: 'Deine Kette',
-    allDoneDays: 'Tage mit allen erledigten Gewohnheiten',
-    settings: 'Einstellungen',
-    hapticOff: 'Vibration aus',
-    language: 'Sprache',
-    sound: 'Sound',
-    haptics: 'Vibration',
-    theme: 'Theme',
-    restore: 'Käufe wiederherstellen',
-    version: 'App-Version',
-    tapSound: 'Tippsound',
-    click: 'Klick',
-    pop: 'Plopp',
-    flowEffectTitle: 'Elektrische Fluss-Animation',
-    flowEffectHelp:
-      'Lässt einen neonfarbenen Strom über deine Kettenlinie laufen. Ausschalten, wenn du es ruhiger magst.',
-    heatmapRangeTitle: 'Zeitraum der Kettenanzeige',
-    heatmapRangeHelp: 'Wähle, wie viele Tage deiner Kette auf der Heatmap angezeigt werden.',
-    heatmapRange7: '1 Woche',
-    heatmapRange30: '1 Monat',
-    heatmapRange60: '2 Monate',
-    heatmapRange180: '6 Monate',
-    heatmapRange365: '1 Jahr',
-    heatmapSummaryPrefix: 'Letzte ',
-    heatmapSummarySuffix: ' Tage',
-    heatmapAgoSuffix: ' Tage zuvor',
-    heatmapToday: 'Heute',
-    freeThemeNote: 'Gratis: nur Dark / Pro schaltet Neon Pink & Cyber Blue frei',
-    proThemeNote: 'Pro-Themes werden nach dem Kauf freigeschaltet.',
-    restoreDesc: 'Wiederherstellen (später)',
-    licenses: 'Open-Source-Lizenzen (später)',
-    openPro: 'DotChain Pro öffnen',
-    heroPaywall: 'Upgrade in die Neon-Welt',
-    priceMonthly: '$1.99 / Monat',
-    onboardingTitle: 'Willkommen bei DotChain',
-    onboardingBody: 'Ein Tap, starke Vibration. Lass uns die heutige Kette bauen.',
-    start: 'Loslegen',
-    paywallNote: 'Abrechnung und Werbung werden später hinzugefügt.',
-    homeLoading: 'Laden...',
-    homeAddHabitLabel: 'Gewohnheit hinzufügen',
-    editNewHabit: 'Neue Gewohnheit',
-    editHabitTitle: 'Gewohnheit bearbeiten',
-    editCategoryLabel: 'Kategorie',
-    editNameLabel: 'Name (max. 20 Zeichen)',
-    editNamePlaceholder: 'Benenne deine Gewohnheit...',
-    editSaveChanges: 'Änderungen speichern',
-    editCreateHabit: 'Gewohnheit anlegen',
-    editDeleteHabit: 'Gewohnheit löschen',
-    proTitle: 'Entfessle deine Kette.',
-    proHeaderTitle: 'DotChain Pro',
-    proFeatureUnlimited: 'Unbegrenzte Gewohnheiten',
-    proFeatureThemes: 'Alle Themes freigeschaltet (Neon Pink / Cyber Blue)',
-    proFeatureAds: 'Keine Werbung',
-    habitButtonSuffix: ' Gewohnheitsbutton',
-    iconCatBasic: 'Basis',
-    iconCatHealth: 'Gesundheit',
-    iconCatLearning: 'Lernen & Arbeit',
-    errorLoadFailed: 'Daten konnten nicht geladen werden',
-    errorTitleRequired: 'Titel ist erforderlich.',
-    errorTitleTooLong: 'Der Titel darf höchstens 20 Zeichen haben.',
-    errorSaveFailed: 'Speichern fehlgeschlagen.',
-    errorDeleteFailed: 'Löschen fehlgeschlagen.',
-    errorToggleFailed: 'Aktualisierung fehlgeschlagen.',
-    habitLimitTitle: 'Limit des Gratis-Tarifs',
-    habitLimitBody: 'Im Gratis-Tarif kannst du bis zu 3 Gewohnheiten erstellen.',
-    hapticsDescription: 'Haptisches Feedback',
-    reminderSectionTitle: 'Erinnerungsbenachrichtigung',
-    reminderToggleLabel: 'Erinnerung verwenden',
-    reminderTimeLabel: 'Benachrichtigungszeit',
-    reminderNotificationBody: 'Zeit, deine Kette aufzubauen.',
-    streak7Title: '7-Tage-Serie!',
-    streak7Message: 'Du hast deine Kette eine ganze Woche gehalten. Super!',
-    ok: 'OK',
-    languageChange: 'Sprache ändern',
-    currentLanguage: 'Aktuell',
-    languageNameEn: 'Englisch',
-    languageNameJa: 'Japanisch',
-    languageNameFr: 'Französisch',
-    languageNameEs: 'Spanisch',
-    languageNameDe: 'Deutsch',
-    languageNameIt: 'Italienisch',
-    languageNamePt: 'Portugiesisch',
-    languageNameRu: 'Russisch',
-    languageNameZh: 'Chinesisch',
-    languageNameKo: 'Koreanisch',
-    languageNameHi: 'Hindi',
-    languageNameId: 'Indonesisch',
-    languageNameTh: 'Thailändisch',
-    languageNameVi: 'Vietnamesisch',
-    languageNameMs: 'Malaiisch',
-    languageNameTr: 'Türkisch',
-    languageNameNl: 'Niederländisch',
-    languageNameSv: 'Schwedisch',
-    soundSwitchLabel: 'Ton einschalten',
-    tapSoundLabel: 'Tippgeräusch-Stil',
-    proOnlyTitle: 'Nur für Pro',
-    proOnlyTheme: 'Dieses Theme ist nur mit Pro verfügbar.',
+  ...baseEn,
+  // --- Home / Header (ホーム画面のヘッダー) ---
+  daysStreak: 'TAGE IN FOLGE',       // 英語: DAYS STREAK
+  yourChain: 'DEINE KETTE',          // 英語: YOUR CHAIN
+  allDoneDays: 'TAGE KOMPLETT',      // 英語: ALL DONE DAYS (「完了した日」を短く表現)
 
-    // Fehlende Keys ergänzt für vollständige de-Lokalisierung
-    cancel: 'Abbrechen',
-    delete: 'Löschen',
-    deleteConfirmBody: 'Möchtest du wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.',
-    comingSoonTitle: 'Bald verfügbar',
-    onboardingPunch: 'Das ist DotChain.',
+  // --- Settings (General) (設定：一般) ---
+  settings: 'Einstellungen',         // 設定
+  hapticOff: 'Vibration aus',        // 振動オフ
+  language: 'Sprache',               // 言語
+  sound: 'Ton',                      // 音
+  haptics: 'Haptik',                 // 触覚フィードバック
+  theme: 'Design',                   // テーマ（ドイツ語ではDesignもよく使われます）
 
-    paywallBestValueBadge: 'Bestes Preis-Leistungs-Verhältnis',
-    paywallMonthlyLabel: 'Monatsplan',
-    paywallMonthlySub: 'Monatliche Abrechnung. Jederzeit kündbar.',
-    paywallYearlyLabel: 'Jahresplan',
-    paywallYearlySub: 'Jährliche Abrechnung. Jederzeit kündbar.',
+  // --- Purchase / Restore (課金・復元) ---
+  restore: 'Käufe wiederherstellen', // 購入の復元
+  purchaseSuccess: 'Pro-Plan ist jetzt aktiv.', // 購入成功
+  purchaseFailed: 'Kauf fehlgeschlagen. Bitte später erneut versuchen.', // 購入失敗
+  restoreSuccess: 'Kaufhistorie wiederhergestellt.', // 復元成功
+  restoreNotFound: 'Keine Käufe zum Wiederherstellen gefunden.', // 復元データなし
+  restoreFailed: 'Wiederherstellung fehlgeschlagen.', // 復元失敗
 
-    priceFree: '$0 / für immer',
-    priceYearly: '$14.99 / Jahr',
+  // --- Settings (Sound & Info) (設定：音と情報) ---
+  version: 'App-Version',            // アプリバージョン
+  tapSound: 'Tipp-Sound',            // タップ音
+  click: 'Klick',                    // カチッ
+  pop: 'Pop',                        // ポップ
+  soundSwitchLabel: 'Soundeffekte',  // 効果音
 
-    proCompareHeaderFeature: 'Funktion',
-    proCompareHeaderFree: 'Gratis',
-    proCompareHeaderPro: 'Pro',
-    proCompareSubtitle:
-      'Du kannst immer im Gratis-Plan bleiben. Pro entfernt nur die Grenzen.',
-    proCompareTitle: 'Das bekommst du mit Pro',
+  // --- Pro Screen (Paywall) (課金画面) ---
+  proTitle: 'Entfessle deine Kette.', // 英語: Unlock your chain. (直訳より「解き放つ」感じ)
+  proHeaderTitle: 'DotChain Pro',
+  proSubtitle: 'Mehr als 3 Gewohnheiten: Mach deine Punkte unaufhaltsam.',
+  proPlanFreeTitle: 'Gratis',        // 無料
+  proPlanMonthlyTitle: 'Monatlich',  // 月額
+  proPlanYearlyTitle: 'Jährlich',    // 年額
+  proPlanYearlyBadge: 'Beste Wahl',  // 英語: Best value (ベストな選択)
+  proBadgeShort: 'PRO',
+  priceFree: '0 € / für immer',      // ずっと0円
+  proOnlyTitle: 'Pro-Funktion',      // Pro限定機能
+  proOnlyTheme: 'Wechsle zu Pro, um dieses Design zu nutzen.',
+  openPro: 'Pro-Plan ansehen',       // Proプランを見る
+  cancel: 'Abbrechen',               // キャンセル
 
-    proCtaMonthly: 'Pro monatlich holen',
-    proCtaStayFree: 'Beim Gratis-Plan bleiben',
-    proCtaYearly: 'Pro jährlich holen',
+  // --- Settings (Appearance) (設定：見た目) ---
+  flowEffectTitle: 'Elektrische Fluss-Animation',
+  flowEffectHelp:
+    'Lass einen Neon-Strom entlang deiner Kette fließen. Schalte es aus, wenn du es ruhiger magst.',
 
-    proFeatureAdsFree: 'Bannerwerbung unten',
-    proFeatureAdsPro: 'Keine Werbung, voller Fokus',
-    proFeatureHabits: 'Gewohnheiten, die du verfolgen kannst',
-    proFeatureHabitsFree: 'Bis zu 3 Gewohnheiten',
-    proFeatureHabitsPro: 'Unbegrenzte Gewohnheiten',
-    proFeatureThemesFree: '1 Theme (Dark)',
-    proFeatureThemesPro: 'Alle Themes freigeschaltet',
+  // --- Heatmap Range (Settings) (ヒートマップの表示期間) ---
+  heatmapRangeTitle: 'Anzeigezeitraum der Kette',
+  heatmapRangeHelp: 'Wähle, wie viele Tage deiner Kette auf der Startseite angezeigt werden.',
+  heatmapRange7: '1 Woche',
+  heatmapRange30: '1 Monat',
+  heatmapRange60: '2 Monate',
+  heatmapRange90: '3 Monate',
+  heatmapRange180: '6 Monate',
+  heatmapRange365: '1 Jahr',
+  heatmapSummaryPrefix: 'Letzte ',
+  heatmapSummarySuffix: ' Tage',
+  heatmapAgoSuffix: ' Tage her',
+  heatmapToday: 'Heute',             // 今日
 
-    proFinePrint:
-      'Das Abo verlängert sich automatisch. Du kannst es jederzeit in den Kontoeinstellungen von App Store oder Google Play kündigen.',
-    proMonthlyTagline: 'Starte klein, kündige jederzeit.',
-    proPlanFreeTitle: 'Gratis',
-    proPlanMonthlyTitle: 'Monatlich',
-    proPlanYearlyBadge: 'Bestes Preis-Leistungs-Verhältnis',
-    proPlanYearlyTitle: 'Jährlich',
-    proSubtitle: 'Gehe über 3 Gewohnheiten hinaus und mache deine Punkte unaufhaltsam.',
-    proYearlySavingShort: 'Spare etwa 37 % (wie 8 Monate gratis).',
-    proYearlyTagline: 'Für alle, die ihre Kette ernst nehmen.',
+  // --- Themes (テーマ) ---
+  themeDesc: 'Ändere das Erscheinungsbild der App.',
+  themeDarkLabel: 'Dunkel',          // Dark
+  themeNeonPinkLabel: 'Neon Pink',
+  themeCyberBlueLabel: 'Cyber Blau',
+  freeThemeNote: 'Gratis: Nur Dunkel / Pro schaltet Neon Pink & Cyber Blau frei',
+  proThemeNote: 'Pro-Designs sind bald verfügbar.',
 
-    restoreSoon: 'Die Wiederherstellung von Käufen wird in einem kommenden Update hinzugefügt.',
+  // --- Habit Management (習慣の管理) ---
+  newHabitTitle: 'Neue Gewohnheit',
+  editHabitTitle: 'Gewohnheit bearbeiten',
+  habitNameLabel: 'Name',
+  habitNamePlaceholder: 'z. B. Buch lesen, Wasser trinken',
+  habitIconLabel: 'Icon',
+  deleteHabit: 'Diese Gewohnheit löschen',
+  deleteConfirmationTitle: 'Gewohnheit löschen?',
+  deleteConfirmationMessage: 'Diese Aktion kann nicht rückgängig gemacht werden. Der gesamte Verlauf geht verloren.',
+  save: 'Speichern',
+  create: 'Erstellen',
 
-    themeCyberBlueLabel: 'Cyber-Blau',
-    themeDarkLabel: 'Dunkel',
-    themeDesc: 'Wähle die Stimmung der App. (Pro-Themes kommen später.)',
-    themeNeonPinkLabel: 'Neon Pink',
+  // --- Icon Categories & Labels (アイコンのカテゴリとラベル) ---
+  iconCatBasic: 'Basis',
+  iconCatHealth: 'Gesundheit',
+  iconCatLearning: 'Lernen',         // 英語: Learning
 
-    tutorialEditIconBody:
-      'Wähle zuerst ein Icon, das zu deiner Gewohnheit passt.',
-    tutorialEditNameBody:
-      'Gib als Nächstes einen Namen für deine Gewohnheit ein.\nZum Beispiel: „Wasser trinken“, „Buch lesen“.',
-    tutorialEditSubmitBody:
-      'Fertig!\nTippe unten auf den Erstellen-Button, um diese Gewohnheit zum Startbildschirm hinzuzufügen.',
-    tutorialExplainChainBody:
-      'Durch das Tippen steigt deine TAGE-IN-FOLGE-Anzahl und heute wird in DEINER KETTE hervorgehoben.\nMach weiter, um deine Kette zu verlängern.',
-    tutorialGotIt: 'Verstanden',
-    tutorialNext: 'Weiter',
-    tutorialPressFabBody:
-      'Tippe unten rechts auf den +-Button, um deine erste Gewohnheit zu erstellen.',
-    tutorialPressHabitBody:
-      'Tippe jetzt auf die Gewohnheit, die du gerade erstellt hast.\nDurch Tippen markierst du heute als „erledigt“.',
-    tutorialStart: 'Starten',
-    tutorialWelcomeBody:
-      'Willkommen!\nMit DotChain baust du deine Gewohnheitskette.\nBeginne, indem du deine erste Gewohnheit mit dem +-Button erstellst.',
+  iconLabelStreak: 'Serie',          // Streak (連続)
+  iconLabelTask: 'Aufgabe',          // Task
+  iconLabelShine: 'Glanz',           // Shine
+  iconLabelClean: 'Putzen',          // Clean
+  iconLabelLaundry: 'Wäsche',        // Laundry
+  iconLabelWater: 'Wasser',          // Water
+  iconLabelWalk: 'Gehen',            // Walk
+  iconLabelSleep: 'Schlaf',          // Sleep
+  iconLabelWorkout: 'Training',      // Workout
+  iconLabelBarbell: 'Hantel',        // Barbell
+  iconLabelRead: 'Lesen',            // Read
+  iconLabelArt: 'Kunst',             // Art
+  iconLabelMedia: 'Medien',          // Media
+  iconLabelStudy: 'Lernen',          // Study
+  iconLabelLanguage: 'Sprache',      // Language
+
+  // --- Misc / Errors (その他・エラー) ---
+  habitButtonSuffix: ' Gewohnheits-Button', // アクセシビリティ用
+  errorLoadFailed: 'Daten konnten nicht geladen werden.',
+  errorTitleRequired: 'Titel ist erforderlich.',
+  errorTitleTooLong: 'Der Titel darf maximal 20 Zeichen lang sein.',
+  errorSaveFailed: 'Speichern fehlgeschlagen.',
+  errorDeleteFailed: 'Löschen fehlgeschlagen.',
+  errorToggleFailed: 'Update fehlgeschlagen.',
+  habitLimitTitle: 'Limit des kostenlosen Plans',
+  habitLimitBody: 'Im kostenlosen Plan kannst du bis zu 3 Gewohnheiten erstellen.',
+
+  // --- Settings description (設定の説明) ---
+  hapticsDescription: 'Haptisches Feedback (Vibration)',
+
+  // --- Reminder (リマインダー・通知) ---
+  reminderSectionTitle: 'Erinnerung',
+  reminderToggleLabel: 'Erinnerung nutzen',
+  reminderTimeLabel: 'Benachrichtigungszeit',
+  reminderNotificationBody: 'Es ist Zeit, deine Kette zu bauen!',
+
+  // --- Review (7-day streak) (レビュー依頼) ---
+  streak7Title: '7-Tage-Serie!',
+  streak7Message: 'Du hast deine Kette eine ganze Woche gehalten. Super Arbeit!',
+  ok: 'Spitze',
+
+  // --- Language labels (言語名) ---
+  languageChange: 'Sprache ändern',
+  currentLanguage: 'Aktuell',
+  languageNameEn: 'Englisch',
+  languageNameJa: 'Japanisch',
+  languageNameFr: 'Französisch',
+  languageNameEs: 'Spanisch',
+  languageNameDe: 'Deutsch',
+  languageNameIt: 'Italienisch',
+  languageNamePt: 'Portugiesisch',
+  languageNameRu: 'Russisch',
+  languageNameZh: 'Chinesisch',
+  languageNameKo: 'Koreanisch',
+  languageNameHi: 'Hindi',
+  languageNameId: 'Indonesisch',
+  languageNameTh: 'Thailändisch',
+  languageNameVi: 'Vietnamesisch',
+  languageNameMs: 'Malaiisch',
+  languageNameTr: 'Türkisch',
+  languageNameNl: 'Niederländisch',
+  languageNameSv: 'Schwedisch',
+
+  // --- Tutorial (チュートリアル) ---
+  tutorialNext: 'Weiter',
+  tutorialWelcome: 'Willkommen bei DotChain',
+  tutorialDesc1: 'Verbinde deine täglichen Gewohnheiten und baue deine eigene Kette.',
+  tutorialDesc2: 'Unterbrich die Kette nicht, damit die Gewohnheit bleibt.',
+  tutorialStart: 'Loslegen',
 };
 
 export default dict;

@@ -1,24 +1,35 @@
 const baseEn = {
+  // --- Home / Header ---
   daysStreak: 'DAYS STREAK',
   yourChain: 'YOUR CHAIN',
   allDoneDays: 'ALL DONE DAYS',
+
+  // --- Settings (General) ---
   settings: 'Settings',
   hapticOff: 'Haptics off',
   language: 'Language',
   sound: 'Sound',
   haptics: 'Haptics',
   theme: 'Theme',
-  restore: 'Restore Purchase',
+
+  // --- Purchase / Restore ---
+  restore: 'Restore Purchases',
   purchaseSuccess: 'Pro plan is now active.',
   purchaseFailed: 'Purchase failed. Please try again later.',
   restoreSuccess: 'Purchase history restored.',
   restoreNotFound: 'No purchases were found to restore.',
   restoreFailed: 'Failed to restore purchases.',
+
+  // --- Settings (Sound & Info) ---
   version: 'App Version',
   tapSound: 'Tap sound',
   click: 'Click',
   pop: 'Pop',
-  // Paywall / Pro Screen
+  soundSwitchLabel: 'Sound Effects',
+
+  // --- Pro Screen (Paywall) ---
+  proTitle: 'Unlock your chain.',
+  proHeaderTitle: 'DotChain Pro',
   proSubtitle: 'Go beyond 3 habits and make your dots unstoppable.',
   proPlanFreeTitle: 'Free',
   proPlanMonthlyTitle: 'Monthly',
@@ -26,100 +37,55 @@ const baseEn = {
   proPlanYearlyBadge: 'Best value',
   proBadgeShort: 'PRO',
   priceFree: '$0 / forever',
+  proOnlyTitle: 'Pro Feature',
+  proOnlyTheme: 'Upgrade to Pro to use this theme.',
+  openPro: 'View Pro Plan',
+  cancel: 'Cancel',
+
+  // --- Settings (Appearance) ---
   flowEffectTitle: 'Electric flow animation',
   flowEffectHelp:
     'Let a neon electric flow run along your chain line. Turn this off if you prefer a calmer look.',
-  // Heatmap range
+
+  // --- Heatmap Range (Settings) ---
   heatmapRangeTitle: 'Chain display range',
   heatmapRangeHelp: 'Choose how many days of your chain to show in the home heatmap.',
   heatmapRange7: '1 week',
   heatmapRange30: '1 month',
   heatmapRange60: '2 months',
+  heatmapRange90: '3 months',
   heatmapRange180: '6 months',
   heatmapRange365: '1 year',
-  heatmapSummaryPrefix: 'Past ',
+  heatmapSummaryPrefix: 'Last ',
   heatmapSummarySuffix: ' days',
   heatmapAgoSuffix: ' days ago',
   heatmapToday: 'Today',
-  priceMonthly: '$1.99 / month',
-  priceYearly: '$14.99 / year',
-  proMonthlyTagline: 'Start small, cancel anytime.',
-  proYearlyTagline: 'For serious chain builders.',
-  proYearlySavingShort: 'Save about 37% (like 8 months free).',
-  proCompareTitle: 'What you get with Pro',
-  proCompareSubtitle: 'You can always stay on Free. Pro just removes the limits.',
-  proCompareHeaderFeature: 'Feature',
-  proCompareHeaderFree: 'Free',
-  proCompareHeaderPro: 'Pro',
-  proFeatureHabits: 'Habits you can track',
-  proFeatureHabitsFree: 'Up to 3 habits',
-  proFeatureHabitsPro: 'Unlimited habits',
-  proFeatureThemesFree: '1 theme (Dark)',
-  proFeatureThemesPro: 'All themes unlocked',
-  proFeatureAdsFree: '',
-  proFeatureAdsPro: '',
-  proOnlyTitle: 'Pro only feature',
-  proOnlyTheme: 'This theme is available with Pro.',
-  proCtaYearly: 'Get Yearly Pro',
-  proCtaMonthly: 'Get Monthly Pro',
-  proCtaStayFree: 'Continue with Free',
-  proFinePrint:
-    'Subscription renews automatically. You can cancel anytime in your App Store or Google Play account settings.',
-  paywallMonthlyLabel: 'Monthly plan',
-  paywallYearlyLabel: 'Yearly plan',
-  paywallBestValueBadge: 'Best value',
-  paywallYearlySub: 'Billed once a year. Cancel anytime.',
-  paywallMonthlySub: 'Billed every month. Cancel anytime.',
-  comingSoonTitle: 'Coming soon',
-  // Theme labels
+
+  // --- Themes ---
+  themeDesc: 'Change the appearance of the app.',
   themeDarkLabel: 'Dark',
   themeNeonPinkLabel: 'Neon Pink',
   themeCyberBlueLabel: 'Cyber Blue',
-  themeDesc: 'Pick your vibe. (Pro themes are coming later.)',
-  restoreSoon: 'Restore purchase will be added in a future update.',
-  freeThemeNote: 'Free: Dark only / Pro unlocks Neon Pink, Cyber Blue',
-  proThemeNote: 'Pro themes unlock after paywall implementation.',
-  restoreDesc: 'Restore purchases made on this account.',
-  licenses: 'Open Source Licenses (later)',
-  openPro: 'Open DotChain Pro',
-  heroPaywall: 'Upgrade to neon world',
-  onboardingTitle: 'Welcome to DotChain',
-  onboardingBody: 'One tap, heavy haptics. Let’s build today’s chain.',
-  onboardingPunch: 'This is DotChain.',
-  start: 'Get started',
-  paywallNote: 'Billing/Ads will be added later.',
-  // --- Tutorial / Onboarding flow ---
-  tutorialWelcomeBody:
-    'Welcome!\nDotChain lets you build your habit chain.\nStart by creating your first habit from the + button.',
-  tutorialPressFabBody: 'Tap the + button at the bottom-right to create your first habit.',
-  tutorialPressHabitBody: 'Now tap the habit you just created.\nTapping marks today as "done".',
-  tutorialExplainChainBody:
-    'By tapping, your DAYS STREAK increased and today lit up on YOUR CHAIN.\nKeep going to extend your chain.',
-  tutorialEditIconBody: 'First, pick an icon that matches your habit.',
-  tutorialEditNameBody: 'Next, enter a name for your habit.\nFor example: "Drink water", "Read a book".',
-  tutorialEditSubmitBody: 'You are ready!\nTap the create button below to add this habit to your home screen.',
-  tutorialNext: 'Next',
-  tutorialStart: 'Start',
-  tutorialGotIt: 'Got it',
-  // --- Home ---
-  homeLoading: 'Loading...',
-  homeAddHabitLabel: 'Add habit',
-  // --- Edit ---
-  editNewHabit: 'New Habit',
+  freeThemeNote: 'Free: Dark only / Pro unlocks Neon Pink & Cyber Blue',
+  proThemeNote: 'Pro themes will be available soon.',
+
+  // --- Habit Management ---
+  newHabitTitle: 'New Habit',
   editHabitTitle: 'Edit Habit',
-  editCategoryLabel: 'Category',
-  editNameLabel: 'Name (max 20 characters)',
-  editNamePlaceholder: 'Name your habit...',
-  editSaveChanges: 'Save Changes',
-  editCreateHabit: 'Create Habit',
-  editDeleteHabit: 'Delete Habit',
-  deleteConfirmBody: 'Are you sure? This action cannot be undone.',
-  cancel: 'Cancel',
-  delete: 'Delete',
-  // Icon categories
+  habitNameLabel: 'Name',
+  habitNamePlaceholder: 'e.g. Read a book, Drink water',
+  habitIconLabel: 'Icon',
+  deleteHabit: 'Delete this habit',
+  deleteConfirmationTitle: 'Delete habit?',
+  deleteConfirmationMessage: 'This action cannot be undone. All history will be lost.',
+  save: 'Save',
+  create: 'Create',
+
+  // --- Icon Categories & Labels ---
   iconCatBasic: 'Basic',
   iconCatHealth: 'Health',
-  iconCatLearning: 'Learning & Work',
+  iconCatLearning: 'Learning',
+
   iconLabelStreak: 'Streak',
   iconLabelTask: 'Task',
   iconLabelShine: 'Shine',
@@ -135,16 +101,10 @@ const baseEn = {
   iconLabelMedia: 'Media',
   iconLabelStudy: 'Study',
   iconLabelLanguage: 'Language',
-  // --- Pro ---
-  proTitle: 'Unlock your chain.',
-  proHeaderTitle: 'DotChain Pro',
-  proFeatureUnlimited: 'Unlimited habits',
-  proFeatureThemes: 'All themes unlocked (Neon Pink / Cyber Blue)',
-  proFeatureAds: '',
-  // --- Accessibility ---
+
+  // --- Misc / Errors ---
   habitButtonSuffix: ' habit button',
-  // --- Errors ---
-  errorLoadFailed: 'Failed to load data',
+  errorLoadFailed: 'Failed to load data.',
   errorTitleRequired: 'Title is required.',
   errorTitleTooLong: 'Title must be 20 characters or less.',
   errorSaveFailed: 'Failed to save.',
@@ -152,17 +112,21 @@ const baseEn = {
   errorToggleFailed: 'Failed to update record.',
   habitLimitTitle: 'Free plan limit',
   habitLimitBody: 'On the free plan you can create up to 3 habits.',
+
   // --- Settings description ---
-  hapticsDescription: 'Haptic feedback',
+  hapticsDescription: 'Haptic feedback (vibration)',
+
   // --- Reminder ---
-  reminderSectionTitle: 'Reminder notification',
+  reminderSectionTitle: 'Reminder',
   reminderToggleLabel: 'Use reminder',
   reminderTimeLabel: 'Notification time',
-  reminderNotificationBody: 'Time to build your chain.',
+  reminderNotificationBody: 'It’s time to build your chain!',
+
   // --- Review (7-day streak) ---
   streak7Title: '7-day streak!',
   streak7Message: 'You have kept your chain for a full week. Great job!',
-  ok: 'OK',
+  ok: 'Awesome',
+
   // --- Language labels ---
   languageChange: 'Change language',
   currentLanguage: 'Current',
@@ -184,10 +148,13 @@ const baseEn = {
   languageNameTr: 'Turkish',
   languageNameNl: 'Dutch',
   languageNameSv: 'Swedish',
-  // --- Sound labels ---
-  soundSwitchLabel: 'Enable sound',
-  tapSoundLabel: 'Tap sound style',
+
+  // --- Tutorial ---
+  tutorialNext: 'Next',
+  tutorialWelcome: 'Welcome to DotChain',
+  tutorialDesc1: 'Connect your daily habits and build your own chain.',
+  tutorialDesc2: 'Don’t break the chain to make habits stick.',
+  tutorialStart: 'Get Started',
 };
 
-export type TranslationKey = keyof typeof baseEn;
 export default baseEn;
