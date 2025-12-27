@@ -1,4 +1,5 @@
 import { Stack, Text, Button } from 'tamagui';
+import { useTranslation } from '@/src/core/i18n/i18n';
 
 export type VerticalAlign = 'top' | 'center' | 'bottom';
 
@@ -36,7 +37,7 @@ function toJustify(verticalAlign: VerticalAlign) {
 
 export function TutorialOverlay({
   message,
-  buttonLabel = 'Next',
+  buttonLabel,
   onNext,
   backgroundTapEnabled = false,
   verticalAlign = 'center',
@@ -44,6 +45,8 @@ export function TutorialOverlay({
   backdropOpacity = 0.72,
   cardOffsetY = 0,
 }: TutorialOverlayProps) {
+  const { t } = useTranslation();
+  const resolvedButtonLabel = buttonLabel ?? t('tutorialNext');
   const justifyContent = toJustify(verticalAlign);
 
   return (
@@ -107,7 +110,7 @@ export function TutorialOverlay({
             pressStyle={{ opacity: 0.85 }}
           >
             <Text color="$background" fontWeight="800" fontSize="$5">
-              {buttonLabel}
+              {resolvedButtonLabel}
             </Text>
           </Button>
         )}

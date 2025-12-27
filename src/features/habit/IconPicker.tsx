@@ -99,7 +99,7 @@ export const IconPicker = memo(function IconPicker({ value, onChange }: IconPick
                   shadowRadius={16}
                   shadowOffset={{ width: 0, height: 6 }}>
                   <Button
-                    accessibilityLabel={opt.label}
+                    accessibilityLabel={t(opt.labelKey)}
                     size="$3"
                     backgroundColor="transparent"
                     width="100%"

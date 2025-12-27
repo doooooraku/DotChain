@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
+import type { TranslationKey } from '@/src/core/i18n/i18n';
 
 export type HabitIconName = ComponentProps<typeof Ionicons>['name'];
 
@@ -8,7 +9,7 @@ export type IconCategoryTitleKey = 'iconCatBasic' | 'iconCatHealth' | 'iconCatLe
 
 export type HabitIconOption = {
   id: HabitIconName;
-  label: string;
+  labelKey: TranslationKey;
 };
 
 export type HabitIconCategory = {
@@ -54,33 +55,33 @@ export const HABIT_ICON_CATEGORIES: HabitIconCategory[] = [
     id: 'basic',
     titleKey: 'iconCatBasic',
     icons: [
-      { id: 'flame-outline', label: 'Streak' },
-      { id: 'checkbox-outline', label: 'Task' },
-      { id: 'sparkles-outline', label: 'Shine' },
-      { id: 'color-wand-outline', label: 'Clean' },
-      { id: 'shirt-outline', label: 'Laundry' },
+      { id: 'flame-outline', labelKey: 'iconLabelStreak' },
+      { id: 'checkbox-outline', labelKey: 'iconLabelTask' },
+      { id: 'sparkles-outline', labelKey: 'iconLabelShine' },
+      { id: 'color-wand-outline', labelKey: 'iconLabelClean' },
+      { id: 'shirt-outline', labelKey: 'iconLabelLaundry' },
     ],
   },
   {
     id: 'health',
     titleKey: 'iconCatHealth',
     icons: [
-      { id: 'water-outline', label: 'Water' },
-      { id: 'walk-outline', label: 'Walk' },
-      { id: 'moon-outline', label: 'Sleep' },
-      { id: 'fitness-outline', label: 'Workout' },
-      { id: 'barbell-outline', label: 'Barbell' },
+      { id: 'water-outline', labelKey: 'iconLabelWater' },
+      { id: 'walk-outline', labelKey: 'iconLabelWalk' },
+      { id: 'moon-outline', labelKey: 'iconLabelSleep' },
+      { id: 'fitness-outline', labelKey: 'iconLabelWorkout' },
+      { id: 'barbell-outline', labelKey: 'iconLabelBarbell' },
     ],
   },
   {
     id: 'learning',
     titleKey: 'iconCatLearning',
     icons: [
-      { id: 'book-outline', label: 'Read' },
-      { id: 'brush-outline', label: 'Art' },
-      { id: 'tv-outline', label: 'Media' },
-      { id: 'school-outline', label: 'Study' },
-      { id: 'globe-outline', label: 'Language' },
+      { id: 'book-outline', labelKey: 'iconLabelRead' },
+      { id: 'brush-outline', labelKey: 'iconLabelArt' },
+      { id: 'tv-outline', labelKey: 'iconLabelMedia' },
+      { id: 'school-outline', labelKey: 'iconLabelStudy' },
+      { id: 'globe-outline', labelKey: 'iconLabelLanguage' },
     ],
   },
 ];

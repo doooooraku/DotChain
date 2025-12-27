@@ -251,6 +251,7 @@ export default function SettingsScreen() {
               accentColor={theme?.color?.val?.toString() ?? '#E6E6E6'}
               active={themeName === 'dark'}
               onPress={() => setTheme('dark')}
+              proLabel={t('proBadgeShort')}
             />
             <ThemeCard
               label={t('themeNeonPinkLabel')}
@@ -269,6 +270,7 @@ export default function SettingsScreen() {
               }}
               isPro
               isLocked={!isPro}
+              proLabel={t('proBadgeShort')}
             />
             <ThemeCard
               label={t('themeCyberBlueLabel')}
@@ -287,6 +289,7 @@ export default function SettingsScreen() {
               }}
               isPro
               isLocked={!isPro}
+              proLabel={t('proBadgeShort')}
             />
           </XStack>
         </ScrollView>
@@ -473,6 +476,7 @@ type ThemeCardProps = {
   onPress: () => void;
   isPro?: boolean;
   isLocked?: boolean;
+  proLabel: string;
 };
 
 function ThemeCard({
@@ -483,6 +487,7 @@ function ThemeCard({
   onPress,
   isPro,
   isLocked,
+  proLabel,
 }: ThemeCardProps) {
   return (
     <YStack alignItems="center" gap="$2">
@@ -515,7 +520,7 @@ function ThemeCard({
             alignItems="center"
             justifyContent="center">
             <Text fontSize={12} fontWeight="700" color="$text">
-              PRO
+              {proLabel}
             </Text>
           </Stack>
         )}
@@ -526,7 +531,7 @@ function ThemeCard({
         </Text>
         {isPro && !isLocked && (
           <Text fontSize={10} color={active ? accentColor : '$muted'}>
-            PRO
+            {proLabel}
           </Text>
         )}
       </XStack>

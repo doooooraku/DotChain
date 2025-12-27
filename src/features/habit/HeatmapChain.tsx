@@ -68,12 +68,20 @@ export const HeatmapChain = memo(function HeatmapChain({
       return;
     }
     const animation = Animated.loop(
-      Animated.timing(current, {
-        toValue: 1,
-        duration: 2400,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
+      Animated.sequence([
+        Animated.timing(current, {
+          toValue: 1,
+          duration: 2400,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        Animated.timing(current, {
+          toValue: 0,
+          duration: 2400,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+      ]),
     );
     animation.start();
     return () => {
