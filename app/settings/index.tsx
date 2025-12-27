@@ -190,14 +190,14 @@ export default function SettingsScreen() {
           <Text color="$text" fontSize={15}>
             {t('soundSwitchLabel')}
           </Text>
-          <Switch checked={sound} onCheckedChange={(v) => setSound(Boolean(v))} />
+          <SettingsSwitch checked={sound} onCheckedChange={setSound} />
         </Row>
         <XStack gap="$3" alignItems="center">
           <Text color="$text">{t('tapSoundLabel')}</Text>
         </XStack>
         <XStack gap="$3" alignItems="center">
           <Text color="$text">{t('click')}</Text>
-          <Switch
+          <SettingsSwitch
             checked={tapSound === 'pop'}
             onCheckedChange={(v) => setTapSound(v ? 'pop' : 'click')}
           />
@@ -210,7 +210,7 @@ export default function SettingsScreen() {
           <Text color="$text" fontSize={15}>
             {t('hapticsDescription')}
           </Text>
-          <Switch checked={haptics} onCheckedChange={(v) => setHaptics(Boolean(v))} />
+          <SettingsSwitch checked={haptics} onCheckedChange={setHaptics} />
         </Row>
       </Section>
 
@@ -218,44 +218,53 @@ export default function SettingsScreen() {
         <Text color="$muted" fontSize={13} marginBottom="$2">
           {t('themeDesc')}
         </Text>
-        <XStack gap="$3" marginTop="$1">
-          <ThemeDot
-            label={t('themeDarkLabel')}
-            color={theme?.background?.val?.toString() ?? '#04060A'}
-            active={themeName === 'dark'}
-            onPress={() => setTheme('dark')}
-          />
-          <ThemeDot
-            label={t('themeNeonPinkLabel')}
-            color="#FF65D8"
-            active={themeName === 'neonPink'}
-            onPress={() => {
-              if (!isPro) {
-                Alert.alert(t('proOnlyTitle'), t('proOnlyTheme'), [
-                  { text: t('cancel'), style: 'cancel' },
-                  { text: t('openPro'), onPress: () => router.push('/pro' as Href) },
-                ]);
-                return;
-              }
-              setTheme('neonPink');
-            }}
-          />
-          <ThemeDot
-            label={t('themeCyberBlueLabel')}
-            color="#00C8FF"
-            active={themeName === 'cyberBlue'}
-            onPress={() => {
-              if (!isPro) {
-                Alert.alert(t('proOnlyTitle'), t('proOnlyTheme'), [
-                  { text: t('cancel'), style: 'cancel' },
-                  { text: t('openPro'), onPress: () => router.push('/pro' as Href) },
-                ]);
-                return;
-              }
-              setTheme('cyberBlue');
-            }}
-          />
-        </XStack>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <XStack gap="$4" paddingVertical="$2" paddingHorizontal="$1">
+            <ThemeCard
+              label={t('themeDarkLabel')}
+              backgroundColor={theme?.background?.val?.toString() ?? '#04060A'}
+              accentColor={theme?.color?.val?.toString() ?? '#E6E6E6'}
+              active={themeName === 'dark'}
+              onPress={() => setTheme('dark')}
+            />
+            <ThemeCard
+              label={t('themeNeonPinkLabel')}
+              backgroundColor="#150013"
+              accentColor="#FF65D8"
+              active={themeName === 'neonPink'}
+              onPress={() => {
+                if (!isPro) {
+                  Alert.alert(t('proOnlyTitle'), t('proOnlyTheme'), [
+                    { text: t('cancel'), style: 'cancel' },
+                    { text: t('openPro'), onPress: () => router.push('/pro' as Href) },
+                  ]);
+                  return;
+                }
+                setTheme('neonPink');
+              }}
+              isPro
+              isLocked={!isPro}
+            />
+            <ThemeCard
+              label={t('themeCyberBlueLabel')}
+              backgroundColor="#00131A"
+              accentColor="#00C8FF"
+              active={themeName === 'cyberBlue'}
+              onPress={() => {
+                if (!isPro) {
+                  Alert.alert(t('proOnlyTitle'), t('proOnlyTheme'), [
+                    { text: t('cancel'), style: 'cancel' },
+                    { text: t('openPro'), onPress: () => router.push('/pro' as Href) },
+                  ]);
+                  return;
+                }
+                setTheme('cyberBlue');
+              }}
+              isPro
+              isLocked={!isPro}
+            />
+          </XStack>
+        </ScrollView>
         <Text color="$muted" fontSize={12} marginTop="$2">
           {t('freeThemeNote')}
         </Text>
@@ -270,7 +279,7 @@ export default function SettingsScreen() {
           <Text color="$text" fontSize={15}>
             {t('reminderToggleLabel')}
           </Text>
-          <Switch checked={reminderEnabled} onCheckedChange={(v) => setReminderEnabled(Boolean(v))} />
+          <SettingsSwitch checked={reminderEnabled} onCheckedChange={setReminderEnabled} />
         </Row>
 
         {reminderEnabled && (
@@ -343,7 +352,7 @@ export default function SettingsScreen() {
           <Text color="$text" fontSize={15}>
             {t('flowEffectTitle')}
           </Text>
-          <Switch checked={electricFlow} onCheckedChange={(v) => setElectricFlow(Boolean(v))} />
+          <SettingsSwitch checked={electricFlow} onCheckedChange={setElectricFlow} />
         </Row>
         <Text color="$muted" fontSize={13} lineHeight={18}>
           {t('flowEffectHelp')}
@@ -407,30 +416,91 @@ function Row({ children }: { children: React.ReactNode }) {
   );
 }
 
-type ThemeDotProps = {
+function SettingsSwitch({
+  checked,
+  onCheckedChange,
+}: {
+  checked: boolean;
+  onCheckedChange: (v: boolean) => void | Promise<void>;
+}) {
+  return (
+    <Switch
+      size="$3"
+      checked={checked}
+      onCheckedChange={(v) => onCheckedChange(Boolean(v))}
+      backgroundColor={checked ? '$neonGreen' : '$gray'}
+      borderColor="$gray"
+      borderWidth={1}>
+      <Switch.Thumb animation="bouncy" backgroundColor="$text" />
+    </Switch>
+  );
+}
+
+type ThemeCardProps = {
   label: string;
-  color: string;
-  active?: boolean;
-  onPress?: () => void;
+  backgroundColor: string;
+  accentColor: string;
+  active: boolean;
+  onPress: () => void;
+  isPro?: boolean;
+  isLocked?: boolean;
 };
 
-function ThemeDot({ label, color, active, onPress }: ThemeDotProps) {
+function ThemeCard({
+  label,
+  backgroundColor,
+  accentColor,
+  active,
+  onPress,
+  isPro,
+  isLocked,
+}: ThemeCardProps) {
   return (
     <YStack alignItems="center" gap="$2">
       <Stack
-        width={40}
-        height={40}
-        borderRadius={20}
-        backgroundColor={color}
-        borderWidth={2}
-        borderColor={active ? '$neonGreen' : '$gray'}
-        opacity={onPress ? 1 : 0.5}
-        pressStyle={{ scale: 0.96 }}
+        width={72}
+        height={108}
+        borderRadius="$4"
+        backgroundColor={backgroundColor}
+        borderWidth={active ? 3 : 1}
+        borderColor={active ? accentColor : '$gray'}
+        overflow="hidden"
+        pressStyle={{ scale: 0.96, opacity: 0.95 }}
         onPress={onPress}
-      />
-      <Text color="$muted" fontSize={11}>
-        {label}
-      </Text>
+        position="relative"
+      >
+        <Stack width="100%" height={12} backgroundColor={accentColor} opacity={0.2} />
+        <YStack padding="$2" gap="$1.5">
+          <XStack gap="$1" alignItems="center">
+            <Stack width={16} height={16} borderRadius={8} backgroundColor={accentColor} opacity={0.85} />
+            <Stack width={32} height={4} borderRadius={2} backgroundColor="$gray" opacity={0.5} />
+          </XStack>
+          <Stack width="80%" height={4} borderRadius={2} backgroundColor="$gray" opacity={0.35} />
+          <Stack width="60%" height={4} borderRadius={2} backgroundColor="$gray" opacity={0.35} />
+        </YStack>
+        {isLocked && (
+          <Stack
+            position="absolute"
+            inset={0}
+            backgroundColor="rgba(0,0,0,0.6)"
+            alignItems="center"
+            justifyContent="center">
+            <Text fontSize={12} fontWeight="700" color="$text">
+              PRO
+            </Text>
+          </Stack>
+        )}
+      </Stack>
+      <XStack gap="$1" alignItems="center">
+        <Text color={active ? accentColor : '$muted'} fontSize={12} fontWeight={active ? '700' : '400'}>
+          {label}
+        </Text>
+        {isPro && !isLocked && (
+          <Text fontSize={10} color={active ? accentColor : '$muted'}>
+            PRO
+          </Text>
+        )}
+      </XStack>
     </YStack>
   );
 }
