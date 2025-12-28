@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 16.28.0",
+    "version": ">= 16.0.0",
     "appVersionSource": "remote"
   },
   "build": {
@@ -12,17 +12,20 @@
       "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
       "distribution": "store",
       "ios": {
         "resourceClass": "m1-medium"
+      }
     }
   },
   "submit": {
     "production": {
       "ios": {
-        "ascAppId": "6756904225",  
-        "appleId": "doooooraku@gmail.com" 
+        "ascAppId": "6756904225",
+        "ascApiKeyId": "L4HKW3C3WJ",
+        "ascApiKeyIssuerId": "1f21bf99-fe11-4f44-9827-5b0bfbc3390e",
+        "ascApiKeyPath": "./.secrets/AuthKey.p8"
       }
     }
   }
