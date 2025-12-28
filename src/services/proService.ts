@@ -9,8 +9,9 @@ export type PlanType = 'monthly' | 'yearly';
 
 const PRO_STATE_KEY = 'dotchain_pro_state_v1';
 const ENTITLEMENT_ID = 'Pro_Plan';
-const PACKAGE_MONTHLY_ID = 'dotchain_pro_monthly';
-const PACKAGE_YEARLY_ID = 'dotchain_pro_yearly';
+// RevenueCatのPackage ID（iOS/Android共通で使う）
+const RC_PACKAGE_MONTHLY_ID = 'dotchain_pro_monthly';
+const RC_PACKAGE_YEARLY_ID = 'dotchain_pro_yearly';
 
 let configured = false;
 
@@ -68,13 +69,8 @@ async function getCurrentOffering(): Promise<PurchasesOffering | null> {
 
 function findPackage(offering: PurchasesOffering | null, plan: PlanType): PurchasesPackage | null {
   if (!offering) return null;
-  const targetId = plan === 'monthly' ? PACKAGE_MONTHLY_ID : PACKAGE_YEARLY_ID;
-
-  const byIdentifier = offering.availablePackages.find((pkg) => pkg.identifier === targetId);
-  if (byIdentifier) return byIdentifier;
-
-  const byProductId = offering.availablePackages.find((pkg) => pkg.product.identifier === targetId);
-  return byProductId ?? null;
+  const targetId = plan === 'monthly' ? RC_PACKAGE_MONTHLY_ID : RC_PACKAGE_YEARLY_ID;
+  return offering.availablePackages.find((pkg) => pkg.identifier === targetId) ?? null;
 }
 
 export const proService = {
