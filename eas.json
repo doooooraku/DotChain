@@ -13,6 +13,9 @@
     },
     "production": {
       "autoIncrement": true
+      "distribution": "store",  // ← ★ここを "internal" から "store" に変更！
+      "ios": {
+        "resourceClass": "m1-medium" // ローカルビルドなら無視されますが念のため
     }
   },
   "submit": {

@@ -1,58 +1,65 @@
-# このレシピの名前：iPhone実機用ビルド
-name: Build iOS (Device)
+name: Build and Submit to TestFlight
 
-# いつ動くか：手動でボタンを押したとき
 on:
-  workflow_dispatch:
+  workflow_dispatch: # 手動実行のみ
 
-# お仕事の内容
 jobs:
-  build:
-    name: Build IPA
-    runs-on: macos-latest
+  build_and_submit:
+    name: Build & Submit IPA
+    runs-on: macos-latest # 無料枠のMacを使用
 
     steps:
-      # 1. GitHubからあなたのコードをダウンロードする
+      # 1. コードの準備
       - name: 📥 コードを取得
         uses: actions/checkout@v4
 
-      # 【★修正ポイント】先にpnpmを入れる！
-      - name: 📦 pnpmをインストール
+      - name: 📦 pnpmをセットアップ
         uses: pnpm/action-setup@v3
         with:
           version: 9
 
-      # 3. その後にNode.jsを入れる
       - name: 🛠️ Node.jsをセットアップ
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm' # これでエラーが出なくなる！
+          cache: 'pnpm'
 
-      # 4. Expoのビルド道具(EAS CLI)を入れる
+      # 2. 道具のインストール
       - name: 🚀 EAS CLIをインストール
         run: npm install -g eas-cli
 
-      # 5. アプリに必要な部品を全部インストールする
       - name: 📚 ライブラリをインストール
         run: pnpm install
 
-      # 6. 【重要】秘密の鍵(.env)をロボットの元で復活させる
+      # 3. 【重要】環境変数の作成
+      # これがないと、アプリの中にAPIキーが含まれず、起動してもエラーになります
       - name: 🔓 .envファイルを作成
-        env:
-          RC_KEY: ${{ secrets.RC_API_KEY_IOS }}
         run: |
-          echo "EXPO_PUBLIC_RC_API_KEY_IOS=$RC_KEY" > .env
+          # 必要なキーをここに追加してください
+          echo "EXPO_PUBLIC_REVENUECAT_IOS_API_KEY=${{ secrets.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY }}" >> .env
+          echo "EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY=${{ secrets.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY }}" >> .env
+        # 注意: GitHubのSecretsにこれらのキーを登録しておく必要があります
 
-      # 7. いよいよアプリ本体を作成（ビルド）！
-      - name: 🏗️ iPhoneアプリ(IPA)をビルド
+      # 4. ビルド（IPA作成）
+      # --local: GitHubのMacで作る（無料）
+      # --profile production: eas.jsonの "store" 設定を使う
+      - name: 🏗️ IPAファイルを作成 (Local Build)
+        run: eas build --platform ios --profile production --local --non-interactive --output=DotChain.ipa
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} 
+          # ↑ このトークンを使って、ステップ1で登録したAppleの鍵を自動で取ってきます
+
+      # 5. 提出（TestFlightへ）
+      # --path: さっき作ったIPAファイルを指定
+      - name: 📤 TestFlightに提出 (Submit)
+        run: eas submit --platform ios --path DotChain.ipa --profile production --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build --platform ios --profile production --local --non-interactive --output ./DotChain.ipa
+          # ↑ ここでもトークンを使って、Appleのお店にログインします
 
-      # 8. 完成したアプリをダウンロードできるようにアップロードする
-      - name: 📤 完成品を保存
+      # 6. バックアップ保存
+      - name: 📦 IPAファイルを保存
         uses: actions/upload-artifact@v4
         with:
-          name: ios-ipa-file
-          path: ./DotChain.ipa
+          name: DotChain-IPA
+          path: DotChain.ipa
