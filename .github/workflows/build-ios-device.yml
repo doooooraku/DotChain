@@ -43,23 +43,35 @@ jobs:
       # 4. ビルド（IPA作成）
       # --local: GitHubのMacで作る（無料）
       # --profile production: eas.jsonの "store" 設定を使う
-      - name: 🏗️ IPAファイルを作成 (Local Build)
-        run: eas build --platform ios --profile production --local --non-interactive --output=DotChain.ipa
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} 
-          # ↑ このトークンを使って、ステップ1で登録したAppleの鍵を自動で取ってきます
-
-      # 5. 提出（TestFlightへ）
-      # --path: さっき作ったIPAファイルを指定
-      - name: 📤 TestFlightに提出 (Submit)
-        run: eas submit --platform ios --path DotChain.ipa --profile production --non-interactive
+      - name: 🏗️ iPhoneアプリ(IPA)をビルド
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          # ↑ ここでもトークンを使って、Appleのお店にログインします
+        run: eas build --platform ios --profile production --local --non-interactive --output=DotChain.ipa
 
-      # 6. バックアップ保存
-      - name: 📦 IPAファイルを保存
+      # ★ここに追加（あなたのやりたいコード）
+      - name: 🔑 App Store Connect API Key (.p8) を作成
+        env:
+          ASC_API_KEY_P8_BASE64: ${{ secrets.ASC_API_KEY_P8_BASE64 }}
+        run: |
+          mkdir -p .secrets
+          python3 - <<'PY'
+          import base64, os, pathlib
+          b64 = os.environ["ASC_API_KEY_P8_BASE64"]
+          path = pathlib.Path(".secrets/AuthKey.p8")
+          path.write_bytes(base64.b64decode(b64))
+          print("created:", path)
+          PY
+          chmod 600 .secrets/AuthKey.p8
+          ls -la .secrets
+
+      # ★この次に submit（TestFlight提出）
+      - name: 📤 TestFlightに提出 (Submit)
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas submit --platform ios --path DotChain.ipa --profile production --non-interactive
+
+      - name: 📤 完成品を保存 (Artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: DotChain-IPA
+          name: DotChain-iOS-IPA
           path: DotChain.ipa
