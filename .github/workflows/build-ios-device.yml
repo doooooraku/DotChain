@@ -48,22 +48,6 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: eas build --platform ios --profile production --local --non-interactive --output=DotChain.ipa
 
-      # ★ここに追加（あなたのやりたいコード）
-      - name: 🔑 App Store Connect API Key (.p8) を作成
-        env:
-          ASC_API_KEY_P8_BASE64: ${{ secrets.ASC_API_KEY_P8_BASE64 }}
-        run: |
-          mkdir -p .secrets
-          python3 - <<'PY'
-          import base64, os, pathlib
-          b64 = os.environ["ASC_API_KEY_P8_BASE64"]
-          path = pathlib.Path(".secrets/AuthKey.p8")
-          path.write_bytes(base64.b64decode(b64))
-          print("created:", path)
-          PY
-          chmod 600 .secrets/AuthKey.p8
-          ls -la .secrets
-
       # ★この次に submit（TestFlight提出）
       - name: 📤 TestFlightに提出 (Submit)
         env:
