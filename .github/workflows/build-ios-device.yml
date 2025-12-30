@@ -33,11 +33,24 @@ jobs:
 
       # 3. 【重要】環境変数の作成
       # これがないと、アプリの中にAPIキーが含まれず、起動してもエラーになります
+      - name: 🔎 RevenueCatキーの存在チェック
+        env:
+          REVENUECAT_IOS_API_KEY: ${{ secrets.REVENUECAT_IOS_API_KEY }}
+          REVENUECAT_ANDROID_API_KEY: ${{ secrets.REVENUECAT_ANDROID_API_KEY }}
+        run: |
+          if [ -z "$REVENUECAT_IOS_API_KEY" ]; then
+            echo "REVENUECAT_IOS_API_KEY is empty"
+            exit 1
+          fi
+
       - name: 🔓 .envファイルを作成
+        env:
+          REVENUECAT_IOS_API_KEY: ${{ secrets.REVENUECAT_IOS_API_KEY }}
+          REVENUECAT_ANDROID_API_KEY: ${{ secrets.REVENUECAT_ANDROID_API_KEY }}
         run: |
           # 必要なキーをここに追加してください
-          echo "EXPO_PUBLIC_REVENUECAT_IOS_API_KEY=${{ secrets.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY }}" >> .env
-          echo "EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY=${{ secrets.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY }}" >> .env
+          echo "REVENUECAT_IOS_API_KEY=${REVENUECAT_IOS_API_KEY}" > .env
+          echo "REVENUECAT_ANDROID_API_KEY=${REVENUECAT_ANDROID_API_KEY}" >> .env
         # 注意: GitHubのSecretsにこれらのキーを登録しておく必要があります
 
       # 4. ビルド（IPA作成）
