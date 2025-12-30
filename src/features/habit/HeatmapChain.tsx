@@ -14,6 +14,8 @@ type Props = {
   flowEnabled?: boolean;
   /** 7日表示だけは横スクロールせず、画面幅を均等に使う */
   variant?: 'default' | 'week';
+  /** 週表示のときに線の長さを計算するための幅 */
+  containerWidth?: number;
 };
 
 /**
@@ -31,6 +33,7 @@ export const HeatmapChain = memo(function HeatmapChain({
   colorBorder,
   flowEnabled = true,
   variant = 'default',
+  containerWidth,
 }: Props) {
   const pulse = useRef(new Animated.Value(0)).current;
   const current = useRef(new Animated.Value(0)).current;
@@ -71,13 +74,13 @@ export const HeatmapChain = memo(function HeatmapChain({
       Animated.sequence([
         Animated.timing(current, {
           toValue: 1,
-          duration: 2400,
+          duration: 4800,
           easing: Easing.linear,
           useNativeDriver: true,
         }),
         Animated.timing(current, {
           toValue: 0,
-          duration: 2400,
+          duration: 4800,
           easing: Easing.linear,
           useNativeDriver: true,
         }),
@@ -112,10 +115,22 @@ export const HeatmapChain = memo(function HeatmapChain({
   const DOT = isWeek ? 24 : 18;
   const DOT_RADIUS = Math.round(DOT * (isWeek ? 0.42 : 0.45));
   // 線を少し太めにして「流れている」ことが分かりやすいようにする
-  const LINK_WIDTH = isWeek ? 22 : 16; // weekでは flexGrow と組み合わせて幅を使い切る
+  const LINK_WIDTH_DEFAULT = 16;
+  const LINK_WIDTH_WEEK_FALLBACK = 22;
   const LINK_HEIGHT = 3;
   const OUTER_GAP = isWeek ? '$1' : '$2';
   const INNER_GAP = '$1';
+  const OUTER_GAP_PX = isWeek ? 4 : 8;
+  const INNER_GAP_PX = 4;
+
+  const weekLinkWidth =
+    isWeek && containerWidth && containerWidth > 0
+      ? Math.max(
+          8,
+          (containerWidth - OUTER_GAP_PX * (days - 1)) / days - DOT - INNER_GAP_PX,
+        )
+      : LINK_WIDTH_WEEK_FALLBACK;
+  const linkWidth = isWeek ? weekLinkWidth : LINK_WIDTH_DEFAULT;
 
   const cells = dates.map((dateKey, idx) => {
     const intensity = intensityByDate[dateKey] ?? 0;
@@ -147,7 +162,7 @@ export const HeatmapChain = memo(function HeatmapChain({
 
         {idx < dates.length - 1 && (
           <Link
-            width={LINK_WIDTH}
+            width={linkWidth}
             height={LINK_HEIGHT}
             active={linkActive}
             flowEnabled={flowEnabled}
@@ -250,7 +265,7 @@ function Link({
 }) {
   const translateX = pulse.interpolate({
     inputRange: [0, 1],
-    outputRange: [-width * 0.35, width * 0.35],
+    outputRange: [-2, 2],
   });
 
   const show = active || keepSpace;
@@ -266,7 +281,7 @@ function Link({
           width,
           height,
           opacity: active ? 1 : keepSpace ? 0.18 : 0,
-          transform: flowEnabled && active ? [{ translateX }] : undefined,
+          transform: flowEnabled && active ? [{ translateX }] : [],
         },
       ]}>
       {show && (

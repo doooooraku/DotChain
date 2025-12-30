@@ -1,0 +1,137 @@
+diff --git a/app/index.tsx b/app/index.tsx
+index 824ca1a..ff347d5 100644
+--- a/app/index.tsx
++++ b/app/index.tsx
+@@ -1,6 +1,7 @@
+ import { Ionicons } from '@expo/vector-icons';
+ import { Href, useLocalSearchParams, useRouter } from 'expo-router';
+ import { useEffect, useRef, useState } from 'react';
++import type { LayoutChangeEvent } from 'react-native';
+ import { useSafeAreaInsets } from 'react-native-safe-area-context';
+ import { Button, ScrollView, Spinner, Stack, Text, useTheme, XStack, YStack } from 'tamagui';
+ 
+@@ -51,6 +52,7 @@ export default function HomeScreen() {
+   const [tutorialStep, setTutorialStep] = useState<TutorialStep>('none');
+   const isPressFabStep = !hasSeenOnboarding && tutorialStep === 'pressFab';
+   const heatmapScrollRef = useRef<any>(null);
++  const [heatmapWidth, setHeatmapWidth] = useState<number | undefined>(undefined);
+   const hasScrolledHeatmap = useRef(false);
+ 
+   useEffect(() => {
+@@ -191,7 +193,16 @@ export default function HomeScreen() {
+       </XStack>
+ 
+         {/* ヒートマップ（7日は幅いっぱい、8日以上は横スクロール） */}
+-        <YStack marginTop="$4" gap="$2" width="100%">
++        <YStack
++          marginTop="$4"
++          gap="$2"
++          width="100%"
++          onLayout={(e: LayoutChangeEvent) => {
++            const nextWidth = Math.round(e.nativeEvent.layout.width);
++            if (nextWidth && nextWidth !== heatmapWidth) {
++              setHeatmapWidth(nextWidth);
++            }
++          }}>
+           <Text color={muted} letterSpacing={1}>
+             {t('yourChain')}
+           </Text>
+@@ -211,6 +222,7 @@ export default function HomeScreen() {
+                 colorBorder={theme?.gray?.val?.toString() ?? '#222'}
+                 flowEnabled={electricFlow}
+                 variant="week"
++                containerWidth={heatmapWidth}
+               />
+             </YStack>
+           ) : (
+diff --git a/assets/images/icon.png b/assets/images/icon.png
+index 7165a53..8dfee7a 100644
+Binary files a/assets/images/icon.png and b/assets/images/icon.png differ
+diff --git a/src/features/habit/HeatmapChain.tsx b/src/features/habit/HeatmapChain.tsx
+index 3e14cbe..913ef55 100644
+--- a/src/features/habit/HeatmapChain.tsx
++++ b/src/features/habit/HeatmapChain.tsx
+@@ -14,6 +14,8 @@ type Props = {
+   flowEnabled?: boolean;
+   /** 7日表示だけは横スクロールせず、画面幅を均等に使う */
+   variant?: 'default' | 'week';
++  /** 週表示のときに線の長さを計算するための幅 */
++  containerWidth?: number;
+ };
+ 
+ /**
+@@ -31,6 +33,7 @@ export const HeatmapChain = memo(function HeatmapChain({
+   colorBorder,
+   flowEnabled = true,
+   variant = 'default',
++  containerWidth,
+ }: Props) {
+   const pulse = useRef(new Animated.Value(0)).current;
+   const current = useRef(new Animated.Value(0)).current;
+@@ -71,13 +74,13 @@ export const HeatmapChain = memo(function HeatmapChain({
+       Animated.sequence([
+         Animated.timing(current, {
+           toValue: 1,
+-          duration: 2400,
++          duration: 4800,
+           easing: Easing.linear,
+           useNativeDriver: true,
+         }),
+         Animated.timing(current, {
+           toValue: 0,
+-          duration: 2400,
++          duration: 4800,
+           easing: Easing.linear,
+           useNativeDriver: true,
+         }),
+@@ -112,10 +115,22 @@ export const HeatmapChain = memo(function HeatmapChain({
+   const DOT = isWeek ? 24 : 18;
+   const DOT_RADIUS = Math.round(DOT * (isWeek ? 0.42 : 0.45));
+   // 線を少し太めにして「流れている」ことが分かりやすいようにする
+-  const LINK_WIDTH = isWeek ? 22 : 16; // weekでは flexGrow と組み合わせて幅を使い切る
++  const LINK_WIDTH_DEFAULT = 16;
++  const LINK_WIDTH_WEEK_FALLBACK = 22;
+   const LINK_HEIGHT = 3;
+   const OUTER_GAP = isWeek ? '$1' : '$2';
+   const INNER_GAP = '$1';
++  const OUTER_GAP_PX = isWeek ? 4 : 8;
++  const INNER_GAP_PX = 4;
++
++  const weekLinkWidth =
++    isWeek && containerWidth && containerWidth > 0
++      ? Math.max(
++          8,
++          (containerWidth - OUTER_GAP_PX * (days - 1)) / days - DOT - INNER_GAP_PX,
++        )
++      : LINK_WIDTH_WEEK_FALLBACK;
++  const linkWidth = isWeek ? weekLinkWidth : LINK_WIDTH_DEFAULT;
+ 
+   const cells = dates.map((dateKey, idx) => {
+     const intensity = intensityByDate[dateKey] ?? 0;
+@@ -147,7 +162,7 @@ export const HeatmapChain = memo(function HeatmapChain({
+ 
+         {idx < dates.length - 1 && (
+           <Link
+-            width={LINK_WIDTH}
++            width={linkWidth}
+             height={LINK_HEIGHT}
+             active={linkActive}
+             flowEnabled={flowEnabled}
+@@ -250,7 +265,7 @@ function Link({
+ }) {
+   const translateX = pulse.interpolate({
+     inputRange: [0, 1],
+-    outputRange: [-width * 0.35, width * 0.35],
++    outputRange: [-2, 2],
+   });
+ 
+   const show = active || keepSpace;
+@@ -266,7 +281,7 @@ function Link({
+           width,
+           height,
+           opacity: active ? 1 : keepSpace ? 0.18 : 0,
+-          transform: flowEnabled && active ? [{ translateX }] : undefined,
++          transform: flowEnabled && active ? [{ translateX }] : [],
+         },
+       ]}>
+       {show && (

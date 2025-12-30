@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Href, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
+import type { LayoutChangeEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, ScrollView, Spinner, Stack, Text, useTheme, XStack, YStack } from 'tamagui';
 
@@ -51,6 +52,7 @@ export default function HomeScreen() {
   const [tutorialStep, setTutorialStep] = useState<TutorialStep>('none');
   const isPressFabStep = !hasSeenOnboarding && tutorialStep === 'pressFab';
   const heatmapScrollRef = useRef<any>(null);
+  const [heatmapWidth, setHeatmapWidth] = useState<number | undefined>(undefined);
   const hasScrolledHeatmap = useRef(false);
 
   useEffect(() => {
@@ -191,7 +193,16 @@ export default function HomeScreen() {
       </XStack>
 
         {/* ヒートマップ（7日は幅いっぱい、8日以上は横スクロール） */}
-        <YStack marginTop="$4" gap="$2" width="100%">
+        <YStack
+          marginTop="$4"
+          gap="$2"
+          width="100%"
+          onLayout={(e: LayoutChangeEvent) => {
+            const nextWidth = Math.round(e.nativeEvent.layout.width);
+            if (nextWidth && nextWidth !== heatmapWidth) {
+              setHeatmapWidth(nextWidth);
+            }
+          }}>
           <Text color={muted} letterSpacing={1}>
             {t('yourChain')}
           </Text>
@@ -211,6 +222,7 @@ export default function HomeScreen() {
                 colorBorder={theme?.gray?.val?.toString() ?? '#222'}
                 flowEnabled={electricFlow}
                 variant="week"
+                containerWidth={heatmapWidth}
               />
             </YStack>
           ) : (
