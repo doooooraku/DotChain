@@ -6,7 +6,7 @@ import { selectStreak, useHabitStore } from '@/src/stores/habitStore';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 import { t } from '@/src/core/i18n/i18n';
 import { triggerImpact } from '@/src/core/sensory/HapticManager';
-import { playClick, playSuccess } from '@/src/core/sensory/SoundManager';
+import { playClick } from '@/src/core/sensory/SoundManager';
 
 /**
  * レビュー依頼判定用コンテキスト
@@ -69,7 +69,6 @@ export function useHabitRecord() {
       void triggerImpact();
       try {
         await toggleToday(habitId);
-        void playSuccess();
 
         // 7日連続達成祝い＆レビュー依頼（端末1回のみ）
         const state = getHabitState();

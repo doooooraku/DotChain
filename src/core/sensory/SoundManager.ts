@@ -1,18 +1,19 @@
 import { Audio } from 'expo-av';
 import { useSettingsStore } from '@/src/stores/settingsStore';
 
-let tapSound: Audio.Sound | null = null;
+const tapSounds: Partial<Record<TapVariant, Audio.Sound>> = {};
 let successSound: Audio.Sound | null = null;
 let errorSound: Audio.Sound | null = null;
 
 type TapVariant = 'click' | 'pop';
 
 async function loadTap(variant: TapVariant) {
-  if (tapSound) return tapSound;
+  const cached = tapSounds[variant];
+  if (cached) return cached;
   const asset = variant === 'pop' ? require('@/assets/sounds/pop.wav') : require('@/assets/sounds/click.wav');
   const { sound } = await Audio.Sound.createAsync(asset);
-  tapSound = sound;
-  return tapSound;
+  tapSounds[variant] = sound;
+  return sound;
 }
 
 export async function playClick() {
@@ -57,13 +58,15 @@ export async function playError() {
 
 export async function unloadSound() {
   try {
-    await tapSound?.unloadAsync();
+    await tapSounds.click?.unloadAsync();
+    await tapSounds.pop?.unloadAsync();
     await successSound?.unloadAsync();
     await errorSound?.unloadAsync();
   } catch {
     // ignore
   }
-  tapSound = null;
+  tapSounds.click = undefined;
+  tapSounds.pop = undefined;
   successSound = null;
   errorSound = null;
 }
