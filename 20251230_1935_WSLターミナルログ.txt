@@ -1,0 +1,43 @@
+diff --git a/app/settings/index.tsx b/app/settings/index.tsx
+index bb62fc6..f21add8 100644
+--- a/app/settings/index.tsx
++++ b/app/settings/index.tsx
+@@ -9,6 +9,7 @@ import { useSettingsStore, type HeatmapDaysOption } from '@/src/stores/settingsS
+ import { useProStore } from '@/src/stores/proStore';
+ import { useUiStore } from '@/src/stores/uiStore';
+ import { useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
++import { useSafeAreaInsets } from 'react-native-safe-area-context';
+ 
+ export default function SettingsScreen() {
+   const sound = useSettingsStore((s) => s.sound);
+@@ -34,6 +35,8 @@ export default function SettingsScreen() {
+   const proLoading = useProStore((s) => s.isLoading);
+   const showToast = useUiStore((s) => s.showToast);
+   const [langOpen, setLangOpen] = React.useState(false);
++  const insets = useSafeAreaInsets();
++  const listBottomPad = Math.max(12, insets.bottom + 12);
+ 
+   const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
+   const languageOptions: Lang[] = [
+@@ -155,7 +158,11 @@ export default function SettingsScreen() {
+           <Adapt when="maxLg">
+             <Popover.Sheet modal>
+               <Popover.Sheet.Frame padding="$2">
+-                <Adapt.Contents />
++                <Popover.Sheet.ScrollView
++                  contentContainerStyle={{ paddingRight: 8, paddingBottom: listBottomPad }}
++                  scrollIndicatorInsets={{ right: 6 }}>
++                  <Adapt.Contents />
++                </Popover.Sheet.ScrollView>
+               </Popover.Sheet.Frame>
+               <Popover.Sheet.Overlay />
+               <Popover.Sheet.Handle />
+@@ -176,7 +183,7 @@ export default function SettingsScreen() {
+               showsVerticalScrollIndicator
+               persistentScrollbar
+               indicatorStyle="white"
+-              contentContainerStyle={{ paddingRight: 8 }}
++              contentContainerStyle={{ paddingRight: 8, paddingBottom: listBottomPad }}
+               style={{ paddingRight: 8 }}
+               scrollIndicatorInsets={{ right: 6 }}>
+               <YStack gap="$1" paddingVertical="$1">
