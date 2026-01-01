@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button, Input, ScrollView, Text } from 'tamagui';
 
 import { useHabitStore } from '@/src/stores/habitStore';
+import { useProStore } from '@/src/stores/proStore';
 import { useTranslation } from '@/src/core/i18n/i18n';
 import { IconPicker } from '@/src/features/habit/IconPicker';
 import { TutorialOverlay } from '@/src/features/tutorial/TutorialOverlay';
@@ -19,6 +20,7 @@ export default function EditScreen() {
   const habits = useHabitStore((s) => s.habits);
   const saveHabit = useHabitStore((s) => s.saveHabit);
   const removeHabit = useHabitStore((s) => s.removeHabit);
+  const isPro = useProStore((s) => s.isPro);
 
   const target = habits.find((h) => h.id === id);
   const [name, setName] = useState(target?.title ?? '');
@@ -63,7 +65,7 @@ export default function EditScreen() {
     }
 
     const isNewHabit = !isEdit;
-    if (isNewHabit && habits.length >= MAX_FREE_HABITS) {
+    if (isNewHabit && !isPro && habits.length >= MAX_FREE_HABITS) {
       Alert.alert(t('habitLimitTitle'), t('habitLimitBody'), [
         { text: t('cancel'), style: 'cancel' },
         {

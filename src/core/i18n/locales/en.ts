@@ -37,6 +37,8 @@ const baseEn = {
   proPlanYearlyBadge: 'Best value',
   proBadgeShort: 'PRO',
   priceFree: '$0 / forever',
+  priceLoading: 'Loading...',
+  priceUnavailable: 'Unavailable',
   proOnlyTitle: 'Pro Feature',
   proOnlyTheme: 'Upgrade to Pro to use this theme.',
   openPro: 'View Pro Plan',

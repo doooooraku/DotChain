@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { ToastAndroid, Platform } from 'react-native';
 import { AnimatePresence, Stack, Text, YStack } from 'tamagui';
-import { playError, playSuccess } from '@/src/core/sensory/SoundManager';
+import { playError } from '@/src/core/sensory/SoundManager';
 
 type ToastState = {
   visible: boolean;
@@ -22,8 +22,6 @@ export function Toast({ visible, message, kind }: ToastState) {
 
       if (kind === 'error') {
         void playError();
-      } else {
-        void playSuccess();
       }
     }
 

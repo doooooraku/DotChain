@@ -42,8 +42,6 @@ const dict = {
     heatmapSummarySuffix: ' 日間',
     heatmapAgoSuffix: '日前',
     heatmapToday: '今日',
-    priceMonthly: '約 ¥300 / 月',
-    priceYearly: '約 ¥2,200 / 年',
     proMonthlyTagline: 'まずは気軽に試したい人向け。',
     proYearlyTagline: '本気でチェーンを伸ばしたい人向け。',
     proYearlySavingShort: '月額より約37%おトク（体感「8か月ぶんタダ」クラス）',
@@ -89,7 +87,6 @@ const dict = {
     onboardingBody: '1タップでドンッと振動。今日のチェーンをつなげよう。',
     onboardingPunch: 'これが、DotChainです。',
     start: 'はじめる',
-    paywallNote: '課金と広告は後から追加されます。',
     tutorialWelcomeBody:
       'ようこそ！\nDotChainは「習慣のチェーン」をつないでいくアプリです。\n右下の＋ボタンから最初の習慣を作ってみましょう。',
     tutorialPressFabBody:

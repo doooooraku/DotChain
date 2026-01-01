@@ -2,7 +2,7 @@ import { Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Stack, Text, YStack, XStack, Button, useTheme } from 'tamagui';
-import { useState, type ComponentProps } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -10,6 +10,7 @@ import { useTranslation, type TranslationKey as TKey } from '@/src/core/i18n/i18
 import { useProStore } from '@/src/stores/proStore';
 import { useUiStore } from '@/src/stores/uiStore';
 import { IAP_DEBUG } from '@/src/core/debug';
+import { proService } from '@/src/services/proService';
 
 type PlanType = 'monthly' | 'yearly';
 
@@ -69,16 +70,17 @@ function PlanCard({
   type,
   selected,
   onPress,
+  priceLabel,
 }: {
   type: PlanType;
   selected: boolean;
   onPress: () => void;
+  priceLabel: string;
 }) {
   const theme = useTheme();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
   const { t } = useTranslation();
   const titleKey: TKey = type === 'monthly' ? 'proPlanMonthlyTitle' : 'proPlanYearlyTitle';
-  const priceKey: TKey = type === 'monthly' ? 'priceMonthly' : 'priceYearly';
   const taglineKey: TKey = type === 'monthly' ? 'proMonthlyTagline' : 'proYearlyTagline';
   const isYearly = type === 'yearly';
 
@@ -126,7 +128,7 @@ function PlanCard({
       </XStack>
 
       <Text color={neon} fontSize={22} fontWeight="900">
-        {t(priceKey)}
+        {priceLabel}
       </Text>
 
       <Text color="$muted" fontSize={12}>
@@ -150,6 +152,38 @@ export default function PaywallScreen() {
   const restorePurchase = useProStore((s) => s.restore);
   const isLoading = useProStore((s) => s.isLoading);
   const showToast = useUiStore((s) => s.showToast);
+  const [priceState, setPriceState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [priceMonthly, setPriceMonthly] = useState<string | null>(null);
+  const [priceYearly, setPriceYearly] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+
+    (async () => {
+      try {
+        const result = await proService.getPriceStrings();
+        if (!active) return;
+        if (!result || (!result.monthly && !result.yearly)) {
+          setPriceState('error');
+          return;
+        }
+        setPriceMonthly(result.monthly ?? null);
+        setPriceYearly(result.yearly ?? null);
+        setPriceState('ready');
+      } catch (error) {
+        if (active) {
+          setPriceState('error');
+        }
+        if (IAP_DEBUG) {
+          console.warn('[IAP] price load failed', error);
+        }
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handlePurchase = async () => {
     try {
@@ -161,6 +195,9 @@ export default function PaywallScreen() {
         showToast({ kind: 'error', message: t('purchaseFailed') });
       }
     } catch (e: any) {
+      if (e?.userCancelled) {
+        return;
+      }
       console.error('[IAP] purchase failed', e);
       const msg = e?.message ?? String(e);
       showToast({
@@ -244,11 +281,17 @@ export default function PaywallScreen() {
             type="monthly"
             selected={selectedPlan === 'monthly'}
             onPress={() => setSelectedPlan('monthly')}
+            priceLabel={
+              priceMonthly ?? (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'))
+            }
           />
           <PlanCard
             type="yearly"
             selected={selectedPlan === 'yearly'}
             onPress={() => setSelectedPlan('yearly')}
+            priceLabel={
+              priceYearly ?? (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'))
+            }
           />
         </XStack>
 

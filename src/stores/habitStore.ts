@@ -14,7 +14,6 @@ import {
   listLogsByHabit,
   todayDone as dbTodayDone,
 } from '@/src/features/habit/logTable';
-import { playSuccess } from '@/src/core/sensory/SoundManager';
 import { t } from '@/src/core/i18n/i18n';
 import { getLocalDateKey } from '@/src/core/dateKey';
 
@@ -70,7 +69,6 @@ export const useHabitStore = create<HabitState>()(
           const id = await upsertHabit(input);
           await get().loadAll();
           set({ error: undefined });
-          playSuccess();
           return id;
         } catch (err: any) {
           const msg =
@@ -86,7 +84,6 @@ export const useHabitStore = create<HabitState>()(
           await deleteHabit(id);
           await get().loadAll();
           set({ error: undefined });
-          playSuccess();
         } catch (_err) {
           set({ error: t('errorDeleteFailed') });
           throw _err;

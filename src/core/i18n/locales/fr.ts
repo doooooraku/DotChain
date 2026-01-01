@@ -55,8 +55,6 @@ const dict = {
   heatmapAgoSuffix: ' jours plus tôt',
   heatmapToday: 'Aujourd’hui',
 
-  priceMonthly: '1,99 € / mois',
-  priceYearly: '14,99 € / an',
   proMonthlyTagline: 'Commence petit, annule à tout moment.',
   proYearlyTagline: 'Pour les bâtisseurs de chaîne sérieux.',
   proYearlySavingShort: 'Économise environ 37 % (soit 8 mois gratuits).',
@@ -106,7 +104,6 @@ const dict = {
   onboardingBody: 'Un tap, une vibration forte. Construisons la chaîne d’aujourd’hui.',
   onboardingPunch: 'C’est DotChain.',
   start: 'Commencer',
-  paywallNote: 'Facturation/Pubs seront ajoutées plus tard.',
 
   // --- Tutorial / Onboarding flow ---
   tutorialWelcomeBody:

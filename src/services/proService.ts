@@ -85,7 +85,19 @@ function findPackage(offering: PurchasesOffering | null, plan: PlanType): Purcha
   return plan === 'monthly' ? offering.monthly : offering.annual;
 }
 
+async function getPriceStrings(): Promise<{ monthly?: string; yearly?: string } | null> {
+  const offering = await getCurrentOffering();
+  if (!offering) return null;
+  return {
+    monthly: offering.monthly?.product?.priceString,
+    yearly: offering.annual?.product?.priceString,
+  };
+}
+
 export const proService = {
+  async getPriceStrings() {
+    return getPriceStrings();
+  },
   async loadLocalState(): Promise<ProState | null> {
     try {
       const raw = await SecureStore.getItemAsync(PRO_STATE_KEY);
@@ -124,7 +136,7 @@ export const proService = {
 
   async restore(): Promise<{ state: ProState; hasActive: boolean }> {
     await ensureConfigured();
-    const { customerInfo } = await Purchases.restorePurchases();
+    const customerInfo = await Purchases.restorePurchases();
     const state = toProState(customerInfo);
     await saveState(state);
     return { state, hasActive: state.isPro };

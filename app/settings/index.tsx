@@ -458,9 +458,6 @@ export default function SettingsScreen() {
             {t('restore')}
           </Button>
         </XStack>
-        <Text color="$muted" fontSize={12} marginTop="$2">
-          {t('paywallNote')}
-        </Text>
       </Section>
 
       {__DEV__ && (
