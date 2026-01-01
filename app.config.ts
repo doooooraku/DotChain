@@ -7,5 +7,6 @@ export default ({ config }: { config: ExpoConfig }) => ({
     ...config.extra,
     REVENUECAT_IOS_API_KEY: process.env.REVENUECAT_IOS_API_KEY,
     REVENUECAT_ANDROID_API_KEY: process.env.REVENUECAT_ANDROID_API_KEY,
+    IAP_DEBUG: process.env.IAP_DEBUG ?? process.env.EXPO_PUBLIC_IAP_DEBUG,
   },
 });

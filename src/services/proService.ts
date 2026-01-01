@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import Purchases, { LOG_LEVEL, type CustomerInfo, type PurchasesPackage, type PurchasesOffering } from 'react-native-purchases';
 
 import type { ProState } from '@/src/types/models';
+import { IAP_DEBUG } from '@/src/core/debug';
 
 export type PlanType = 'monthly' | 'yearly';
 
@@ -47,12 +48,18 @@ async function ensureConfigured() {
   if (configured) return;
 
   const apiKey = getApiKey();
+  if (IAP_DEBUG) {
+    console.log('[RC] platform=', Platform.OS, 'apiKey exists=', Boolean(apiKey), 'len=', apiKey?.length ?? 0);
+  }
   if (!apiKey) {
     throw new Error('RevenueCat API key is missing.');
   }
 
   Purchases.setLogLevel(LOG_LEVEL.DEBUG);
   await Purchases.configure({ apiKey });
+  if (IAP_DEBUG) {
+    console.log('[RC] configured');
+  }
   configured = true;
 }
 
@@ -60,6 +67,16 @@ async function getCurrentOffering(): Promise<PurchasesOffering | null> {
   await ensureConfigured();
   if (!isNative) return null;
   const offerings = await Purchases.getOfferings();
+  if (IAP_DEBUG) {
+    const currentId = offerings.current?.identifier ?? 'null';
+    const packages = offerings.current?.availablePackages?.map((p) => ({
+      id: p.identifier,
+      type: p.packageType,
+      productId: p.product.identifier,
+    }));
+    console.log('[RC] offerings.current=', currentId);
+    console.log('[RC] availablePackages=', packages ?? []);
+  }
   return offerings.current ?? null;
 }
 
@@ -93,7 +110,10 @@ export const proService = {
     const offering = await getCurrentOffering();
     const pkg = findPackage(offering, plan);
     if (!pkg) {
-      throw new Error('Package not found.');
+      const currentId = offering?.identifier ?? 'null';
+      throw new Error(
+        IAP_DEBUG ? `Package not found. plan=${plan} current=${currentId}` : 'Package not found.',
+      );
     }
 
     const { customerInfo } = await Purchases.purchasePackage(pkg);

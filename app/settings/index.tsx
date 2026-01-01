@@ -10,6 +10,8 @@ import { useProStore } from '@/src/stores/proStore';
 import { useUiStore } from '@/src/stores/uiStore';
 import { useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/i18n';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { resetAndSeedSevenDays } from '@/src/features/habit/debugSeed';
+import { IAP_DEBUG } from '@/src/core/debug';
 
 export default function SettingsScreen() {
   const sound = useSettingsStore((s) => s.sound);
@@ -120,8 +122,13 @@ export default function SettingsScreen() {
       } else {
         showToast({ kind: 'info', message: t('restoreNotFound') });
       }
-    } catch {
-      showToast({ kind: 'error', message: t('restoreFailed') });
+    } catch (e: any) {
+      console.error('[IAP] restore failed', e);
+      const msg = e?.message ?? String(e);
+      showToast({
+        kind: 'error',
+        message: IAP_DEBUG ? `Restore failed: ${msg}` : t('restoreFailed'),
+      });
     }
   };
 
@@ -455,6 +462,38 @@ export default function SettingsScreen() {
           {t('paywallNote')}
         </Text>
       </Section>
+
+      {__DEV__ && (
+        <Section title="DEV ONLY: Test Data">
+          <Text color="$warning" fontSize={13} lineHeight={18}>
+            テスト用です。習慣と記録を全削除して、直近7日分のデータを作成します。
+          </Text>
+          <Button
+            size="$3"
+            backgroundColor="$warning"
+            color="#000"
+            borderRadius={999}
+            onPress={() => {
+              Alert.alert(
+                'テストデータ作成',
+                '習慣と記録を全削除して、直近7日分のテストデータを作成します。続行しますか？',
+                [
+                  { text: 'キャンセル', style: 'cancel' },
+                  {
+                    text: '実行',
+                    style: 'destructive',
+                    onPress: async () => {
+                      await resetAndSeedSevenDays();
+                      showToast({ kind: 'info', message: 'テストデータを作成しました。' });
+                    },
+                  },
+                ],
+              );
+            }}>
+            全リセット & 7日テスト作成
+          </Button>
+        </Section>
+      )}
     </ScrollView>
   );
 }

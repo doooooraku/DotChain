@@ -36,7 +36,6 @@ jobs:
       - name: 🔎 RevenueCatキーの存在チェック
         env:
           REVENUECAT_IOS_API_KEY: ${{ secrets.REVENUECAT_IOS_API_KEY }}
-          REVENUECAT_ANDROID_API_KEY: ${{ secrets.REVENUECAT_ANDROID_API_KEY }}
         run: |
           if [ -z "$REVENUECAT_IOS_API_KEY" ]; then
             echo "REVENUECAT_IOS_API_KEY is empty"
@@ -46,11 +45,13 @@ jobs:
       - name: 🔓 .envファイルを作成
         env:
           REVENUECAT_IOS_API_KEY: ${{ secrets.REVENUECAT_IOS_API_KEY }}
-          REVENUECAT_ANDROID_API_KEY: ${{ secrets.REVENUECAT_ANDROID_API_KEY }}
+          IAP_DEBUG: ${{ secrets.IAP_DEBUG }}
         run: |
           # 必要なキーをここに追加してください
           echo "REVENUECAT_IOS_API_KEY=${REVENUECAT_IOS_API_KEY}" > .env
-          echo "REVENUECAT_ANDROID_API_KEY=${REVENUECAT_ANDROID_API_KEY}" >> .env
+          if [ -n "$IAP_DEBUG" ]; then
+            echo "IAP_DEBUG=${IAP_DEBUG}" >> .env
+          fi
         # 注意: GitHubのSecretsにこれらのキーを登録しておく必要があります
 
       # 4. ビルド（IPA作成）
@@ -72,3 +73,4 @@ jobs:
         with:
           name: DotChain-iOS-IPA
           path: DotChain.ipa
+          retention-days: 7

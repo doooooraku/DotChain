@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation, type TranslationKey as TKey } from '@/src/core/i18n/i18n';
 import { useProStore } from '@/src/stores/proStore';
 import { useUiStore } from '@/src/stores/uiStore';
+import { IAP_DEBUG } from '@/src/core/debug';
 
 type PlanType = 'monthly' | 'yearly';
 
@@ -159,8 +160,13 @@ export default function PaywallScreen() {
       } else {
         showToast({ kind: 'error', message: t('purchaseFailed') });
       }
-    } catch {
-      showToast({ kind: 'error', message: t('purchaseFailed') });
+    } catch (e: any) {
+      console.error('[IAP] purchase failed', e);
+      const msg = e?.message ?? String(e);
+      showToast({
+        kind: 'error',
+        message: IAP_DEBUG ? `Purchase failed: ${msg}` : t('purchaseFailed'),
+      });
     }
   };
 
@@ -172,8 +178,13 @@ export default function PaywallScreen() {
       } else {
         showToast({ kind: 'info', message: t('restoreNotFound') });
       }
-    } catch {
-      showToast({ kind: 'error', message: t('restoreFailed') });
+    } catch (e: any) {
+      console.error('[IAP] restore failed', e);
+      const msg = e?.message ?? String(e);
+      showToast({
+        kind: 'error',
+        message: IAP_DEBUG ? `Restore failed: ${msg}` : t('restoreFailed'),
+      });
     }
   };
 
