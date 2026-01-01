@@ -1,12 +1,12 @@
-import 'dotenv/config';
 import type { ExpoConfig } from '@expo/config';
 
 export default ({ config }: { config: ExpoConfig }) => ({
   ...config,
   extra: {
     ...config.extra,
-    REVENUECAT_IOS_API_KEY: process.env.REVENUECAT_IOS_API_KEY,
-    REVENUECAT_ANDROID_API_KEY: process.env.REVENUECAT_ANDROID_API_KEY,
-    IAP_DEBUG: process.env.IAP_DEBUG ?? process.env.EXPO_PUBLIC_IAP_DEBUG,
+    // iOS Public SDK Key (appl_...) ONLY. Do NOT put Secret API Key here.
+    REVENUECAT_IOS_API_KEY: 'appl_gbzEeaGdycTrUUVKxuZBbToPnEd',
+    // Set to '1' while debugging. Change to '0' (or remove) for release builds.
+    IAP_DEBUG: '1',
   },
 });
