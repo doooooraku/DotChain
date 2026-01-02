@@ -1,17 +1,24 @@
 import type { ExpoConfig } from '@expo/config';
 
 const BILLING_PERMISSION = 'com.android.vending.BILLING';
+const RECORD_AUDIO_PERMISSION = 'android.permission.RECORD_AUDIO';
 export default ({ config }: { config: ExpoConfig }) => {
   const permissions = config.android?.permissions ?? [];
   const nextPermissions = permissions.includes(BILLING_PERMISSION)
     ? permissions
     : [...permissions, BILLING_PERMISSION];
+  const blockedPermissions = config.android?.blockedPermissions ?? [];
+  const nextBlockedPermissions = blockedPermissions.includes(RECORD_AUDIO_PERMISSION)
+    ? blockedPermissions
+    : [...blockedPermissions, RECORD_AUDIO_PERMISSION];
 
   return {
     ...config,
     android: {
       ...config.android,
+      versionCode: 2,
       permissions: nextPermissions,
+      blockedPermissions: nextBlockedPermissions,
     },
     extra: {
       ...config.extra,
