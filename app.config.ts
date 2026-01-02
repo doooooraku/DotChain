@@ -1,19 +1,11 @@
 import type { ExpoConfig } from '@expo/config';
 
 const BILLING_PERMISSION = 'com.android.vending.BILLING';
-const PURCHASES_PLUGIN = 'react-native-purchases';
-
 export default ({ config }: { config: ExpoConfig }) => {
   const permissions = config.android?.permissions ?? [];
   const nextPermissions = permissions.includes(BILLING_PERMISSION)
     ? permissions
     : [...permissions, BILLING_PERMISSION];
-
-  const plugins = config.plugins ?? [];
-  const hasPurchasesPlugin = plugins.some((plugin) =>
-    Array.isArray(plugin) ? plugin[0] === PURCHASES_PLUGIN : plugin === PURCHASES_PLUGIN,
-  );
-  const nextPlugins = hasPurchasesPlugin ? plugins : [...plugins, PURCHASES_PLUGIN];
 
   return {
     ...config,
@@ -21,7 +13,6 @@ export default ({ config }: { config: ExpoConfig }) => {
       ...config.android,
       permissions: nextPermissions,
     },
-    plugins: nextPlugins,
     extra: {
       ...config.extra,
       // iOS Public SDK Key (appl_...) ONLY. Do NOT put Secret API Key here.
