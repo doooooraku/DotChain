@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, Platform } from 'react-native';
 import { Href, useRouter } from 'expo-router';
 import { ScrollView, Stack, Switch, Text, XStack, YStack, Button, useTheme, Popover, ToggleGroup, Adapt } from 'tamagui';
+import { PortalProvider } from '@tamagui/portal';
 import { Check } from '@tamagui/lucide-icons';
 import { setLang as setLangGlobal } from '@/src/core/i18n/i18n';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -133,13 +134,14 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScrollView
-      backgroundColor="$background"
-      flex={1}
-      contentContainerStyle={{ padding: 16, gap: 16 }}>
-      <Text color="$text" fontSize={22} fontWeight="700">
-        {t('settings')}
-      </Text>
+    <PortalProvider>
+      <ScrollView
+        backgroundColor="$background"
+        flex={1}
+        contentContainerStyle={{ padding: 16, gap: 16 }}>
+        <Text color="$text" fontSize={22} fontWeight="700">
+          {t('settings')}
+        </Text>
 
       <Section title={t('language')}>
         <Popover open={langOpen} onOpenChange={setLangOpen} placement="bottom-start">
@@ -151,8 +153,7 @@ export default function SettingsScreen() {
               borderColor="$gray"
               backgroundColor="$surface"
               borderRadius="$4"
-              padding="$3"
-              onPress={() => setLangOpen((o) => !o)}>
+              padding="$3">
               <XStack alignItems="center" gap="$2">
                 <Text fontSize={18}>{LANGUAGE_META[lang].flag}</Text>
                 <Text color="$text" fontSize={15} fontWeight="700">
@@ -491,7 +492,8 @@ export default function SettingsScreen() {
           </Button>
         </Section>
       )}
-    </ScrollView>
+      </ScrollView>
+    </PortalProvider>
   );
 }
 
