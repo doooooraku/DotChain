@@ -1,0 +1,117 @@
+diff --git a/android/.gitignore b/android/.gitignore
+index 8a6be07..95b3d80 100644
+--- a/android/.gitignore
++++ b/android/.gitignore
+@@ -11,6 +11,7 @@ local.properties
+ *.iml
+ *.hprof
+ .cxx/
++*.jks
+ 
+ # Bundle artifacts
+ *.jsbundle
+diff --git a/android/app/build.gradle b/android/app/build.gradle
+index 1a369b4..37db9d0 100644
+--- a/android/app/build.gradle
++++ b/android/app/build.gradle
+@@ -2,12 +2,6 @@ apply plugin: "com.android.application"
+ apply plugin: "org.jetbrains.kotlin.android"
+ apply plugin: "com.facebook.react"
+ 
+-def keystorePropertiesFile = rootProject.file("key.properties")
+-def keystoreProperties = new Properties()
+-if (keystorePropertiesFile.exists()) {
+-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+-}
+-
+ def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
+ 
+ /**
+@@ -98,7 +92,7 @@ android {
+         applicationId 'com.doooooraku.dotchain'
+         minSdkVersion rootProject.ext.minSdkVersion
+         targetSdkVersion rootProject.ext.targetSdkVersion
+-        versionCode 1
++        versionCode 2
+         versionName "1.0.0"
+ 
+         buildConfigField "String", "REACT_NATIVE_RELEASE_LEVEL", "\"${findProperty('reactNativeReleaseLevel') ?: 'stable'}\""
+@@ -110,14 +104,6 @@ android {
+             keyAlias 'androiddebugkey'
+             keyPassword 'android'
+         }
+-        release {
+-            if (keystorePropertiesFile.exists()) {
+-                keyAlias keystoreProperties['keyAlias']
+-                keyPassword keystoreProperties['keyPassword']
+-                storeFile file(keystoreProperties['storeFile'])
+-                storePassword keystoreProperties['storePassword']
+-            }
+-        }
+     }
+     buildTypes {
+         debug {
+@@ -126,7 +112,7 @@ android {
+         release {
+             // Caution! In production, you need to generate your own keystore file.
+             // see https://reactnative.dev/docs/signed-apk-android.
+-            signingConfig signingConfigs.release
++            signingConfig signingConfigs.debug
+             def enableShrinkResources = findProperty('android.enableShrinkResourcesInReleaseBuilds') ?: 'false'
+             shrinkResources enableShrinkResources.toBoolean()
+             minifyEnabled enableMinifyInReleaseBuilds
+diff --git a/android/app/src/main/AndroidManifest.xml b/android/app/src/main/AndroidManifest.xml
+index f1b424c..f9ca836 100644
+--- a/android/app/src/main/AndroidManifest.xml
++++ b/android/app/src/main/AndroidManifest.xml
+@@ -1,11 +1,12 @@
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+   <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+-  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
++  <uses-permission android:name="android.permission.RECORD_AUDIO" tools:node="remove"/>
+   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+   <uses-permission android:name="android.permission.VIBRATE"/>
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
++  <uses-permission android:name="com.android.vending.BILLING"/>
+   <queries>
+     <intent>
+       <action android:name="android.intent.action.VIEW"/>
+@@ -27,6 +28,7 @@
+         <category android:name="android.intent.category.DEFAULT"/>
+         <category android:name="android.intent.category.BROWSABLE"/>
+         <data android:scheme="dotchain"/>
++        <data android:scheme="exp+dotchain"/>
+       </intent-filter>
+     </activity>
+   </application>
+diff --git a/app.config.ts b/app.config.ts
+index 4dce9e6..3d22a7f 100644
+--- a/app.config.ts
++++ b/app.config.ts
+@@ -16,7 +16,7 @@ export default ({ config }: { config: ExpoConfig }) => {
+     ...config,
+     android: {
+       ...config.android,
+-      versionCode: 2,
++      versionCode: 4,
+       permissions: nextPermissions,
+       blockedPermissions: nextBlockedPermissions,
+     },
+diff --git a/app.json b/app.json
+index bae5724..6245c7b 100644
+--- a/app.json
++++ b/app.json
+@@ -21,9 +21,7 @@
+       "versionCode": 1,
+       "adaptiveIcon": {
+         "backgroundColor": "#E6F4FE",
+-        "foregroundImage": "./assets/images/android-icon-foreground.png",
+-        "backgroundImage": "./assets/images/android-icon-background.png",
+-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
++        "foregroundImage": "./assets/images/icon.png",
+       },
+       "edgeToEdgeEnabled": true,
+       "predictiveBackGestureEnabled": false
