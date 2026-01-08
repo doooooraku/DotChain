@@ -43,8 +43,9 @@ export default function HomeScreen() {
   const muted = theme?.muted?.val?.toString() ?? '#888888';
   const bg = theme?.background?.val?.toString() ?? '#000000';
   // 広告機能削除: Free/Pro 共通余白にする
-  const fabBottom = 32;
-  const listPaddingBottom = 140;
+  // Safe Area を考慮して FAB がシステムナビゲーションと被らないようにする
+  const fabBottom = Math.max(32, insets.bottom + 16);
+  const listPaddingBottom = 140 + insets.bottom;
   const togglingRef = useRef<Set<string>>(new Set());
 
   const hasSeenOnboarding = useSettingsStore((s) => s.hasSeenOnboarding);
