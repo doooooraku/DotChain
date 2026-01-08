@@ -40,6 +40,7 @@ export default function SettingsScreen() {
   const [langOpen, setLangOpen] = React.useState(false);
   const insets = useSafeAreaInsets();
   const listBottomPad = Math.max(12, insets.bottom + 12);
+  const screenBottomPad = Math.max(16, insets.bottom + 16);
 
   const heatmapOptions: HeatmapDaysOption[] = [7, 30, 60, 180, 365];
   const languageOptions: Lang[] = [
@@ -138,7 +139,8 @@ export default function SettingsScreen() {
       <ScrollView
         backgroundColor="$background"
         flex={1}
-        contentContainerStyle={{ padding: 16, gap: 16 }}>
+        contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: screenBottomPad }}
+        scrollIndicatorInsets={{ bottom: screenBottomPad }}>
         <Text color="$text" fontSize={22} fontWeight="700">
           {t('settings')}
         </Text>

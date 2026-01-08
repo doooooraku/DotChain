@@ -16,7 +16,7 @@ export default ({ config }: { config: ExpoConfig }) => {
     ...config,
     android: {
       ...config.android,
-      versionCode: 8,
+      versionCode: 9,
       permissions: nextPermissions,
       blockedPermissions: nextBlockedPermissions,
     },
