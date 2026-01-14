@@ -153,6 +153,20 @@ const dict = {
   languageNameSv: '스웨덴어',
 
   // --- Tutorial (チュートリアル) ---
+  tutorialWelcomeBody:
+    'Welcome!\nDotChain helps you build a chain of habits.\nTap the + button at the bottom right to create your first habit.',
+  tutorialPressFabBody:
+    'Tap the + button at the bottom right to create your first habit.',
+  tutorialPressHabitBody:
+    'Now tap the habit you just created.\nA tap marks today as done.',
+  tutorialExplainChainBody:
+    'That tap increased your DAYS STREAK and lit up YOUR CHAIN.\nKeep going each day to grow your chain.',
+  tutorialEditIconBody: 'First, choose an icon that matches your habit.',
+  tutorialEditNameBody:
+    'Next, enter a habit name.\nFor example: Drink water or Read a book.',
+  tutorialEditSubmitBody:
+    'All set!\nTap Create below to add it to your Home screen.',
+  tutorialGotIt: 'Got it',
   tutorialNext: '다음',
   tutorialWelcome: 'DotChain에 오신 것을 환영합니다',
   tutorialDesc1: '매일의 습관을 연결하고 나만의 체인을 만드세요.',
