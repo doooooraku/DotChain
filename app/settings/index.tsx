@@ -13,6 +13,8 @@ import { useTranslation, type Lang, type TranslationKey } from '@/src/core/i18n/
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { resetAndSeedSevenDays } from '@/src/features/habit/debugSeed';
 import { IAP_DEBUG } from '@/src/core/debug';
+import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from '@/constants/legal';
+import { openExternalLink } from '@/src/core/linking/openExternalLink';
 
 export default function SettingsScreen() {
   const sound = useSettingsStore((s) => s.sound);
@@ -461,6 +463,29 @@ export default function SettingsScreen() {
             {t('restore')}
           </Button>
         </XStack>
+      </Section>
+
+      <Section title={t('legalSectionTitle')}>
+        <Row>
+          <Button
+            chromeless
+            onPress={() => openExternalLink(PRIVACY_POLICY_URL)}
+            accessibilityLabel={t('legalPrivacyPolicyLabel')}>
+            <Text color="$text" fontSize={15} textDecorationLine="underline">
+              {t('legalPrivacyPolicyLabel')}
+            </Text>
+          </Button>
+        </Row>
+        <Row>
+          <Button
+            chromeless
+            onPress={() => openExternalLink(TERMS_OF_USE_URL)}
+            accessibilityLabel={t('legalTermsOfUseLabel')}>
+            <Text color="$text" fontSize={15} textDecorationLine="underline">
+              {t('legalTermsOfUseLabel')}
+            </Text>
+          </Button>
+        </Row>
       </Section>
 
       {__DEV__ && (

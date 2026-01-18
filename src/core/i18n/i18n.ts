@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 
-import baseEn, { TranslationKey } from './locales/en';
+import baseEn, { type TranslationKey } from './locales/en';
 import ja from './locales/ja';
 import fr from './locales/fr';
 import es from './locales/es';
@@ -41,7 +41,7 @@ const dictionaries = {
   tr,
   nl,
   sv,
-} satisfies Record<string, Record<TranslationKey, string>>;
+} satisfies Record<string, Partial<Record<TranslationKey, string>>>;
 
 export type Lang = keyof typeof dictionaries;
 
@@ -120,7 +120,7 @@ const useI18nStore = create<I18nState>()(
 export function useTranslation() {
   const lang = useI18nStore((s) => s.lang);
   const setLang = useI18nStore((s) => s.setLang);
-  const t = (key: TranslationKey) => dictionaries[lang][key] ?? key;
+  const t = (key: TranslationKey) => dictionaries[lang][key] ?? baseEn[key] ?? key;
   return { t, lang, setLang };
 }
 
@@ -134,12 +134,12 @@ export function getLang(): Lang {
 
 export function tAll() {
   const lang = useI18nStore.getState().lang;
-  return dictionaries[lang];
+  return { ...baseEn, ...dictionaries[lang] };
 }
 
 export function t(key: TranslationKey) {
   const lang = useI18nStore.getState().lang;
-  return dictionaries[lang][key] ?? key;
+  return dictionaries[lang][key] ?? baseEn[key] ?? key;
 }
 
 export { TranslationKey };

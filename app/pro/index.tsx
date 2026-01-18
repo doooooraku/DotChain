@@ -10,7 +10,9 @@ import { useTranslation, type TranslationKey as TKey } from '@/src/core/i18n/i18
 import { useProStore } from '@/src/stores/proStore';
 import { useUiStore } from '@/src/stores/uiStore';
 import { IAP_DEBUG } from '@/src/core/debug';
-import { proService } from '@/src/services/proService';
+import { proService, type PriceDetail, type PriceDetails } from '@/src/services/proService';
+import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from '@/constants/legal';
+import { openExternalLink } from '@/src/core/linking/openExternalLink';
 
 type PlanType = 'monthly' | 'yearly';
 
@@ -62,6 +64,19 @@ function CompareRow({ featureKey, freeKey, proKey }: { featureKey: TKey; freeKey
           {t(proKey)}
         </Text>
       </YStack>
+    </XStack>
+  );
+}
+
+function DetailRow({ label, value }: { label: string; value: string }) {
+  return (
+    <XStack justifyContent="space-between" gap="$3">
+      <Text color="$muted" fontSize={12}>
+        {label}
+      </Text>
+      <Text color="$text" fontSize={12} fontWeight="700">
+        {value}
+      </Text>
     </XStack>
   );
 }
@@ -139,6 +154,23 @@ function PlanCard({
   );
 }
 
+function formatCurrency(value: number, currencyCode?: string | null) {
+  if (!currencyCode) return value.toFixed(2);
+  try {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency: currencyCode }).format(value);
+  } catch {
+    return `${value.toFixed(2)} ${currencyCode}`;
+  }
+}
+
+function getPricePerMonthString(detail?: PriceDetail | null) {
+  if (!detail) return null;
+  if (detail.pricePerMonthString) return detail.pricePerMonthString;
+  const perMonth = detail.pricePerMonth ?? (detail.price ? detail.price / 12 : null);
+  if (perMonth == null) return null;
+  return formatCurrency(perMonth, detail.currencyCode);
+}
+
 export default function PaywallScreen() {
   const theme = useTheme();
   const neon = theme?.neonGreen?.val?.toString() ?? '#39FF14';
@@ -153,22 +185,20 @@ export default function PaywallScreen() {
   const isLoading = useProStore((s) => s.isLoading);
   const showToast = useUiStore((s) => s.showToast);
   const [priceState, setPriceState] = useState<'loading' | 'ready' | 'error'>('loading');
-  const [priceMonthly, setPriceMonthly] = useState<string | null>(null);
-  const [priceYearly, setPriceYearly] = useState<string | null>(null);
+  const [priceDetails, setPriceDetails] = useState<PriceDetails | null>(null);
 
   useEffect(() => {
     let active = true;
 
     (async () => {
       try {
-        const result = await proService.getPriceStrings();
+        const result = await proService.getPriceDetails();
         if (!active) return;
         if (!result || (!result.monthly && !result.yearly)) {
           setPriceState('error');
           return;
         }
-        setPriceMonthly(result.monthly ?? null);
-        setPriceYearly(result.yearly ?? null);
+        setPriceDetails(result);
         setPriceState('ready');
       } catch (error) {
         if (active) {
@@ -184,6 +214,18 @@ export default function PaywallScreen() {
       active = false;
     };
   }, []);
+
+  const selectedDetails = selectedPlan === 'yearly' ? priceDetails?.yearly : priceDetails?.monthly;
+  const selectedTitle =
+    selectedDetails?.title ??
+    t(selectedPlan === 'yearly' ? 'proPlanYearlyTitle' : 'proPlanMonthlyTitle');
+  const selectedLength =
+    selectedPlan === 'yearly' ? t('subscriptionLengthYearly') : t('subscriptionLengthMonthly');
+  const selectedPrice =
+    selectedDetails?.priceString ??
+    (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'));
+  const pricePerMonth =
+    selectedPlan === 'yearly' ? getPricePerMonthString(selectedDetails) : null;
 
   const handlePurchase = async () => {
     try {
@@ -282,7 +324,8 @@ export default function PaywallScreen() {
             selected={selectedPlan === 'monthly'}
             onPress={() => setSelectedPlan('monthly')}
             priceLabel={
-              priceMonthly ?? (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'))
+              priceDetails?.monthly?.priceString ??
+              (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'))
             }
           />
           <PlanCard
@@ -290,7 +333,8 @@ export default function PaywallScreen() {
             selected={selectedPlan === 'yearly'}
             onPress={() => setSelectedPlan('yearly')}
             priceLabel={
-              priceYearly ?? (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'))
+              priceDetails?.yearly?.priceString ??
+              (priceState === 'loading' ? t('priceLoading') : t('priceUnavailable'))
             }
           />
         </XStack>
@@ -298,6 +342,21 @@ export default function PaywallScreen() {
         <Text color="$neonGreen" fontSize={12} fontWeight="700">
           {t('proYearlySavingShort')}
         </Text>
+
+        {/* サブスク詳細（App Review 必須情報） */}
+        <YStack gap="$2" padding="$3" borderRadius="$4" backgroundColor="$surface" borderWidth={1} borderColor="$gray">
+          <Text color="$text" fontSize={14} fontWeight="800">
+            {t('subscriptionDetailsTitle')}
+          </Text>
+          <Text color="$text" fontSize={13} fontWeight="700">
+            {selectedTitle}
+          </Text>
+          <DetailRow label={t('subscriptionDetailsLengthLabel')} value={selectedLength} />
+          <DetailRow label={t('subscriptionDetailsPriceLabel')} value={selectedPrice} />
+          {pricePerMonth && (
+            <DetailRow label={t('subscriptionDetailsPerMonthLabel')} value={pricePerMonth} />
+          )}
+        </YStack>
 
         {/* Free vs Pro 比較 */}
         <YStack gap="$2" marginTop="$2">
@@ -345,6 +404,25 @@ export default function PaywallScreen() {
         <Text color="$muted" fontSize={10} lineHeight={14} textAlign="center">
           {t('proFinePrint')}
         </Text>
+        <XStack justifyContent="center" gap="$3" flexWrap="wrap">
+          <Text
+            color="$muted"
+            fontSize={11}
+            textDecorationLine="underline"
+            onPress={() => openExternalLink(PRIVACY_POLICY_URL)}>
+            {t('legalPrivacyPolicyLabel')}
+          </Text>
+          <Text color="$muted" fontSize={11}>
+            •
+          </Text>
+          <Text
+            color="$muted"
+            fontSize={11}
+            textDecorationLine="underline"
+            onPress={() => openExternalLink(TERMS_OF_USE_URL)}>
+            {t('legalTermsOfUseLabel')}
+          </Text>
+        </XStack>
         <Button
           chromeless
           disabled={isLoading}

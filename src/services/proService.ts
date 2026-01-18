@@ -1,12 +1,31 @@
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
-import Purchases, { LOG_LEVEL, type CustomerInfo, type PurchasesPackage, type PurchasesOffering } from 'react-native-purchases';
+import Purchases, {
+  LOG_LEVEL,
+  type CustomerInfo,
+  type PurchasesPackage,
+  type PurchasesOffering,
+  type PurchasesStoreProduct,
+} from 'react-native-purchases';
 
 import type { ProState } from '@/src/types/models';
 import { IAP_DEBUG } from '@/src/core/debug';
 
 export type PlanType = 'monthly' | 'yearly';
+export type PriceDetail = {
+  title: string;
+  priceString: string;
+  price: number;
+  currencyCode: string;
+  pricePerMonth: number | null;
+  pricePerMonthString: string | null;
+  subscriptionPeriod: string | null;
+};
+export type PriceDetails = {
+  monthly?: PriceDetail;
+  yearly?: PriceDetail;
+};
 
 const PRO_STATE_KEY = 'dotchain_pro_state_v1';
 const ENTITLEMENT_ID = 'Pro_Plan';
@@ -85,16 +104,41 @@ function findPackage(offering: PurchasesOffering | null, plan: PlanType): Purcha
   return plan === 'monthly' ? offering.monthly : offering.annual;
 }
 
-async function getPriceStrings(): Promise<{ monthly?: string; yearly?: string } | null> {
+function toPriceDetail(product?: PurchasesStoreProduct | null): PriceDetail | null {
+  if (!product) return null;
+  return {
+    title: product.title,
+    priceString: product.priceString,
+    price: product.price,
+    currencyCode: product.currencyCode,
+    pricePerMonth: product.pricePerMonth ?? null,
+    pricePerMonthString: product.pricePerMonthString ?? null,
+    subscriptionPeriod: product.subscriptionPeriod ?? null,
+  };
+}
+
+async function getPriceDetails(): Promise<PriceDetails | null> {
   const offering = await getCurrentOffering();
   if (!offering) return null;
   return {
-    monthly: offering.monthly?.product?.priceString,
-    yearly: offering.annual?.product?.priceString,
+    monthly: toPriceDetail(offering.monthly?.product ?? null) ?? undefined,
+    yearly: toPriceDetail(offering.annual?.product ?? null) ?? undefined,
+  };
+}
+
+async function getPriceStrings(): Promise<{ monthly?: string; yearly?: string } | null> {
+  const details = await getPriceDetails();
+  if (!details) return null;
+  return {
+    monthly: details.monthly?.priceString,
+    yearly: details.yearly?.priceString,
   };
 }
 
 export const proService = {
+  async getPriceDetails() {
+    return getPriceDetails();
+  },
   async getPriceStrings() {
     return getPriceStrings();
   },
