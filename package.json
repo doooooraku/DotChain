@@ -2,6 +2,11 @@
   "name": "dotchain",
   "main": "expo-router/entry",
   "version": "1.0.0",
+
+  "engines": {
+    "node": "24.x"
+  },
+  
   "scripts": {
     "dev": "expo start",
     "start": "expo start",

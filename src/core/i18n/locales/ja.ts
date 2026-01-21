@@ -65,7 +65,7 @@ const dict = {
     proCtaMonthly: '月額プランで Pro をためす',
     proCtaStayFree: '今は無料のまま使う',
     proFinePrint:
-      'サブスクリプションは自動更新されます。いつでも App Store / Google Play のアカウント設定から解約できます。',
+      'サブスクリプションは自動更新されます。いつでもアカウント設定から解約できます。',
     subscriptionDetailsTitle: 'サブスクリプションの詳細',
     subscriptionDetailsLengthLabel: '期間',
     subscriptionDetailsPriceLabel: '価格',

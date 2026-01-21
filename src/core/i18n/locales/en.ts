@@ -61,7 +61,7 @@ const baseEn = {
   proCtaYearly: 'Start Yearly Plan',
   proCtaMonthly: 'Start Monthly Plan',
   proCtaStayFree: 'Stay Free',
-  proFinePrint: 'Subscriptions auto-renew. Cancel anytime in Store settings.',
+  proFinePrint: 'Subscriptions auto-renew. Cancel anytime in your account settings.',
   subscriptionDetailsTitle: 'Subscription Details',
   subscriptionDetailsLengthLabel: 'Length',
   subscriptionDetailsPriceLabel: 'Price',

@@ -78,7 +78,7 @@ const dict = {
   proCtaMonthly: 'Prendre Pro Mensuel',
   proCtaStayFree: 'Continuer en Gratuit',
   proFinePrint:
-    'L’abonnement se renouvelle automatiquement. Tu peux annuler à tout moment dans les paramètres de ton compte App Store ou Google Play.',
+    'L’abonnement se renouvelle automatiquement. Tu peux annuler à tout moment dans les paramètres de ton compte.',
 
   paywallMonthlyLabel: 'Forfait mensuel',
   paywallYearlyLabel: 'Forfait annuel',
